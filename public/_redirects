@@ -1,0 +1,2 @@
+# Force apex — drop www on ojunai.com
+https://www.ojunai.com/*    https://ojunai.com/:splat   301!
