@@ -1,0 +1,202 @@
+---
+import Logo from '~/components/ui/Logo.astro';
+
+/**
+ * Mega-menu nav — only surfaces what Ojunai actually offers today.
+ * Sized to the real product: dashboard + 2 AI add-ons + a few resources.
+ */
+const menus = [
+  {
+    id: 'features',
+    label: 'Features',
+    columns: [
+      {
+        heading: 'Core platform',
+        items: [
+          { title: 'All features', desc: 'Inventory, sales, reports, team', href: '/features' },
+          { title: 'Inventory management', desc: 'Live stock, alerts, CSV import', href: '/features/inventory-management' },
+          { title: 'Sales & credit', desc: 'Cash, credit, partial payments', href: '/features/sales-management' },
+          { title: 'Security & trust', desc: 'How we protect your data', href: '/security' },
+        ],
+      },
+      {
+        heading: 'AI Add-ons',
+        items: [
+          { title: 'Voice AI', desc: '24/7 phone receptionist', href: '/voice-ai', badge: 'Add-on' },
+          { title: 'WhatsApp AI', desc: 'Log sales by chat', href: '/whatsapp-ai', badge: 'Add-on' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'resources',
+    label: 'Resources',
+    columns: [
+      {
+        heading: 'Get help',
+        items: [
+          { title: 'Help center', desc: 'Common questions, grouped', href: '/help' },
+          { title: 'Contact us', desc: 'Sales, support, security', href: '/contact' },
+          { title: 'Request a demo', desc: 'Walkthrough with our team', href: '/request-demo', badge: 'New' },
+        ],
+      },
+      {
+        heading: 'About Ojunai',
+        items: [
+          { title: 'About us', desc: 'Mission, brand, what we believe', href: '/about' },
+        ],
+      },
+    ],
+  },
+];
+
+const flatLinks = [
+  { label: 'Industries', href: '/industries' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Customers', href: '/customers' },
+];
+---
+
+<header class="header" id="header">
+  <div class="container header-inner">
+    <Logo size={36} theme="dark" />
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      {menus.slice(0, 1).map((menu) => (
+        <div class="nav-menu" data-menu={menu.id}>
+          <button class="nav-menu-trigger" type="button" aria-expanded="false" aria-controls={`menu-${menu.id}`}>
+            {menu.label}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="nav-megamenu" id={`menu-${menu.id}`} role="menu">
+            <div class="nav-megamenu-inner">
+              {menu.columns.map((col) => (
+                <div class="nav-megamenu-col">
+                  <div class="nav-megamenu-heading">{col.heading}</div>
+                  <ul>
+                    {col.items.map((item) => (
+                      <li>
+                        <a href={item.href} role="menuitem">
+                          <span class="nav-megamenu-item-row">
+                            <strong>{item.title}</strong>
+                            {item.badge && <span class="nav-megamenu-badge">{item.badge}</span>}
+                          </span>
+                          {item.desc && <span class="nav-megamenu-desc">{item.desc}</span>}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {flatLinks.map(({ label, href }) => <a href={href} class="nav-link">{label}</a>)}
+
+      {menus.slice(1).map((menu) => (
+        <div class="nav-menu" data-menu={menu.id}>
+          <button class="nav-menu-trigger" type="button" aria-expanded="false" aria-controls={`menu-${menu.id}`}>
+            {menu.label}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="nav-megamenu" id={`menu-${menu.id}`} role="menu">
+            <div class="nav-megamenu-inner">
+              {menu.columns.map((col) => (
+                <div class="nav-megamenu-col">
+                  <div class="nav-megamenu-heading">{col.heading}</div>
+                  <ul>
+                    {col.items.map((item) => (
+                      <li>
+                        <a href={item.href} role="menuitem">
+                          <span class="nav-megamenu-item-row">
+                            <strong>{item.title}</strong>
+                            {item.badge && <span class="nav-megamenu-badge">{item.badge}</span>}
+                          </span>
+                          {item.desc && <span class="nav-megamenu-desc">{item.desc}</span>}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </nav>
+
+    <div class="header-right">
+      <a href="https://app.ojunai.com" target="_blank" rel="noopener" class="btn-signin">Sign In</a>
+      <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="btn-wa-sm">Start free</a>
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="nav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('nav');
+
+  if (header) {
+    const hasDarkHero = !!document.querySelector('.hero, .va-hero');
+    if (!hasDarkHero) header.classList.add('scrolled');
+    window.addEventListener('scroll', () => {
+      const shouldScroll = !hasDarkHero || window.scrollY > 40;
+      header.classList.toggle('scrolled', shouldScroll);
+    });
+  }
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  // Mega-menu: hover desktop, click mobile/keyboard.
+  document.querySelectorAll('.nav-menu').forEach((menu) => {
+    const trigger = menu.querySelector('.nav-menu-trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.nav-menu .nav-menu-trigger').forEach((other) => {
+        if (other !== trigger) other.setAttribute('aria-expanded', 'false');
+      });
+      trigger.setAttribute('aria-expanded', String(!expanded));
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.focus();
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-menu')) {
+      document.querySelectorAll('.nav-menu .nav-menu-trigger').forEach((t) => {
+        t.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+</script>

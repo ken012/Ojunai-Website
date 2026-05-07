@@ -1,0 +1,74 @@
+---
+/**
+ * Brand logo lockup — uses the processed brand icon image + CSS-rendered wordmark.
+ *
+ * The wordmark color flips based on parent context:
+ *   - On a non-scrolled header (over dark hero) → white
+ *   - On the dark footer → white
+ *   - Everywhere else (scrolled header, body content) → dark navy
+ *
+ * For marketing surfaces that need the official lockup with brand-typography
+ * wordmark baked in, use the asset at /brand/logo-light-2x.png directly.
+ */
+export interface Props {
+  size?: number;
+  iconOnly?: boolean;
+  href?: string | null;
+  ariaLabel?: string;
+  class?: string;
+}
+
+const {
+  size = 36,
+  iconOnly = false,
+  href = '/',
+  ariaLabel = 'Ojunai home',
+  class: className = '',
+} = Astro.props;
+
+const v = '7';
+// Haloed variant — soft white aura baked into the image so the icon has
+// equal visual weight on light and dark backgrounds.
+const iconAsset = `/brand/icon-haloed-256.png?v=${v}`;
+
+const Wrapper = href ? 'a' : 'span';
+const wrapperProps = href ? { href, 'aria-label': ariaLabel } : {};
+---
+
+<Wrapper class={`brand-logo ${className}`.trim()} {...wrapperProps} style={`--logo-size: ${size}px;`}>
+  <img
+    src={iconAsset}
+    alt={iconOnly ? 'Ojunai' : ''}
+    class="brand-logo-icon-img"
+    style={`height: ${size}px; width: ${size}px;`}
+    width={size * 2}
+    height={size * 2}
+  />
+  {!iconOnly && <span class="brand-logo-wordmark">Ojunai</span>}
+</Wrapper>
+
+<style>
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .brand-logo-icon-img {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .brand-logo-wordmark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--logo-size) * 0.62);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    /* Default — dark text. Overridden by parent context (see global.css). */
+    color: var(--text);
+  }
+</style>

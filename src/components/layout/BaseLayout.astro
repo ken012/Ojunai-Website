@@ -1,0 +1,120 @@
+---
+import '~/styles/global.css';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Path-only canonical, e.g. "/voice-ai". Defaults to "/". */
+  canonical?: string;
+  /** Path under /og/ for the OG image, defaults to og-image.png. */
+  ogImage?: string;
+  /** Hide the global header/footer (e.g. for a focused landing page). */
+  bare?: boolean;
+  /** Page-specific JSON-LD object(s) merged with the global Organization schema. */
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  canonical = '/',
+  ogImage = '/og-image.png',
+  bare = false,
+  jsonLd,
+} = Astro.props;
+
+const site = 'https://ojunai.com';
+const canonicalUrl = `${site}${canonical}`;
+const ogUrl = ogImage.startsWith('http') ? ogImage : `${site}${ogImage}`;
+
+// Always-present global schemas
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Ojunai',
+  url: site,
+  logo: `${site}/favicon-192.png`,
+  description: 'WhatsApp-first AI business assistant for African SMEs.',
+  email: 'contact@ojunai.com',
+  sameAs: [],
+  areaServed: ['NG', 'GH', 'KE', 'ZA'],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Ojunai',
+  url: site,
+  inLanguage: 'en',
+};
+
+const pageSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const allSchemas = [orgSchema, websiteSchema, ...pageSchemas];
+
+// Cloudflare Web Analytics — only emits the snippet if PUBLIC_CF_BEACON_TOKEN is set.
+// Get a token at https://dash.cloudflare.com → Analytics & Logs → Web Analytics → Add a site (Standalone).
+// Then in Netlify → Site → Configuration → Environment variables → set PUBLIC_CF_BEACON_TOKEN to the token value.
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="google-site-verification" content="8-npwdTxdHqH0oAP7Nii75oolo1dgozM1oKUTwRJGR0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#4F46E5" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Ojunai" />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=7" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=7" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png?v=7" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    {allSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    {cfBeaconToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${cfBeaconToken}"}`}
+      />
+    )}
+  </head>
+  <body>
+    {!bare && <Header />}
+    <main>
+      <slot />
+    </main>
+    {!bare && <Footer />}
+  </body>
+</html>

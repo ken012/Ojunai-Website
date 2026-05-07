@@ -1,0 +1,112 @@
+---
+import Logo from '~/components/ui/Logo.astro';
+
+const product = [
+  { label: 'Features', href: '/features' },
+  { label: 'Inventory management', href: '/features/inventory-management' },
+  { label: 'Sales & credit', href: '/features/sales-management' },
+  { label: 'Security & trust', href: '/security' },
+  { label: 'Pricing', href: '/pricing' },
+];
+
+const addons = [
+  { label: 'Voice AI', href: '/voice-ai' },
+  { label: 'WhatsApp AI', href: '/whatsapp-ai' },
+];
+
+const solutions = [
+  { label: 'All industries', href: '/industries' },
+  { label: 'Provision stores', href: '/industries' },
+  { label: 'Wholesalers', href: '/industries' },
+  { label: 'Food businesses', href: '/industries' },
+  { label: 'Cosmetics', href: '/industries' },
+  { label: 'Building materials', href: '/industries' },
+];
+
+const resources = [
+  { label: 'Help center', href: '/help' },
+  { label: 'Request a demo', href: '/request-demo' },
+  { label: 'About us', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Customers', href: '/customers' },
+];
+
+const contact = [
+  { label: 'contact@ojunai.com', href: 'mailto:contact@ojunai.com' },
+  { label: 'support@ojunai.com', href: 'mailto:support@ojunai.com' },
+  { label: 'security@ojunai.com', href: 'mailto:security@ojunai.com' },
+  { label: 'WhatsApp', href: 'https://wa.me/16137128154', external: true },
+];
+
+const legal = [
+  { label: 'Terms', href: '/terms' },
+  { label: 'Privacy', href: '/privacy' },
+];
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <Logo size={32} theme="dark" />
+      <p>
+        <strong>The eye that never blinks.</strong> Inventory management for African SMEs — track sales,
+        stock, expenses and credit from a clean dashboard.
+      </p>
+      <p class="footer-flags">🇳🇬 🇬🇭 🇰🇪 🇿🇦</p>
+      <a
+        href="https://app.ojunai.com/register"
+        target="_blank"
+        rel="noopener"
+        class="footer-cta"
+      >
+        Start free →
+      </a>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Product</h4>
+        {product.map(({ label, href }) => <a href={href}>{label}</a>)}
+      </div>
+      <div class="footer-col">
+        <h4>Add-ons</h4>
+        {addons.map(({ label, href }) => <a href={href}>{label}</a>)}
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        {solutions.map(({ label, href }) => <a href={href}>{label}</a>)}
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        {resources.map(({ label, href }) => <a href={href}>{label}</a>)}
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        {contact.map(({ label, href, external }) => (
+          <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>{label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© 2026 Ojunai. Built for African Businesses.</span>
+      <div class="footer-legal">
+        {legal.map(({ label, href }) => <a href={href}>{label}</a>)}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-cta {
+    display: inline-block;
+    margin-top: 14px;
+    color: #A5B4FC;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .footer-cta:hover { color: white; transform: translateX(4px); }
+</style>
