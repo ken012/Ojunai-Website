@@ -1,0 +1,84 @@
+---
+const testimonials = [
+  {
+    quote:
+      'I make everything in small batches, so knowing what\'s selling and what\'s sitting was always a struggle. Ojunai lets me log every sale on WhatsApp in seconds, and the top-products report tells me which scent to make more of next week. It\'s changed how I plan my production.',
+    name: 'Emily',
+    title: 'Founder, Enirab Botanicals',
+    industry: 'Natural Body Products',
+  },
+  {
+    quote:
+      'Candle making has a lot of small costs — wax, wicks, fragrance oils, jars. Ojunai tracks all of it from WhatsApp and tells me my real profit per candle. I stopped guessing whether I was actually making money.',
+    name: 'Befii',
+    title: 'Founder, Light & Luxe',
+    industry: 'Candle Making',
+  },
+  {
+    quote:
+      'I used to close the shop two hours after my staff just to balance the day\'s books. Now my evening summary lands at 8pm and I\'m home by then. The WhatsApp AI logs every sale my attendants make in real time — I see the day winding down without standing over them.',
+    name: 'Tope',
+    title: "Founder, Mama Tope's Provisions",
+    industry: 'Provision Store',
+  },
+  {
+    quote:
+      "Building materials means contractors who promise to pay in 30 days and disappear in 60. Ojunai's aging ledger tells me who's drifting before they ghost. The automated due-date reminders alone recovered GH₵50,000 in slow-paid receivables last quarter.",
+    name: 'Kwame',
+    title: 'Founder, Owusu Building Supplies',
+    industry: 'Building Materials',
+  },
+  {
+    quote:
+      "I knew my catering business was busy. I didn't know if it was profitable. Ojunai's per-dish cost tracking showed me three of my biggest sellers were actually losing me money on ingredients. I rewrote the menu and my margin doubled in two months.",
+    name: 'Mercy',
+    title: "Founder, Mercy's Kitchen",
+    industry: 'Food & Catering',
+  },
+];
+---
+
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What Customers Say</div>
+      <h2>Real businesses, real results</h2>
+    </div>
+    <div class="testimonial-grid">
+      {testimonials.slice(0, 2).map((t) => (
+        <figure class="testimonial-card">
+          <svg class="quote-mark" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
+          </svg>
+          <blockquote>
+            <p>{t.quote}</p>
+          </blockquote>
+          <figcaption>
+            <strong>{t.name}</strong>
+            <span>{t.title}</span>
+            <em>{t.industry}</em>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="testimonial-cta">
+      <a href="/customers">Read all customer stories →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .testimonial-cta {
+    text-align: center;
+    margin-top: 36px;
+  }
+  .testimonial-cta a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .testimonial-cta a:hover { transform: translateX(4px); }
+</style>

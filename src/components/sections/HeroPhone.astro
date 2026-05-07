@@ -1,0 +1,24 @@
+---
+/**
+ * Reusable WhatsApp phone-mockup. Children of <slot> are the chat bubbles.
+ * Header bar is fixed (avatar = "OJ", title = "Ojunai").
+ */
+export interface Props {
+  status?: string;
+}
+const { status = 'online' } = Astro.props;
+---
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-header-bar">
+    <div class="phb-avatar">OJ</div>
+    <div class="phb-info">
+      <strong>Ojunai</strong>
+      <span>{status}</span>
+    </div>
+  </div>
+  <div class="phone-chat">
+    <slot />
+  </div>
+</div>

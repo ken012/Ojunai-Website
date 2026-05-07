@@ -1,0 +1,125 @@
+---
+/**
+ * Trust strip — sits between Testimonials and Pricing on the homepage.
+ * Stats + logo wall placeholder. Builds confidence right before pricing.
+ */
+const stats = [
+  { num: '4', label: 'Countries served' },
+  { num: '8', label: 'Currencies' },
+  { num: '4', label: 'Voice AI languages' },
+  { num: '<60s', label: 'To first sale recorded' },
+];
+
+const trustBadges = [
+  { label: 'NDPR aligned', icon: '🇳🇬' },
+  { label: 'GDPR principles', icon: '🇪🇺' },
+  { label: 'Daily backups', icon: '💾' },
+  { label: 'TLS 1.2+ encryption', icon: '🔒' },
+];
+---
+
+<section class="customer-proof">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Trusted by African SMEs</div>
+      <h2>The numbers behind the platform</h2>
+      <p>
+        Live across four markets, eight currencies, four Voice AI languages — built for the way
+        Africa actually trades.
+      </p>
+    </div>
+
+    <div class="customer-proof-stats">
+      {stats.map((s) => (
+        <div class="customer-proof-stat">
+          <div class="customer-proof-num">{s.num}</div>
+          <div class="customer-proof-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="customer-proof-trust">
+      {trustBadges.map((b) => (
+        <div class="customer-proof-badge">
+          <span class="customer-proof-badge-icon">{b.icon}</span>
+          <span>{b.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <p class="customer-proof-cta">
+      <a href="/customers">Read customer stories →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .customer-proof {
+    padding: 80px 0;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+  }
+
+  .customer-proof-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: center;
+    max-width: 920px;
+    margin: 0 auto 56px;
+  }
+  @media (max-width: 768px) {
+    .customer-proof-stats { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+  .customer-proof-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .customer-proof-label {
+    color: var(--text-2);
+    font-size: 0.95rem;
+  }
+
+  .customer-proof-trust {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .customer-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 10px 18px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  }
+  .customer-proof-badge-icon {
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+
+  .customer-proof-cta {
+    text-align: center;
+    margin-top: 36px;
+  }
+  .customer-proof-cta a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .customer-proof-cta a:hover { transform: translateX(4px); }
+</style>

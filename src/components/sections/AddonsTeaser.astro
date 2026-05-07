@@ -1,0 +1,202 @@
+---
+/**
+ * Dual-card teaser — both AI add-ons get equal homepage real estate.
+ * Replaces the single Voice AI teaser. Keeps the same dark, premium aesthetic
+ * with channel-coded color accents.
+ */
+const addons = [
+  {
+    href: '/whatsapp-ai',
+    iconBg: 'linear-gradient(135deg, #25D366, #128C7E)',
+    iconPath:
+      'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z',
+    title: 'WhatsApp AI',
+    tagline: 'Run your business by chat.',
+    body: 'Record sales, restocks, debts and reports through WhatsApp. Plain English or Pidgin. Multi-staff. Daily summaries auto-delivered at 8pm.',
+    accentColor: '#6EE7B7',
+    glowColor: 'rgba(37, 211, 102, 0.45)',
+    price: 'Included on Shop, Pro & Business',
+  },
+  {
+    href: '/voice-ai',
+    iconBg: 'linear-gradient(135deg, #818CF8, #4F46E5)',
+    iconPath:
+      'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12 19.79 19.79 0 011.43 3.4 2 2 0 013.42 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',
+    title: 'Voice AI',
+    tagline: 'A receptionist that never sleeps.',
+    body: 'Answers customer calls 24/7 in English, Yoruba, Hausa or Igbo. Confirms stock and pricing. Reserves items on your dashboard for pickup.',
+    accentColor: '#A5B4FC',
+    glowColor: 'rgba(99, 102, 241, 0.45)',
+    price: 'From ₦5,000/month, any plan',
+  },
+];
+---
+
+<section class="addons-teaser-section">
+  <div class="container">
+    <div class="addons-teaser-header">
+      <div class="section-label">AI Add-ons</div>
+      <h2>Two AI assistants, one unified ledger.</h2>
+      <p>
+        Add WhatsApp AI to log everything by chat. Add Voice AI to handle phone calls.
+        Both flow into the same dashboard. Pick one, both, or neither — the core platform
+        stands on its own.
+      </p>
+    </div>
+
+    <div class="addons-grid">
+      {addons.map((a) => (
+        <a href={a.href} class="addon-card" style={`--accent: ${a.accentColor}; --glow: ${a.glowColor};`}>
+          <div class="addon-card-glow"></div>
+          <div class="addon-card-inner">
+            <div class="addon-card-icon" style={`background: ${a.iconBg};`}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill={a.title === 'WhatsApp AI' ? 'currentColor' : 'none'} stroke={a.title === 'WhatsApp AI' ? 'none' : 'currentColor'} stroke-width="2" aria-hidden="true">
+                <path d={a.iconPath} />
+              </svg>
+            </div>
+            <span class="addon-card-pill">Add-on</span>
+            <h3>{a.title}</h3>
+            <p class="addon-card-tagline">{a.tagline}</p>
+            <p class="addon-card-body">{a.body}</p>
+            <div class="addon-card-footer">
+              <span class="addon-card-price">{a.price}</span>
+              <span class="addon-card-cta">Learn more →</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .addons-teaser-section { padding: 80px 0; }
+
+  .addons-teaser-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 48px;
+  }
+  .addons-teaser-header h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+    margin: 8px 0 16px;
+    color: var(--text);
+  }
+  .addons-teaser-header p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .addons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 880px) { .addons-grid { grid-template-columns: 1fr; } }
+
+  .addon-card {
+    position: relative;
+    display: block;
+    border-radius: 24px;
+    overflow: hidden;
+    text-decoration: none;
+    color: white;
+    background: radial-gradient(120% 140% at 0% 0%, #1E1B4B 0%, #0B0B22 60%, #050516 100%);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.25);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .addon-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 40px 100px rgba(15, 23, 42, 0.4);
+    border-color: var(--accent);
+  }
+
+  .addon-card-glow {
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, var(--glow), transparent 65%);
+    filter: blur(40px);
+    pointer-events: none;
+    opacity: 0.7;
+    transition: opacity 0.25s;
+  }
+  .addon-card:hover .addon-card-glow { opacity: 1; }
+
+  .addon-card-inner {
+    position: relative;
+    padding: 40px 36px 36px;
+  }
+
+  .addon-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 18px;
+  }
+
+  .addon-card-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .addon-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    color: white;
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+
+  .addon-card-tagline {
+    font-size: 1.05rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .addon-card-body {
+    color: #CBD5E1;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .addon-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .addon-card-price {
+    font-size: 0.85rem;
+    color: #94A3B8;
+  }
+
+  .addon-card-cta {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+  .addon-card:hover .addon-card-cta { transform: translateX(4px); color: white; }
+</style>

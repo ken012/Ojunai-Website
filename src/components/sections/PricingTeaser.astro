@@ -1,0 +1,118 @@
+---
+/**
+ * 3-card pricing teaser (Starter / Pro / Business). Full /pricing page has 4 plans,
+ * the comparison table, the currency + billing toggle and the Voice AI add-on card.
+ *
+ * Prices shown here in NGN/monthly to keep things simple — cross-currency switching
+ * is the job of /pricing.
+ */
+const plans = [
+  {
+    label: 'Starter',
+    price: '₦3,500',
+    period: '/month',
+    sub: 'For solo traders just getting started',
+    features: ['WhatsApp bot access', 'Up to 30 products', '150 messages / month', 'Daily summaries'],
+    cta: { label: 'Get started', href: 'https://app.ojunai.com/register', external: true },
+    featured: false,
+  },
+  {
+    label: 'Pro',
+    price: '₦12,500',
+    period: '/month',
+    sub: 'For established shops ready to scale',
+    features: [
+      'Everything in Shop',
+      'Unlimited messages',
+      'Up to 10 staff',
+      'CSV bulk import',
+      'Priority support',
+    ],
+    cta: { label: 'Get started', href: 'https://app.ojunai.com/register', external: true },
+    featured: true,
+    badge: 'Most chosen',
+  },
+  {
+    label: 'Business',
+    price: '₦30,000',
+    period: '/month',
+    sub: 'For wholesalers, multi-branch & integrations',
+    features: ['Everything in Pro', 'Multi-branch', 'API access', 'Dedicated account manager'],
+    cta: {
+      label: 'Talk to sales',
+      href:
+        'mailto:contact@ojunai.com?subject=Ojunai%20Business%20plan%20inquiry',
+      external: false,
+    },
+    featured: false,
+  },
+];
+---
+
+<section class="section pricing-teaser" id="pricing-teaser">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Simple Plans</div>
+      <h2>Pricing that scales with your shop</h2>
+      <p>Local currency. One month free on every plan. Cancel anytime.</p>
+    </div>
+
+    <div class="pricing-teaser-grid">
+      {plans.map((p) => (
+        <div class={`price-card ${p.featured ? 'price-card-featured' : ''}`}>
+          {p.badge && <div class="price-badge">{p.badge}</div>}
+          <div class="price-label">{p.label}</div>
+          <div class="price-amount">{p.price}<span>{p.period}</span></div>
+          <div class="price-sub">{p.sub}</div>
+          <ul class="price-features">
+            {p.features.map((f) => (
+              <li>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href={p.cta.href}
+            target={p.cta.external ? '_blank' : undefined}
+            rel={p.cta.external ? 'noopener' : undefined}
+            class={`price-btn ${p.featured ? 'price-btn-primary' : 'price-btn-outline'}`}
+          >
+            {p.cta.label}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <p class="pricing-teaser-cta">
+      <a href="/pricing">Compare all plans + Voice AI →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .pricing-teaser-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) {
+    .pricing-teaser-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+  }
+  .pricing-teaser-cta {
+    text-align: center;
+    margin-top: 32px;
+  }
+  .pricing-teaser-cta a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .pricing-teaser-cta a:hover { transform: translateX(4px); }
+</style>

@@ -1,0 +1,143 @@
+---
+/**
+ * Single-card upsell on homepage. Full Voice AI page at /voice-ai.
+ */
+---
+
+<section class="section voice-teaser-section">
+  <div class="container">
+    <a href="/voice-ai" class="voice-teaser-card">
+      <div class="voice-teaser-glow"></div>
+      <div class="voice-teaser-inner">
+        <div class="voice-teaser-meta">
+          <span class="voice-teaser-pill">🎤 Add-on</span>
+          <h2>Voice AI — your 24/7 phone receptionist</h2>
+          <p>
+            Answer customer calls in English, Yoruba, Hausa or Igbo. Confirm stock and pricing.
+            Reserve items on the dashboard for pickup. Available with any plan from ₦5,000/month.
+          </p>
+          <span class="voice-teaser-cta">Learn how it works →</span>
+        </div>
+        <div class="voice-teaser-wave" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  .voice-teaser-section { padding: 60px 0; }
+
+  .voice-teaser-card {
+    position: relative;
+    display: block;
+    border-radius: 28px;
+    overflow: hidden;
+    text-decoration: none;
+    color: white;
+    background: radial-gradient(120% 140% at 0% 0%, #1E1B4B 0%, #0B0B22 60%, #050516 100%);
+    box-shadow: 0 30px 80px rgba(67, 56, 202, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+  }
+  .voice-teaser-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 40px 100px rgba(67, 56, 202, 0.35);
+  }
+
+  .voice-teaser-glow {
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.45), transparent 65%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  .voice-teaser-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 56px 64px;
+  }
+
+  .voice-teaser-meta { max-width: 620px; }
+
+  .voice-teaser-pill {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.2);
+    color: #C7D2FE;
+    border: 1px solid rgba(165, 180, 252, 0.35);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .voice-teaser-meta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.2;
+    margin-bottom: 14px;
+    color: white;
+    background: linear-gradient(90deg, #FFFFFF 0%, #C7D2FE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .voice-teaser-meta p {
+    color: #CBD5E1;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+
+  .voice-teaser-cta {
+    display: inline-block;
+    color: #A5B4FC;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+  .voice-teaser-card:hover .voice-teaser-cta { transform: translateX(6px); color: white; }
+
+  .voice-teaser-wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 90px;
+  }
+  .voice-teaser-wave span {
+    display: block;
+    width: 6px;
+    background: linear-gradient(180deg, #818CF8, #4F46E5);
+    border-radius: 3px;
+    animation: voiceTeaserWave 1.2s ease-in-out infinite;
+  }
+  .voice-teaser-wave span:nth-child(1) { height: 30%; animation-delay: 0s;    }
+  .voice-teaser-wave span:nth-child(2) { height: 60%; animation-delay: 0.1s;  }
+  .voice-teaser-wave span:nth-child(3) { height: 90%; animation-delay: 0.2s;  }
+  .voice-teaser-wave span:nth-child(4) { height: 100%; animation-delay: 0.3s; }
+  .voice-teaser-wave span:nth-child(5) { height: 80%; animation-delay: 0.4s;  }
+  .voice-teaser-wave span:nth-child(6) { height: 50%; animation-delay: 0.5s;  }
+  .voice-teaser-wave span:nth-child(7) { height: 25%; animation-delay: 0.6s;  }
+
+  @keyframes voiceTeaserWave {
+    0%, 100% { transform: scaleY(0.6); opacity: 0.7; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    .voice-teaser-inner { padding: 40px 32px; flex-direction: column; align-items: flex-start; }
+    .voice-teaser-wave { height: 60px; align-self: flex-end; }
+  }
+</style>

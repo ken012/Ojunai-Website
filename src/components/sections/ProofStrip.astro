@@ -1,0 +1,19 @@
+---
+const categories = [
+  'Provision Stores',
+  'Wholesalers',
+  'Food Businesses',
+  'Cosmetics',
+  'Building Materials',
+  'Agricultural Suppliers',
+];
+---
+
+<section class="proof-strip">
+  <div class="container proof-inner">
+    <span>Built for African business owners running:</span>
+    <div class="proof-tags">
+      {categories.map((c) => <span>{c}</span>)}
+    </div>
+  </div>
+</section>

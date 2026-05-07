@@ -1,0 +1,55 @@
+---
+/**
+ * Condensed 3-step "how it works" — was 4 steps on the legacy site.
+ * Visual treatment unchanged; we drop the redundant final "View dashboard" step
+ * (covered later in dashboard tour video).
+ */
+const steps = [
+  {
+    num: '01',
+    title: 'Start on WhatsApp or on the web',
+    body: 'Message the bot or sign up at app.ojunai.com — under 60 seconds, no credit card.',
+    iconPath:
+      'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12 19.79 19.79 0 011.43 3.4 2 2 0 013.42 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',
+  },
+  {
+    num: '02',
+    title: 'Chat in plain English or Pidgin',
+    body: '"Sold 5 bags of rice at 3,000 each." That\'s it. Ojunai understands and records the transaction.',
+    iconPath: 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
+  },
+  {
+    num: '03',
+    title: 'AI records, dashboard reflects',
+    body: 'Inventory updates, debts track themselves, daily summaries arrive at 8pm — all without lifting a finger.',
+    iconPath: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z',
+  },
+];
+---
+
+<section class="section how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Simple Process</div>
+      <h2>How Ojunai Works</h2>
+      <p>No training. Chat the way you already do — Ojunai understands you.</p>
+    </div>
+    <div class="steps-grid">
+      {steps.map((step, i) => (
+        <>
+          <div class="step-card">
+            <div class="step-num">{step.num}</div>
+            <div class="step-icon">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path d={step.iconPath} />
+              </svg>
+            </div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+          {i < steps.length - 1 && <div class="step-arrow">→</div>}
+        </>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,101 @@
+---
+/**
+ * Homepage feature teaser: 4 cards. Full grid lives at /features.
+ * Each card represents a category, not a single feature.
+ */
+const groups = [
+  {
+    title: 'Inventory & Stock',
+    body: 'Live product catalog, low-stock alerts, automatic deduction on every sale. Bulk import via CSV.',
+    example: '50+ products tracked in seconds',
+    iconPath: 'M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0',
+  },
+  {
+    title: 'Sales, Credit & Collections',
+    body: 'Record every sale — cash or credit. Track customer balances, supplier debts, and aging in one ledger.',
+    example: 'Cash, credit, partial payments — handled',
+    iconPath: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
+  },
+  {
+    title: 'Reports & Insights',
+    body: 'Daily and weekly summaries, cash-flow forecasts, top products, sales velocity. PDF export anytime.',
+    example: 'Auto-generated every evening',
+    iconPath: 'M22 12h-4l-3 9L9 3l-3 9H2',
+  },
+  {
+    title: 'WhatsApp + Voice AI',
+    body: 'Optional add-ons. Log sales by chat with WhatsApp AI, or have Voice AI answer customer calls 24/7.',
+    example: 'Add when you need them. Skip when you don\'t.',
+    iconPath:
+      'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12 19.79 19.79 0 011.43 3.4 2 2 0 013.42 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',
+    badge: 'Add-ons',
+  },
+];
+---
+
+<section class="section features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What Ojunai Does</div>
+      <h2>Four ways Ojunai runs your day</h2>
+      <p>The essentials below. Sixteen features in total — see them all on the features page.</p>
+    </div>
+    <div class="features-grid four-up">
+      {groups.map((g) => (
+        <div class="feature-card">
+          {g.badge && <span class="feat-badge">{g.badge}</span>}
+          <div class="feat-icon">
+            <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d={g.iconPath} />
+            </svg>
+          </div>
+          <h3>{g.title}</h3>
+          <p>{g.body}</p>
+          <div class="feat-example">{g.example}</div>
+        </div>
+      ))}
+    </div>
+    <p class="section-cta">
+      <a href="/features">See all 16 features →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .features-grid.four-up {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 960px) {
+    .features-grid.four-up { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .features-grid.four-up { grid-template-columns: 1fr; }
+  }
+  .feat-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--brand);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+  .feature-card { position: relative; }
+  .section-cta {
+    text-align: center;
+    margin-top: 32px;
+  }
+  .section-cta a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .section-cta a:hover { transform: translateX(4px); }
+</style>

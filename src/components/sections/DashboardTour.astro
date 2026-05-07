@@ -1,0 +1,50 @@
+---
+/**
+ * Single-asset dashboard preview. Full screenshot grid + lightbox lives at /features.
+ */
+---
+
+<section class="section dashboard-showcase" id="dashboard">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">See It In Action</div>
+      <h2>Your full dashboard, at a glance</h2>
+      <p>Every transaction you send the bot lands in a clean web dashboard. Sales, stock, debts, profit — all there.</p>
+    </div>
+    <div class="screenshot-feature">
+      <video
+        src="/screenshots/dashboard-tour.mp4"
+        poster="/screenshots/dashboard-tour-poster.jpg"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-label="Ojunai dashboard demo"
+      ></video>
+      <div class="screenshot-caption">
+        <h3>One dashboard, every metric</h3>
+        <p>Today's sales, expenses, net profit, receivables, and low-stock — in one view.</p>
+      </div>
+    </div>
+    <p class="section-cta">
+      <a href="/features">Explore every screen →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .section-cta {
+    text-align: center;
+    margin-top: 24px;
+  }
+  .section-cta a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .section-cta a:hover { transform: translateX(4px); }
+</style>

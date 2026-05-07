@@ -1,0 +1,151 @@
+---
+import HeroPhone from './HeroPhone.astro';
+import CTA from '~/components/ui/CTA.astro';
+---
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grain"></div>
+    <div class="hero-gradient"></div>
+  </div>
+  <div class="container hero-layout">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="3"/>
+        </svg>
+        Inventory management for African SMEs
+      </div>
+      <div class="hero-wordmark">OJUNAI</div>
+      <h1><span>The eye that never blinks.</span></h1>
+      <p class="hero-sub">
+        The AI-powered inventory and business management platform for African SMEs. Track sales,
+        stock, expenses and credit from a clean dashboard. Add
+        <strong>WhatsApp AI</strong> to record everything by chat, or
+        <strong>Voice AI</strong> to handle customer calls 24/7.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="btn-cta-primary">
+          Start free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+        <a href="https://wa.me/14155238886?text=join%20knife-wait" target="_blank" rel="noopener" class="btn-cta-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Sign up on WhatsApp
+        </a>
+        <a href="/pricing" class="btn-secondary-link">See pricing →</a>
+      </div>
+      <ol class="hero-steps">
+        <li><strong>1</strong> Set up inventory</li>
+        <li><strong>2</strong> Record sales</li>
+        <li><strong>3</strong> Add WhatsApp or Voice AI</li>
+      </ol>
+      <p class="hero-pronounce">
+        <em>Ojunai</em> · pronounced <span>oh-joo-n-eye</span>
+      </p>
+    </div>
+
+    <div class="hero-phone">
+      <HeroPhone>
+        <div class="chat-bubble outgoing">
+          <p>Hi, I want to sign up</p>
+          <span class="chat-time">8:58 AM</span>
+        </div>
+        <div class="chat-bubble incoming">
+          <p>Welcome to <strong>Ojunai</strong> 👋</p>
+          <p>What's your business name?</p>
+          <span class="chat-time">8:58 AM</span>
+        </div>
+        <div class="chat-bubble outgoing">
+          <p>Amara's Natural Essentials</p>
+          <span class="chat-time">8:59 AM</span>
+        </div>
+        <div class="chat-bubble incoming">
+          <p>Got it. What type of business?</p>
+          <span class="chat-time">8:59 AM</span>
+        </div>
+        <div class="chat-bubble outgoing">
+          <p>Beauty &amp; cosmetics</p>
+          <span class="chat-time">8:59 AM</span>
+        </div>
+        <div class="chat-bubble incoming">
+          <p>Confirm:</p>
+          <p>👤 Amara Mensah<br />🏪 Amara's Natural Essentials<br />💄 Beauty<br />📍 Accra</p>
+          <p>Create account? (yes/no)</p>
+          <span class="chat-time">9:01 AM</span>
+        </div>
+        <div class="chat-bubble outgoing">
+          <p>Yes</p>
+          <span class="chat-time">9:01 AM</span>
+        </div>
+        <div class="chat-bubble incoming">
+          <p>✅ <strong>Account created!</strong></p>
+          <p>30-day free trial started. Welcome aboard, Amara 🎉</p>
+          <span class="chat-time">9:01 AM</span>
+        </div>
+      </HeroPhone>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hero CTA stack: primary (dashboard), secondary (WhatsApp), tertiary (pricing link). */
+  .btn-cta-primary,
+  .btn-cta-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  /* Primary — dashboard signup, brand indigo gradient */
+  .btn-cta-primary {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+    color: white;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+  }
+  .btn-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(99, 102, 241, 0.5);
+  }
+
+  /* Secondary — WhatsApp signup, outlined with WA-green accent on hover */
+  .btn-cta-whatsapp {
+    background: transparent;
+    color: #25D366;
+    border: 1.5px solid rgba(37, 211, 102, 0.5);
+    font-weight: 600;
+  }
+  .btn-cta-whatsapp:hover {
+    background: rgba(37, 211, 102, 0.1);
+    border-color: #25D366;
+    transform: translateY(-2px);
+  }
+
+  /* Tertiary — pricing text link */
+  .btn-secondary-link {
+    color: #CBD5E1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 8px;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .btn-secondary-link:hover {
+    color: white;
+    transform: translateX(4px);
+  }
+</style>
