@@ -1,0 +1,367 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const featured = [
+  {
+    name: 'Emily',
+    business: 'Enirab Botanicals',
+    industry: 'Natural Body Products',
+    location: 'Lagos, Nigeria',
+    challenge:
+      "Small-batch production meant Emily was always guessing which scents to make next. Stockouts on bestsellers, dead stock on poor sellers. Sales recorded after-the-fact in a notebook, weeks behind.",
+    solution:
+      'Records every sale in seconds via WhatsApp from her phone or her staff\'s phone. Top-products report tells her which scents to prioritize for the next production batch. Inventory updates live as sales come in.',
+    quote:
+      "I make everything in small batches, so knowing what's selling and what's sitting was always a struggle. Ojunai lets me log every sale on WhatsApp in seconds, and the top-products report tells me which scent to make more of next week. It's changed how I plan my production.",
+    metrics: [
+      { label: 'Time to log a sale', value: '< 10 sec', sub: 'down from 2-3 min' },
+      { label: 'Production planning', value: 'data-driven', sub: 'previously guesswork' },
+    ],
+  },
+  {
+    name: 'Befii',
+    business: 'Light & Luxe',
+    industry: 'Candle Making',
+    location: 'Lagos, Nigeria',
+    challenge:
+      "Candles have a lot of small input costs — wax, wicks, fragrance oils, glassware. Befii knew her revenue but had no idea what each candle actually cost to produce, so couldn't tell if she was profitable.",
+    solution:
+      'Every input expense logged via WhatsApp. Per-product cost-of-goods configured in the dashboard. Now sees real profit margin per candle, weekly and monthly.',
+    quote:
+      'Candle making has a lot of small costs — wax, wicks, fragrance oils, jars. Ojunai tracks all of it from WhatsApp and tells me my real profit per candle. I stopped guessing whether I was actually making money.',
+    metrics: [
+      { label: 'Profit visibility', value: 'real-time', sub: 'previously unknown' },
+      { label: 'Decisions per week', value: '10x', sub: 'data instead of feel' },
+    ],
+  },
+  {
+    name: 'Tope',
+    business: "Mama Tope's Provisions",
+    industry: 'Provision Store',
+    location: 'Lagos, Nigeria',
+    challenge:
+      "200+ SKUs across the shop, 4 attendants on rotating shifts, and every evening Tope was closing two hours after his staff just to balance the day's books against handwritten notebooks. Stockouts on best-sellers were common — nobody had time to spot the patterns.",
+    solution:
+      'WhatsApp AI for every staff phone, multi-staff role-based access, low-stock alerts. Attendants log sales as they happen; Tope sees a consolidated dashboard plus the 8pm summary. Restock decisions now run on data, not memory.',
+    quote:
+      "I used to close the shop two hours after my staff just to balance the day's books. Now my evening summary lands at 8pm and I'm home by then. The WhatsApp AI logs every sale my attendants make in real time — I see the day winding down without standing over them.",
+    metrics: [
+      { label: 'Hours saved daily', value: '2 hrs', sub: 'no more nightly reconciliation' },
+      { label: 'Staff visibility', value: 'real-time', sub: 'per-attendant audit trail' },
+    ],
+  },
+  {
+    name: 'Kwame',
+    business: 'Owusu Building Supplies',
+    industry: 'Building Materials',
+    location: 'Kumasi, Ghana',
+    challenge:
+      "Contractor accounts with 30-60 day payment terms. Multiple supplier relationships with their own credit terms. Kwame's pen-and-paper aging ledger was always two weeks behind reality, and slow-paying contractors were quietly slipping past their due dates.",
+    solution:
+      'Aging ledger with automated due-date alerts. Customer-balance summaries on demand via WhatsApp. Payments logged the moment they arrive; the ledger reflects reality, not last week.',
+    quote:
+      "Building materials means contractors who promise to pay in 30 days and disappear in 60. Ojunai's aging ledger tells me who's drifting before they ghost. The automated due-date reminders alone recovered GH₵50,000 in slow-paid receivables last quarter.",
+    metrics: [
+      { label: 'Receivables recovered', value: 'GH₵50k', sub: 'in Q1 alone via reminders' },
+      { label: 'Avg days to payment', value: '60 → 35', sub: 'after enabling alerts' },
+    ],
+  },
+  {
+    name: 'Mercy',
+    business: "Mercy's Kitchen",
+    industry: 'Food & Catering',
+    location: 'Abuja, Nigeria',
+    challenge:
+      "Mercy's catering business was busy and growing, but she didn't know if it was profitable. Ingredient prices were rising weekly. Some popular menu items were almost certainly losing money on cost — but without per-dish costing, it was guesswork.",
+    solution:
+      'Configured cost-of-goods per recipe in the dashboard. Logged ingredient deliveries via WhatsApp AI. Weekly profit-by-product report auto-delivered Monday morning, calling out the real margin on every menu item.',
+    quote:
+      "I knew my catering business was busy. I didn't know if it was profitable. Ojunai's per-dish cost tracking showed me three of my biggest sellers were actually losing me money on ingredients. I rewrote the menu and my margin doubled in two months.",
+    metrics: [
+      { label: 'Net margin', value: '2×', sub: 'in 60 days post-menu rewrite' },
+      { label: 'Unprofitable items dropped', value: '3', sub: 'identified by per-dish reports' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Customers — Ojunai"
+  description="African business owners using Ojunai to run their day-to-day. Real testimonials, real outcomes — natural body products, candle making, provision stores, food businesses and more."
+  canonical="/customers"
+>
+  <section class="cust-hero">
+    <div class="container cust-hero-inner">
+      <span class="cust-hero-pill">Customers</span>
+      <h1>Real businesses. Real outcomes.</h1>
+      <p>
+        Ojunai is built for owners who already had it figured out — they just needed tools that
+        kept up. Here's how a few of them use it.
+      </p>
+    </div>
+  </section>
+
+  <section class="cust-stats">
+    <div class="container cust-stats-grid">
+      <div class="cust-stat">
+        <div class="cust-stat-num">4</div>
+        <div class="cust-stat-label">Countries served</div>
+      </div>
+      <div class="cust-stat">
+        <div class="cust-stat-num">8</div>
+        <div class="cust-stat-label">Currencies supported</div>
+      </div>
+      <div class="cust-stat">
+        <div class="cust-stat-num">4</div>
+        <div class="cust-stat-label">Languages on Voice AI</div>
+      </div>
+      <div class="cust-stat">
+        <div class="cust-stat-num">&lt;60s</div>
+        <div class="cust-stat-label">From signup to first sale recorded</div>
+      </div>
+    </div>
+  </section>
+
+  {featured.map((c, i) => (
+    <section class={`cust-feature ${i % 2 === 1 ? 'cust-feature-alt' : ''}`}>
+      <div class="container cust-feature-inner">
+        <div class="cust-feature-meta">
+          <div class="cust-feature-badge">{c.industry}</div>
+          <h2>{c.business}</h2>
+          <p class="cust-feature-loc">{c.name} · {c.location}</p>
+
+          <div class="cust-section">
+            <h3>The challenge</h3>
+            <p>{c.challenge}</p>
+          </div>
+          <div class="cust-section">
+            <h3>How Ojunai helps</h3>
+            <p>{c.solution}</p>
+          </div>
+
+          <div class="cust-metrics">
+            {c.metrics.map((m) => (
+              <div class="cust-metric">
+                <div class="cust-metric-value">{m.value}</div>
+                <div class="cust-metric-label">{m.label}</div>
+                <div class="cust-metric-sub">{m.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <figure class="cust-feature-quote">
+          <svg class="quote-mark" width="42" height="42" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
+          </svg>
+          <blockquote>{c.quote}</blockquote>
+          <figcaption>
+            <strong>{c.name}</strong>
+            <span>Founder, {c.business}</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  ))}
+
+  <section class="cust-aspirational">
+    <div class="container cust-aspirational-inner">
+      <h2>Joining the customer wall</h2>
+      <p>
+        We're documenting more customer stories every month. If Ojunai is helping you run your
+        business and you'd like to share what changed, email
+        <a href="mailto:contact@ojunai.com?subject=Customer%20story">contact@ojunai.com</a> with
+        the subject "customer story". We'll do the rest.
+      </p>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>
+
+<style>
+  .cust-hero {
+    padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .cust-hero-inner { max-width: 720px; margin: 0 auto; }
+  .cust-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .cust-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .cust-hero p {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+
+  .cust-stats {
+    padding: 40px 0 60px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .cust-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+  @media (max-width: 768px) { .cust-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+  .cust-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .cust-stat-label {
+    color: var(--text-2);
+    font-size: 0.92rem;
+  }
+
+  .cust-feature {
+    padding: 100px 0;
+  }
+  .cust-feature-alt {
+    background: var(--bg-alt);
+  }
+  .cust-feature-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 880px) { .cust-feature-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+  .cust-feature-badge {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .cust-feature-meta h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .cust-feature-loc {
+    color: var(--text-3);
+    font-size: 0.92rem;
+    margin-bottom: 28px;
+  }
+
+  .cust-section {
+    margin-bottom: 24px;
+  }
+  .cust-section h3 {
+    font-size: 0.95rem;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  .cust-section p {
+    color: var(--text-2);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .cust-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 28px;
+  }
+  .cust-metric {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .cust-feature-alt .cust-metric { background: var(--bg); }
+  .cust-metric-value {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1.1;
+  }
+  .cust-metric-label {
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .cust-metric-sub {
+    color: var(--text-3);
+    font-size: 0.82rem;
+    margin-top: 2px;
+  }
+
+  .cust-feature-quote {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: var(--shadow);
+  }
+  .cust-feature-alt .cust-feature-quote { background: white; }
+  .cust-feature-quote .quote-mark {
+    color: var(--brand-light);
+    margin-bottom: 14px;
+  }
+  .cust-feature-quote blockquote {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text);
+    font-style: italic;
+    margin: 0 0 24px;
+  }
+  .cust-feature-quote figcaption strong {
+    display: block;
+    color: var(--text);
+    font-family: var(--font-display);
+  }
+  .cust-feature-quote figcaption span {
+    color: var(--text-2);
+    font-size: 0.92rem;
+  }
+
+  .cust-aspirational {
+    padding: 80px 0;
+    text-align: center;
+  }
+  .cust-aspirational-inner { max-width: 720px; margin: 0 auto; }
+  .cust-aspirational h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin-bottom: 14px;
+  }
+  .cust-aspirational p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .cust-aspirational a { color: var(--brand); text-decoration: underline; }
+</style>

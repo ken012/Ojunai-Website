@@ -1,0 +1,292 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+
+const groups = [
+  {
+    title: 'Getting Started',
+    icon: '🚀',
+    faqs: [
+      {
+        q: 'How do I sign up?',
+        a: 'Two ways, both under 60 seconds. <strong>On WhatsApp:</strong> message the bot "sign up" and it asks a few quick questions (business name, type, city) — you\'re live right after. <strong>On the web:</strong> fill the short form at <a href="https://app.ojunai.com/register" target="_blank">app.ojunai.com</a>. Either way you get a 1-month free trial, no credit card needed.',
+      },
+      {
+        q: "What if I'm not tech-savvy?",
+        a: 'Ojunai was built for owners who\'ve never used business software before. If you can send a WhatsApp message, you can sign up and run your business with Ojunai — just say "sign up" on WhatsApp and the bot walks you through. No forms, no spreadsheets, no training. And if you get stuck, we\'re one message away.',
+      },
+      {
+        q: 'Do I need to download an app?',
+        a: 'No. Ojunai works entirely through WhatsApp. If you have WhatsApp on your phone, you\'re ready to go. The web dashboard is accessible from any browser.',
+      },
+      {
+        q: 'What language can I use to chat?',
+        a: 'You can chat in plain English or Pidgin English. Our AI is trained to understand how business owners across Africa naturally describe their transactions. Voice AI additionally supports Yoruba, Hausa, and Igbo.',
+      },
+      {
+        q: 'Do I get an account number?',
+        a: 'Yes. Every business gets a unique 7-digit account number at signup. Use it when contacting support for faster assistance.',
+      },
+    ],
+  },
+  {
+    title: 'Billing & Plans',
+    icon: '💳',
+    faqs: [
+      {
+        q: 'What happens after the free trial?',
+        a: "Eligible new accounts get a 30-day free trial on the Starter plan. At the end of the trial (plus a 3-day grace period), your account requires an active subscription to keep using the service. We send WhatsApp reminders before the trial ends.",
+      },
+      {
+        q: 'How do I pay?',
+        a: 'Bank cards (Visa, Mastercard, Verve), bank transfers, and mobile money via Paystack (Nigeria) and Flutterwave (rest of Africa). M-Pesa is supported in Kenya. Cards renew automatically.',
+      },
+      {
+        q: 'What currencies are supported?',
+        a: 'Eight currencies: NGN, GHS, KES, ZAR, USD, GBP, EUR, CAD. Pick yours at signup; everything uses it automatically.',
+      },
+      {
+        q: 'Can I switch plans later?',
+        a: 'Yes — upgrade any time from the dashboard or by messaging the bot. Upgrades take effect immediately and we prorate. Downgrades take effect at the end of your current billing period.',
+      },
+      {
+        q: 'Do you offer refunds?',
+        a: 'Subscription fees are non-refundable. We don\'t partial-refund unused time. If something looks wrong on a charge, email <a href="mailto:contact@ojunai.com">contact@ojunai.com</a> and we\'ll work with our payment provider.',
+      },
+    ],
+  },
+  {
+    title: 'Features',
+    icon: '⚙️',
+    faqs: [
+      {
+        q: 'Can my shop assistant use it too?',
+        a: "Yes! On Pro and Business plans, you can add staff accounts. Your attendant records sales from their own WhatsApp, and you see everything on your dashboard in real time.",
+      },
+      {
+        q: 'Can I import existing records from a spreadsheet?',
+        a: "Yes. On Pro and Business plans, Ojunai has a bulk CSV import tool with smart modes for products/inventory, sales, and expenses. Five import modes — New Purchase, Existing Stock (migration), Price Update Only, Historical Sales, Existing Debts — handle each scenario without confusion.",
+      },
+      {
+        q: 'Can I see old records and reports?',
+        a: 'Yes. All your historical data is on the web dashboard. Filter by date, view monthly trends, export reports in CSV or PDF.',
+      },
+      {
+        q: 'Can I download my reports as PDF?',
+        a: "Yes. Send \"export my sales\" on WhatsApp and Ojunai generates a PDF report covering the last 30 days. You'll get a secure download link with a 4-digit PIN. You can also export from the dashboard.",
+      },
+      {
+        q: 'What is Voice AI?',
+        a: 'Voice AI is a paid add-on that gives you a 24/7 phone receptionist. It answers customer calls, checks stock, and reserves items on your dashboard for pickup. Speaks English, Yoruba, Hausa, Igbo. Starts at ₦5,000/month with any plan. <a href="/voice-ai">Read more →</a>',
+      },
+    ],
+  },
+  {
+    title: 'Troubleshooting',
+    icon: '🛠️',
+    faqs: [
+      {
+        q: 'What if the AI misunderstands my message?',
+        a: "Ojunai asks for clarification when it's not confident. It only records a transaction when it's sure of what you mean. Nothing is saved without your confirmation.",
+      },
+      {
+        q: 'Is my business data safe?',
+        a: 'Yes. All your data is encrypted in transit and at rest. Role-based access ensures staff only see what you allow. Daily automated backups. <a href="/security">Full security details →</a>',
+      },
+      {
+        q: 'I can\'t log into the dashboard',
+        a: 'Three things to try: (1) confirm you\'re using the email address you signed up with, (2) request a password reset link from the login page, (3) if your account number isn\'t working, message the bot "what\'s my account number" on WhatsApp. Still stuck? Email <a href="mailto:support@ojunai.com">support@ojunai.com</a>.',
+      },
+      {
+        q: 'The bot isn\'t responding',
+        a: 'Check that you\'re messaging from the WhatsApp number registered to your account. If you switched phones or numbers, you\'ll need to update the registered number — message <a href="mailto:support@ojunai.com">support@ojunai.com</a> with your account number and the new phone.',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Help center — Ojunai"
+  description="Answers to common questions about signing up, billing, features, payments and Voice AI on Ojunai. Plus how to reach support."
+  canonical="/help"
+>
+  <section class="help-hero">
+    <div class="container help-hero-inner">
+      <span class="help-hero-pill">Help Center</span>
+      <h1>How can we help?</h1>
+      <p>
+        Common questions, grouped by what you're trying to do. Still stuck? <a href="/contact">Talk to the team</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section help-content">
+    <div class="container help-grid">
+      <nav class="help-nav" aria-label="Topic groups">
+        {groups.map((g) => (
+          <a href={`#${g.title.toLowerCase().replace(/\s+/g, '-').replace(/&/g, '')}`}>
+            <span class="help-nav-icon">{g.icon}</span>
+            <span>{g.title}</span>
+          </a>
+        ))}
+      </nav>
+
+      <div class="help-body">
+        {groups.map((g) => (
+          <section
+            class="help-group"
+            id={g.title.toLowerCase().replace(/\s+/g, '-').replace(/&/g, '')}
+          >
+            <h2><span>{g.icon}</span> {g.title}</h2>
+            <div class="help-faq-list">
+              {g.faqs.map((f) => (
+                <details class="help-faq-item">
+                  <summary>{f.q}</summary>
+                  <div class="help-faq-answer" set:html={f.a} />
+                </details>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <div class="help-still-stuck">
+          <h3>Still need help?</h3>
+          <p>
+            Existing customer? Email <a href="mailto:support@ojunai.com">support@ojunai.com</a> — we
+            reply within 4 hours during business hours. Have a sales question?
+            <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .help-hero {
+    padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .help-hero-inner { max-width: 720px; margin: 0 auto; }
+  .help-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .help-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .help-hero p {
+    font-size: 1.1rem;
+    color: var(--text-2);
+  }
+  .help-hero a { color: var(--brand); text-decoration: underline; }
+
+  .help-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+  }
+  @media (max-width: 880px) {
+    .help-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .help-nav {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  @media (max-width: 880px) {
+    .help-nav { position: static; flex-direction: row; flex-wrap: wrap; }
+  }
+  .help-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .help-nav a:hover { background: var(--bg-alt); color: var(--brand); }
+  .help-nav-icon { font-size: 1.1rem; }
+
+  .help-group {
+    margin-bottom: 56px;
+    scroll-margin-top: 100px;
+  }
+  .help-group h2 {
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .help-group h2 span { font-size: 1.4rem; }
+
+  .help-faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .help-faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .help-faq-item[open] { border-color: var(--brand-mid); }
+  .help-faq-item summary {
+    padding: 16px 22px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .help-faq-item summary::-webkit-details-marker { display: none; }
+  .help-faq-item summary::after {
+    content: '+';
+    font-size: 1.3rem;
+    color: var(--brand);
+    transition: transform 0.2s;
+  }
+  .help-faq-item[open] summary::after { transform: rotate(45deg); }
+  .help-faq-answer {
+    padding: 0 22px 18px;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+  .help-faq-answer a { color: var(--brand); text-decoration: underline; }
+
+  .help-still-stuck {
+    background: var(--brand-light);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-top: 48px;
+  }
+  .help-still-stuck h3 {
+    color: var(--text);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .help-still-stuck p {
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+  .help-still-stuck a { color: var(--brand); text-decoration: underline; }
+</style>
