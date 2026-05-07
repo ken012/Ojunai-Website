@@ -1,0 +1,504 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const capabilities = [
+  {
+    title: 'Speaks 4 languages natively',
+    body: 'English, Yoruba, Hausa and Igbo. Switches automatically based on the caller, or you can pin a default.',
+    iconPath: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20',
+  },
+  {
+    title: 'Real-time stock checks',
+    body: '"Do you have palm oil?" gets answered with live inventory — quantity, price, and pack size — straight from your dashboard.',
+    iconPath: 'M3 6h18l-2 13H5L3 6zM3 6L2 3H0M16 10a4 4 0 01-8 0',
+  },
+  {
+    title: 'Reservations & pickup booking',
+    body: 'Customer asks to hold items? Voice AI books a reservation, sets an expiry, and confirms a pickup window.',
+    iconPath: 'M3 4h18v18H3zM16 2v4M8 2v4M3 10h18',
+  },
+  {
+    title: 'Live dashboard sync',
+    body: 'Every reservation, hold, and call summary lands on your Ojunai dashboard the moment the call ends. No paperwork.',
+    iconPath: 'M3 3h18v18H3zM3 9h18M9 21V3',
+  },
+  {
+    title: 'Owner handoff',
+    body: 'Caller asks something Voice AI can\'t handle? Seamless transfer to your phone — no caller dropped, no missed lead.',
+    iconPath: 'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12 19.79 19.79 0 011.43 3.4 2 2 0 013.42 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',
+  },
+  {
+    title: '24/7 — even when closed',
+    body: 'After-hours calls, lunch break, weekends. Customers hear a real assistant, not voicemail. You hear about it on WhatsApp.',
+    iconPath: 'M12 2v6M12 18v4M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M18 12h4M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24',
+  },
+];
+
+const setup = [
+  {
+    n: '01',
+    title: 'You give us a phone number',
+    body: 'Either we provision a new dedicated line (most common) or forward your existing business number to ours.',
+  },
+  {
+    n: '02',
+    title: 'We train Voice AI on your shop',
+    body: '15-minute call with our team. We import your inventory, set your tone of voice, and define what to do when calls escalate.',
+  },
+  {
+    n: '03',
+    title: 'Go live the same day',
+    body: 'Customers start calling. Every conversation lands on your Ojunai dashboard. You can listen, edit, or refine training anytime.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How do you handle local accents?',
+    a: 'Voice AI is trained on West and East African accent data — Lagos, Accra, Nairobi, Cape Town, plus regional variants like Yoruba-inflected English and Hausa-inflected English. Accuracy is verifiably higher than generic English-only assistants for African customers.',
+  },
+  {
+    q: 'What happens to recordings?',
+    a: "Each call is transcribed, summarized, and stored on your Ojunai dashboard. Audio is retained for 30 days for quality and dispute purposes, then auto-deleted. You can export or delete earlier on request.",
+  },
+  {
+    q: 'Can I switch the AI off temporarily?',
+    a: 'Yes — toggle Voice AI on or off from your dashboard or by sending "voice ai off" / "voice ai on" to the bot. Calls during off-hours fall back to your regular voicemail.',
+  },
+  {
+    q: 'What if Voice AI gets something wrong?',
+    a: 'Every call ends with an automatic transcript and summary on your dashboard. You\'re notified via WhatsApp if the AI flags low confidence. You can correct anything — refunds, reservations, pricing — directly from the dashboard.',
+  },
+  {
+    q: 'How is this priced exactly?',
+    a: '₦5,000/month flat (or local-currency equivalent) on top of any Ojunai plan. Includes unlimited inbound minutes, dedicated number, and dashboard sync. Annual billing saves 20%. Outbound calls are not currently supported — Voice AI receives calls only.',
+  },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Ojunai Voice AI',
+  description:
+    'A 24/7 phone receptionist that answers customer calls, confirms stock and pricing, and reserves items on your dashboard for pickup. Speaks English, Yoruba, Hausa, Igbo.',
+  brand: { '@type': 'Brand', name: 'Ojunai' },
+  offers: {
+    '@type': 'Offer',
+    price: '5000',
+    priceCurrency: 'NGN',
+    description: 'Voice AI add-on, billed monthly. Annual billing saves 20%.',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Voice AI — Ojunai"
+  description="A 24/7 phone receptionist that answers customer calls, confirms items in stock and pricing, and reserves them on your dashboard for pickup. Speaks English, Yoruba, Hausa, Igbo. Available with any Ojunai plan."
+  canonical="/voice-ai"
+  ogImage="/og/voice-ai.png"
+  jsonLd={[productSchema, faqSchema]}
+>
+  <section class="va-hero">
+    <div class="va-hero-glow"></div>
+    <div class="container va-hero-inner">
+      <span class="va-hero-pill">🎤 Premium Add-on</span>
+      <h1>The phone assistant that <span>never sleeps</span>.</h1>
+      <p class="va-hero-sub">
+        Voice AI answers your business line 24/7 — confirms stock and pricing, books reservations,
+        and reserves items on your dashboard for pickup. In English, Yoruba, Hausa, or Igbo.
+      </p>
+      <div class="va-hero-ctas">
+        <a
+          href="mailto:contact@ojunai.com?subject=Voice%20AI%20%E2%80%94%20Enable%20for%20my%20business"
+          class="btn-primary"
+        >
+          Talk to our team
+        </a>
+        <a href="#pricing" class="va-hero-link">See pricing →</a>
+      </div>
+      <p class="va-hero-meta">
+        From <strong>₦5,000/month</strong> · Works with any plan · Annual billing saves 20%
+      </p>
+    </div>
+  </section>
+
+  <section class="va-pain">
+    <div class="container va-pain-grid">
+      <div class="va-pain-stat">
+        <div class="va-pain-num">62%</div>
+        <p>of small-business calls go unanswered during peak hours.</p>
+      </div>
+      <div class="va-pain-stat">
+        <div class="va-pain-num">₦15k+</div>
+        <p>average revenue lost per missed call for a typical provision store.</p>
+      </div>
+      <div class="va-pain-stat">
+        <div class="va-pain-num">0</div>
+        <p>missed calls when Voice AI is on. It picks up before the third ring.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="va-capabilities">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Capabilities</div>
+        <h2>What Voice AI handles for you</h2>
+      </div>
+      <div class="va-capability-grid">
+        {capabilities.map((c) => (
+          <div class="va-capability-card">
+            <div class="va-capability-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path d={c.iconPath} />
+              </svg>
+            </div>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="va-pricing" id="pricing">
+    <div class="container">
+      <div class="va-pricing-card">
+        <div class="va-pricing-meta">
+          <span class="va-pricing-pill">Voice AI add-on</span>
+          <div class="va-pricing-amount">₦5,000<span>/month</span></div>
+          <p>Or <strong>₦48,000/year</strong> (≈ ₦4,000/mo · save 20%)</p>
+          <ul class="va-pricing-list">
+            <li>Unlimited inbound minutes</li>
+            <li>Dedicated phone number included</li>
+            <li>4 languages (English, Yoruba, Hausa, Igbo)</li>
+            <li>Live dashboard sync of every call</li>
+            <li>Owner handoff for complex calls</li>
+            <li>Cancel any time</li>
+          </ul>
+          <a
+            href="mailto:contact@ojunai.com?subject=Voice%20AI%20%E2%80%94%20Enable%20for%20my%20business"
+            class="btn-primary"
+          >
+            Talk to our team
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="va-setup">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Setup</div>
+        <h2>Live in one day, not one quarter</h2>
+      </div>
+      <div class="va-setup-steps">
+        {setup.map((s) => (
+          <div class="va-setup-step">
+            <div class="va-setup-num">{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="va-faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Frequently Asked</div>
+        <h2>Voice AI questions</h2>
+      </div>
+      <div class="va-faq-list">
+        {faqs.map((f) => (
+          <details class="va-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>
+
+<style>
+  /* ============ HERO ============ */
+  .va-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 160px 0 100px;
+    background: radial-gradient(120% 140% at 30% 0%, #1E1B4B 0%, #0B0B22 60%, #030310 100%);
+    color: white;
+  }
+  .va-hero-glow {
+    position: absolute;
+    top: -150px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.4), transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .va-hero-inner { position: relative; max-width: 760px; }
+  .va-hero-pill {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.2);
+    color: #C7D2FE;
+    border: 1px solid rgba(165, 180, 252, 0.35);
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .va-hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .va-hero h1 span {
+    background: linear-gradient(90deg, #A5B4FC 0%, #38BDF8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .va-hero-sub {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #CBD5E1;
+    margin-bottom: 36px;
+    max-width: 620px;
+  }
+  .va-hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .va-hero-link {
+    color: #C7D2FE;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .va-hero-link:hover { transform: translateX(4px); color: white; }
+  .va-hero-meta {
+    color: #94A3B8;
+    font-size: 0.95rem;
+  }
+  .va-hero-meta strong { color: #C7D2FE; }
+
+  /* ============ PAIN ============ */
+  .va-pain {
+    background: #050514;
+    padding: 60px 0;
+    color: white;
+  }
+  .va-pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  @media (max-width: 768px) { .va-pain-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .va-pain-stat { text-align: left; }
+  .va-pain-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    line-height: 1;
+    background: linear-gradient(90deg, #FFFFFF 0%, #818CF8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .va-pain-stat p { color: #94A3B8; font-size: 1rem; line-height: 1.5; }
+
+  /* ============ CAPABILITIES ============ */
+  .va-capabilities { padding: 100px 0; background: var(--bg); }
+  .va-capability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 960px) { .va-capability-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .va-capability-grid { grid-template-columns: 1fr; } }
+
+  .va-capability-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .va-capability-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--brand-mid);
+  }
+  .va-capability-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--brand), var(--brand-mid));
+    color: white;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .va-capability-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .va-capability-card p {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  /* ============ PRICING ============ */
+  .va-pricing { padding: 100px 0; background: var(--bg-alt); }
+  .va-pricing-card {
+    max-width: 580px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    padding: 48px 40px;
+    border: 2px solid var(--brand);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+  }
+  .va-pricing-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .va-pricing-amount {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .va-pricing-amount span { font-size: 1.1rem; color: var(--text-2); font-weight: 500; }
+  .va-pricing-card > .va-pricing-meta > p {
+    color: var(--text-2);
+    margin-bottom: 28px;
+  }
+  .va-pricing-card strong { color: var(--text); }
+  .va-pricing-list {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 32px;
+    padding: 0;
+  }
+  .va-pricing-list li {
+    padding: 8px 0;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .va-pricing-list li:last-child { border-bottom: none; }
+  .va-pricing-list li::before {
+    content: '✓';
+    color: var(--brand);
+    font-weight: 700;
+    margin-right: 10px;
+  }
+
+  /* ============ SETUP ============ */
+  .va-setup { padding: 100px 0; }
+  .va-setup-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 768px) { .va-setup-steps { grid-template-columns: 1fr; } }
+
+  .va-setup-step {
+    background: var(--bg-alt);
+    border-radius: 20px;
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+  }
+  .va-setup-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--brand);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .va-setup-step h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .va-setup-step p {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  /* ============ FAQ ============ */
+  .va-faq { padding: 100px 0; background: var(--bg-alt); }
+  .va-faq-list {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .va-faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    padding: 0;
+  }
+  .va-faq-item[open] { border-color: var(--brand-mid); }
+  .va-faq-item summary {
+    padding: 18px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .va-faq-item summary::-webkit-details-marker { display: none; }
+  .va-faq-item summary::after {
+    content: '+';
+    font-size: 1.4rem;
+    color: var(--brand);
+    transition: transform 0.2s;
+  }
+  .va-faq-item[open] summary::after { transform: rotate(45deg); }
+  .va-faq-item p {
+    padding: 0 24px 20px;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+</style>

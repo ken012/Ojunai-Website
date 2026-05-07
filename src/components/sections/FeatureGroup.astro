@@ -1,0 +1,131 @@
+---
+/**
+ * A grouped feature block: section header + N feature cards + optional screenshot.
+ * Used on /features to break the 16-feature list into 4 readable categories.
+ */
+export interface Feature {
+  title: string;
+  body: string;
+  example?: string;
+  iconPath: string;
+  badge?: string;
+}
+
+export interface Props {
+  label: string;
+  title: string;
+  intro?: string;
+  features: Feature[];
+  screenshot?: { src: string; alt: string };
+  reverse?: boolean;
+  learnMoreHref?: string;
+  learnMoreLabel?: string;
+}
+
+const {
+  label,
+  title,
+  intro,
+  features,
+  screenshot,
+  reverse = false,
+  learnMoreHref,
+  learnMoreLabel = 'Learn more →',
+} = Astro.props;
+---
+
+<section class={`section feature-group ${reverse ? 'feature-group-reverse' : ''}`}>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">{label}</div>
+      <h2>{title}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+
+    <div class="features-grid feature-group-grid">
+      {features.map((f) => (
+        <div class="feature-card">
+          {f.badge && <span class="feat-badge">{f.badge}</span>}
+          <div class="feat-icon">
+            <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d={f.iconPath} />
+            </svg>
+          </div>
+          <h3>{f.title}</h3>
+          <p>{f.body}</p>
+          {f.example && <div class="feat-example">{f.example}</div>}
+        </div>
+      ))}
+    </div>
+
+    {screenshot && (
+      <figure class="feature-group-shot">
+        <img src={screenshot.src} alt={screenshot.alt} loading="lazy" />
+      </figure>
+    )}
+
+    {learnMoreHref && (
+      <p class="feature-group-learn">
+        <a href={learnMoreHref}>{learnMoreLabel}</a>
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .feature-group { padding: 80px 0; }
+  .feature-group + .feature-group { border-top: 1px solid var(--border); }
+
+  .feature-group-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 960px) {
+    .feature-group-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .feature-group-grid { grid-template-columns: 1fr; }
+  }
+
+  .feat-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--brand);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+
+  .feature-card { position: relative; }
+
+  .feature-group-shot {
+    margin-top: 48px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+  .feature-group-shot img {
+    width: 100%;
+    display: block;
+  }
+
+  .feature-group-learn {
+    text-align: center;
+    margin-top: 32px;
+  }
+  .feature-group-learn a {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .feature-group-learn a:hover { transform: translateX(4px); }
+</style>

@@ -1,0 +1,299 @@
+---
+/**
+ * Full pricing engine — billing toggle + currency selector + 4 plan cards + Voice AI add-on card.
+ * Behavior is driven entirely client-side from the pricingConfig object below.
+ *
+ * Markup classes match the legacy CSS (already in global.css).
+ */
+---
+
+<!-- Billing Toggle -->
+<div class="billing-toggle">
+  <span class="toggle-label toggle-label-active" data-cycle="monthly" id="labelMonthly">Monthly</span>
+  <button
+    class="toggle-switch monthly"
+    id="billingToggle"
+    type="button"
+    role="switch"
+    aria-checked="false"
+    aria-label="Switch between monthly and annual billing"
+  >
+    <span class="toggle-knob"></span>
+  </button>
+  <span class="toggle-label" data-cycle="annual" id="labelAnnual">Annual</span>
+</div>
+
+<!-- Currency Selector -->
+<div class="currency-hint">Choose your currency</div>
+<div class="currency-selector" id="currencySelector" role="tablist">
+  <button class="currency-pill currency-pill-active" data-currency="NGN" role="tab" aria-selected="true">₦ NGN</button>
+  <button class="currency-pill" data-currency="GHS" role="tab" aria-selected="false">GH₵ GHS</button>
+  <button class="currency-pill" data-currency="USD" role="tab" aria-selected="false">$ USD</button>
+  <button class="currency-pill" data-currency="GBP" role="tab" aria-selected="false">£ GBP</button>
+  <button class="currency-pill" data-currency="KES" role="tab" aria-selected="false">KSh KES</button>
+  <button class="currency-pill" data-currency="ZAR" role="tab" aria-selected="false">R ZAR</button>
+</div>
+
+<!-- Pricing Cards -->
+<div class="pricing-grid" id="pricingGrid">
+  <!-- Starter -->
+  <div class="price-card" data-plan="starter">
+    <div class="price-label">Starter</div>
+    <div class="price-amount"></div>
+    <div class="price-annual-detail">
+      <span class="price-monthly-eq"></span>
+      <span class="price-savings"></span>
+    </div>
+    <div class="price-sub">Free for 1 month · Best for solo traders just starting out</div>
+    <ul class="price-features">
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 1-month free trial</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> WhatsApp bot access</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Up to 30 products</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 150 messages / month</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Daily summaries</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Basic web dashboard</li>
+      <li class="price-feat-off"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Staff accounts</li>
+      <li class="price-feat-off"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Advanced reports</li>
+    </ul>
+    <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="price-btn price-btn-outline">Get Started</a>
+  </div>
+
+  <!-- Shop -->
+  <div class="price-card" data-plan="shop">
+    <div class="price-label">Shop</div>
+    <div class="price-amount"></div>
+    <div class="price-annual-detail">
+      <span class="price-monthly-eq"></span>
+      <span class="price-savings"></span>
+    </div>
+    <div class="price-sub">Best for a single shop with a few attendants</div>
+    <ul class="price-features">
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Everything in Starter</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unlimited products</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 850 messages / month</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Up to 3 staff accounts</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Full debt &amp; credit ledger</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Standard reports</li>
+    </ul>
+    <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="price-btn price-btn-outline">Get Started</a>
+  </div>
+
+  <!-- Pro -->
+  <div class="price-card price-card-featured" data-plan="pro">
+    <div class="price-badge">Most chosen</div>
+    <div class="price-label">Pro</div>
+    <div class="price-amount"></div>
+    <div class="price-annual-detail">
+      <span class="price-monthly-eq"></span>
+      <span class="price-savings"></span>
+    </div>
+    <div class="price-sub">Best for established shops ready to scale</div>
+    <ul class="price-features">
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Everything in Shop</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unlimited messages</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Up to 10 staff accounts</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> CSV bulk import</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Advanced profit reports</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Monthly trend charts</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Priority support</li>
+    </ul>
+    <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="price-btn price-btn-primary">Get Started</a>
+  </div>
+
+  <!-- Business -->
+  <div class="price-card price-card-business" data-plan="business">
+    <div class="price-badge price-badge-business" style="display:none;">Best Value</div>
+    <div class="price-label">Business</div>
+    <div class="price-amount"></div>
+    <div class="price-annual-detail">
+      <span class="price-monthly-eq"></span>
+      <span class="price-savings"></span>
+    </div>
+    <div class="price-sub">Best for wholesalers, multi-branch, and integrations</div>
+    <ul class="price-features">
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Everything in Pro</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unlimited staff accounts</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Multi-branch support</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Custom report exports</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> API access &amp; integrations</li>
+      <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Dedicated account manager</li>
+    </ul>
+    <a
+      href="mailto:contact@ojunai.com?subject=Ojunai%20Business%20plan%20inquiry"
+      class="price-btn price-btn-outline"
+    >Talk to sales</a>
+  </div>
+</div>
+
+<p class="pricing-microcopy" id="pricingMicrocopy">
+  Billed monthly. Cancel anytime. No hidden fees. Local currency supported.
+</p>
+<p class="pricing-microcopy" style="margin-top: 8px;">
+  By signing up you agree to our
+  <a href="/terms" style="color: var(--brand); text-decoration: underline;">Terms of Service</a>
+  and
+  <a href="/privacy" style="color: var(--brand); text-decoration: underline;">Privacy Policy</a>.
+</p>
+
+<!-- Voice AI add-on -->
+<div class="voice-addon-card" id="voiceAddonCard">
+  <div class="voice-addon-inner">
+    <div class="voice-addon-info">
+      <div class="voice-addon-badge">Add-on</div>
+      <h3>Voice AI Assistant</h3>
+      <p>AI phone receptionist — answers calls, checks stock, takes reservations. Works with any plan.</p>
+    </div>
+    <div class="voice-addon-price">
+      <div class="voice-addon-amount" id="voiceAddonPrice"></div>
+      <div class="voice-addon-eq" id="voiceAddonEq"></div>
+    </div>
+    <a href="/voice-ai" class="price-btn price-btn-outline voice-addon-btn">Learn more →</a>
+  </div>
+</div>
+
+<script>
+  const pricingConfig = {
+    starter: {
+      monthly: { NGN: 3500, GHS: 32, USD: 3.49, GBP: 2.99, KES: 480, ZAR: 50 },
+      annual:  { NGN: 37800, GHS: 346, USD: 37.69, GBP: 32.29, KES: 5184, ZAR: 540 },
+      savingsLabel: 'Save 10%',
+    },
+    shop: {
+      monthly: { NGN: 7500, GHS: 65, USD: 6.99, GBP: 5.99, KES: 1000, ZAR: 95 },
+      annual:  { NGN: 76500, GHS: 663, USD: 71.30, GBP: 61.10, KES: 10200, ZAR: 969 },
+      savingsLabel: 'Save 15%',
+    },
+    pro: {
+      monthly: { NGN: 12500, GHS: 115, USD: 11.99, GBP: 9.99, KES: 1650, ZAR: 160 },
+      annual:  { NGN: 124500, GHS: 1145, USD: 119.42, GBP: 99.50, KES: 16434, ZAR: 1594 },
+      savingsLabel: '2 months free',
+    },
+    business: {
+      monthly: { NGN: 30000, GHS: 270, USD: 24.99, GBP: 19.99, KES: 3900, ZAR: 380 },
+      annual:  { NGN: 288000, GHS: 2592, USD: 239.90, GBP: 191.90, KES: 37440, ZAR: 3648 },
+      savingsLabel: 'Save 20%',
+    },
+  };
+
+  const currencySymbols = {
+    NGN: { prefix: '₦',  decimals: 0 },
+    GHS: { prefix: 'GH₵', decimals: 0 },
+    USD: { prefix: '$',   decimals: 2 },
+    GBP: { prefix: '£',   decimals: 2 },
+    KES: { prefix: 'KSh ', decimals: 0 },
+    ZAR: { prefix: 'R',   decimals: 0 },
+  };
+
+  const voiceAddonPricing = {
+    monthly: { NGN: 5000, GHS: 45, USD: 5,  GBP: 4,    KES: 700,  ZAR: 70 },
+    annual:  { NGN: 48000, GHS: 432, USD: 48, GBP: 38.40, KES: 6720, ZAR: 672 },
+  };
+
+  let billingCycle = 'monthly';
+  let selectedCurrency = 'NGN';
+
+  function formatPrice(amount, currency) {
+    const cfg = currencySymbols[currency];
+    const formatted = amount.toLocaleString('en', {
+      minimumFractionDigits: cfg.decimals,
+      maximumFractionDigits: cfg.decimals,
+    });
+    return cfg.prefix + formatted;
+  }
+
+  function updatePricing() {
+    document.querySelectorAll('#pricingGrid .price-card').forEach((card) => {
+      const plan = card.dataset.plan;
+      const config = pricingConfig[plan];
+      if (!config) return;
+
+      const priceEl = card.querySelector('.price-amount');
+      const eqEl = card.querySelector('.price-monthly-eq');
+      const savingsEl = card.querySelector('.price-savings');
+      const businessBadge = card.querySelector('.price-badge-business');
+
+      if (billingCycle === 'monthly') {
+        const price = config.monthly[selectedCurrency];
+        priceEl.innerHTML = formatPrice(price, selectedCurrency) + '<span>/month</span>';
+        eqEl.textContent = '';
+        savingsEl.textContent = '';
+        savingsEl.style.display = 'none';
+        if (businessBadge) businessBadge.style.display = 'none';
+      } else {
+        const annualTotal = config.annual[selectedCurrency];
+        const monthlyEq = annualTotal / 12;
+        priceEl.innerHTML = formatPrice(annualTotal, selectedCurrency) + '<span>/year</span>';
+        eqEl.textContent = '≈ ' + formatPrice(monthlyEq, selectedCurrency) + '/mo billed yearly';
+        savingsEl.textContent = config.savingsLabel;
+        savingsEl.style.display = 'inline-block';
+        if (businessBadge) businessBadge.style.display = '';
+      }
+    });
+
+    const vaPrice = document.getElementById('voiceAddonPrice');
+    const vaEq = document.getElementById('voiceAddonEq');
+    if (vaPrice && vaEq) {
+      if (billingCycle === 'monthly') {
+        const p = voiceAddonPricing.monthly[selectedCurrency];
+        vaPrice.innerHTML = formatPrice(p, selectedCurrency) + '<span>/month</span>';
+        vaEq.textContent = '';
+      } else {
+        const p = voiceAddonPricing.annual[selectedCurrency];
+        const moEq = p / 12;
+        vaPrice.innerHTML = formatPrice(p, selectedCurrency) + '<span>/year</span>';
+        vaEq.textContent = '≈ ' + formatPrice(moEq, selectedCurrency) + '/mo · Save 20%';
+      }
+    }
+
+    const microcopy = document.getElementById('pricingMicrocopy');
+    if (microcopy) {
+      microcopy.textContent =
+        billingCycle === 'annual'
+          ? 'Billed annually. Cancel anytime. No hidden fees. Local currency supported.'
+          : 'Billed monthly. Cancel anytime. No hidden fees. Local currency supported.';
+    }
+  }
+
+  // --- billing toggle ---
+  const billingToggle = document.getElementById('billingToggle');
+  const labelMonthly = document.getElementById('labelMonthly');
+  const labelAnnual = document.getElementById('labelAnnual');
+
+  function setBillingCycle(cycle) {
+    billingCycle = cycle;
+    if (cycle === 'monthly') {
+      billingToggle.classList.add('monthly');
+      billingToggle.setAttribute('aria-checked', 'false');
+      labelMonthly.classList.add('toggle-label-active');
+      labelAnnual.classList.remove('toggle-label-active');
+    } else {
+      billingToggle.classList.remove('monthly');
+      billingToggle.setAttribute('aria-checked', 'true');
+      labelAnnual.classList.add('toggle-label-active');
+      labelMonthly.classList.remove('toggle-label-active');
+    }
+    updatePricing();
+  }
+
+  billingToggle?.addEventListener('click', () => {
+    setBillingCycle(billingCycle === 'monthly' ? 'annual' : 'monthly');
+  });
+  labelMonthly?.addEventListener('click', () => setBillingCycle('monthly'));
+  labelAnnual?.addEventListener('click', () => setBillingCycle('annual'));
+
+  // --- currency selector ---
+  document.querySelectorAll('#currencySelector .currency-pill').forEach((pill) => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('#currencySelector .currency-pill').forEach((p) => {
+        p.classList.remove('currency-pill-active');
+        p.setAttribute('aria-selected', 'false');
+      });
+      pill.classList.add('currency-pill-active');
+      pill.setAttribute('aria-selected', 'true');
+      selectedCurrency = pill.dataset.currency;
+      updatePricing();
+    });
+  });
+
+  updatePricing();
+</script>

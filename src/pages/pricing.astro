@@ -1,0 +1,299 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import PricingEngine from '~/components/sections/PricingEngine.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const compareRows = [
+  { feature: 'Products tracked', cells: ['Up to 30', 'Unlimited', 'Unlimited', 'Unlimited'] },
+  { feature: 'WhatsApp messages / month', cells: ['150', '850', 'Unlimited', 'Unlimited'] },
+  { feature: 'Staff accounts', cells: ['—', 'Up to 3', 'Up to 10', 'Unlimited'] },
+  { feature: 'WhatsApp bot access', cells: ['✓', '✓', '✓', '✓'] },
+  { feature: 'Daily & weekly summaries', cells: ['✓', '✓', '✓', '✓'] },
+  { feature: 'CSV bulk import', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Debt & credit ledger', cells: ['Basic', 'Full', 'Full', 'Full'] },
+  { feature: 'Advanced reports & trend charts', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Priority support', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Multi-branch support', cells: ['—', '—', '—', '✓'] },
+  { feature: 'Custom report exports', cells: ['—', '—', '—', '✓'] },
+  { feature: 'API access & integrations', cells: ['—', '—', '—', '✓'] },
+  { feature: 'Dedicated account manager', cells: ['—', '—', '—', '✓'] },
+  { feature: 'Inventory search', cells: ['✓', '✓', '✓', '✓'] },
+  { feature: 'Sales & expense search', cells: ['✓', '✓', '✓', '✓'] },
+  { feature: 'PDF reports via WhatsApp', cells: ['✓', '✓', '✓', '✓'] },
+  { feature: 'Order reservations', cells: ['—', '✓', '✓', '✓'] },
+  { feature: 'Weekly sales velocity', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Cash flow forecast', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Sales comparison', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Revenue by category', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Smart import modes', cells: ['—', '—', '✓', '✓'] },
+  { feature: 'Voice AI add-on', cells: ['+', '+', '+', '+'] },
+];
+
+// FAQPage schema generated from the same data we render below.
+const buildFaqSchema = (qas) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: qas.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+});
+
+const faqs = [
+  {
+    q: 'What happens after the free trial?',
+    a: 'Eligible new accounts get a 30-day free trial on the Starter plan with full Starter features. At the end of the trial (plus a 3-day grace period), your account needs an active subscription to keep using the service. We send WhatsApp reminders before the trial ends so nothing surprises you.',
+  },
+  {
+    q: 'Can I switch plans later?',
+    a: 'Yes — upgrade any time from your dashboard or by messaging the bot. Upgrades take effect immediately and we prorate the difference. Downgrades take effect at the end of your current billing period so you keep the features you paid for.',
+  },
+  {
+    q: 'What payment methods do you support?',
+    a: 'Bank cards (Visa, Mastercard, Verve), bank transfers, and mobile money via Paystack (primarily Nigeria) and Flutterwave (broader Africa). M-Pesa is supported in Kenya. Cards renew automatically; mobile money and transfer subscriptions are renewed manually with a WhatsApp reminder.',
+  },
+  {
+    q: 'Do you offer refunds?',
+    a: 'Subscription fees are non-refundable. We don\'t partial-refund unused time within a billing period. If something looks wrong on a charge, email contact@ojunai.com — we\'ll work with our payment provider to fix it.',
+  },
+  {
+    q: 'Which currencies can I pay in?',
+    a: 'Eight currencies: NGN, GHS, KES, ZAR, USD, GBP, EUR, CAD. Pick yours at signup and every transaction, report and summary uses it automatically. You can change currency on request, though we don\'t recommend mid-cycle.',
+  },
+  {
+    q: 'How does annual billing work?',
+    a: 'Annual plans are billed once for 12 months at signup, with a discount baked in (10% Starter, 15% Shop, ~17% Pro, 20% Business). You can switch from monthly to annual any time by emailing us; the unused portion of your monthly term is credited toward the annual purchase.',
+  },
+  {
+    q: 'Can I add Voice AI later?',
+    a: 'Yes — Voice AI is an add-on on top of any plan, including Starter. Add it from the dashboard or by emailing contact@ojunai.com. It\'s ₦5,000/month or ₦48,000/year (~20% off).',
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing — Ojunai"
+  description="Simple, local-currency plans for African SMEs. Monthly or annual billing, one month free, cancel anytime. Compare Starter, Shop, Pro and Business. Voice AI add-on available on every plan."
+  canonical="/pricing"
+  ogImage="/og/pricing.png"
+  jsonLd={buildFaqSchema(faqs)}
+>
+  <section class="pricing-hero">
+    <div class="container">
+      <span class="pricing-hero-pill">Simple Pricing</span>
+      <h1>Plans that scale with your shop.</h1>
+      <p>One month free on every plan. Local currency. Cancel anytime.</p>
+    </div>
+  </section>
+
+  <section class="section pricing">
+    <div class="container">
+      <PricingEngine />
+    </div>
+  </section>
+
+  <section class="pricing-compare-section">
+    <div class="container">
+      <details class="pricing-compare-collapsible">
+        <summary>
+          <span class="compare-summary-text">
+            <strong>Compare every feature</strong>
+            <em>23 features across 4 plans</em>
+          </span>
+          <span class="compare-summary-icon">▾</span>
+        </summary>
+
+        <div class="pricing-compare">
+          <div class="pricing-compare-title">
+            <h3>Compare plans feature by feature</h3>
+            <p>Everything you get on each plan, side by side.</p>
+          </div>
+          <div class="compare-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Starter</th>
+                  <th>Shop</th>
+                  <th>Pro</th>
+                  <th>Business</th>
+                </tr>
+              </thead>
+              <tbody>
+                {compareRows.map((row) => (
+                  <tr>
+                    <td>{row.feature}</td>
+                    {row.cells.map((cell) => {
+                      let className = '';
+                      if (cell === '✓') className = 'compare-yes';
+                      else if (cell === '—') className = 'compare-no';
+                      else if (cell === '+') className = 'compare-addon';
+                      return <td class={className}>{cell}</td>;
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section pricing-faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Pricing FAQ</div>
+        <h2>Common pricing questions</h2>
+      </div>
+      <div class="pricing-faq-list">
+        {faqs.map((f) => (
+          <details class="pricing-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <p class="pricing-faq-more">
+        More questions? <a href="/help">Browse the help center</a> or
+        <a href="mailto:contact@ojunai.com">email us</a>.
+      </p>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>
+
+<style>
+  .pricing-hero {
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    padding: 160px 0 60px;
+    text-align: center;
+  }
+  .pricing-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .pricing-hero h1 {
+    font-size: clamp(2rem, 4.4vw, 3rem);
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .pricing-hero p {
+    font-size: 1.1rem;
+    color: var(--text-2);
+  }
+
+  /* Collapsible comparison table */
+  .pricing-compare-section { padding: 0 0 60px; }
+  .pricing-compare-collapsible {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .pricing-compare-collapsible[open] { border-color: var(--brand-mid); }
+  .pricing-compare-collapsible summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-alt);
+    transition: background 0.2s;
+  }
+  .pricing-compare-collapsible summary::-webkit-details-marker { display: none; }
+  .pricing-compare-collapsible summary:hover { background: var(--brand-light); }
+  .compare-summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .compare-summary-text strong { color: var(--text); font-size: 1.05rem; }
+  .compare-summary-text em {
+    font-style: normal;
+    color: var(--text-2);
+    font-size: 0.9rem;
+  }
+  .compare-summary-icon {
+    font-size: 1.4rem;
+    color: var(--brand);
+    transition: transform 0.2s;
+  }
+  .pricing-compare-collapsible[open] .compare-summary-icon { transform: rotate(180deg); }
+  .pricing-compare-collapsible .pricing-compare {
+    padding: 32px;
+  }
+  .compare-table-wrap { overflow-x: auto; }
+  .pricing-compare-collapsible table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+  .pricing-compare-collapsible th,
+  .pricing-compare-collapsible td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .pricing-compare-collapsible th {
+    background: var(--bg-alt);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .pricing-compare-collapsible td.compare-yes { color: var(--accent2); font-weight: 700; }
+  .pricing-compare-collapsible td.compare-no { color: var(--text-3); }
+  .pricing-compare-collapsible td.compare-addon { color: var(--brand); font-weight: 700; }
+
+  /* FAQ */
+  .pricing-faq { background: var(--bg-alt); }
+  .pricing-faq-list { max-width: 780px; margin: 0 auto; }
+  .pricing-faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .pricing-faq-item[open] { border-color: var(--brand-mid); }
+  .pricing-faq-item summary {
+    padding: 18px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pricing-faq-item summary::-webkit-details-marker { display: none; }
+  .pricing-faq-item summary::after {
+    content: '+';
+    font-size: 1.4rem;
+    color: var(--brand);
+    transition: transform 0.2s;
+  }
+  .pricing-faq-item[open] summary::after { transform: rotate(45deg); }
+  .pricing-faq-item p {
+    padding: 0 24px 20px;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+  .pricing-faq-more {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--text-2);
+  }
+  .pricing-faq-more a { color: var(--brand); text-decoration: underline; }
+</style>
