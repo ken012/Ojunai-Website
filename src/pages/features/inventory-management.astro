@@ -1,0 +1,82 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import SubFeatureHero from '~/components/sections/SubFeatureHero.astro';
+import SubFeatureSection from '~/components/sections/SubFeatureSection.astro';
+import SubFeatureRelated from '~/components/sections/SubFeatureRelated.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const title = 'Inventory Management — Ojunai';
+const description =
+  "Track every product, every batch, every restock. Live inventory updates with each sale. Low-stock alerts before you run out. CSV import for migrations.";
+---
+
+<BaseLayout title={title} description={description} canonical="/features/inventory-management">
+  <SubFeatureHero
+    eyebrow="Inventory"
+    title="Track every product, never run out."
+    description="Ojunai keeps your stock current automatically. Every sale deducts. Every restock adds. Low-stock alerts hit your dashboard before you lose a customer."
+  />
+
+  <SubFeatureSection
+    eyebrow="Auto-deduction"
+    title="Stock updates on every sale, instantly."
+    body="Record a sale and inventory adjusts in real time. No manual reconciliation, no end-of-day stocktake to catch up. Whether the sale comes from the dashboard, WhatsApp AI, or Voice AI, the same ledger updates."
+    bullets={[
+      'Live deduction from sales',
+      'Auto-increment from supplier deliveries',
+      'Per-variant tracking (sizes, colors, packs)',
+    ]}
+    screenshot={{ src: '/screenshots/inventory.jpeg', alt: 'Ojunai inventory page showing product stock levels' }}
+  />
+
+  <SubFeatureSection
+    eyebrow="Low-stock alerts"
+    title="Know before you run out."
+    body="Set a threshold per product. When stock dips below, Ojunai surfaces it on the dashboard and sends a daily summary. No more discovering you're out of your top seller from a customer."
+    bullets={[
+      'Per-product alert thresholds',
+      'Daily 8pm summary of items needing restock',
+      'Filterable low-stock view on the dashboard',
+    ]}
+    screenshot={{ src: '/screenshots/inventory-search.png', alt: 'Inventory dashboard with low-stock alerts' }}
+    reverse
+    background="alt"
+  />
+
+  <SubFeatureSection
+    eyebrow="CSV bulk import"
+    title="Migrate your spreadsheet in 60 seconds."
+    body="Already running on Excel? Use our smart CSV import — five context-aware modes for new stock, existing stock migration, price updates, historical sales, and existing debts. Thousands of records in seconds."
+    bullets={[
+      'Five smart modes — pick the scenario, no setup',
+      'Template included, no schema guesswork',
+      'Available on Pro and Business plans',
+    ]}
+    screenshot={{ src: '/screenshots/csv-import.png', alt: 'CSV bulk import interface' }}
+  />
+
+  <SubFeatureSection
+    eyebrow="Smart search"
+    title="Find anything in milliseconds."
+    body="Type a product name, SKU, supplier, or category. Results filter as you type. Works across inventory, sales history, and contact records — one search, three layers of context."
+    screenshot={{ src: '/screenshots/inventory-search.png', alt: 'Smart search across inventory' }}
+    reverse
+    background="alt"
+  />
+
+  <SubFeatureRelated
+    related={[
+      { label: 'Sales & credit management', href: '/features/sales-management' },
+      { label: 'WhatsApp AI add-on', href: '/whatsapp-ai' },
+      { label: 'Voice AI add-on', href: '/voice-ai' },
+    ]}
+    keyFeatures={[
+      { label: 'All features', href: '/features' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Security & trust', href: '/security' },
+      { label: 'Customer stories', href: '/customers' },
+    ]}
+  />
+
+  <FinalCTA />
+</BaseLayout>

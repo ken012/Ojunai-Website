@@ -1,0 +1,88 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import SubFeatureHero from '~/components/sections/SubFeatureHero.astro';
+import SubFeatureSection from '~/components/sections/SubFeatureSection.astro';
+import SubFeatureRelated from '~/components/sections/SubFeatureRelated.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const title = 'Sales & Credit Management — Ojunai';
+const description =
+  "Record every sale in seconds. Track credit, partial payments, customer balances and aging in one ledger. Built for the cash-and-credit reality of African SMEs.";
+---
+
+<BaseLayout title={title} description={description} canonical="/features/sales-management">
+  <SubFeatureHero
+    eyebrow="Sales & Credit"
+    title="Every sale, every customer balance, in one ledger."
+    description="Cash, credit, partial payments. Customers who promise to pay Friday. Suppliers who give you 30 days. Ojunai handles the messy reality of African retail without forcing you into a foreign accounting model."
+  />
+
+  <SubFeatureSection
+    eyebrow="Sale recording"
+    title="Sales in seconds — your way."
+    body={`Record from the dashboard manually, or enable the WhatsApp AI add-on to log sales by chat ("Sold 5 bags of rice at 3,000 each") from any phone. Every recorded sale auto-deducts inventory and updates your ledger.`}
+    bullets={[
+      'Cash, card, transfer, mobile money — all supported',
+      'Multiple payment methods on a single sale',
+      'Auto-link to customer profile and inventory',
+    ]}
+    screenshot={{ src: '/screenshots/sales.png', alt: 'Sales recording interface' }}
+  />
+
+  <SubFeatureSection
+    eyebrow="Credit & collections"
+    title="Track who owes you and for how long."
+    body={`Credit sales create a customer balance automatically. Aging report shows who's drifting past their promise date. Partial payments are first-class — record "Ama paid 20,000 off her debt" and the balance updates.`}
+    bullets={[
+      'Customer-level balances and history',
+      'Aging report (current, 30, 60, 90+ days)',
+      'Partial payment recording',
+      'Daily customers-owing summary',
+    ]}
+    screenshot={{ src: '/screenshots/contacts-page.png', alt: 'Customer balance and credit page' }}
+    reverse
+    background="alt"
+  />
+
+  <SubFeatureSection
+    eyebrow="Supplier debts"
+    title="Track what you owe — and when."
+    body="Suppliers who let you pay in 30 days deserve the same ledger treatment as your credit customers. Track outstanding supplier balances, due dates, and payment history all in one view."
+    bullets={[
+      'Supplier-level outstanding balances',
+      'Due-date reminders before they hit',
+      'Payment history per supplier',
+    ]}
+    screenshot={{ src: '/screenshots/expenses-page.png', alt: 'Supplier and expense tracking' }}
+  />
+
+  <SubFeatureSection
+    eyebrow="Reports & exports"
+    title="Pull a P&L, sales report, or aging in seconds."
+    body="Daily and weekly summaries land automatically. Need a deeper view? Generate sales reports by date range, customer, product, or category — exportable as PDF for your accountant."
+    bullets={[
+      'Auto-sent daily summary at 8pm',
+      'Monday morning weekly review',
+      'PDF reports via WhatsApp or dashboard',
+    ]}
+    screenshot={{ src: '/screenshots/reports-page.png', alt: 'Sales reports and exports' }}
+    reverse
+    background="alt"
+  />
+
+  <SubFeatureRelated
+    related={[
+      { label: 'Inventory management', href: '/features/inventory-management' },
+      { label: 'WhatsApp AI add-on', href: '/whatsapp-ai' },
+      { label: 'Voice AI add-on', href: '/voice-ai' },
+    ]}
+    keyFeatures={[
+      { label: 'All features', href: '/features' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Security & trust', href: '/security' },
+      { label: 'Customer stories', href: '/customers' },
+    ]}
+  />
+
+  <FinalCTA />
+</BaseLayout>
