@@ -1,0 +1,324 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const integrations = [
+  {
+    name: 'WhatsApp (via Twilio)',
+    category: 'Channel',
+    body: 'Every Ojunai feature flows through WhatsApp first. Twilio\'s WhatsApp Business API powers the channel — same WhatsApp app you already use, no separate downloads.',
+    plan: 'All plans',
+    initials: 'WA',
+    color: 'wa',
+  },
+  {
+    name: 'Paystack',
+    category: 'Payments',
+    body: 'Subscription billing for Nigerian customers. Cards, bank transfer, USSD. PCI-DSS Level 1 — Ojunai never sees your card numbers.',
+    plan: 'All plans (subscription billing only)',
+    initials: 'P',
+    color: 'pay',
+  },
+  {
+    name: 'Flutterwave',
+    category: 'Payments',
+    body: 'Subscription billing for the rest of Africa. Cards, mobile money, bank transfer across Ghana, Kenya, South Africa, and beyond.',
+    plan: 'All plans (subscription billing only)',
+    initials: 'F',
+    color: 'flutter',
+  },
+  {
+    name: 'M-Pesa',
+    category: 'Payments',
+    body: 'Pay your Ojunai subscription via M-Pesa in Kenya. Same flow as Flutterwave; we surface M-Pesa as a first-class option at checkout.',
+    plan: 'All plans (Kenyan customers)',
+    initials: 'M',
+    color: 'mpesa',
+  },
+  {
+    name: 'CSV Bulk Import',
+    category: 'Data',
+    body: 'Five smart import modes: New Purchase, Existing Stock (migration), Price Update Only, Historical Sales, Existing Debts. Thousands of records imported in seconds.',
+    plan: 'Pro &amp; Business',
+    initials: 'CSV',
+    color: 'data',
+  },
+  {
+    name: 'Anthropic Claude',
+    category: 'AI',
+    body: 'Claude (Anthropic) powers every WhatsApp message understanding. Trained for Pidgin, code-switching, and African business context. Messages are never used to train Anthropic\'s models.',
+    plan: 'All plans (under the hood)',
+    initials: 'AI',
+    color: 'ai',
+  },
+];
+
+const apiPlans = [
+  {
+    title: 'REST API',
+    body: 'Pull sales, inventory, customers, expenses programmatically. Push transactions from your own POS or e-commerce. JSON over HTTPS, OAuth2 auth.',
+  },
+  {
+    title: 'Webhooks',
+    body: 'Subscribe to sale.created, debt.settled, lowstock.alert and more. Build custom alerting, data warehouses, or downstream automations.',
+  },
+  {
+    title: 'Embedded reports',
+    body: "Embed Ojunai's dashboards inside your own internal tools via signed iframe URLs. Multi-branch chains use this to expose location dashboards to managers.",
+  },
+];
+---
+
+<BaseLayout
+  title="Integrations — Ojunai"
+  description="Ojunai integrates with WhatsApp via Twilio, Paystack and Flutterwave for payments, M-Pesa for Kenya, CSV import for data, and Claude for AI. API access available on the Business plan."
+  canonical="/integrations"
+>
+  <section class="int-hero">
+    <div class="container int-hero-inner">
+      <span class="int-hero-pill">Integrations</span>
+      <h1>The pieces that make Ojunai work — and play well with yours.</h1>
+      <p>
+        Built on best-in-class infrastructure for African commerce. API and webhook access on the
+        Business plan for teams that need to plug Ojunai into the rest of their stack.
+      </p>
+    </div>
+  </section>
+
+  <section class="section int-grid-section">
+    <div class="container">
+      <div class="int-grid">
+        {integrations.map((i) => (
+          <div class="int-card">
+            <div class={`int-logo int-logo-${i.color}`}>{i.initials}</div>
+            <span class="int-cat">{i.category}</span>
+            <h3>{i.name}</h3>
+            <p>{i.body}</p>
+            <span class="int-plan">{i.plan}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section int-api-section">
+    <div class="container">
+      <div class="int-api-card">
+        <div class="int-api-header">
+          <span class="int-api-pill">Business plan</span>
+          <h2>API access &amp; webhooks</h2>
+          <p>
+            Plug Ojunai into your own systems. REST API, webhooks, and embedded reports — for
+            multi-branch chains, integrators, and teams with custom workflows.
+          </p>
+        </div>
+        <div class="int-api-grid">
+          {apiPlans.map((p) => (
+            <div class="int-api-feature">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </div>
+        <a
+          href="mailto:contact@ojunai.com?subject=Ojunai%20API%20access%20inquiry"
+          class="btn-primary int-api-cta"
+        >
+          Talk to sales about API access
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section int-request">
+    <div class="container int-request-inner">
+      <h2>Don't see what you need?</h2>
+      <p>
+        We're always adding new integrations. POS systems, e-commerce platforms, accounting tools,
+        BI — if there's a tool your business depends on and you'd like Ojunai to talk to it,
+        tell us. Customer-driven roadmap, always.
+      </p>
+      <a href="mailto:contact@ojunai.com?subject=Integration%20request" class="int-request-link">
+        Request an integration →
+      </a>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>
+
+<style>
+  .int-hero {
+    padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .int-hero-inner { max-width: 760px; margin: 0 auto; }
+  .int-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .int-hero h1 {
+    font-size: clamp(2rem, 4.4vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .int-hero p {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+
+  .int-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 960px) { .int-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .int-grid { grid-template-columns: 1fr; } }
+
+  .int-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .int-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--brand-mid);
+  }
+  .int-logo {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .int-logo-wa     { background: linear-gradient(135deg, #25D366, #128C7E); }
+  .int-logo-pay    { background: linear-gradient(135deg, #00C3F7, #0BA4E0); }
+  .int-logo-flutter{ background: linear-gradient(135deg, #F5A623, #F37C20); }
+  .int-logo-mpesa  { background: linear-gradient(135deg, #4CB050, #2E7D32); }
+  .int-logo-data   { background: linear-gradient(135deg, #6366F1, #4F46E5); font-size: 0.85rem; }
+  .int-logo-ai     { background: linear-gradient(135deg, #C66B3D, #8B4513); }
+
+  .int-cat {
+    display: inline-block;
+    color: var(--text-3);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .int-card h3 {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .int-card p {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .int-plan {
+    display: inline-block;
+    background: var(--bg-alt);
+    color: var(--text-2);
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .int-api-section { background: var(--bg-alt); }
+  .int-api-card {
+    max-width: 980px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+    color: white;
+    border-radius: 24px;
+    padding: 56px 48px;
+    box-shadow: var(--shadow-lg);
+  }
+  .int-api-header { margin-bottom: 36px; }
+  .int-api-pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .int-api-card h2 {
+    color: white;
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+    margin-bottom: 12px;
+  }
+  .int-api-card > .int-api-header > p {
+    color: #C7D2FE;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 720px;
+  }
+  .int-api-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 768px) { .int-api-grid { grid-template-columns: 1fr; } }
+  .int-api-feature h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .int-api-feature p {
+    color: #CBD5E1;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .int-api-cta {
+    background: white;
+    color: var(--brand-dark) !important;
+  }
+  .int-api-cta:hover { background: #F1F5F9; }
+
+  .int-request-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .int-request h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin-bottom: 12px;
+  }
+  .int-request p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .int-request-link {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .int-request-link:hover { transform: translateX(4px); }
+</style>

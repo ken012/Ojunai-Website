@@ -1,0 +1,258 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const beliefs = [
+  {
+    title: 'Software should meet people where they are',
+    body: 'WhatsApp is already on every phone, in every market, in every language. We built Ojunai inside it instead of asking shop owners to learn another app.',
+  },
+  {
+    title: 'Local context is the product',
+    body: "Pidgin English, naira pricing, M-Pesa, agent banking — generic SaaS pretends these don't exist. Ojunai is built around them, not in spite of them.",
+  },
+  {
+    title: 'Owners run businesses, not spreadsheets',
+    body: "Every minute spent on bookkeeping is a minute not spent serving customers. Ojunai's job is to disappear into the background and report back at 8pm.",
+  },
+];
+---
+
+<BaseLayout
+  title="About — Ojunai"
+  description="Ojunai is on a mission to give African small businesses world-class operating tools — through a chat. Built by founders who grew up around shops."
+  canonical="/about"
+  ogImage="/og/about.png"
+>
+  <section class="about-hero">
+    <div class="container about-hero-inner">
+      <span class="about-hero-pill">About Ojunai</span>
+      <h1>Built for the way Africa actually trades.</h1>
+      <p>
+        Ojunai exists because the tools that small businesses across Africa actually use — pen and
+        paper, spreadsheets, voice notes — were never going to scale, and the global SaaS that
+        promised to help was built for a different world.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-name">
+    <div class="container about-name-inner">
+      <div class="about-name-text">
+        <div class="section-label">The name</div>
+        <h2>Ojunai. Pronounced <em>oh-joo-n-eye</em>.</h2>
+        <p>
+          <strong>Ojunai</strong> is the AI that watches over your business — every sale, every
+          receipt, every customer balance.
+        </p>
+        <p>
+          The brand promise:
+          <strong style="color: var(--brand)">"The eye that never blinks."</strong> An assistant
+          that's always paying attention, even when you can't be.
+        </p>
+      </div>
+      <div class="about-name-ideogram" aria-hidden="true">
+        <svg width="220" height="220" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="eyeGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#6366F1" />
+              <stop offset="100%" stop-color="#3730A3" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="48" fill="url(#eyeGrad)" />
+          <path d="M15 50 C 25 30, 75 30, 85 50 C 75 70, 25 70, 15 50 Z" fill="none" stroke="white" stroke-width="3.5" />
+          <circle cx="50" cy="50" r="11" fill="white" />
+          <circle cx="50" cy="50" r="5" fill="#3730A3" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-story">
+    <div class="container about-story-inner">
+      <div class="section-label">The story</div>
+      <h2>From provision-store memories to an AI that runs them</h2>
+      <p>
+        Our founder grew up in Ogoni, Nigeria, around small businesses — the kind that record sales
+        in dog-eared notebooks, that survive on the discipline of an owner who remembers every debt
+        and every restock by heart. Brilliant operators, hobbled by tools that the rest of the world
+        moved past in 1990.
+      </p>
+      <p>
+        Years later, the technology had finally caught up. Large language models could understand
+        Pidgin and English in the same sentence. WhatsApp had become the default operating system
+        for every shop owner. Modern dashboards could feel native on a 4G connection. The pieces
+        were all on the table — they just hadn't been put together for African SMEs yet.
+      </p>
+      <p>
+        Ojunai is that assembly. A chat-first AI assistant on the platform people already use,
+        backed by a clean web dashboard for when you need the bigger picture. Built by people who
+        knew the customer before they knew the technology.
+      </p>
+    </div>
+  </section>
+
+  <section class="section about-beliefs">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">What we believe</div>
+        <h2>The non-negotiables</h2>
+      </div>
+      <div class="beliefs-grid">
+        {beliefs.map((b, i) => (
+          <div class="belief-card">
+            <div class="belief-num">{String(i + 1).padStart(2, '0')}</div>
+            <h3>{b.title}</h3>
+            <p>{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-where">
+    <div class="container about-where-inner">
+      <div class="section-label">Where we are</div>
+      <h2>Live across four African markets, building for more.</h2>
+      <p class="about-where-flags">🇳🇬 Nigeria · 🇬🇭 Ghana · 🇰🇪 Kenya · 🇿🇦 South Africa</p>
+      <p>
+        We support eight currencies (NGN, GHS, KES, ZAR, USD, GBP, EUR, CAD), local payment rails
+        through Paystack and Flutterwave, and language understanding tuned for English, Pidgin and
+        — through Voice AI — Yoruba, Hausa, and Igbo.
+      </p>
+      <p>
+        We're a small, focused team. Hiring engineers, designers, and partnerships people who want
+        to build the operating system for African commerce. Email
+        <a href="mailto:contact@ojunai.com">contact@ojunai.com</a> with the subject line
+        "joining the team" if that's you.
+      </p>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding: 160px 0 80px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+  }
+  .about-hero-inner { max-width: 820px; margin: 0 auto; text-align: center; }
+  .about-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .about-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.1;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+  .about-hero p {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+
+  .about-name {
+    padding: 100px 0;
+  }
+  .about-name-inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .about-name-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .about-name-ideogram { justify-self: center; }
+  }
+  .about-name h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+    margin: 8px 0 18px;
+  }
+  .about-name p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .about-story { background: var(--bg-alt); }
+  .about-story-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .about-story h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+    margin: 8px 0 24px;
+  }
+  .about-story p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .beliefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) { .beliefs-grid { grid-template-columns: 1fr; } }
+  .belief-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+  .belief-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--brand);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .belief-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .belief-card p {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .about-where { background: var(--bg-alt); }
+  .about-where-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .about-where h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin: 8px 0 16px;
+  }
+  .about-where-flags {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+  .about-where p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .about-where a { color: var(--brand); text-decoration: underline; }
+</style>

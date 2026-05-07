@@ -1,0 +1,235 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const verticals = [
+  {
+    icon: '🏪',
+    name: 'Provision Stores',
+    bullets: [
+      'Hundreds of fast-moving SKUs tracked automatically',
+      'Credit customers with running balances',
+      'Daily profit visibility without pen-and-paper',
+    ],
+    quote: '"Most of our shops process 80–200 sales a day. Voice notes pile up, books fall behind. Ojunai turns each WhatsApp message into a sale instantly."',
+  },
+  {
+    icon: '🏭',
+    name: 'Wholesalers',
+    bullets: [
+      'Bulk inventory with multi-pack pricing',
+      'Multiple supplier debts, payment schedules',
+      'Large customer balances, partial payments',
+    ],
+    quote: '"Tracking ten distributors, fifty shops, three banks — the spreadsheet snapped. Ojunai\'s ledger handles the whole flow."',
+  },
+  {
+    icon: '🍲',
+    name: 'Food & Catering',
+    bullets: [
+      'Daily ingredient cost vs revenue',
+      'Per-dish profit margins',
+      'Catering job tracking with deposits and balances',
+    ],
+    quote: '"I knew what I sold. I didn\'t know what I made. Ojunai showed me three of my best-sellers were losing money."',
+  },
+  {
+    icon: '💄',
+    name: 'Cosmetics & Beauty',
+    bullets: [
+      'Fast-moving SKUs across many brands',
+      'Promotion and discount tracking',
+      'Restock alerts before you stock-out on hits',
+    ],
+    quote: '"My top product would disappear for a week before I noticed. Now I get an alert at 5 units left."',
+  },
+  {
+    icon: '🧱',
+    name: 'Building Materials',
+    bullets: [
+      'Large items, contractor accounts, formal invoices',
+      'Supplier credit terms with due-date reminders',
+      'Job-site delivery tracking',
+    ],
+    quote: '"Contractors take 30–60 days to pay. Ojunai\'s aging report tells me who\'s drifting before they ghost."',
+  },
+  {
+    icon: '🌾',
+    name: 'Agricultural Suppliers',
+    bullets: [
+      'Seasonal demand spikes',
+      'Bulk-bag inventory with weight conversions',
+      'Cooperative & farmer credit lines',
+    ],
+    quote: '"During planting season we sell five months of stock in three weeks. Ojunai handles the volume without us missing a record."',
+  },
+];
+---
+
+<BaseLayout
+  title="Industries — Ojunai"
+  description="Ojunai for provision stores, wholesalers, food businesses, cosmetics, building materials, and agricultural suppliers across Africa. Built around how each industry actually trades."
+  canonical="/industries"
+>
+  <section class="ind-hero">
+    <div class="container ind-hero-inner">
+      <span class="ind-hero-pill">Industries</span>
+      <h1>Built for how Africa actually trades.</h1>
+      <p>
+        From the corner provision store to the building-materials yard to the agricultural
+        cooperative — Ojunai adapts to your category, not the other way around.
+      </p>
+    </div>
+  </section>
+
+  <section class="section ind-grid-section">
+    <div class="container">
+      <div class="ind-grid">
+        {verticals.map((v) => (
+          <div class="ind-card">
+            <div class="ind-card-head">
+              <span class="ind-card-icon">{v.icon}</span>
+              <h2>{v.name}</h2>
+            </div>
+            <ul>
+              {v.bullets.map((b) => <li>{b}</li>)}
+            </ul>
+            <blockquote>{v.quote}</blockquote>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section ind-other">
+    <div class="container ind-other-inner">
+      <h2>Don't see your industry?</h2>
+      <p>
+        Ojunai's data model is general-purpose — sales, inventory, expenses, debts. If you sell
+        anything to anyone, it works. Pharmacies, electronics shops, hairdressers, mechanics,
+        printing presses, fashion designers — all running on Ojunai today.
+      </p>
+      <a href="/features" class="ind-other-link">See the full feature set →</a>
+    </div>
+  </section>
+
+  <FinalCTA />
+</BaseLayout>
+
+<style>
+  .ind-hero {
+    padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .ind-hero-inner { max-width: 720px; margin: 0 auto; }
+  .ind-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .ind-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .ind-hero p {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+
+  .ind-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) { .ind-grid { grid-template-columns: 1fr; } }
+
+  .ind-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .ind-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--brand-mid);
+  }
+  .ind-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .ind-card-icon { font-size: 2rem; line-height: 1; }
+  .ind-card-head h2 {
+    font-size: 1.3rem;
+    color: var(--text);
+    margin: 0;
+  }
+  .ind-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 18px;
+  }
+  .ind-card li {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    padding: 4px 0 4px 22px;
+    position: relative;
+  }
+  .ind-card li::before {
+    content: '✓';
+    color: var(--accent2);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+  }
+  .ind-card blockquote {
+    border-left: 3px solid var(--brand);
+    background: var(--brand-light);
+    padding: 12px 16px;
+    margin: 0;
+    color: var(--text);
+    font-size: 0.92rem;
+    font-style: italic;
+    line-height: 1.55;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .ind-other { background: var(--bg-alt); }
+  .ind-other-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ind-other h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin-bottom: 12px;
+  }
+  .ind-other p {
+    color: var(--text-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .ind-other-link {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .ind-other-link:hover { transform: translateX(4px); }
+</style>
