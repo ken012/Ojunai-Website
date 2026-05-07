@@ -1,0 +1,36 @@
+/* Brand design tokens — single source of truth. */
+:root {
+  /* Brand */
+  --brand: #4F46E5;
+  --brand-dark: #3730A3;
+  --brand-light: #EEF2FF;
+  --brand-mid: #6366F1;
+  --accent: #06B6D4;
+  --accent2: #10B981;
+
+  /* Text */
+  --text: #0F172A;
+  --text-2: #475569;
+  --text-3: #94A3B8;
+
+  /* Surfaces */
+  --bg: #FAFAFA;
+  --bg-alt: #F1F5F9;
+  --border: #E2E8F0;
+  --white: #FFFFFF;
+
+  /* Channel colors */
+  --wa-green: #25D366;
+
+  /* Geometry */
+  --radius: 16px;
+  --radius-sm: 10px;
+
+  /* Shadows */
+  --shadow: 0 4px 24px rgba(79, 70, 229, 0.10);
+  --shadow-lg: 0 12px 48px rgba(79, 70, 229, 0.16);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
