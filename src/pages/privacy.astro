@@ -1,0 +1,121 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — Ojunai"
+  description="Ojunai Privacy Policy. Learn how we collect, use, and protect your business data."
+  canonical="/privacy"
+>
+  <section class="legal-page">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="legal-updated">Last updated: April 2026</p>
+
+      <p>
+        At Ojunai, we believe your business data belongs to you. This Privacy Policy explains what
+        information we collect, how we use it, and how we keep it safe. We've written this in plain
+        language because we want you to actually read it.
+      </p>
+
+      <h2>1. Information We Collect</h2>
+      <p>When you use Ojunai, we collect the following types of information:</p>
+      <ul>
+        <li><strong>Account information:</strong> Your name, phone number, email address, business name, business type, and city — provided during signup</li>
+        <li><strong>Business data:</strong> Sales, expenses, inventory, contacts, debts, and other records you create through the platform</li>
+        <li><strong>WhatsApp messages:</strong> Messages you send to and receive from the Ojunai bot, stored as conversation history to provide context for future interactions</li>
+        <li><strong>Usage data:</strong> Basic information about how you use the dashboard (pages visited, features used) to help us improve the product</li>
+        <li><strong>Device and browser information:</strong> Standard technical data such as IP address, browser type, and device type — collected automatically when you visit our website or dashboard</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <p>We use your information to:</p>
+      <ul>
+        <li><strong>Deliver the service:</strong> Process your WhatsApp messages, record transactions, generate reports, and display your dashboard</li>
+        <li><strong>AI processing:</strong> Your WhatsApp messages are sent to our AI provider (Claude by Anthropic) to understand your intent and extract transaction details. The AI does not write directly to your database — it only parses your messages, and our backend executes the actions</li>
+        <li><strong>Billing:</strong> Process subscription payments, send payment reminders, and manage your plan</li>
+        <li><strong>Communication:</strong> Send you daily/weekly business summaries, low-stock alerts, and important service updates via WhatsApp</li>
+        <li><strong>Improvement:</strong> Understand usage patterns to improve features, fix bugs, and build a better product</li>
+      </ul>
+      <p>We will never use your business data for advertising, sell it to third parties, or share it with other businesses.</p>
+
+      <h2>3. Payment Data</h2>
+      <p>All payment processing is handled by our payment partners:</p>
+      <ul>
+        <li><strong>Paystack</strong> — primarily for payments in Nigeria</li>
+        <li><strong>Flutterwave</strong> — for other African markets and international payments</li>
+      </ul>
+      <p>We do not store your credit card numbers, bank account details, or mobile money PINs. These are processed and secured entirely by our payment providers, who are PCI-DSS compliant. We only receive confirmation of successful or failed payments.</p>
+
+      <h2>4. WhatsApp Messages</h2>
+      <p>Your WhatsApp messages to the Ojunai bot are:</p>
+      <ul>
+        <li><strong>Processed by AI:</strong> Each message is sent to Claude (by Anthropic) for natural language understanding. The AI extracts your intent (e.g., "record a sale") and returns structured data. It does not store your messages independently</li>
+        <li><strong>Stored for context:</strong> Your recent message history is kept in our database so the bot can understand follow-up messages and provide relevant responses</li>
+        <li><strong>Not shared with third parties:</strong> We do not share your message content with anyone other than our AI provider for the purpose of processing your requests</li>
+        <li><strong>Delivered via Twilio:</strong> WhatsApp message delivery is powered by Twilio's WhatsApp Business API. Twilio processes messages in transit but does not access or use your message content for their own purposes</li>
+      </ul>
+
+      <h2>5. Data Sharing</h2>
+      <p>We share your data only with the service providers necessary to operate Ojunai:</p>
+      <ul>
+        <li><strong>Anthropic (Claude AI):</strong> Receives your WhatsApp messages for natural language processing. Subject to <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's privacy policy</a></li>
+        <li><strong>Twilio:</strong> Delivers WhatsApp messages between you and the bot. Subject to <a href="https://www.twilio.com/legal/privacy" target="_blank" rel="noopener">Twilio's privacy policy</a></li>
+        <li><strong>Paystack / Flutterwave:</strong> Process subscription payments. Subject to their respective privacy policies</li>
+      </ul>
+      <p>We do not sell, rent, or trade your data. We do not share your business records, customer lists, or financial data with any party not listed above.</p>
+
+      <h2>6. Data Retention</h2>
+      <ul>
+        <li><strong>Active accounts:</strong> Your data is retained for as long as your account is active</li>
+        <li><strong>Cancelled accounts:</strong> After cancellation, your data is retained for 90 days in case you reactivate. After that, it is permanently deleted</li>
+        <li><strong>Export:</strong> You can export your business data at any time from the dashboard (on eligible plans)</li>
+        <li><strong>Deletion requests:</strong> You can request full deletion of your account and all associated data by emailing <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>. We will process deletion requests within 30 days</li>
+      </ul>
+
+      <h2>7. Security</h2>
+      <p>We take the security of your data seriously:</p>
+      <ul>
+        <li><strong>Encryption in transit:</strong> All connections use HTTPS/TLS encryption</li>
+        <li><strong>Encrypted storage:</strong> Sensitive data is encrypted at rest in our database</li>
+        <li><strong>Access controls:</strong> Role-based access ensures staff members only see what the business owner permits</li>
+        <li><strong>Server security:</strong> Our infrastructure is hosted on hardened servers with firewalls, SSH key-only access, and intrusion detection</li>
+        <li><strong>Daily backups:</strong> Automated daily database backups ensure your data can be recovered in the event of an incident</li>
+      </ul>
+      <p>No system is 100% secure. If we ever discover a data breach that affects your account, we will notify you within 72 hours.</p>
+
+      <h2>8. Your Rights</h2>
+      <p>Aligned with the Nigeria Data Protection Regulation (NDPR) and GDPR principles, you have the right to:</p>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of all data we hold about you and your business</li>
+        <li><strong>Correction:</strong> Update or correct inaccurate information in your account</li>
+        <li><strong>Deletion:</strong> Request permanent deletion of your account and data</li>
+        <li><strong>Portability:</strong> Export your business data in standard formats (CSV) from the dashboard</li>
+        <li><strong>Objection:</strong> Object to specific uses of your data — we will comply where legally required</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>.</p>
+
+      <h2>9. Cookies & Analytics</h2>
+      <p>We keep tracking minimal:</p>
+      <ul>
+        <li>The Ojunai website and dashboard use only essential cookies required for authentication and session management</li>
+        <li>We do not use third-party advertising trackers, social media pixels, or cross-site tracking</li>
+        <li>We may use privacy-respecting analytics to understand aggregate usage patterns (e.g., which features are most used), but never to identify or profile individual users</li>
+      </ul>
+
+      <h2>10. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we make significant changes:</p>
+      <ul>
+        <li>We will notify you via WhatsApp message or email</li>
+        <li>The "Last updated" date at the top of this page will be revised</li>
+        <li>Continued use of the service after notification constitutes acceptance of the updated policy</li>
+      </ul>
+
+      <h2>11. Contact</h2>
+      <p>If you have questions about this Privacy Policy or how we handle your data, please reach out:</p>
+      <ul>
+        <li>Email: <a href="mailto:contact@ojunai.com">contact@ojunai.com</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

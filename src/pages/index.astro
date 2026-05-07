@@ -1,0 +1,45 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import Hero from '~/components/sections/Hero.astro';
+import ProofStrip from '~/components/sections/ProofStrip.astro';
+import HowItWorks from '~/components/sections/HowItWorks.astro';
+import FeaturesTeaser from '~/components/sections/FeaturesTeaser.astro';
+import DashboardTour from '~/components/sections/DashboardTour.astro';
+import AddonsTeaser from '~/components/sections/AddonsTeaser.astro';
+import Testimonials from '~/components/sections/Testimonials.astro';
+import CustomerProof from '~/components/sections/CustomerProof.astro';
+import PricingTeaser from '~/components/sections/PricingTeaser.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+const title = 'Ojunai — Inventory management for African SMEs. AI-powered dashboard, WhatsApp + Voice add-ons.';
+const description =
+  "Ojunai is the AI-powered inventory and business management platform for African SMEs. Track sales, stock, expenses and credit from a clean dashboard. Add WhatsApp AI or Voice AI as you grow.";
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Ojunai',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web, iOS, Android (via WhatsApp)',
+  description,
+  offers: {
+    '@type': 'Offer',
+    price: '3500',
+    priceCurrency: 'NGN',
+    description: 'Starter plan, billed monthly. One-month free trial.',
+  },
+};
+---
+
+<BaseLayout title={title} description={description} canonical="/" jsonLd={softwareSchema}>
+  <Hero />
+  <ProofStrip />
+  <DashboardTour />
+  <HowItWorks />
+  <FeaturesTeaser />
+  <AddonsTeaser />
+  <Testimonials />
+  <CustomerProof />
+  <PricingTeaser />
+  <FinalCTA />
+</BaseLayout>
