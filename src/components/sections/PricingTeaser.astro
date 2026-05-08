@@ -1,49 +1,49 @@
 ---
 /**
- * 3-card pricing teaser (Starter / Pro / Business). Full /pricing page has 4 plans,
- * the comparison table, the currency + billing toggle and the Voice AI add-on card.
- *
- * Prices shown here in NGN/monthly to keep things simple — cross-currency switching
- * is the job of /pricing.
+ * 3-card pricing teaser shown on the homepage. The full /pricing page has all
+ * 5 tiers (Starter / Operator / Professional / Scale / Enterprise) plus the
+ * full comparison tables and add-ons; this teaser surfaces the 3 most common
+ * choices and links out for the rest.
  */
 const plans = [
   {
     label: 'Starter',
-    price: '₦3,500',
-    period: '/month',
-    sub: 'For solo traders just getting started',
-    features: ['WhatsApp bot access', 'Up to 30 products', '150 messages / month', 'Daily summaries'],
-    cta: { label: 'Get started', href: 'https://app.ojunai.com/register', external: true },
+    price: 'Free',
+    period: '',
+    sub: 'For individuals getting started',
+    features: ['Inventory tracking', 'Sales logging', 'Expense tracking', 'Basic reports', '1 user'],
+    cta: { label: 'Start Free', href: 'https://app.ojunai.com/register', external: true },
     featured: false,
   },
   {
-    label: 'Pro',
-    price: '₦12,500',
+    label: 'Professional',
+    price: '$79',
     period: '/month',
-    sub: 'For established shops ready to scale',
+    sub: 'For businesses that want clarity and control',
     features: [
-      'Everything in Shop',
-      'Unlimited messages',
-      'Up to 10 staff',
-      'CSV bulk import',
-      'Priority support',
+      'Everything in Operator',
+      'Advanced analytics & profit tracking',
+      'WhatsApp Assistant: 85 actions / week',
+      '3 users',
+      'WhatsApp + PDF receipts',
     ],
-    cta: { label: 'Get started', href: 'https://app.ojunai.com/register', external: true },
+    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=professional', external: true },
     featured: true,
-    badge: 'Most chosen',
+    badge: 'Most Popular',
   },
   {
-    label: 'Business',
-    price: '₦30,000',
+    label: 'Scale',
+    price: '$199',
     period: '/month',
-    sub: 'For wholesalers, multi-branch & integrations',
-    features: ['Everything in Pro', 'Multi-branch', 'API access', 'Dedicated account manager'],
-    cta: {
-      label: 'Talk to sales',
-      href:
-        'mailto:contact@ojunai.com?subject=Ojunai%20Business%20plan%20inquiry',
-      external: false,
-    },
+    sub: 'For teams and growing operations',
+    features: [
+      'Everything in Professional',
+      'Multi-user + multi-location',
+      'WhatsApp Assistant: 250 actions / week',
+      '6 users · Priority support',
+      'Branded receipts + audit logs',
+    ],
+    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=scale', external: true },
     featured: false,
   },
 ];
@@ -53,8 +53,8 @@ const plans = [
   <div class="container">
     <div class="section-header">
       <div class="section-label">Simple Plans</div>
-      <h2>Pricing that scales with your shop</h2>
-      <p>Local currency. One month free on every plan. Cancel anytime.</p>
+      <h2>Pricing that scales with your business</h2>
+      <p>Start free. Upgrade as you grow. WhatsApp Assistant + add-ons priced à la carte.</p>
     </div>
 
     <div class="pricing-teaser-grid">
@@ -87,7 +87,7 @@ const plans = [
     </div>
 
     <p class="pricing-teaser-cta">
-      <a href="/pricing">Compare all plans + Voice AI →</a>
+      <a href="/pricing">See all 5 plans + add-ons →</a>
     </p>
   </div>
 </section>

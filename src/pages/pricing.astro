@@ -1,151 +1,591 @@
 ---
 import BaseLayout from '~/components/layout/BaseLayout.astro';
-import PricingEngine from '~/components/sections/PricingEngine.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 
-const compareRows = [
-  { feature: 'Products tracked', cells: ['Up to 30', 'Unlimited', 'Unlimited', 'Unlimited'] },
-  { feature: 'WhatsApp messages / month', cells: ['150', '850', 'Unlimited', 'Unlimited'] },
-  { feature: 'Staff accounts', cells: ['—', 'Up to 3', 'Up to 10', 'Unlimited'] },
-  { feature: 'WhatsApp bot access', cells: ['✓', '✓', '✓', '✓'] },
-  { feature: 'Daily & weekly summaries', cells: ['✓', '✓', '✓', '✓'] },
-  { feature: 'CSV bulk import', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Debt & credit ledger', cells: ['Basic', 'Full', 'Full', 'Full'] },
-  { feature: 'Advanced reports & trend charts', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Priority support', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Multi-branch support', cells: ['—', '—', '—', '✓'] },
-  { feature: 'Custom report exports', cells: ['—', '—', '—', '✓'] },
-  { feature: 'API access & integrations', cells: ['—', '—', '—', '✓'] },
-  { feature: 'Dedicated account manager', cells: ['—', '—', '—', '✓'] },
-  { feature: 'Inventory search', cells: ['✓', '✓', '✓', '✓'] },
-  { feature: 'Sales & expense search', cells: ['✓', '✓', '✓', '✓'] },
-  { feature: 'PDF reports via WhatsApp', cells: ['✓', '✓', '✓', '✓'] },
-  { feature: 'Order reservations', cells: ['—', '✓', '✓', '✓'] },
-  { feature: 'Weekly sales velocity', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Cash flow forecast', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Sales comparison', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Revenue by category', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Smart import modes', cells: ['—', '—', '✓', '✓'] },
-  { feature: 'Voice AI add-on', cells: ['+', '+', '+', '+'] },
+// ====================================
+// PLANS
+// ====================================
+const plans = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: 'Free',
+    period: '',
+    sub: 'Best for individuals getting started.',
+    features: [
+      'Inventory tracking',
+      'Sales logging',
+      'Expense tracking',
+      'Basic reports',
+      '1 user',
+      'No WhatsApp included by default',
+    ],
+    cta: { label: 'Start Free', href: 'https://app.ojunai.com/register', external: true, variant: 'outline' },
+    featured: false,
+  },
+  {
+    id: 'operator',
+    name: 'Operator',
+    price: '$29',
+    period: '/month',
+    sub: 'Best for small businesses running daily operations.',
+    features: [
+      'Everything in Starter',
+      'Debt & loan tracking',
+      'Manual payment tracking',
+      'Customer records',
+      'Basic insights',
+      'WhatsApp Assistant: 25 actions/week',
+      '1 user',
+      'Basic email receipts',
+    ],
+    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=operator', external: true, variant: 'outline' },
+    featured: false,
+  },
+  {
+    id: 'professional',
+    name: 'Professional',
+    price: '$79',
+    period: '/month',
+    sub: 'Best for businesses that want clarity and control.',
+    features: [
+      'Everything in Operator',
+      'Advanced analytics & reports',
+      'Profit tracking & insights',
+      'Product performance tracking',
+      'Data export',
+      'WhatsApp Assistant: 85 actions/week',
+      '3 users',
+      'WhatsApp receipts',
+      'Basic PDF receipts',
+    ],
+    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=professional', external: true, variant: 'primary' },
+    featured: true,
+    badge: 'Most Popular',
+  },
+  {
+    id: 'scale',
+    name: 'Scale',
+    price: '$199',
+    period: '/month',
+    sub: 'Best for teams and growing operations.',
+    features: [
+      'Everything in Professional',
+      'Multi-user collaboration',
+      'Multi-location support',
+      'Automation alerts',
+      'CSV imports',
+      'Bulk price updates',
+      'Custom business branding',
+      'WhatsApp Assistant: 250 actions/week',
+      'Priority support',
+      '6 users',
+      'PDF receipts with custom logo & footer',
+      'Audit logs up to 90 days',
+    ],
+    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=scale', external: true, variant: 'outline' },
+    featured: false,
+  },
 ];
 
-// FAQPage schema generated from the same data we render below.
-const buildFaqSchema = (qas) => ({
+const enterprise = {
+  name: 'Enterprise',
+  price: 'Custom',
+  sub: 'Best for large or complex businesses.',
+  features: [
+    'Everything in Scale',
+    'API access',
+    'Custom integrations',
+    'Dedicated onboarding',
+    '10+ users, negotiable',
+    'Extended audit log retention',
+    'Custom WhatsApp limits',
+  ],
+};
+
+// ====================================
+// FULL FEATURE COMPARISON
+// ====================================
+const planLabels = ['Starter', 'Operator', 'Professional', 'Scale', 'Enterprise'];
+
+const compareCategories = [
+  {
+    name: 'Core',
+    rows: [
+      { feature: 'Inventory tracking',         cells: ['✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Sales logging',              cells: ['✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Expense tracking',           cells: ['✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Customer records',           cells: ['—', '✓', '✓', '✓', '✓'] },
+      { feature: 'Basic reports',              cells: ['✓', '✓', '✓', '✓', '✓'] },
+    ],
+  },
+  {
+    name: 'Debt, Money & Insights',
+    rows: [
+      { feature: 'Debt & loan tracking',       cells: ['—', '✓', '✓', '✓', '✓'] },
+      { feature: 'Manual payment tracking',    cells: ['—', '✓', '✓', '✓', '✓'] },
+      { feature: 'Profit tracking & insights', cells: ['—', '—', '✓', '✓', '✓'] },
+      { feature: 'Advanced analytics',         cells: ['—', '—', '✓', '✓', '✓'] },
+      { feature: 'Product performance',        cells: ['—', '—', '✓', '✓', '✓'] },
+      { feature: 'Data export',                cells: ['—', '—', '✓', '✓', '✓'] },
+      { feature: 'Custom dashboards',          cells: ['—', '—', 'Add-on', 'Add-on', '✓'] },
+    ],
+  },
+  {
+    name: 'Team & Permissions',
+    rows: [
+      { feature: 'Users included',             cells: ['1', '1', '3', '6', '10+'] },
+      { feature: 'Multi-user collaboration',   cells: ['—', '—', '—', '✓', '✓'] },
+      { feature: 'Multi-location support',     cells: ['—', '—', '—', '✓', '✓'] },
+      { feature: 'Audit logs',                 cells: ['—', '—', '—', '90 days', 'Extended'] },
+    ],
+  },
+  {
+    name: 'Branding & Receipts',
+    rows: [
+      { feature: 'Email receipts',             cells: ['—', 'Basic', 'Basic', 'Branded', 'Branded'] },
+      { feature: 'PDF receipts',               cells: ['—', '—', 'Basic', 'Custom logo', 'Custom logo'] },
+      { feature: 'Custom business branding',   cells: ['—', '—', '—', '✓', '✓'] },
+    ],
+  },
+  {
+    name: 'Operations & Automation',
+    rows: [
+      { feature: 'CSV imports',                cells: ['—', '—', '—', '✓', '✓'] },
+      { feature: 'Bulk price updates',         cells: ['—', '—', '—', '✓', '✓'] },
+      { feature: 'Automation alerts',          cells: ['—', '—', '—', '✓', '✓'] },
+    ],
+  },
+  {
+    name: 'Support & Platform',
+    rows: [
+      { feature: 'Email support',              cells: ['Standard', 'Standard', 'Standard', 'Priority', 'Dedicated'] },
+      { feature: 'Dedicated onboarding',       cells: ['—', '—', '—', '—', '✓'] },
+      { feature: 'API access',                 cells: ['—', '—', '—', '—', '✓'] },
+      { feature: 'Custom integrations',        cells: ['—', '—', '—', '—', '✓'] },
+    ],
+  },
+];
+
+// ====================================
+// WHATSAPP COMPARISON
+// ====================================
+const whatsappCompare = [
+  { feature: 'WhatsApp Assistant included',           cells: ['Add-on', '✓', '✓', '✓', '✓'] },
+  { feature: 'Business actions per week',             cells: ['—', '25', '85', '250', 'Custom'] },
+  { feature: 'WhatsApp receipts',                     cells: ['—', '—', '✓', '✓', '✓'] },
+  { feature: 'Bulk announcements via WhatsApp',       cells: ['—', '—', 'Add-on', 'Add-on', 'Add-on'] },
+  { feature: 'WhatsApp Business OS (full operations)',cells: ['Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on'] },
+];
+
+// ====================================
+// POWER ADD-ONS
+// ====================================
+const whatsappStarterPacks = [
+  { name: 'Starter WhatsApp Lite',  price: '$6/mo',  actions: '50 business actions / month' },
+  { name: 'Starter WhatsApp Basic', price: '$10/mo', actions: '120 business actions / month' },
+  { name: 'Starter WhatsApp Plus',  price: '$15/mo', actions: '250 business actions / month' },
+];
+
+const whatsappUsagePacks = [
+  { actions: '50 business actions',  price: '$5'  },
+  { actions: '150 business actions', price: '$10' },
+  { actions: '200 business actions', price: '$13' },
+  { actions: '300 business actions', price: '$18' },
+  { actions: '600 business actions', price: '$30' },
+];
+
+const otherAddons = [
+  { name: 'Voice AI',                    price: '$39–$79/mo',     desc: '24/7 phone receptionist — answers customer calls, takes orders, books pickups.', href: '/voice-ai' },
+  { name: 'Advanced Export Hub',         price: '$10/mo',         desc: 'CSV + PDF + scheduled exports across every dataset.' },
+  { name: 'Extra Users',                 price: '$7.99/user/mo',  desc: 'Add seats beyond your plan limit.' },
+  { name: 'Multi-location',              price: '$10.99/mo',      desc: 'Track inventory and sales across multiple branches.' },
+  { name: 'Receipts Pro',                price: '$6.99/mo',       desc: 'Polished email + PDF receipts.' },
+  { name: 'Branded PDF Receipts',        price: '$8.99/mo',       desc: 'PDF receipts with your custom logo and footer.' },
+  { name: 'Audit Logs Pro',              price: '$7.99/mo',       desc: 'Extended audit-log retention and exports.' },
+  { name: 'Advanced Alerts',             price: '$5.99/mo',       desc: 'Custom thresholds for low stock, debts, sales drops.' },
+  { name: 'Bulk Announcements',          price: '$9.99/mo',       desc: 'WhatsApp + email broadcast to your customer list.' },
+  { name: 'Custom Dashboards & Reports', price: '$7.99/mo',       desc: 'Build and save custom views of your data.' },
+];
+
+const operationsPro = {
+  name: 'Operations Pro Pack',
+  price: '$14.99/mo',
+  desc: 'Bundle Receipts Pro + Branded PDF Receipts + Audit Logs Pro. Save vs buying individually.',
+  includes: ['Receipts Pro', 'Branded PDF Receipts', 'Audit Logs Pro'],
+};
+
+// ====================================
+// FAQ
+// ====================================
+const faqs = [
+  {
+    q: 'How does the free Starter plan work?',
+    a: 'Starter is free forever — no credit card required. You get core inventory tracking, sales logging, expense tracking, and basic reports for one user. Upgrade any time when you need debt tracking, WhatsApp Assistant, multi-user, or advanced reports.',
+  },
+  {
+    q: 'What\'s a "business action"?',
+    a: 'A business action is one operational interaction with the WhatsApp Assistant — recording a sale, adding stock, logging an expense, requesting a report, sending a receipt, or any equivalent task. Reading-only queries (like "what\'s my stock?") count as actions when they trigger a response. Casual chat and clarifications usually don\'t.',
+  },
+  {
+    q: 'What happens when I run out of weekly business actions?',
+    a: 'WhatsApp Assistant pauses for the week and you receive a notification. You can buy a usage pack any time ($5–$30 depending on size) to top up immediately, or upgrade your plan to a higher tier. Your dashboard remains fully usable regardless.',
+  },
+  {
+    q: 'Can I add Voice AI or other add-ons to any plan?',
+    a: 'Most add-ons work with any plan from Operator upward. Voice AI specifically is available on every plan including Starter — it\'s billed as a standalone subscription on top of your base plan.',
+  },
+  {
+    q: 'How do I switch plans?',
+    a: 'Upgrade or downgrade any time from the dashboard. Upgrades take effect immediately and we prorate the difference. Downgrades take effect at the end of your current billing period so you keep paid features until then.',
+  },
+  {
+    q: 'What payment methods are supported?',
+    a: 'Cards (Visa, Mastercard, Verve, Amex), bank transfers, and mobile money. We work across African and global markets through trusted payment providers. See the Payments & Billing section below for more.',
+  },
+  {
+    q: 'Do you offer refunds?',
+    a: 'Subscription fees are non-refundable, and we don\'t partial-refund unused time within a billing period. If something\'s wrong with a charge, email contact@ojunai.com and we\'ll work with our payment provider to fix it.',
+  },
+  {
+    q: 'Can I get a custom Enterprise plan?',
+    a: 'Yes. Enterprise covers 10+ users, multi-region rollouts, custom WhatsApp limits, dedicated onboarding, API access, and SLA-backed support. Email contact@ojunai.com to start the conversation.',
+  },
+  {
+    q: 'Is there a discount for annual billing?',
+    a: 'Annual billing is available on every paid plan with a discount equivalent to roughly 2 months free. Talk to sales for the exact figure on your tier.',
+  },
+];
+
+const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: qas.map((f) => ({
+  mainEntity: faqs.map((f) => ({
     '@type': 'Question',
     name: f.q,
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
-});
-
-const faqs = [
-  {
-    q: 'What happens after the free trial?',
-    a: 'Eligible new accounts get a 30-day free trial on the Starter plan with full Starter features. At the end of the trial (plus a 3-day grace period), your account needs an active subscription to keep using the service. We send WhatsApp reminders before the trial ends so nothing surprises you.',
-  },
-  {
-    q: 'Can I switch plans later?',
-    a: 'Yes — upgrade any time from your dashboard or by messaging the bot. Upgrades take effect immediately and we prorate the difference. Downgrades take effect at the end of your current billing period so you keep the features you paid for.',
-  },
-  {
-    q: 'What payment methods do you support?',
-    a: 'Bank cards (Visa, Mastercard, Verve), bank transfers, and mobile money via Paystack (primarily Nigeria) and Flutterwave (broader Africa). M-Pesa is supported in Kenya. Cards renew automatically; mobile money and transfer subscriptions are renewed manually with a WhatsApp reminder.',
-  },
-  {
-    q: 'Do you offer refunds?',
-    a: 'Subscription fees are non-refundable. We don\'t partial-refund unused time within a billing period. If something looks wrong on a charge, email contact@ojunai.com — we\'ll work with our payment provider to fix it.',
-  },
-  {
-    q: 'Which currencies can I pay in?',
-    a: 'Eight currencies: NGN, GHS, KES, ZAR, USD, GBP, EUR, CAD. Pick yours at signup and every transaction, report and summary uses it automatically. You can change currency on request, though we don\'t recommend mid-cycle.',
-  },
-  {
-    q: 'How does annual billing work?',
-    a: 'Annual plans are billed once for 12 months at signup, with a discount baked in (10% Starter, 15% Shop, ~17% Pro, 20% Business). You can switch from monthly to annual any time by emailing us; the unused portion of your monthly term is credited toward the annual purchase.',
-  },
-  {
-    q: 'Can I add Voice AI later?',
-    a: 'Yes — Voice AI is an add-on on top of any plan, including Starter. Add it from the dashboard or by emailing contact@ojunai.com. It\'s ₦5,000/month or ₦48,000/year (~20% off).',
-  },
-];
+};
 ---
 
 <BaseLayout
   title="Pricing — Ojunai"
-  description="Simple, local-currency plans for African SMEs. Monthly or annual billing, one month free, cancel anytime. Compare Starter, Shop, Pro and Business. Voice AI add-on available on every plan."
+  description="Run your business operating system on Ojunai. Free Starter plan, Operator $29, Professional $79, Scale $199, custom Enterprise. WhatsApp business actions included on every paid tier. Pay with cards, bank transfers, or mobile money."
   canonical="/pricing"
   ogImage="/og/pricing.png"
-  jsonLd={buildFaqSchema(faqs)}
+  jsonLd={faqSchema}
 >
+  <!-- HERO -->
   <section class="pricing-hero">
-    <div class="container">
-      <span class="pricing-hero-pill">Simple Pricing</span>
-      <h1>Plans that scale with your shop.</h1>
-      <p>One month free on every plan. Local currency. Cancel anytime.</p>
+    <div class="container pricing-hero-inner">
+      <span class="pricing-hero-pill">Pricing</span>
+      <h1>Plans that scale with your business.</h1>
+      <p>
+        Start free. Upgrade as you grow. Pay only for what you actually use —
+        with WhatsApp business actions, multi-user, and add-ons priced à la carte.
+      </p>
+      <p class="pricing-hero-meta">
+        Prices in USD. Annual billing available. <a href="#payments">Local payment methods supported.</a>
+      </p>
     </div>
   </section>
 
-  <section class="section pricing">
+  <!-- PLAN CARDS -->
+  <section class="pricing-cards-section">
     <div class="container">
-      <PricingEngine />
-    </div>
-  </section>
-
-  <section class="pricing-compare-section">
-    <div class="container">
-      <details class="pricing-compare-collapsible">
-        <summary>
-          <span class="compare-summary-text">
-            <strong>Compare every feature</strong>
-            <em>23 features across 4 plans</em>
-          </span>
-          <span class="compare-summary-icon">▾</span>
-        </summary>
-
-        <div class="pricing-compare">
-          <div class="pricing-compare-title">
-            <h3>Compare plans feature by feature</h3>
-            <p>Everything you get on each plan, side by side.</p>
+      <div class="pricing-cards-grid">
+        {plans.map((p) => (
+          <div class={`price-card-v2 ${p.featured ? 'price-card-v2-featured' : ''}`}>
+            {p.badge && <div class="price-card-v2-badge">{p.badge}</div>}
+            <div class="price-card-v2-header">
+              <div class="price-card-v2-name">{p.name}</div>
+              <div class="price-card-v2-price">
+                {p.price}{p.period && <span class="price-card-v2-period">{p.period}</span>}
+              </div>
+              <div class="price-card-v2-sub">{p.sub}</div>
+            </div>
+            <ul class="price-card-v2-features">
+              {p.features.map((f) => (
+                <li>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={p.cta.href}
+              target={p.cta.external ? '_blank' : undefined}
+              rel={p.cta.external ? 'noopener' : undefined}
+              class={`price-card-v2-cta ${p.cta.variant === 'primary' ? 'price-card-v2-cta-primary' : 'price-card-v2-cta-outline'}`}
+            >
+              {p.cta.label}
+            </a>
           </div>
-          <div class="compare-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>Starter</th>
-                  <th>Shop</th>
-                  <th>Pro</th>
-                  <th>Business</th>
+        ))}
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="enterprise-card">
+        <div class="enterprise-meta">
+          <div class="enterprise-pill">Enterprise</div>
+          <h3>{enterprise.sub}</h3>
+          <p class="enterprise-price">{enterprise.price}</p>
+          <ul class="enterprise-features">
+            {enterprise.features.map((f) => <li>{f}</li>)}
+          </ul>
+        </div>
+        <div class="enterprise-cta-col">
+          <a href="mailto:contact@ojunai.com?subject=Ojunai%20Enterprise%20plan%20inquiry" class="enterprise-cta">
+            Contact Sales
+          </a>
+          <p class="enterprise-cta-meta">Reply within 1 business day · contact@ojunai.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL FEATURE COMPARISON -->
+  <section class="pricing-compare-v2-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Compare plans</div>
+        <h2>Every feature, side by side</h2>
+        <p>Use this to decide between tiers — or to negotiate Enterprise.</p>
+      </div>
+
+      <div class="compare-table-wrap">
+        <table class="compare-table-v2">
+          <thead>
+            <tr>
+              <th class="compare-feature-col">Feature</th>
+              {planLabels.map((label, i) => (
+                <th class={i === 2 ? 'compare-featured-col' : ''}>{label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {compareCategories.map((cat) => (
+              <>
+                <tr class="compare-category-row">
+                  <td colspan={planLabels.length + 1}>{cat.name}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {compareRows.map((row) => (
+                {cat.rows.map((row) => (
                   <tr>
-                    <td>{row.feature}</td>
-                    {row.cells.map((cell) => {
-                      let className = '';
-                      if (cell === '✓') className = 'compare-yes';
-                      else if (cell === '—') className = 'compare-no';
-                      else if (cell === '+') className = 'compare-addon';
-                      return <td class={className}>{cell}</td>;
+                    <td class="compare-feature-col">{row.feature}</td>
+                    {row.cells.map((cell, i) => {
+                      let cls = 'compare-cell';
+                      if (cell === '✓') cls += ' compare-yes';
+                      else if (cell === '—') cls += ' compare-no';
+                      else if (cell === 'Add-on') cls += ' compare-addon';
+                      if (i === 2) cls += ' compare-featured-col';
+                      return <td class={cls}>{cell}</td>;
                     })}
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
+              </>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <section class="section pricing-faq">
+  <!-- WHATSAPP COMPARISON -->
+  <section class="pricing-whatsapp-compare">
     <div class="container">
       <div class="section-header">
-        <div class="section-label">Pricing FAQ</div>
-        <h2>Common pricing questions</h2>
+        <div class="section-label">WhatsApp Assistant</div>
+        <h2>What WhatsApp delivers on each plan</h2>
+        <p>Operate by chat — record sales, manage inventory, track debts, broadcast updates.</p>
+      </div>
+
+      <div class="compare-table-wrap">
+        <table class="compare-table-v2 compare-table-wa">
+          <thead>
+            <tr>
+              <th class="compare-feature-col">Capability</th>
+              {planLabels.map((label, i) => (
+                <th class={i === 2 ? 'compare-featured-col' : ''}>{label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {whatsappCompare.map((row) => (
+              <tr>
+                <td class="compare-feature-col">{row.feature}</td>
+                {row.cells.map((cell, i) => {
+                  let cls = 'compare-cell';
+                  if (cell === '✓') cls += ' compare-yes-wa';
+                  else if (cell === '—') cls += ' compare-no';
+                  else if (cell === 'Add-on') cls += ' compare-addon';
+                  if (i === 2) cls += ' compare-featured-col';
+                  return <td class={cls}>{cell}</td>;
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- POWER ADD-ONS -->
+  <section class="pricing-addons-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Power Add-ons</div>
+        <h2>Boost any plan</h2>
+        <p>Stack add-ons à la carte. Upgrade pieces without changing your whole tier.</p>
+      </div>
+
+      <!-- WhatsApp Business OS — featured -->
+      <div class="featured-addon">
+        <div class="featured-addon-glow"></div>
+        <div class="featured-addon-inner">
+          <div class="featured-addon-meta">
+            <span class="featured-addon-pill">Premium Differentiator</span>
+            <h3>WhatsApp Business OS — $22.99/month</h3>
+            <p>
+              Run your entire business directly from WhatsApp. No dashboard required.
+              Record sales, add and update inventory, track debts and payments — full
+              operational control through a single conversation.
+            </p>
+            <ul class="featured-addon-list">
+              <li>Record sales by chat — instant ledger updates</li>
+              <li>Add or update inventory inline (text or photo)</li>
+              <li>Track debts, payments, and customer balances</li>
+              <li>Daily and weekly summaries auto-delivered</li>
+              <li>Works alongside any plan — no dashboard required</li>
+            </ul>
+            <a
+              href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20to%20my%20plan"
+              class="featured-addon-cta"
+            >
+              Add to Plan →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Starter WhatsApp packs -->
+      <div class="addon-block">
+        <h3 class="addon-block-title">WhatsApp packs for Starter users</h3>
+        <p class="addon-block-sub">Add WhatsApp Assistant to the free Starter plan with one of these monthly bundles.</p>
+        <div class="addon-pack-grid">
+          {whatsappStarterPacks.map((p) => (
+            <div class="addon-pack">
+              <div class="addon-pack-name">{p.name}</div>
+              <div class="addon-pack-price">{p.price}</div>
+              <div class="addon-pack-actions">{p.actions}</div>
+              <a href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20pack" class="addon-pack-cta">Add to Plan</a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Usage packs -->
+      <div class="addon-block">
+        <h3 class="addon-block-title">Top up business actions, any plan</h3>
+        <p class="addon-block-sub">Pay-as-you-go top-ups when you exceed your weekly limit. One-time charges.</p>
+        <div class="usage-pack-grid">
+          {whatsappUsagePacks.map((p) => (
+            <div class="usage-pack">
+              <div class="usage-pack-actions">{p.actions}</div>
+              <div class="usage-pack-price">{p.price}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Other add-ons -->
+      <div class="addon-block">
+        <h3 class="addon-block-title">Other add-ons</h3>
+        <p class="addon-block-sub">Shape your plan exactly the way your business runs.</p>
+        <div class="other-addons-grid">
+          {otherAddons.map((a) => (
+            <div class="other-addon-card">
+              <div class="other-addon-header">
+                <strong>{a.name}</strong>
+                <span class="other-addon-price">{a.price}</span>
+              </div>
+              <p>{a.desc}</p>
+              {a.href ? (
+                <a href={a.href} class="other-addon-link">Learn more →</a>
+              ) : (
+                <a href="mailto:contact@ojunai.com?subject=Add-on%20inquiry" class="other-addon-link">Add to Plan →</a>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <!-- Operations Pro Pack — bundle highlight -->
+        <div class="ops-pro-pack">
+          <div class="ops-pro-pack-meta">
+            <span class="ops-pro-pack-tag">Bundle · Save</span>
+            <h4>{operationsPro.name} — {operationsPro.price}</h4>
+            <p>{operationsPro.desc}</p>
+            <div class="ops-pro-pack-includes">
+              {operationsPro.includes.map((item) => (
+                <span class="ops-pro-pack-chip">{item}</span>
+              ))}
+            </div>
+          </div>
+          <a href="mailto:contact@ojunai.com?subject=Add%20Operations%20Pro%20Pack" class="ops-pro-pack-cta">
+            Add to Plan
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENTS & BILLING -->
+  <section class="pricing-payments" id="payments">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Payments & Billing</div>
+        <h2>Pay your way, anywhere</h2>
+        <p>Local or international — Ojunai bills you on the rails your customers already use.</p>
+      </div>
+
+      <div class="payments-grid">
+        <div class="payment-trust">
+          <div class="payment-trust-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <h4>Cards, bank transfers, mobile money</h4>
+          <p>Visa, Mastercard, Verve, Amex, instant bank transfers, M-Pesa, and other mobile-money rails — all supported at checkout.</p>
+        </div>
+        <div class="payment-trust">
+          <div class="payment-trust-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          </div>
+          <h4>Works across African and global markets</h4>
+          <p>Bill in your local currency or in USD. We handle the conversion at checkout — no surprise foreign-exchange fees.</p>
+        </div>
+        <div class="payment-trust">
+          <div class="payment-trust-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Secure and reliable billing</h4>
+          <p>PCI-compliant infrastructure, encrypted in transit and at rest. We never store raw card details.</p>
+        </div>
+      </div>
+
+      <p class="payments-providers">
+        Powered by trusted payment providers including
+        <strong>Paystack</strong> and <strong>Flutterwave</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="pricing-faq-v2">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Frequently Asked</div>
+        <h2>Pricing questions</h2>
       </div>
       <div class="pricing-faq-list">
         {faqs.map((f) => (
@@ -166,11 +606,13 @@ const faqs = [
 </BaseLayout>
 
 <style>
+  /* ============ HERO ============ */
   .pricing-hero {
-    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
     padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
     text-align: center;
   }
+  .pricing-hero-inner { max-width: 760px; margin: 0 auto; }
   .pricing-hero-pill {
     display: inline-block;
     background: var(--brand-light);
@@ -184,82 +626,690 @@ const faqs = [
     margin-bottom: 20px;
   }
   .pricing-hero h1 {
-    font-size: clamp(2rem, 4.4vw, 3rem);
+    font-size: clamp(2.2rem, 4.6vw, 3.2rem);
     line-height: 1.15;
+    margin-bottom: 16px;
     color: var(--text);
-    margin-bottom: 14px;
   }
   .pricing-hero p {
     font-size: 1.1rem;
     color: var(--text-2);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .pricing-hero-meta {
+    font-size: 0.92rem;
+    color: var(--text-3);
+  }
+  .pricing-hero-meta a { color: var(--brand); text-decoration: underline; }
+
+  /* ============ PLAN CARDS ============ */
+  .pricing-cards-section { padding: 40px 0 80px; }
+
+  .pricing-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 1100px) {
+    .pricing-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .pricing-cards-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto 32px; }
   }
 
-  /* Collapsible comparison table */
-  .pricing-compare-section { padding: 0 0 60px; }
-  .pricing-compare-collapsible {
+  .price-card-v2 {
     background: white;
     border: 1px solid var(--border);
     border-radius: 16px;
-    overflow: hidden;
-  }
-  .pricing-compare-collapsible[open] { border-color: var(--brand-mid); }
-  .pricing-compare-collapsible summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 24px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg-alt);
-    transition: background 0.2s;
-  }
-  .pricing-compare-collapsible summary::-webkit-details-marker { display: none; }
-  .pricing-compare-collapsible summary:hover { background: var(--brand-light); }
-  .compare-summary-text {
+    padding: 32px 24px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   }
-  .compare-summary-text strong { color: var(--text); font-size: 1.05rem; }
-  .compare-summary-text em {
-    font-style: normal;
+  .price-card-v2:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--brand-mid);
+  }
+
+  .price-card-v2-featured {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F5F4FF 100%);
+    border-color: var(--brand);
+    border-width: 2px;
+    box-shadow: 0 16px 50px rgba(99, 102, 241, 0.18);
+    transform: translateY(-8px);
+  }
+  .price-card-v2-featured:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 22px 60px rgba(99, 102, 241, 0.25);
+  }
+  @media (max-width: 600px) {
+    .price-card-v2-featured { transform: none; }
+    .price-card-v2-featured:hover { transform: translateY(-3px); }
+  }
+
+  .price-card-v2-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+    white-space: nowrap;
+  }
+
+  .price-card-v2-name {
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .price-card-v2-price {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-card-v2-period {
+    font-size: 1rem;
     color: var(--text-2);
-    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: 2px;
   }
-  .compare-summary-icon {
-    font-size: 1.4rem;
+  .price-card-v2-sub {
+    color: var(--text-2);
+    font-size: 0.92rem;
+    margin: 12px 0 24px;
+    line-height: 1.5;
+  }
+
+  .price-card-v2-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    flex: 1;
+  }
+  .price-card-v2-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+  .price-card-v2-features svg {
     color: var(--brand);
-    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-top: 3px;
   }
-  .pricing-compare-collapsible[open] .compare-summary-icon { transform: rotate(180deg); }
-  .pricing-compare-collapsible .pricing-compare {
-    padding: 32px;
+
+  .price-card-v2-cta {
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
   }
-  .compare-table-wrap { overflow-x: auto; }
-  .pricing-compare-collapsible table {
+  .price-card-v2-cta-primary {
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+  }
+  .price-card-v2-cta-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.4);
+  }
+  .price-card-v2-cta-outline {
+    background: white;
+    color: var(--brand);
+    border: 1.5px solid var(--brand);
+  }
+  .price-card-v2-cta-outline:hover {
+    background: var(--brand-light);
+  }
+
+  /* ============ ENTERPRISE ============ */
+  .enterprise-card {
+    background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .enterprise-card { grid-template-columns: 1fr; padding: 32px 28px; }
+  }
+  .enterprise-pill {
+    display: inline-block;
+    background: rgba(165, 180, 252, 0.2);
+    color: #C7D2FE;
+    border: 1px solid rgba(165, 180, 252, 0.3);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .enterprise-card h3 {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .enterprise-price {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+  .enterprise-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 24px;
+  }
+  @media (max-width: 540px) {
+    .enterprise-features { grid-template-columns: 1fr; }
+  }
+  .enterprise-features li {
+    color: #CBD5E1;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    padding: 4px 0 4px 22px;
+    position: relative;
+  }
+  .enterprise-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #A5B4FC;
+    font-weight: 700;
+  }
+  .enterprise-cta-col {
+    text-align: center;
+  }
+  .enterprise-cta {
+    display: inline-block;
+    background: white;
+    color: var(--brand-dark);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 12px;
+  }
+  .enterprise-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
+  }
+  .enterprise-cta-meta {
+    color: #94A3B8;
+    font-size: 0.82rem;
+  }
+
+  /* ============ COMPARISON TABLES ============ */
+  .pricing-compare-v2-section { padding: 80px 0; background: var(--bg-alt); }
+  .pricing-whatsapp-compare { padding: 80px 0; }
+
+  .compare-table-wrap {
+    overflow-x: auto;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .compare-table-v2 {
     width: 100%;
+    min-width: 760px;
     border-collapse: collapse;
-    min-width: 720px;
-  }
-  .pricing-compare-collapsible th,
-  .pricing-compare-collapsible td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
     font-size: 0.95rem;
   }
-  .pricing-compare-collapsible th {
+  .compare-table-v2 thead {
     background: var(--bg-alt);
-    font-weight: 600;
-    color: var(--text);
   }
-  .pricing-compare-collapsible td.compare-yes { color: var(--accent2); font-weight: 700; }
-  .pricing-compare-collapsible td.compare-no { color: var(--text-3); }
-  .pricing-compare-collapsible td.compare-addon { color: var(--brand); font-weight: 700; }
+  .compare-table-v2 th {
+    padding: 16px 14px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 0.95rem;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  .compare-table-v2 th.compare-feature-col {
+    text-align: left;
+    width: 38%;
+  }
+  .compare-table-v2 th.compare-featured-col {
+    background: var(--brand-light);
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+  }
+  .compare-category-row td {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.08), transparent);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table-v2 tbody td {
+    padding: 12px 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-2);
+  }
+  .compare-table-v2 td.compare-feature-col {
+    text-align: left;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .compare-table-v2 td.compare-featured-col {
+    background: rgba(99, 102, 241, 0.04);
+  }
+  .compare-cell.compare-yes {
+    color: var(--accent2);
+    font-weight: 700;
+  }
+  .compare-cell.compare-yes-wa {
+    color: var(--wa-green);
+    font-weight: 700;
+  }
+  .compare-cell.compare-no {
+    color: var(--text-3);
+  }
+  .compare-cell.compare-addon {
+    color: var(--brand);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
 
-  /* FAQ */
-  .pricing-faq { background: var(--bg-alt); }
-  .pricing-faq-list { max-width: 780px; margin: 0 auto; }
+  /* ============ POWER ADD-ONS ============ */
+  .pricing-addons-section { padding: 80px 0; background: var(--bg-alt); }
+
+  .featured-addon {
+    position: relative;
+    background: radial-gradient(120% 140% at 0% 0%, #064E3B 0%, #052E2A 60%, #022014 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 56px;
+    border: 1px solid rgba(37, 211, 102, 0.2);
+    box-shadow: 0 30px 80px rgba(15, 80, 50, 0.2);
+  }
+  .featured-addon-glow {
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.4), transparent 65%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .featured-addon-inner {
+    position: relative;
+    padding: 48px 56px;
+  }
+  @media (max-width: 768px) {
+    .featured-addon-inner { padding: 36px 28px; }
+  }
+  .featured-addon-meta { max-width: 720px; }
+  .featured-addon-pill {
+    display: inline-block;
+    background: rgba(37, 211, 102, 0.18);
+    color: #6EE7B7;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .featured-addon h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .featured-addon p {
+    color: #CBD5E1;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .featured-addon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+  }
+  .featured-addon-list li {
+    color: #E2E8F0;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    padding: 6px 0 6px 26px;
+    position: relative;
+  }
+  .featured-addon-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #25D366;
+    font-weight: 700;
+  }
+  .featured-addon-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+  .featured-addon-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+  }
+
+  .addon-block { margin-bottom: 56px; }
+  .addon-block:last-child { margin-bottom: 0; }
+  .addon-block-title {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .addon-block-sub {
+    color: var(--text-2);
+    margin-bottom: 24px;
+  }
+
+  .addon-pack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 768px) { .addon-pack-grid { grid-template-columns: 1fr; } }
+  .addon-pack {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .addon-pack:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--wa-green);
+  }
+  .addon-pack-name {
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .addon-pack-price {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--wa-green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .addon-pack-actions {
+    color: var(--text-2);
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+  }
+  .addon-pack-cta {
+    display: inline-block;
+    background: var(--wa-green);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .addon-pack-cta:hover { background: #1EB55A; }
+
+  .usage-pack-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 768px) { .usage-pack-grid { grid-template-columns: repeat(2, 1fr); } }
+  .usage-pack {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .usage-pack:hover {
+    border-color: var(--brand-mid);
+    transform: translateY(-2px);
+  }
+  .usage-pack-actions {
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .usage-pack-price {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--brand);
+  }
+
+  .other-addons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 768px) { .other-addons-grid { grid-template-columns: 1fr; } }
+  .other-addon-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .other-addon-card:hover {
+    border-color: var(--brand-mid);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .other-addon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+  .other-addon-header strong {
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .other-addon-price {
+    color: var(--brand);
+    font-size: 0.92rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .other-addon-card p {
+    color: var(--text-2);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .other-addon-link {
+    color: var(--brand);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .other-addon-link:hover { transform: translateX(4px); }
+
+  /* Operations Pro Pack — bundle */
+  .ops-pro-pack {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 700px) { .ops-pro-pack { grid-template-columns: 1fr; } }
+  .ops-pro-pack-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ops-pro-pack h4 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+  .ops-pro-pack p {
+    color: #C7D2FE;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .ops-pro-pack-includes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .ops-pro-pack-chip {
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    font-size: 0.82rem;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .ops-pro-pack-cta {
+    background: white;
+    color: var(--brand-dark);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .ops-pro-pack-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  /* ============ PAYMENTS & BILLING ============ */
+  .pricing-payments {
+    padding: 80px 0;
+    background: var(--bg);
+  }
+  .payments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1040px;
+    margin: 0 auto 32px;
+  }
+  @media (max-width: 800px) { .payments-grid { grid-template-columns: 1fr; } }
+  .payment-trust {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: left;
+  }
+  .payment-trust-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .payment-trust h4 {
+    color: var(--text);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .payment-trust p {
+    color: var(--text-2);
+    font-size: 0.93rem;
+    line-height: 1.6;
+  }
+  .payments-providers {
+    text-align: center;
+    color: var(--text-3);
+    font-size: 0.92rem;
+    margin-top: 8px;
+  }
+  .payments-providers strong {
+    color: var(--text-2);
+    font-weight: 600;
+  }
+
+  /* ============ FAQ ============ */
+  .pricing-faq-v2 { padding: 80px 0; background: var(--bg-alt); }
+  .pricing-faq-list { max-width: 820px; margin: 0 auto; }
   .pricing-faq-item {
     background: white;
     border: 1px solid var(--border);
@@ -288,7 +1338,7 @@ const faqs = [
   .pricing-faq-item p {
     padding: 0 24px 20px;
     color: var(--text-2);
-    line-height: 1.65;
+    line-height: 1.7;
   }
   .pricing-faq-more {
     text-align: center;
