@@ -3,13 +3,51 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 
 // ====================================
+// PRICE MATRIX (5 currencies)
+// USD is canonical; local prices are fixed (not FX-derived live).
+// ====================================
+const priceMatrix = {
+  // Tiers
+  operator:          { USD:'$29',    NGN:'₦42,000',          GHS:'₵349',         KES:'KSh 3,800',          ZAR:'R529' },
+  professional:      { USD:'$79',    NGN:'₦115,000',         GHS:'₵949',         KES:'KSh 10,500',         ZAR:'R1,449' },
+  scale:             { USD:'$199',   NGN:'₦289,000',         GHS:'₵2,399',       KES:'KSh 26,500',         ZAR:'R3,649' },
+  // WhatsApp featured
+  wabos:             { USD:'$22.99', NGN:'₦33,500',          GHS:'₵279',         KES:'KSh 2,999',          ZAR:'R419' },
+  // Starter WhatsApp packs
+  starterLite:       { USD:'$6',     NGN:'₦8,500',           GHS:'₵75',          KES:'KSh 799',            ZAR:'R109' },
+  starterBasic:      { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179' },
+  starterPlus:       { USD:'$15',    NGN:'₦21,500',          GHS:'₵179',         KES:'KSh 1,999',          ZAR:'R269' },
+  // Usage packs (one-time)
+  usage50:           { USD:'$5',     NGN:'₦7,500',           GHS:'₵59',          KES:'KSh 649',            ZAR:'R89' },
+  usage150:          { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179' },
+  usage200:          { USD:'$13',    NGN:'₦19,500',          GHS:'₵155',         KES:'KSh 1,699',          ZAR:'R235' },
+  usage300:          { USD:'$18',    NGN:'₦26,500',          GHS:'₵215',         KES:'KSh 2,349',          ZAR:'R325' },
+  usage600:          { USD:'$30',    NGN:'₦44,500',          GHS:'₵359',         KES:'KSh 3,899',          ZAR:'R539' },
+  // Other add-ons
+  voiceAi:           { USD:'$39–$79', NGN:'₦57,500–₦115,000', GHS:'₵469–₵949',    KES:'KSh 5,099–KSh 10,500', ZAR:'R699–R1,449' },
+  exportHub:         { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179' },
+  extraUsers:        { USD:'$7.99',  NGN:'₦11,500',          GHS:'₵95',          KES:'KSh 1,049',          ZAR:'R145' },
+  multiLocation:     { USD:'$10.99', NGN:'₦15,999',          GHS:'₵129',         KES:'KSh 1,449',          ZAR:'R199' },
+  receiptsPro:       { USD:'$6.99',  NGN:'₦9,999',           GHS:'₵85',          KES:'KSh 919',            ZAR:'R125' },
+  brandedPdf:        { USD:'$8.99',  NGN:'₦12,999',          GHS:'₵109',         KES:'KSh 1,179',          ZAR:'R165' },
+  auditLogsPro:      { USD:'$7.99',  NGN:'₦11,500',          GHS:'₵95',          KES:'KSh 1,049',          ZAR:'R145' },
+  advancedAlerts:    { USD:'$5.99',  NGN:'₦8,499',           GHS:'₵72',          KES:'KSh 779',            ZAR:'R109' },
+  bulkAnnouncements: { USD:'$9.99',  NGN:'₦14,499',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179' },
+  customDashboards:  { USD:'$7.99',  NGN:'₦11,500',          GHS:'₵95',          KES:'KSh 1,049',          ZAR:'R145' },
+  opsProPack:        { USD:'$14.99', NGN:'₦21,499',          GHS:'₵179',         KES:'KSh 1,949',          ZAR:'R269' },
+};
+
+const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR'];
+
+// ====================================
 // PLANS
 // ====================================
 const plans = [
   {
     id: 'starter',
     name: 'Starter',
-    price: 'Free',
+    priceKey: null,
+    priceText: 'Free',
     period: '',
     sub: 'Best for individuals getting started.',
     features: [
@@ -26,7 +64,8 @@ const plans = [
   {
     id: 'operator',
     name: 'Operator',
-    price: '$29',
+    priceKey: 'operator',
+    priceText: priceMatrix.operator.USD,
     period: '/month',
     sub: 'Best for small businesses running daily operations.',
     features: [
@@ -45,7 +84,8 @@ const plans = [
   {
     id: 'professional',
     name: 'Professional',
-    price: '$79',
+    priceKey: 'professional',
+    priceText: priceMatrix.professional.USD,
     period: '/month',
     sub: 'Best for businesses that want clarity and control.',
     features: [
@@ -66,7 +106,8 @@ const plans = [
   {
     id: 'scale',
     name: 'Scale',
-    price: '$199',
+    priceKey: 'scale',
+    priceText: priceMatrix.scale.USD,
     period: '/month',
     sub: 'Best for teams and growing operations.',
     features: [
@@ -182,35 +223,37 @@ const whatsappCompare = [
 // POWER ADD-ONS
 // ====================================
 const whatsappStarterPacks = [
-  { name: 'Starter WhatsApp Lite',  price: '$6/mo',  actions: '50 business actions / month' },
-  { name: 'Starter WhatsApp Basic', price: '$10/mo', actions: '120 business actions / month' },
-  { name: 'Starter WhatsApp Plus',  price: '$15/mo', actions: '250 business actions / month' },
+  { name: 'Starter WhatsApp Lite',  priceKey: 'starterLite',  priceText: priceMatrix.starterLite.USD,  period: '/mo', actions: '50 business actions / month' },
+  { name: 'Starter WhatsApp Basic', priceKey: 'starterBasic', priceText: priceMatrix.starterBasic.USD, period: '/mo', actions: '120 business actions / month' },
+  { name: 'Starter WhatsApp Plus',  priceKey: 'starterPlus',  priceText: priceMatrix.starterPlus.USD,  period: '/mo', actions: '250 business actions / month' },
 ];
 
 const whatsappUsagePacks = [
-  { actions: '50 business actions',  price: '$5'  },
-  { actions: '150 business actions', price: '$10' },
-  { actions: '200 business actions', price: '$13' },
-  { actions: '300 business actions', price: '$18' },
-  { actions: '600 business actions', price: '$30' },
+  { actions: '50 business actions',  priceKey: 'usage50',  priceText: priceMatrix.usage50.USD  },
+  { actions: '150 business actions', priceKey: 'usage150', priceText: priceMatrix.usage150.USD },
+  { actions: '200 business actions', priceKey: 'usage200', priceText: priceMatrix.usage200.USD },
+  { actions: '300 business actions', priceKey: 'usage300', priceText: priceMatrix.usage300.USD },
+  { actions: '600 business actions', priceKey: 'usage600', priceText: priceMatrix.usage600.USD },
 ];
 
 const otherAddons = [
-  { name: 'Voice AI',                    price: '$39–$79/mo',     desc: '24/7 phone receptionist — answers customer calls, takes orders, books pickups.', href: '/voice-ai' },
-  { name: 'Advanced Export Hub',         price: '$10/mo',         desc: 'CSV + PDF + scheduled exports across every dataset.' },
-  { name: 'Extra Users',                 price: '$7.99/user/mo',  desc: 'Add seats beyond your plan limit.' },
-  { name: 'Multi-location',              price: '$10.99/mo',      desc: 'Track inventory and sales across multiple branches.' },
-  { name: 'Receipts Pro',                price: '$6.99/mo',       desc: 'Polished email + PDF receipts.' },
-  { name: 'Branded PDF Receipts',        price: '$8.99/mo',       desc: 'PDF receipts with your custom logo and footer.' },
-  { name: 'Audit Logs Pro',              price: '$7.99/mo',       desc: 'Extended audit-log retention and exports.' },
-  { name: 'Advanced Alerts',             price: '$5.99/mo',       desc: 'Custom thresholds for low stock, debts, sales drops.' },
-  { name: 'Bulk Announcements',          price: '$9.99/mo',       desc: 'WhatsApp + email broadcast to your customer list.' },
-  { name: 'Custom Dashboards & Reports', price: '$7.99/mo',       desc: 'Build and save custom views of your data.' },
+  { name: 'Voice AI',                    priceKey: 'voiceAi',           priceText: priceMatrix.voiceAi.USD,           period: '/mo',       desc: '24/7 phone receptionist — answers customer calls, takes orders, books pickups.', href: '/voice-ai' },
+  { name: 'Advanced Export Hub',         priceKey: 'exportHub',         priceText: priceMatrix.exportHub.USD,         period: '/mo',       desc: 'CSV + PDF + scheduled exports across every dataset.' },
+  { name: 'Extra Users',                 priceKey: 'extraUsers',        priceText: priceMatrix.extraUsers.USD,        period: '/user/mo',  desc: 'Add seats beyond your plan limit.' },
+  { name: 'Multi-location',              priceKey: 'multiLocation',     priceText: priceMatrix.multiLocation.USD,     period: '/mo',       desc: 'Track inventory and sales across multiple branches.' },
+  { name: 'Receipts Pro',                priceKey: 'receiptsPro',       priceText: priceMatrix.receiptsPro.USD,       period: '/mo',       desc: 'Polished email + PDF receipts.' },
+  { name: 'Branded PDF Receipts',        priceKey: 'brandedPdf',        priceText: priceMatrix.brandedPdf.USD,        period: '/mo',       desc: 'PDF receipts with your custom logo and footer.' },
+  { name: 'Audit Logs Pro',              priceKey: 'auditLogsPro',      priceText: priceMatrix.auditLogsPro.USD,      period: '/mo',       desc: 'Extended audit-log retention and exports.' },
+  { name: 'Advanced Alerts',             priceKey: 'advancedAlerts',    priceText: priceMatrix.advancedAlerts.USD,    period: '/mo',       desc: 'Custom thresholds for low stock, debts, sales drops.' },
+  { name: 'Bulk Announcements',          priceKey: 'bulkAnnouncements', priceText: priceMatrix.bulkAnnouncements.USD, period: '/mo',       desc: 'WhatsApp + email broadcast to your customer list.' },
+  { name: 'Custom Dashboards & Reports', priceKey: 'customDashboards',  priceText: priceMatrix.customDashboards.USD,  period: '/mo',       desc: 'Build and save custom views of your data.' },
 ];
 
 const operationsPro = {
   name: 'Operations Pro Pack',
-  price: '$14.99/mo',
+  priceKey: 'opsProPack',
+  priceText: priceMatrix.opsProPack.USD,
+  period: '/mo',
   desc: 'Bundle Receipts Pro + Branded PDF Receipts + Audit Logs Pro. Save vs buying individually.',
   includes: ['Receipts Pro', 'Branded PDF Receipts', 'Audit Logs Pro'],
 };
@@ -229,7 +272,7 @@ const faqs = [
   },
   {
     q: 'What happens when I run out of weekly business actions?',
-    a: 'WhatsApp Assistant pauses for the week and you receive a notification. You can buy a usage pack any time ($5–$30 depending on size) to top up immediately, or upgrade your plan to a higher tier. Your dashboard remains fully usable regardless.',
+    a: 'WhatsApp Assistant pauses for the week and you receive a notification. You can buy a usage pack any time to top up immediately, or upgrade your plan to a higher tier. Your dashboard remains fully usable regardless.',
   },
   {
     q: 'Can I add Voice AI or other add-ons to any plan?',
@@ -242,6 +285,10 @@ const faqs = [
   {
     q: 'What payment methods are supported?',
     a: 'Cards (Visa, Mastercard, Verve, Amex), bank transfers, and mobile money. We work across African and global markets through trusted payment providers. See the Payments & Billing section below for more.',
+  },
+  {
+    q: 'Which currencies can I be billed in?',
+    a: 'USD, NGN (Nigerian Naira), GHS (Ghanaian Cedi), KES (Kenyan Shilling), and ZAR (South African Rand) — pick whichever suits your business. We auto-detect a sensible default based on your region; you can override the currency at the top of this page.',
   },
   {
     q: 'Do you offer refunds?',
@@ -270,7 +317,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Pricing — Ojunai"
-  description="Run your business operating system on Ojunai. Free Starter plan, Operator $29, Professional $79, Scale $199, custom Enterprise. WhatsApp business actions included on every paid tier. Pay with cards, bank transfers, or mobile money."
+  description="Run your business operating system on Ojunai. Free Starter plan, Operator $29, Professional $79, Scale $199, custom Enterprise. WhatsApp business actions included on every paid tier. Pay in USD, NGN, GHS, KES, or ZAR."
   canonical="/pricing"
   ogImage="/og/pricing.png"
   jsonLd={faqSchema}
@@ -284,8 +331,28 @@ const faqSchema = {
         Start free. Upgrade as you grow. Pay only for what you actually use —
         with WhatsApp business actions, multi-user, and add-ons priced à la carte.
       </p>
+
+      <!-- Currency switcher -->
+      <div class="currency-switcher" role="tablist" aria-label="Display currency">
+        <span class="currency-switcher-label">Show prices in</span>
+        <div class="currency-switcher-pills">
+          {currencies.map((c) => (
+            <button
+              type="button"
+              class={`currency-pill ${c === 'USD' ? 'currency-pill-active' : ''}`}
+              data-ccy={c}
+              role="tab"
+              aria-selected={c === 'USD' ? 'true' : 'false'}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <p class="pricing-hero-meta">
-        Prices in USD. Annual billing available. <a href="#payments">Local payment methods supported.</a>
+        <span class="pricing-hero-meta-currency">Showing prices in USD.</span>
+        Annual billing available. <a href="#payments">Local payment methods supported.</a>
       </p>
     </div>
   </section>
@@ -300,7 +367,10 @@ const faqSchema = {
             <div class="price-card-v2-header">
               <div class="price-card-v2-name">{p.name}</div>
               <div class="price-card-v2-price">
-                {p.price}{p.period && <span class="price-card-v2-period">{p.period}</span>}
+                {p.priceKey
+                  ? <span data-price-id={p.priceKey}>{p.priceText}</span>
+                  : p.priceText}
+                {p.period && <span class="price-card-v2-period">{p.period}</span>}
               </div>
               <div class="price-card-v2-sub">{p.sub}</div>
             </div>
@@ -446,7 +516,9 @@ const faqSchema = {
         <div class="featured-addon-inner">
           <div class="featured-addon-meta">
             <span class="featured-addon-pill">Premium Differentiator</span>
-            <h3>WhatsApp Business OS — $22.99/month</h3>
+            <h3>
+              WhatsApp Business OS — <span data-price-id="wabos">{priceMatrix.wabos.USD}</span>/month
+            </h3>
             <p>
               Run your entire business directly from WhatsApp. No dashboard required.
               Record sales, add and update inventory, track debts and payments — full
@@ -477,7 +549,9 @@ const faqSchema = {
           {whatsappStarterPacks.map((p) => (
             <div class="addon-pack">
               <div class="addon-pack-name">{p.name}</div>
-              <div class="addon-pack-price">{p.price}</div>
+              <div class="addon-pack-price">
+                <span data-price-id={p.priceKey}>{p.priceText}</span><span class="addon-pack-period">{p.period}</span>
+              </div>
               <div class="addon-pack-actions">{p.actions}</div>
               <a href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20pack" class="addon-pack-cta">Add to Plan</a>
             </div>
@@ -493,7 +567,7 @@ const faqSchema = {
           {whatsappUsagePacks.map((p) => (
             <div class="usage-pack">
               <div class="usage-pack-actions">{p.actions}</div>
-              <div class="usage-pack-price">{p.price}</div>
+              <div class="usage-pack-price"><span data-price-id={p.priceKey}>{p.priceText}</span></div>
             </div>
           ))}
         </div>
@@ -508,7 +582,9 @@ const faqSchema = {
             <div class="other-addon-card">
               <div class="other-addon-header">
                 <strong>{a.name}</strong>
-                <span class="other-addon-price">{a.price}</span>
+                <span class="other-addon-price">
+                  <span data-price-id={a.priceKey}>{a.priceText}</span>{a.period}
+                </span>
               </div>
               <p>{a.desc}</p>
               {a.href ? (
@@ -524,7 +600,9 @@ const faqSchema = {
         <div class="ops-pro-pack">
           <div class="ops-pro-pack-meta">
             <span class="ops-pro-pack-tag">Bundle · Save</span>
-            <h4>{operationsPro.name} — {operationsPro.price}</h4>
+            <h4>
+              {operationsPro.name} — <span data-price-id={operationsPro.priceKey}>{operationsPro.priceText}</span>{operationsPro.period}
+            </h4>
             <p>{operationsPro.desc}</p>
             <div class="ops-pro-pack-includes">
               {operationsPro.includes.map((item) => (
@@ -561,8 +639,8 @@ const faqSchema = {
           <div class="payment-trust-icon">
             <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
           </div>
-          <h4>Works across African and global markets</h4>
-          <p>Bill in your local currency or in USD. We handle the conversion at checkout — no surprise foreign-exchange fees.</p>
+          <h4>Five currencies, one billing flow</h4>
+          <p>Pay in USD, NGN, GHS, KES, or ZAR. We handle the conversion at checkout — no surprise foreign-exchange fees.</p>
         </div>
         <div class="payment-trust">
           <div class="payment-trust-icon">
@@ -603,6 +681,74 @@ const faqSchema = {
   </section>
 
   <FinalCTA />
+
+  <!-- Currency price matrix as JSON island for client-side swap -->
+  <script type="application/json" id="ojunai-price-matrix" set:html={JSON.stringify(priceMatrix)} />
+
+  <script is:inline>
+    (function () {
+      const SUPPORTED = ['USD','NGN','GHS','KES','ZAR'];
+      const TZ_TO_CCY = {
+        'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
+        'Africa/Accra':'GHS',
+        'Africa/Nairobi':'KES','Africa/Mombasa':'KES',
+        'Africa/Johannesburg':'ZAR','Africa/Cape_Town':'ZAR','Africa/Durban':'ZAR'
+      };
+      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR' };
+
+      function detect() {
+        try {
+          const stored = localStorage.getItem('ojunai-currency');
+          if (stored && SUPPORTED.indexOf(stored) >= 0) return stored;
+        } catch (e) {}
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          if (TZ_TO_CCY[tz]) return TZ_TO_CCY[tz];
+        } catch (e) {}
+        try {
+          const lang = navigator.language || 'en-US';
+          const region = (lang.split('-')[1] || '').toUpperCase();
+          if (REGION_TO_CCY[region]) return REGION_TO_CCY[region];
+        } catch (e) {}
+        return 'USD';
+      }
+
+      let matrix = {};
+      try {
+        const node = document.getElementById('ojunai-price-matrix');
+        matrix = node ? JSON.parse(node.textContent) : {};
+      } catch (e) { matrix = {}; }
+
+      function apply(ccy) {
+        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+        document.querySelectorAll('[data-price-id]').forEach(function (el) {
+          const key = el.getAttribute('data-price-id');
+          if (matrix[key] && matrix[key][ccy]) el.textContent = matrix[key][ccy];
+        });
+        document.querySelectorAll('.currency-pill').forEach(function (b) {
+          const active = b.getAttribute('data-ccy') === ccy;
+          b.classList.toggle('currency-pill-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        const meta = document.querySelector('.pricing-hero-meta-currency');
+        if (meta) meta.textContent = 'Showing prices in ' + ccy + '.';
+        try { localStorage.setItem('ojunai-currency', ccy); } catch (e) {}
+      }
+
+      function init() {
+        apply(detect());
+        document.querySelectorAll('.currency-pill').forEach(function (b) {
+          b.addEventListener('click', function () { apply(b.getAttribute('data-ccy')); });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
 </BaseLayout>
 
 <style>
@@ -640,8 +786,53 @@ const faqSchema = {
   .pricing-hero-meta {
     font-size: 0.92rem;
     color: var(--text-3);
+    margin-top: 16px;
   }
   .pricing-hero-meta a { color: var(--brand); text-decoration: underline; }
+  .pricing-hero-meta-currency { color: var(--text-2); font-weight: 600; margin-right: 4px; }
+
+  /* ============ CURRENCY SWITCHER ============ */
+  .currency-switcher {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .currency-switcher-label {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .currency-switcher-pills {
+    display: inline-flex;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  }
+  .currency-pill {
+    background: transparent;
+    border: 0;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 8px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+    font-family: inherit;
+  }
+  .currency-pill:hover { color: var(--brand); }
+  .currency-pill-active {
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  }
+  .currency-pill-active:hover { color: white; }
 
   /* ============ PLAN CARDS ============ */
   .pricing-cards-section { padding: 40px 0 80px; }
@@ -1090,6 +1281,12 @@ const faqSchema = {
     color: var(--wa-green);
     line-height: 1;
     margin-bottom: 6px;
+  }
+  .addon-pack-period {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    font-weight: 500;
+    margin-left: 2px;
   }
   .addon-pack-actions {
     color: var(--text-2);
