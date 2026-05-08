@@ -12,8 +12,9 @@ const priceMatrix = {
   operator:          { USD:'$29',    NGN:'₦42,000',          GHS:'₵349',         KES:'KSh 3,800',          ZAR:'R529',     UGX:'USh 109,000',                    GBP:'£22.99' },
   professional:      { USD:'$79',    NGN:'₦115,000',         GHS:'₵949',         KES:'KSh 10,500',         ZAR:'R1,449',   UGX:'USh 295,000',                    GBP:'£62.99' },
   scale:             { USD:'$199',   NGN:'₦289,000',         GHS:'₵2,399',       KES:'KSh 26,500',         ZAR:'R3,649',   UGX:'USh 745,000',                    GBP:'£159' },
-  // WhatsApp featured
-  wabos:             { USD:'$95.99', NGN:'₦143,999',         GHS:'₵1,149',       KES:'KSh 12,499',         ZAR:'R1,749',   UGX:'USh 359,999',                    GBP:'£76.99' },
+  // WhatsApp Business OS — tiered
+  wabosSolo:         { USD:'$49.99', NGN:'₦74,999',          GHS:'₵599',         KES:'KSh 6,499',          ZAR:'R899',     UGX:'USh 187,499',                    GBP:'£39.99' },
+  wabosPro:          { USD:'$145.99',NGN:'₦219,999',         GHS:'₵1,749',       KES:'KSh 18,999',         ZAR:'R2,649',   UGX:'USh 547,499',                    GBP:'£116.99' },
   // Starter WhatsApp packs
   starterLite:       { USD:'$6',     NGN:'₦8,500',           GHS:'₵75',          KES:'KSh 799',            ZAR:'R109',     UGX:'USh 22,499',                     GBP:'£4.99' },
   starterBasic:      { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
@@ -237,6 +238,63 @@ const whatsappCompare = [
 ];
 
 // ====================================
+// WHATSAPP BUSINESS OS — TIERS
+// ====================================
+const wabosTiers = [
+  {
+    name: 'Solo',
+    priceKey: 'wabosSolo',
+    priceText: priceMatrix.wabosSolo.USD,
+    period: '/month',
+    sub: 'Run your shop solo, from WhatsApp.',
+    features: [
+      '1,200 business actions / month',
+      '1 user · 1 location',
+      '100 SKUs · 50 PDFs / month',
+      '30-day history',
+      'Standard PDF templates',
+    ],
+    cta: { label: 'Add to Plan →', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Solo' },
+    featured: false,
+  },
+  {
+    name: 'Pro',
+    priceKey: 'wabosPro',
+    priceText: priceMatrix.wabosPro.USD,
+    period: '/month',
+    sub: 'Established shops, fully WhatsApp-operated.',
+    features: [
+      '6,000 business actions / month',
+      '3 users · 1 location',
+      'Unlimited SKUs & PDFs',
+      'Branded PDF templates',
+      'Bulk announcements',
+      '90-day history',
+    ],
+    cta: { label: 'Add to Plan →', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Pro' },
+    featured: true,
+    badge: 'Most Popular',
+  },
+  {
+    name: 'Scale',
+    priceKey: null,
+    priceText: 'Contact Sales',
+    period: '',
+    sub: 'Multi-location, multi-staff WhatsApp ops.',
+    features: [
+      'Unlimited business actions',
+      '6+ users · Multi-location',
+      'Custom PDF templates per type',
+      'Voice AI bundle discount',
+      '1+ year history retention',
+      'Priority support',
+    ],
+    cta: { label: 'Talk to Sales →', href: 'mailto:contact@ojunai.com?subject=WhatsApp%20Business%20OS%20Scale%20enquiry' },
+    featured: false,
+  },
+];
+
+// ====================================
 // POWER ADD-ONS
 // ====================================
 const whatsappStarterPacks = [
@@ -290,6 +348,10 @@ const faqs = [
   {
     q: 'What happens when I run out of weekly business actions?',
     a: 'WhatsApp Assistant pauses for the week and you receive a notification. You can buy a usage pack any time to top up immediately, or upgrade your plan to a higher tier. Your dashboard remains fully usable regardless.',
+  },
+  {
+    q: 'How do the WhatsApp Business OS tiers (Solo / Pro / Scale) differ?',
+    a: 'WhatsApp Business OS replaces the dashboard with a single WhatsApp conversation. Solo ($49.99/mo) covers 1 user, 1 location, 100 SKUs, 50 PDFs/month, and 1,200 business actions/month — best for solo shopkeepers running everything by chat. Pro ($145.99/mo) covers 3 users, unlimited SKUs and PDFs, 6,000 actions/month, branded PDF templates, and bulk announcements — best for established small businesses. Scale (Contact Sales) covers 6+ users, multi-location, unlimited actions, custom PDF templates per type, an optional Voice AI bundle, and 1+ year history retention. All three sit on top of any base plan (Starter through Scale).',
   },
   {
     q: 'Can I add Voice AI or other add-ons to any plan?',
@@ -551,14 +613,35 @@ const faqSchema = {
         <div class="featured-addon-inner">
           <div class="featured-addon-meta">
             <span class="featured-addon-pill">Premium Differentiator</span>
-            <h3>
-              WhatsApp Business OS — <span data-price-id="wabos">{priceMatrix.wabos.USD}</span>/month
-            </h3>
+            <h3>WhatsApp Business OS</h3>
             <p>
               Run your entire business directly from WhatsApp. No dashboard required.
               Record sales, add and update inventory, track debts and payments — full
               operational control through a single conversation.
             </p>
+
+            <!-- 3-tier mini-grid -->
+            <div class="wabos-tiers-grid">
+              {wabosTiers.map((t) => (
+                <div class={`wabos-tier ${t.featured ? 'wabos-tier-featured' : ''}`}>
+                  {t.badge && <span class="wabos-tier-badge">{t.badge}</span>}
+                  <div class="wabos-tier-name">{t.name}</div>
+                  <div class="wabos-tier-price">
+                    {t.priceKey
+                      ? <span data-price-id={t.priceKey}>{t.priceText}</span>
+                      : <span>{t.priceText}</span>}
+                    {t.period && <span class="wabos-tier-period">{t.period}</span>}
+                  </div>
+                  <div class="wabos-tier-sub">{t.sub}</div>
+                  <ul class="wabos-tier-features">
+                    {t.features.map((f) => <li>{f}</li>)}
+                  </ul>
+                  <a href={t.cta.href} class="wabos-tier-cta">{t.cta.label}</a>
+                </div>
+              ))}
+            </div>
+
+            <p class="featured-addon-subhead">Every BOS tier includes:</p>
             <ul class="featured-addon-list">
               <li>Record sales by chat — instant ledger updates</li>
               <li>Add or update inventory inline (text or photo)</li>
@@ -567,13 +650,7 @@ const faqSchema = {
               <li>Daily and weekly summaries auto-delivered</li>
               <li>Works alongside any plan — no dashboard required</li>
             </ul>
-            <p class="featured-addon-annual">Annual billing available — save ~2 months.</p>
-            <a
-              href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20to%20my%20plan"
-              class="featured-addon-cta"
-            >
-              Add to Plan →
-            </a>
+            <p class="featured-addon-annual">Annual billing available on Solo and Pro — save ~2 months. Scale negotiated.</p>
           </div>
         </div>
       </div>
@@ -1340,6 +1417,136 @@ const faqSchema = {
     line-height: 1.65;
     margin-bottom: 20px;
   }
+  /* WhatsApp Business OS — tier mini-grid (inside dark green block) */
+  .wabos-tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 8px 0 28px;
+  }
+  @media (max-width: 880px) {
+    .wabos-tiers-grid { grid-template-columns: 1fr; }
+  }
+  .wabos-tier {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(37, 211, 102, 0.18);
+    border-radius: 14px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .wabos-tier:hover {
+    border-color: rgba(37, 211, 102, 0.45);
+    transform: translateY(-2px);
+  }
+  .wabos-tier-featured {
+    background: linear-gradient(180deg, rgba(37, 211, 102, 0.12), rgba(37, 211, 102, 0.04));
+    border-color: rgba(37, 211, 102, 0.55);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.18);
+  }
+  .wabos-tier-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
+  }
+  .wabos-tier-name {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6EE7B7;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .wabos-tier-price {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .wabos-tier-period {
+    font-size: 0.85rem;
+    color: #94A3B8;
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .wabos-tier-sub {
+    color: #CBD5E1;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin: 8px 0 14px;
+  }
+  .wabos-tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    flex: 1;
+  }
+  .wabos-tier-features li {
+    color: #E2E8F0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 4px 0 4px 18px;
+    position: relative;
+  }
+  .wabos-tier-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: #25D366;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .wabos-tier-cta {
+    display: block;
+    text-align: center;
+    background: rgba(37, 211, 102, 0.18);
+    color: #6EE7B7;
+    border: 1px solid rgba(37, 211, 102, 0.45);
+    padding: 9px 16px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .wabos-tier-cta:hover {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    transform: translateY(-1px);
+  }
+  .wabos-tier-featured .wabos-tier-cta {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+  }
+
+  .featured-addon-subhead {
+    color: #6EE7B7 !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 4px 0 12px !important;
+  }
+
   .featured-addon-list {
     list-style: none;
     padding: 0;
