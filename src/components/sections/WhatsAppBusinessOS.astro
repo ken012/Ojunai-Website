@@ -1,0 +1,195 @@
+---
+/**
+ * Dedicated homepage strip for WhatsApp Business OS — the premium WhatsApp-
+ * native add-on that replaces the dashboard entirely. Mirrors the styling of
+ * the featured-addon block on /pricing so users see a consistent visual.
+ *
+ * Price uses [data-price-id="wabos"] so the PricingTeaser currency script
+ * (which now scopes price swaps to the whole document) updates it on toggle.
+ */
+---
+
+<section class="wabos-strip" id="whatsapp-business-os">
+  <div class="container">
+    <div class="wabos-card">
+      <div class="wabos-glow"></div>
+      <div class="wabos-inner">
+        <div class="wabos-meta">
+          <span class="wabos-pill">Premium Differentiator</span>
+          <h2>Run your entire business from WhatsApp.</h2>
+          <p class="wabos-lead">
+            WhatsApp Business OS replaces the dashboard with a single conversation.
+            Sales, inventory, debts, payments, receipts, and reports — all
+            operated and delivered through WhatsApp.
+          </p>
+          <ul class="wabos-list">
+            <li>Record sales by chat — instant ledger updates</li>
+            <li>Add or update inventory inline (text or photo)</li>
+            <li>Track debts, payments, and customer balances</li>
+            <li>Generate receipts, summaries, and reports as PDFs delivered straight to WhatsApp as a tap-to-open link</li>
+            <li>Daily and weekly summaries auto-delivered</li>
+            <li>Works alongside any plan — no dashboard required</li>
+          </ul>
+          <div class="wabos-price-row">
+            <div class="wabos-price">
+              From <span data-price-id="wabos">$59.99</span><span class="wabos-period">/month</span>
+            </div>
+            <div class="wabos-annual">Annual billing available — save ~2 months.</div>
+          </div>
+          <div class="wabos-ctas">
+            <a
+              href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20to%20my%20plan"
+              class="wabos-cta"
+            >
+              Add to Plan →
+            </a>
+            <a href="/pricing#whatsapp-business-os" class="wabos-cta-secondary">
+              See full pricing →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wabos-strip { padding: 80px 0; }
+
+  .wabos-card {
+    position: relative;
+    background: radial-gradient(120% 140% at 0% 0%, #064E3B 0%, #052E2A 60%, #022014 100%);
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(37, 211, 102, 0.2);
+    box-shadow: 0 30px 80px rgba(15, 80, 50, 0.22);
+  }
+
+  .wabos-glow {
+    position: absolute;
+    top: -140px;
+    right: -100px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.42), transparent 65%);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+
+  .wabos-inner {
+    position: relative;
+    padding: 56px 64px;
+  }
+  @media (max-width: 768px) {
+    .wabos-inner { padding: 40px 28px; }
+  }
+
+  .wabos-meta { max-width: 760px; }
+
+  .wabos-pill {
+    display: inline-block;
+    background: rgba(37, 211, 102, 0.18);
+    color: #6EE7B7;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .wabos-card h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+    color: white;
+    line-height: 1.12;
+    margin-bottom: 18px;
+  }
+
+  .wabos-lead {
+    color: #CBD5E1;
+    font-size: 1.08rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .wabos-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+  }
+  .wabos-list li {
+    color: #E2E8F0;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    padding: 7px 0 7px 28px;
+    position: relative;
+  }
+  .wabos-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #25D366;
+    font-weight: 700;
+    font-size: 1.05rem;
+    top: 7px;
+  }
+
+  .wabos-price-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 22px;
+    margin-bottom: 22px;
+  }
+  .wabos-price {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+  .wabos-period {
+    font-size: 1rem;
+    color: #94A3B8;
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .wabos-annual {
+    color: #94A3B8;
+    font-size: 0.88rem;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .wabos-ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .wabos-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 14px 30px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+  .wabos-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+  }
+  .wabos-cta-secondary {
+    color: #6EE7B7;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+  .wabos-cta-secondary:hover { transform: translateX(4px); color: white; }
+</style>

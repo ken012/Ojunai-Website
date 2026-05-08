@@ -13,7 +13,7 @@ const priceMatrix = {
   professional:      { USD:'$79',    NGN:'₦115,000',         GHS:'₵949',         KES:'KSh 10,500',         ZAR:'R1,449',   UGX:'USh 295,000',                    GBP:'£62.99' },
   scale:             { USD:'$199',   NGN:'₦289,000',         GHS:'₵2,399',       KES:'KSh 26,500',         ZAR:'R3,649',   UGX:'USh 745,000',                    GBP:'£159' },
   // WhatsApp featured
-  wabos:             { USD:'$22.99', NGN:'₦33,500',          GHS:'₵279',         KES:'KSh 2,999',          ZAR:'R419',     UGX:'USh 85,999',                     GBP:'£17.99' },
+  wabos:             { USD:'$59.99', NGN:'₦89,999',          GHS:'₵719',         KES:'KSh 7,799',          ZAR:'R1,099',   UGX:'USh 224,999',                    GBP:'£47.99' },
   // Starter WhatsApp packs
   starterLite:       { USD:'$6',     NGN:'₦8,500',           GHS:'₵75',          KES:'KSh 799',            ZAR:'R109',     UGX:'USh 22,499',                     GBP:'£4.99' },
   starterBasic:      { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
@@ -563,9 +563,11 @@ const faqSchema = {
               <li>Record sales by chat — instant ledger updates</li>
               <li>Add or update inventory inline (text or photo)</li>
               <li>Track debts, payments, and customer balances</li>
+              <li>Generate receipts, summaries, and reports as PDFs delivered straight to WhatsApp as a tap-to-open link</li>
               <li>Daily and weekly summaries auto-delivered</li>
               <li>Works alongside any plan — no dashboard required</li>
             </ul>
+            <p class="featured-addon-annual">Annual billing available — save ~2 months.</p>
             <a
               href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20to%20my%20plan"
               class="featured-addon-cta"
@@ -1356,6 +1358,12 @@ const faqSchema = {
     left: 0;
     color: #25D366;
     font-weight: 700;
+  }
+  .featured-addon-annual {
+    color: #94A3B8 !important;
+    font-size: 0.85rem !important;
+    margin: -8px 0 22px !important;
+    font-style: italic;
   }
   .featured-addon-cta {
     display: inline-block;

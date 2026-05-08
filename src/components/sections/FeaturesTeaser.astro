@@ -55,6 +55,20 @@ const groups = [
         </div>
       ))}
     </div>
+    <a href="#whatsapp-business-os" class="features-wabos-callout">
+      <div class="features-wabos-meta">
+        <span class="features-wabos-pill">Premium · WhatsApp Business OS</span>
+        <h3>Skip the dashboard entirely.</h3>
+        <p>
+          Run sales, inventory, debts, payments, and PDF receipts through a single WhatsApp
+          conversation. The full operational layer of Ojunai, delivered by chat.
+        </p>
+      </div>
+      <div class="features-wabos-cta-col">
+        <span class="features-wabos-link">See it →</span>
+      </div>
+    </a>
+
     <p class="section-cta">
       <a href="/features">See all 16 features →</a>
     </p>
@@ -85,6 +99,73 @@ const groups = [
     text-transform: uppercase;
   }
   .feature-card { position: relative; }
+  .features-wabos-callout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 28px;
+    align-items: center;
+    margin-top: 32px;
+    padding: 24px 32px;
+    background: radial-gradient(120% 200% at 0% 0%, #064E3B 0%, #052E2A 60%, #022014 100%);
+    border-radius: 18px;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgba(37, 211, 102, 0.22);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 14px 40px rgba(15, 80, 50, 0.18);
+  }
+  .features-wabos-callout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 50px rgba(15, 80, 50, 0.3);
+    border-color: rgba(37, 211, 102, 0.5);
+  }
+  @media (max-width: 700px) {
+    .features-wabos-callout { grid-template-columns: 1fr; padding: 22px 22px; gap: 14px; }
+  }
+  .features-wabos-pill {
+    display: inline-block;
+    background: rgba(37, 211, 102, 0.18);
+    color: #6EE7B7;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .features-wabos-callout h3 {
+    color: white;
+    font-size: 1.25rem;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .features-wabos-callout p {
+    color: #CBD5E1;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .features-wabos-cta-col {
+    text-align: right;
+  }
+  @media (max-width: 700px) {
+    .features-wabos-cta-col { text-align: left; }
+  }
+  .features-wabos-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 11px 22px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s;
+  }
+  .features-wabos-callout:hover .features-wabos-link { transform: translateX(4px); }
+
   .section-cta {
     text-align: center;
     margin-top: 32px;
