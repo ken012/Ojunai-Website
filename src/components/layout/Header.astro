@@ -79,8 +79,8 @@ const flatLinks = [
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </button>
-          <div class="nav-megamenu" id={`menu-${menu.id}`} role="menu">
-            <div class="nav-megamenu-inner">
+          <div class={`nav-megamenu nav-megamenu-cols-${menu.columns.length}`} id={`menu-${menu.id}`} role="menu">
+            <div class="nav-megamenu-inner" style={`grid-template-columns: repeat(${menu.columns.length}, minmax(0, 1fr));`}>
               {menu.columns.map((col) => (
                 <div class="nav-megamenu-col">
                   <div class="nav-megamenu-heading">{col.heading}</div>
@@ -114,8 +114,8 @@ const flatLinks = [
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </button>
-          <div class="nav-megamenu" id={`menu-${menu.id}`} role="menu">
-            <div class="nav-megamenu-inner">
+          <div class={`nav-megamenu nav-megamenu-cols-${menu.columns.length}`} id={`menu-${menu.id}`} role="menu">
+            <div class="nav-megamenu-inner" style={`grid-template-columns: repeat(${menu.columns.length}, minmax(0, 1fr));`}>
               {menu.columns.map((col) => (
                 <div class="nav-megamenu-col">
                   <div class="nav-megamenu-heading">{col.heading}</div>

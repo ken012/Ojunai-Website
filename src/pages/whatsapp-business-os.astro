@@ -1,0 +1,903 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+// Mirror of /pricing matrix entries for WhatsApp BOS so the toggle on this
+// page swaps in the same locally-fixed prices. Scale stays Contact Sales.
+const priceMatrix = {
+  wabosSolo: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',   UGX:'USh 187,499', GBP:'£39.99' },
+  wabosPro:  { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649', UGX:'USh 547,499', GBP:'£116.99' },
+};
+
+const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX', 'GBP'];
+
+const capabilities = [
+  {
+    title: 'Record sales by chat',
+    body: 'Type or speak the sale into WhatsApp — "Sold 2 bags of rice for ₦8,000 to Aisha on credit." The ledger updates instantly. No app to open.',
+    iconPath: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
+  },
+  {
+    title: 'Update inventory inline',
+    body: 'Add or adjust stock with a quick message — "Add 50 bags of garri at ₦5,500." Take a photo, the bot reads the label and adds it for you.',
+    iconPath: 'M3 6h18l-2 13H5L3 6zM3 6L2 3H0M16 10a4 4 0 01-8 0',
+  },
+  {
+    title: 'Track debts and payments',
+    body: 'Customer balances, supplier credit, partial payments — all tracked through chat. Ask "Who owes me?" and the bot replies with the full list.',
+    iconPath: 'M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z',
+  },
+  {
+    title: 'PDFs delivered to WhatsApp',
+    body: 'Generate receipts, summaries, and reports as PDFs. They arrive in WhatsApp as a tap-to-open link — no email, no dashboard download.',
+    iconPath: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 13h6M9 17h6M9 9h2',
+    featured: true,
+  },
+  {
+    title: 'Daily & weekly summaries',
+    body: 'Every evening: today\'s sales, expenses, top products, who paid, who still owes. Every Sunday: a full week recap. All by WhatsApp.',
+    iconPath: 'M22 12h-4l-3 9L9 3l-3 9H2',
+  },
+  {
+    title: 'No dashboard required',
+    body: 'You can run your entire business without ever opening a browser. The full operational layer of Ojunai, delivered as a WhatsApp conversation.',
+    iconPath: 'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12 19.79 19.79 0 011.43 3.4 2 2 0 013.42 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',
+  },
+];
+
+const tiers = [
+  {
+    name: 'Solo',
+    priceKey: 'wabosSolo',
+    priceText: priceMatrix.wabosSolo.USD,
+    period: '/month',
+    sub: 'Run your shop solo, from WhatsApp.',
+    features: [
+      '1,200 business actions / month',
+      '1 user · 1 location',
+      '100 SKUs · 50 PDFs / month',
+      '30-day history',
+      'Standard PDF templates',
+      'Daily summaries',
+    ],
+    cta: { label: 'Add to Plan', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Solo' },
+    featured: false,
+  },
+  {
+    name: 'Pro',
+    priceKey: 'wabosPro',
+    priceText: priceMatrix.wabosPro.USD,
+    period: '/month',
+    sub: 'Established shops, fully WhatsApp-operated.',
+    features: [
+      '6,000 business actions / month',
+      '3 users · 1 location',
+      'Unlimited SKUs and PDFs',
+      'Branded PDF templates (logo + footer)',
+      'Bulk announcements',
+      '90-day history',
+      'Daily and weekly summaries',
+    ],
+    cta: { label: 'Add to Plan', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Pro' },
+    featured: true,
+    badge: 'Most Popular',
+  },
+  {
+    name: 'Scale',
+    priceKey: null,
+    priceText: 'Contact Sales',
+    period: '',
+    sub: 'Multi-location, multi-staff WhatsApp ops.',
+    features: [
+      'Unlimited business actions',
+      '6+ users · Multi-location',
+      'Custom PDF templates per type',
+      'Voice AI bundle discount',
+      '1+ year history retention',
+      'Priority support',
+      'Dedicated onboarding',
+    ],
+    cta: { label: 'Talk to Sales', href: 'mailto:contact@ojunai.com?subject=WhatsApp%20Business%20OS%20Scale%20enquiry' },
+    featured: false,
+  },
+];
+
+const setup = [
+  {
+    n: '01',
+    title: 'Subscribe and connect your WhatsApp',
+    body: 'Choose Solo, Pro, or Scale. Connect your WhatsApp Business number once. We provision your account in under 10 minutes.',
+  },
+  {
+    n: '02',
+    title: 'Import your shop, or start fresh',
+    body: 'CSV-import an existing inventory, or start by chatting — "Add 5 products: rice, garri, sugar, oil, milk." The bot sets up the catalog as you go.',
+  },
+  {
+    n: '03',
+    title: 'Run everything from WhatsApp',
+    body: 'Sales, restocks, debts, summaries, PDF receipts — all live in your WhatsApp thread. Open the dashboard only if you want to.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How is this different from the WhatsApp AI Assistant on the regular plans?',
+    a: 'WhatsApp AI Assistant (built into Lite, Operator, Professional, and Scale plans) is a chat-driven helper alongside the dashboard — limited to 10–250 actions/week. WhatsApp Business OS is a separate premium product that replaces the dashboard entirely: thousands of actions per month, full-coverage operations (sales, inventory, debts, PDFs, summaries), and tier-based limits designed for businesses that genuinely run on WhatsApp.',
+  },
+  {
+    q: 'Do I still need a base Ojunai plan?',
+    a: 'Yes — WhatsApp Business OS sits on top of any base plan (Starter through Scale). The base plan handles compliance, audit log retention beyond your tier limit, and dashboard access if you ever want it. Most BOS customers stay on Starter or Lite for the base plan and get all their value from BOS.',
+  },
+  {
+    q: 'How does PDF delivery to WhatsApp actually work?',
+    a: 'When the bot generates a PDF — a receipt, a weekly summary, a stock report — it lands in your WhatsApp thread as a tap-to-open link. No email, no dashboard download, no third-party app. The link is a short-lived signed URL that opens the PDF in your phone\'s browser. You can save it, forward it, or print it.',
+  },
+  {
+    q: 'What\'s a "business action"?',
+    a: 'One operational interaction — recording a sale, updating inventory, generating a PDF, requesting a report, logging a payment. Casual queries ("hi", "thanks") don\'t count. Most small shops hit 30–80 actions/day at peak, so Solo\'s 1,200/month covers a steady solo operation, and Pro\'s 6,000/month covers a busy multi-staff shop.',
+  },
+  {
+    q: 'Can I start with Solo and upgrade to Pro later?',
+    a: 'Yes — upgrades are immediate and prorated. We migrate your inventory, history, and customer records automatically. Downgrades take effect at the end of the billing period.',
+  },
+  {
+    q: 'What if I exceed my monthly action cap on Solo?',
+    a: 'You\'re notified at 80%, 100%, and over. You can either buy a one-time top-up pack from /pricing (e.g., 600 actions for $30), or upgrade to Pro — whichever is cheaper for the month. The dashboard remains usable regardless.',
+  },
+  {
+    q: 'Does it work with multiple staff?',
+    a: 'Pro covers up to 3 staff with their own WhatsApp numbers. Each staff sees their own conversation thread; the owner sees consolidated reports. Scale covers 6+ staff with multi-location support.',
+  },
+  {
+    q: 'Languages supported?',
+    a: 'Plain English, Pidgin English, Yoruba, Hausa, Igbo, and Swahili. The bot detects the language from the first message. Mixed-language threads are fine.',
+  },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Ojunai WhatsApp Business OS',
+  description:
+    'A WhatsApp-native business operating system. Replace the dashboard with a single conversation — record sales, update inventory, track debts, generate PDFs delivered as WhatsApp links. Three tiers: Solo, Pro, Scale.',
+  brand: { '@type': 'Brand', name: 'Ojunai' },
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'WhatsApp Business OS — Solo',
+      price: '49.99',
+      priceCurrency: 'USD',
+      description: '1,200 business actions/month, 1 user, 1 location, 100 SKUs, 50 PDFs/month, 30-day history.',
+    },
+    {
+      '@type': 'Offer',
+      name: 'WhatsApp Business OS — Pro',
+      price: '145.99',
+      priceCurrency: 'USD',
+      description: '6,000 business actions/month, 3 users, unlimited SKUs and PDFs, branded PDF templates, bulk announcements, 90-day history.',
+    },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="WhatsApp Business OS — Ojunai"
+  description="Replace the dashboard with WhatsApp. WhatsApp Business OS lets you run your entire business — sales, inventory, debts, payments, PDF receipts, summaries — through a single conversation. Three tiers: Solo, Pro, Scale."
+  canonical="/whatsapp-business-os"
+  ogImage="/og/whatsapp-ai.png"
+  jsonLd={[productSchema, faqSchema]}
+>
+  <!-- HERO -->
+  <section class="wbos-hero">
+    <div class="wbos-hero-glow"></div>
+    <div class="container wbos-hero-inner">
+      <span class="wbos-hero-pill">Premium Differentiator</span>
+      <h1>Run your entire business from <span>WhatsApp</span>.</h1>
+      <p class="wbos-hero-sub">
+        WhatsApp Business OS replaces the dashboard with a single conversation. Sales, inventory,
+        debts, payments, receipts, and reports — all operated and delivered through WhatsApp.
+      </p>
+      <div class="wbos-hero-ctas">
+        <a href="#tiers" class="wbos-hero-cta-primary">See pricing</a>
+        <a href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS" class="wbos-hero-cta-secondary">
+          Add to Plan →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES GRID -->
+  <section class="wbos-capabilities">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">What it does</div>
+        <h2>Six WhatsApp-native capabilities</h2>
+        <p>Every operation a small business needs, expressed as a chat.</p>
+      </div>
+      <div class="wbos-cap-grid">
+        {capabilities.map((c) => (
+          <div class={`wbos-cap-card ${c.featured ? 'wbos-cap-card-featured' : ''}`}>
+            <div class="wbos-cap-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d={c.iconPath} />
+              </svg>
+            </div>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PDF DIFFERENTIATOR -->
+  <section class="wbos-pdf">
+    <div class="container">
+      <div class="wbos-pdf-card">
+        <div class="wbos-pdf-glow"></div>
+        <div class="wbos-pdf-meta">
+          <span class="wbos-pdf-pill">The PDF differentiator</span>
+          <h2>PDFs that arrive in your customer's WhatsApp.</h2>
+          <p>
+            Most small businesses still email receipts — and most customers don't open them.
+            WhatsApp Business OS generates a PDF and drops it directly into your customer's
+            WhatsApp as a tap-to-open link. No email. No app. No friction.
+          </p>
+          <ul class="wbos-pdf-uses">
+            <li><strong>Sales receipt</strong> — sent to the customer the moment the sale is recorded</li>
+            <li><strong>Weekly business summary</strong> — sent to you Sunday evening, ready to forward to your accountant</li>
+            <li><strong>Stock report</strong> — sent to staff at end of shift, ready to forward up the chain</li>
+            <li><strong>Debt statement</strong> — generated on demand, sent to a customer to nudge a payment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TIERS -->
+  <section class="wbos-tiers" id="tiers">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Three tiers</div>
+        <h2>Pick the WhatsApp Business OS that fits your shop</h2>
+        <p>From a solo operator running everything by chat to multi-location teams.</p>
+      </div>
+
+      <div class="wbos-tiers-switcher" role="tablist" aria-label="Display currency">
+        <span class="wbos-tiers-switcher-label">Show prices in</span>
+        <div class="wbos-tiers-switcher-pills">
+          {currencies.map((c) => (
+            <button
+              type="button"
+              class={`wbos-tiers-pill ${c === 'USD' ? 'wbos-tiers-pill-active' : ''}`}
+              data-ccy={c}
+              role="tab"
+              aria-selected={c === 'USD' ? 'true' : 'false'}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="wbos-tier-grid">
+        {tiers.map((t) => (
+          <div class={`wbos-tier-page ${t.featured ? 'wbos-tier-page-featured' : ''}`}>
+            {t.badge && <div class="wbos-tier-page-badge">{t.badge}</div>}
+            <div class="wbos-tier-page-name">{t.name}</div>
+            <div class="wbos-tier-page-price">
+              {t.priceKey
+                ? <span data-price-id={t.priceKey}>{t.priceText}</span>
+                : <span>{t.priceText}</span>}
+              {t.period && <span class="wbos-tier-page-period">{t.period}</span>}
+            </div>
+            <div class="wbos-tier-page-sub">{t.sub}</div>
+            <ul class="wbos-tier-page-features">
+              {t.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <a href={t.cta.href} class={`wbos-tier-page-cta ${t.featured ? 'wbos-tier-page-cta-primary' : ''}`}>
+              {t.cta.label}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="wbos-tiers-note">
+        Sits on top of any base plan (Starter through Scale).
+        <a href="/pricing">Compare to base plans →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="wbos-how">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Setup</div>
+        <h2>Live on WhatsApp in under 30 minutes</h2>
+      </div>
+      <div class="wbos-how-grid">
+        {setup.map((s) => (
+          <div class="wbos-how-step">
+            <div class="wbos-how-num">{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="wbos-faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Frequently asked</div>
+        <h2>WhatsApp Business OS questions</h2>
+      </div>
+      <div class="wbos-faq-list">
+        {faqs.map((f) => (
+          <details class="wbos-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+
+  <!-- Currency price matrix as JSON island -->
+  <script type="application/json" id="ojunai-wbos-price-matrix" set:html={JSON.stringify(priceMatrix)} />
+
+  <script is:inline>
+    (function () {
+      const SUPPORTED = ['USD','NGN','GHS','KES','ZAR','UGX','GBP'];
+      const TZ_TO_CCY = {
+        'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
+        'Africa/Accra':'GHS',
+        'Africa/Nairobi':'KES','Africa/Mombasa':'KES',
+        'Africa/Johannesburg':'ZAR','Africa/Cape_Town':'ZAR','Africa/Durban':'ZAR',
+        'Africa/Kampala':'UGX',
+        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP'
+      };
+      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP' };
+
+      function detect() {
+        try {
+          const stored = localStorage.getItem('ojunai-currency');
+          if (stored && SUPPORTED.indexOf(stored) >= 0) return stored;
+        } catch (e) {}
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          if (TZ_TO_CCY[tz]) return TZ_TO_CCY[tz];
+        } catch (e) {}
+        try {
+          const lang = navigator.language || 'en-US';
+          const region = (lang.split('-')[1] || '').toUpperCase();
+          if (REGION_TO_CCY[region]) return REGION_TO_CCY[region];
+        } catch (e) {}
+        return 'USD';
+      }
+
+      let matrix = {};
+      try {
+        const node = document.getElementById('ojunai-wbos-price-matrix');
+        matrix = node ? JSON.parse(node.textContent) : {};
+      } catch (e) { matrix = {}; }
+
+      function apply(ccy) {
+        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+        document.querySelectorAll('[data-price-id]').forEach(function (el) {
+          const key = el.getAttribute('data-price-id');
+          if (matrix[key] && matrix[key][ccy]) el.textContent = matrix[key][ccy];
+        });
+        document.querySelectorAll('.wbos-tiers-pill').forEach(function (b) {
+          const active = b.getAttribute('data-ccy') === ccy;
+          b.classList.toggle('wbos-tiers-pill-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        try { localStorage.setItem('ojunai-currency', ccy); } catch (e) {}
+      }
+
+      function init() {
+        apply(detect());
+        document.querySelectorAll('.wbos-tiers-pill').forEach(function (b) {
+          b.addEventListener('click', function () { apply(b.getAttribute('data-ccy')); });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  /* ============ HERO ============ */
+  .wbos-hero {
+    position: relative;
+    padding: 160px 0 80px;
+    background: radial-gradient(120% 140% at 0% 0%, #064E3B 0%, #052E2A 60%, #022014 100%);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+  }
+  .wbos-hero-glow {
+    position: absolute;
+    top: -160px;
+    right: -120px;
+    width: 540px;
+    height: 540px;
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.45), transparent 65%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  .wbos-hero-inner {
+    position: relative;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .wbos-hero-pill {
+    display: inline-block;
+    background: rgba(37, 211, 102, 0.18);
+    color: #6EE7B7;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .wbos-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .wbos-hero h1 span {
+    background: linear-gradient(135deg, #25D366, #6EE7B7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .wbos-hero-sub {
+    font-size: 1.15rem;
+    color: #CBD5E1;
+    line-height: 1.65;
+    margin-bottom: 32px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .wbos-hero-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .wbos-hero-cta-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wbos-hero-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+  }
+  .wbos-hero-cta-secondary {
+    color: #6EE7B7;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 100px;
+    border: 1px solid rgba(110, 231, 183, 0.4);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .wbos-hero-cta-secondary:hover {
+    background: rgba(110, 231, 183, 0.1);
+    border-color: rgba(110, 231, 183, 0.7);
+    transform: translateY(-1px);
+  }
+
+  /* ============ CAPABILITIES ============ */
+  .wbos-capabilities { padding: 80px 0; background: var(--bg); }
+  .wbos-cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .wbos-cap-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .wbos-cap-grid { grid-template-columns: 1fr; } }
+  .wbos-cap-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .wbos-cap-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--wa-green);
+  }
+  .wbos-cap-card-featured {
+    background: linear-gradient(180deg, rgba(37, 211, 102, 0.06), rgba(37, 211, 102, 0.02));
+    border-color: rgba(37, 211, 102, 0.4);
+  }
+  .wbos-cap-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .wbos-cap-card h3 {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .wbos-cap-card p {
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* ============ PDF DIFFERENTIATOR ============ */
+  .wbos-pdf { padding: 60px 0; }
+  .wbos-pdf-card {
+    position: relative;
+    background: radial-gradient(120% 140% at 0% 0%, #064E3B 0%, #052E2A 60%, #022014 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(37, 211, 102, 0.2);
+    box-shadow: 0 30px 80px rgba(15, 80, 50, 0.2);
+    padding: 56px 64px;
+    color: white;
+  }
+  @media (max-width: 768px) { .wbos-pdf-card { padding: 40px 28px; } }
+  .wbos-pdf-glow {
+    position: absolute;
+    top: -120px;
+    left: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.4), transparent 65%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .wbos-pdf-meta { position: relative; max-width: 760px; }
+  .wbos-pdf-pill {
+    display: inline-block;
+    background: rgba(37, 211, 102, 0.18);
+    color: #6EE7B7;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .wbos-pdf-card h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    color: white;
+    line-height: 1.18;
+    margin-bottom: 18px;
+  }
+  .wbos-pdf-card p {
+    color: #CBD5E1;
+    font-size: 1.04rem;
+    line-height: 1.65;
+    margin-bottom: 22px;
+  }
+  .wbos-pdf-uses {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .wbos-pdf-uses li {
+    color: #E2E8F0;
+    font-size: 0.96rem;
+    line-height: 1.6;
+    padding: 7px 0 7px 26px;
+    position: relative;
+  }
+  .wbos-pdf-uses li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: #25D366;
+    font-weight: 700;
+  }
+  .wbos-pdf-uses strong { color: white; }
+
+  /* ============ TIERS ============ */
+  .wbos-tiers { padding: 80px 0; background: var(--bg-alt); }
+
+  .wbos-tiers-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 0 0 32px;
+  }
+  .wbos-tiers-switcher-label {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .wbos-tiers-switcher-pills {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  }
+  .wbos-tiers-pill {
+    background: transparent;
+    border: 0;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 7px 13px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+  }
+  .wbos-tiers-pill:hover { color: var(--wa-green); }
+  .wbos-tiers-pill-active {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+  }
+  .wbos-tiers-pill-active:hover { color: white; }
+
+  .wbos-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 900px) {
+    .wbos-tier-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto 24px; }
+  }
+  .wbos-tier-page {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .wbos-tier-page:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--wa-green);
+  }
+  .wbos-tier-page-featured {
+    border-color: var(--wa-green);
+    border-width: 2px;
+    background: linear-gradient(180deg, white 0%, #F0FDF4 100%);
+    box-shadow: 0 14px 40px rgba(37, 211, 102, 0.18);
+    transform: translateY(-6px);
+  }
+  .wbos-tier-page-featured:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(37, 211, 102, 0.25);
+  }
+  @media (max-width: 900px) {
+    .wbos-tier-page-featured { transform: none; }
+    .wbos-tier-page-featured:hover { transform: translateY(-3px); }
+  }
+  .wbos-tier-page-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+    white-space: nowrap;
+  }
+  .wbos-tier-page-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .wbos-tier-page-price {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .wbos-tier-page-period {
+    font-size: 1rem;
+    color: var(--text-2);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .wbos-tier-page-sub {
+    color: var(--text-2);
+    font-size: 0.92rem;
+    margin: 12px 0 22px;
+    line-height: 1.5;
+  }
+  .wbos-tier-page-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 26px;
+    flex: 1;
+  }
+  .wbos-tier-page-features li {
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    padding: 5px 0 5px 22px;
+    position: relative;
+  }
+  .wbos-tier-page-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    color: var(--wa-green);
+    font-weight: 700;
+  }
+  .wbos-tier-page-cta {
+    display: block;
+    text-align: center;
+    background: white;
+    color: var(--wa-green);
+    border: 1.5px solid var(--wa-green);
+    padding: 12px 20px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .wbos-tier-page-cta:hover {
+    background: rgba(37, 211, 102, 0.08);
+    transform: translateY(-1px);
+  }
+  .wbos-tier-page-cta-primary {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+  }
+  .wbos-tier-page-cta-primary:hover {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    box-shadow: 0 10px 24px rgba(37, 211, 102, 0.4);
+  }
+
+  .wbos-tiers-note {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--text-2);
+    font-size: 0.95rem;
+  }
+  .wbos-tiers-note a { color: var(--brand); font-weight: 600; text-decoration: none; }
+  .wbos-tiers-note a:hover { text-decoration: underline; }
+
+  /* ============ HOW IT WORKS ============ */
+  .wbos-how { padding: 80px 0; }
+  .wbos-how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 800px) { .wbos-how-grid { grid-template-columns: 1fr; } }
+  .wbos-how-step {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px;
+  }
+  .wbos-how-num {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--wa-green);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .wbos-how-step h3 {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .wbos-how-step p {
+    color: var(--text-2);
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  /* ============ FAQ ============ */
+  .wbos-faq { padding: 80px 0; background: var(--bg-alt); }
+  .wbos-faq-list { max-width: 820px; margin: 0 auto; }
+  .wbos-faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .wbos-faq-item[open] { border-color: var(--wa-green); }
+  .wbos-faq-item summary {
+    padding: 18px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wbos-faq-item summary::-webkit-details-marker { display: none; }
+  .wbos-faq-item summary::after {
+    content: '+';
+    font-size: 1.4rem;
+    color: var(--wa-green);
+    transition: transform 0.2s;
+  }
+  .wbos-faq-item[open] summary::after { transform: rotate(45deg); }
+  .wbos-faq-item p {
+    padding: 0 24px 20px;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+</style>

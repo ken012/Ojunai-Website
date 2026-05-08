@@ -148,6 +148,10 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   min-width: 520px;
   max-width: min(820px, calc(100vw - 32px));
   padding: 24px;
+}
+.nav-megamenu-cols-3 {
+  min-width: 760px;
+  max-width: min(960px, calc(100vw - 32px));
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px);
@@ -176,8 +180,11 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
 .nav-megamenu-inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /* grid-template-columns set inline based on menu.columns.length so each menu
+     gets exactly N side-by-side columns rather than auto-fit wrapping when the
+     panel feels narrow. */
   gap: 28px;
+  align-items: start;
 }
 
 .nav-megamenu-heading {
