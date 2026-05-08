@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ojunai.com/sitemap.xml
+Sitemap: https://ojunai.com/sitemap-index.xml
