@@ -148,15 +148,21 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
   min-width: 520px;
   max-width: min(820px, calc(100vw - 32px));
   padding: 24px;
-}
-.nav-megamenu-cols-3 {
-  min-width: 760px;
-  max-width: min(960px, calc(100vw - 32px));
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px);
   transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
   z-index: 200;
+}
+.nav-megamenu-cols-3 {
+  min-width: 760px;
+  max-width: min(960px, calc(100vw - 32px));
+}
+/* Right-side nav menus (e.g. Resources, last in the row) align the panel
+   right edge to the trigger so it doesn't overflow the viewport. */
+.nav-menu[data-menu="resources"] .nav-megamenu {
+  left: auto;
+  right: -24px;
 }
 
 /* Hover-open on desktop */
