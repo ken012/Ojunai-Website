@@ -238,63 +238,6 @@ const whatsappCompare = [
 ];
 
 // ====================================
-// WHATSAPP BUSINESS OS — TIERS
-// ====================================
-const wabosTiers = [
-  {
-    name: 'Solo',
-    priceKey: 'wabosSolo',
-    priceText: priceMatrix.wabosSolo.USD,
-    period: '/month',
-    sub: 'Run your shop solo, from WhatsApp.',
-    features: [
-      '1,200 business actions / month',
-      '1 user · 1 location',
-      '100 SKUs · 50 PDFs / month',
-      '30-day history',
-      'Standard PDF templates',
-    ],
-    cta: { label: 'Add to Plan →', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Solo' },
-    featured: false,
-  },
-  {
-    name: 'Pro',
-    priceKey: 'wabosPro',
-    priceText: priceMatrix.wabosPro.USD,
-    period: '/month',
-    sub: 'Established shops, fully WhatsApp-operated.',
-    features: [
-      '6,000 business actions / month',
-      '3 users · 1 location',
-      'Unlimited SKUs & PDFs',
-      'Branded PDF templates',
-      'Bulk announcements',
-      '90-day history',
-    ],
-    cta: { label: 'Add to Plan →', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Pro' },
-    featured: true,
-    badge: 'Most Popular',
-  },
-  {
-    name: 'Scale',
-    priceKey: null,
-    priceText: 'Contact Sales',
-    period: '',
-    sub: 'Multi-location, multi-staff WhatsApp ops.',
-    features: [
-      'Unlimited business actions',
-      '6+ users · Multi-location',
-      'Custom PDF templates per type',
-      'Voice AI bundle discount',
-      '1+ year history retention',
-      'Priority support',
-    ],
-    cta: { label: 'Talk to Sales →', href: 'mailto:contact@ojunai.com?subject=WhatsApp%20Business%20OS%20Scale%20enquiry' },
-    featured: false,
-  },
-];
-
-// ====================================
 // POWER ADD-ONS
 // ====================================
 const whatsappStarterPacks = [
@@ -527,38 +470,10 @@ const faqSchema = {
               Record sales, add and update inventory, track debts and payments — full
               operational control through a single conversation.
             </p>
-
-            <!-- 3-tier mini-grid -->
-            <div class="wabos-tiers-grid">
-              {wabosTiers.map((t) => (
-                <div class={`wabos-tier ${t.featured ? 'wabos-tier-featured' : ''}`}>
-                  {t.badge && <span class="wabos-tier-badge">{t.badge}</span>}
-                  <div class="wabos-tier-name">{t.name}</div>
-                  <div class="wabos-tier-price">
-                    {t.priceKey
-                      ? <span data-price-id={t.priceKey}>{t.priceText}</span>
-                      : <span>{t.priceText}</span>}
-                    {t.period && <span class="wabos-tier-period">{t.period}</span>}
-                  </div>
-                  <div class="wabos-tier-sub">{t.sub}</div>
-                  <ul class="wabos-tier-features">
-                    {t.features.map((f) => <li>{f}</li>)}
-                  </ul>
-                  <a href={t.cta.href} class="wabos-tier-cta">{t.cta.label}</a>
-                </div>
-              ))}
+            <div class="featured-addon-actions">
+              <a href="/whatsapp-business-os" class="featured-addon-cta">Explore WhatsApp Business OS →</a>
+              <a href="/whatsapp-business-os#tiers" class="featured-addon-secondary">See pricing tiers</a>
             </div>
-
-            <p class="featured-addon-subhead">Every BOS tier includes:</p>
-            <ul class="featured-addon-list">
-              <li>Record sales by chat — instant ledger updates</li>
-              <li>Add or update inventory inline (text or photo)</li>
-              <li>Track debts, payments, and customer balances</li>
-              <li>Generate receipts, summaries, and reports as PDFs delivered straight to WhatsApp as a tap-to-open link</li>
-              <li>Daily and weekly summaries auto-delivered</li>
-              <li>Works alongside any plan — no dashboard required</li>
-            </ul>
-            <p class="featured-addon-annual">Annual billing available on Solo and Pro — save ~2 months. Scale negotiated.</p>
           </div>
         </div>
       </div>
@@ -1579,6 +1494,25 @@ const faqSchema = {
     font-size: 0.85rem !important;
     margin: -8px 0 22px !important;
     font-style: italic;
+  }
+  .featured-addon-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .featured-addon-secondary {
+    color: #6EE7B7;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 14px 4px;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .featured-addon-secondary:hover {
+    color: white;
+    transform: translateX(4px);
   }
   .featured-addon-cta {
     display: inline-block;
