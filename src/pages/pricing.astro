@@ -513,6 +513,58 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- WHATSAPP BUSINESS OS — placed right after Enterprise -->
+  <section class="pricing-wabos-section">
+    <div class="container">
+      <div class="featured-addon">
+        <div class="featured-addon-glow"></div>
+        <div class="featured-addon-inner">
+          <div class="featured-addon-meta">
+            <span class="featured-addon-pill">Premium Differentiator</span>
+            <h3>WhatsApp Business OS</h3>
+            <p>
+              Run your entire business directly from WhatsApp. No dashboard required.
+              Record sales, add and update inventory, track debts and payments — full
+              operational control through a single conversation.
+            </p>
+
+            <!-- 3-tier mini-grid -->
+            <div class="wabos-tiers-grid">
+              {wabosTiers.map((t) => (
+                <div class={`wabos-tier ${t.featured ? 'wabos-tier-featured' : ''}`}>
+                  {t.badge && <span class="wabos-tier-badge">{t.badge}</span>}
+                  <div class="wabos-tier-name">{t.name}</div>
+                  <div class="wabos-tier-price">
+                    {t.priceKey
+                      ? <span data-price-id={t.priceKey}>{t.priceText}</span>
+                      : <span>{t.priceText}</span>}
+                    {t.period && <span class="wabos-tier-period">{t.period}</span>}
+                  </div>
+                  <div class="wabos-tier-sub">{t.sub}</div>
+                  <ul class="wabos-tier-features">
+                    {t.features.map((f) => <li>{f}</li>)}
+                  </ul>
+                  <a href={t.cta.href} class="wabos-tier-cta">{t.cta.label}</a>
+                </div>
+              ))}
+            </div>
+
+            <p class="featured-addon-subhead">Every BOS tier includes:</p>
+            <ul class="featured-addon-list">
+              <li>Record sales by chat — instant ledger updates</li>
+              <li>Add or update inventory inline (text or photo)</li>
+              <li>Track debts, payments, and customer balances</li>
+              <li>Generate receipts, summaries, and reports as PDFs delivered straight to WhatsApp as a tap-to-open link</li>
+              <li>Daily and weekly summaries auto-delivered</li>
+              <li>Works alongside any plan — no dashboard required</li>
+            </ul>
+            <p class="featured-addon-annual">Annual billing available on Solo and Pro — save ~2 months. Scale negotiated.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FULL FEATURE COMPARISON -->
   <section class="pricing-compare-v2-section">
     <div class="container">
@@ -605,54 +657,6 @@ const faqSchema = {
         <div class="section-label">Power Add-ons</div>
         <h2>Boost any plan</h2>
         <p>Stack add-ons à la carte. Upgrade pieces without changing your whole tier.</p>
-      </div>
-
-      <!-- WhatsApp Business OS — featured -->
-      <div class="featured-addon">
-        <div class="featured-addon-glow"></div>
-        <div class="featured-addon-inner">
-          <div class="featured-addon-meta">
-            <span class="featured-addon-pill">Premium Differentiator</span>
-            <h3>WhatsApp Business OS</h3>
-            <p>
-              Run your entire business directly from WhatsApp. No dashboard required.
-              Record sales, add and update inventory, track debts and payments — full
-              operational control through a single conversation.
-            </p>
-
-            <!-- 3-tier mini-grid -->
-            <div class="wabos-tiers-grid">
-              {wabosTiers.map((t) => (
-                <div class={`wabos-tier ${t.featured ? 'wabos-tier-featured' : ''}`}>
-                  {t.badge && <span class="wabos-tier-badge">{t.badge}</span>}
-                  <div class="wabos-tier-name">{t.name}</div>
-                  <div class="wabos-tier-price">
-                    {t.priceKey
-                      ? <span data-price-id={t.priceKey}>{t.priceText}</span>
-                      : <span>{t.priceText}</span>}
-                    {t.period && <span class="wabos-tier-period">{t.period}</span>}
-                  </div>
-                  <div class="wabos-tier-sub">{t.sub}</div>
-                  <ul class="wabos-tier-features">
-                    {t.features.map((f) => <li>{f}</li>)}
-                  </ul>
-                  <a href={t.cta.href} class="wabos-tier-cta">{t.cta.label}</a>
-                </div>
-              ))}
-            </div>
-
-            <p class="featured-addon-subhead">Every BOS tier includes:</p>
-            <ul class="featured-addon-list">
-              <li>Record sales by chat — instant ledger updates</li>
-              <li>Add or update inventory inline (text or photo)</li>
-              <li>Track debts, payments, and customer balances</li>
-              <li>Generate receipts, summaries, and reports as PDFs delivered straight to WhatsApp as a tap-to-open link</li>
-              <li>Daily and weekly summaries auto-delivered</li>
-              <li>Works alongside any plan — no dashboard required</li>
-            </ul>
-            <p class="featured-addon-annual">Annual billing available on Solo and Pro — save ~2 months. Scale negotiated.</p>
-          </div>
-        </div>
       </div>
 
       <!-- Starter WhatsApp packs -->
@@ -1281,6 +1285,10 @@ const faqSchema = {
     color: #94A3B8;
     font-size: 0.82rem;
   }
+
+  /* ============ WHATSAPP BUSINESS OS SECTION ============ */
+  .pricing-wabos-section { padding: 32px 0 80px; }
+  .pricing-wabos-section .featured-addon { margin-bottom: 0; }
 
   /* ============ COMPARISON TABLES ============ */
   .pricing-compare-v2-section { padding: 80px 0; background: var(--bg-alt); }
