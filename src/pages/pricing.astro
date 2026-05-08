@@ -8,6 +8,7 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 // ====================================
 const priceMatrix = {
   // Tiers
+  lite:              { USD:'$12.99', NGN:'₦18,999',          GHS:'₵149',         KES:'KSh 1,699',          ZAR:'R229' },
   operator:          { USD:'$29',    NGN:'₦42,000',          GHS:'₵349',         KES:'KSh 3,800',          ZAR:'R529' },
   professional:      { USD:'$79',    NGN:'₦115,000',         GHS:'₵949',         KES:'KSh 10,500',         ZAR:'R1,449' },
   scale:             { USD:'$199',   NGN:'₦289,000',         GHS:'₵2,399',       KES:'KSh 26,500',         ZAR:'R3,649' },
@@ -40,25 +41,43 @@ const priceMatrix = {
 const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR'];
 
 // ====================================
-// PLANS
+// STARTER (rendered as a flat card below the main grid)
+// ====================================
+const starterFlat = {
+  name: 'Starter',
+  priceText: 'Free',
+  sub: 'Best for individuals just getting started.',
+  features: [
+    'Inventory tracking',
+    'Sales logging',
+    'Expense tracking',
+    'Basic reports',
+    '1 user',
+    'No WhatsApp included',
+  ],
+  cta: { label: 'Start Free', href: 'https://app.ojunai.com/register' },
+};
+
+// ====================================
+// PLANS (main 4-card grid)
 // ====================================
 const plans = [
   {
-    id: 'starter',
-    name: 'Starter',
-    priceKey: null,
-    priceText: 'Free',
-    period: '',
-    sub: 'Best for individuals getting started.',
+    id: 'lite',
+    name: 'Lite',
+    priceKey: 'lite',
+    priceText: priceMatrix.lite.USD,
+    period: '/month',
+    sub: 'Best for solo operators who want WhatsApp built in.',
     features: [
-      'Inventory tracking',
-      'Sales logging',
-      'Expense tracking',
-      'Basic reports',
+      'Everything in Starter',
+      'Debt & loan tracking',
+      'Customer records',
+      'WhatsApp Assistant: 10 actions/week',
       '1 user',
-      'No WhatsApp included by default',
+      'Basic email receipts',
     ],
-    cta: { label: 'Start Free', href: 'https://app.ojunai.com/register', external: true, variant: 'outline' },
+    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=lite', external: true, variant: 'outline' },
     featured: false,
   },
   {
@@ -69,14 +88,12 @@ const plans = [
     period: '/month',
     sub: 'Best for small businesses running daily operations.',
     features: [
-      'Everything in Starter',
-      'Debt & loan tracking',
+      'Everything in Lite',
       'Manual payment tracking',
-      'Customer records',
       'Basic insights',
-      'WhatsApp Assistant: 25 actions/week',
+      'WhatsApp Assistant: 35 actions/week',
       '1 user',
-      'Basic email receipts',
+      'Email receipts (Basic)',
     ],
     cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=operator', external: true, variant: 'outline' },
     featured: false,
@@ -94,7 +111,7 @@ const plans = [
       'Profit tracking & insights',
       'Product performance tracking',
       'Data export',
-      'WhatsApp Assistant: 85 actions/week',
+      'WhatsApp Assistant: 95 actions/week',
       '3 users',
       'WhatsApp receipts',
       'Basic PDF receipts',
@@ -147,63 +164,63 @@ const enterprise = {
 // ====================================
 // FULL FEATURE COMPARISON
 // ====================================
-const planLabels = ['Starter', 'Operator', 'Professional', 'Scale', 'Enterprise'];
+const planLabels = ['Starter', 'Lite', 'Operator', 'Professional', 'Scale', 'Enterprise'];
 
 const compareCategories = [
   {
     name: 'Core',
     rows: [
-      { feature: 'Inventory tracking',         cells: ['✓', '✓', '✓', '✓', '✓'] },
-      { feature: 'Sales logging',              cells: ['✓', '✓', '✓', '✓', '✓'] },
-      { feature: 'Expense tracking',           cells: ['✓', '✓', '✓', '✓', '✓'] },
-      { feature: 'Customer records',           cells: ['—', '✓', '✓', '✓', '✓'] },
-      { feature: 'Basic reports',              cells: ['✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Inventory tracking',         cells: ['✓', '✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Sales logging',              cells: ['✓', '✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Expense tracking',           cells: ['✓', '✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Customer records',           cells: ['—', '✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Basic reports',              cells: ['✓', '✓', '✓', '✓', '✓', '✓'] },
     ],
   },
   {
     name: 'Debt, Money & Insights',
     rows: [
-      { feature: 'Debt & loan tracking',       cells: ['—', '✓', '✓', '✓', '✓'] },
-      { feature: 'Manual payment tracking',    cells: ['—', '✓', '✓', '✓', '✓'] },
-      { feature: 'Profit tracking & insights', cells: ['—', '—', '✓', '✓', '✓'] },
-      { feature: 'Advanced analytics',         cells: ['—', '—', '✓', '✓', '✓'] },
-      { feature: 'Product performance',        cells: ['—', '—', '✓', '✓', '✓'] },
-      { feature: 'Data export',                cells: ['—', '—', '✓', '✓', '✓'] },
-      { feature: 'Custom dashboards',          cells: ['—', '—', 'Add-on', 'Add-on', '✓'] },
+      { feature: 'Debt & loan tracking',       cells: ['—', '✓', '✓', '✓', '✓', '✓'] },
+      { feature: 'Manual payment tracking',    cells: ['—', '—', '✓', '✓', '✓', '✓'] },
+      { feature: 'Profit tracking & insights', cells: ['—', '—', '—', '✓', '✓', '✓'] },
+      { feature: 'Advanced analytics',         cells: ['—', '—', '—', '✓', '✓', '✓'] },
+      { feature: 'Product performance',        cells: ['—', '—', '—', '✓', '✓', '✓'] },
+      { feature: 'Data export',                cells: ['—', '—', '—', '✓', '✓', '✓'] },
+      { feature: 'Custom dashboards',          cells: ['—', '—', '—', 'Add-on', 'Add-on', '✓'] },
     ],
   },
   {
     name: 'Team & Permissions',
     rows: [
-      { feature: 'Users included',             cells: ['1', '1', '3', '6', '10+'] },
-      { feature: 'Multi-user collaboration',   cells: ['—', '—', '—', '✓', '✓'] },
-      { feature: 'Multi-location support',     cells: ['—', '—', '—', '✓', '✓'] },
-      { feature: 'Audit logs',                 cells: ['—', '—', '—', '90 days', 'Extended'] },
+      { feature: 'Users included',             cells: ['1', '1', '1', '3', '6', '10+'] },
+      { feature: 'Multi-user collaboration',   cells: ['—', '—', '—', '—', '✓', '✓'] },
+      { feature: 'Multi-location support',     cells: ['—', '—', '—', '—', '✓', '✓'] },
+      { feature: 'Audit logs',                 cells: ['—', '—', '—', '—', '90 days', 'Extended'] },
     ],
   },
   {
     name: 'Branding & Receipts',
     rows: [
-      { feature: 'Email receipts',             cells: ['—', 'Basic', 'Basic', 'Branded', 'Branded'] },
-      { feature: 'PDF receipts',               cells: ['—', '—', 'Basic', 'Custom logo', 'Custom logo'] },
-      { feature: 'Custom business branding',   cells: ['—', '—', '—', '✓', '✓'] },
+      { feature: 'Email receipts',             cells: ['—', 'Basic', 'Basic', 'Basic', 'Branded', 'Branded'] },
+      { feature: 'PDF receipts',               cells: ['—', '—', '—', 'Basic', 'Custom logo', 'Custom logo'] },
+      { feature: 'Custom business branding',   cells: ['—', '—', '—', '—', '✓', '✓'] },
     ],
   },
   {
     name: 'Operations & Automation',
     rows: [
-      { feature: 'CSV imports',                cells: ['—', '—', '—', '✓', '✓'] },
-      { feature: 'Bulk price updates',         cells: ['—', '—', '—', '✓', '✓'] },
-      { feature: 'Automation alerts',          cells: ['—', '—', '—', '✓', '✓'] },
+      { feature: 'CSV imports',                cells: ['—', '—', '—', '—', '✓', '✓'] },
+      { feature: 'Bulk price updates',         cells: ['—', '—', '—', '—', '✓', '✓'] },
+      { feature: 'Automation alerts',          cells: ['—', '—', '—', '—', '✓', '✓'] },
     ],
   },
   {
     name: 'Support & Platform',
     rows: [
-      { feature: 'Email support',              cells: ['Standard', 'Standard', 'Standard', 'Priority', 'Dedicated'] },
-      { feature: 'Dedicated onboarding',       cells: ['—', '—', '—', '—', '✓'] },
-      { feature: 'API access',                 cells: ['—', '—', '—', '—', '✓'] },
-      { feature: 'Custom integrations',        cells: ['—', '—', '—', '—', '✓'] },
+      { feature: 'Email support',              cells: ['Standard', 'Standard', 'Standard', 'Standard', 'Priority', 'Dedicated'] },
+      { feature: 'Dedicated onboarding',       cells: ['—', '—', '—', '—', '—', '✓'] },
+      { feature: 'API access',                 cells: ['—', '—', '—', '—', '—', '✓'] },
+      { feature: 'Custom integrations',        cells: ['—', '—', '—', '—', '—', '✓'] },
     ],
   },
 ];
@@ -212,11 +229,11 @@ const compareCategories = [
 // WHATSAPP COMPARISON
 // ====================================
 const whatsappCompare = [
-  { feature: 'WhatsApp Assistant included',           cells: ['Add-on', '✓', '✓', '✓', '✓'] },
-  { feature: 'Business actions per week',             cells: ['—', '25', '85', '250', 'Custom'] },
-  { feature: 'WhatsApp receipts',                     cells: ['—', '—', '✓', '✓', '✓'] },
-  { feature: 'Bulk announcements via WhatsApp',       cells: ['—', '—', 'Add-on', 'Add-on', 'Add-on'] },
-  { feature: 'WhatsApp Business OS (full operations)',cells: ['Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on'] },
+  { feature: 'WhatsApp Assistant included',           cells: ['Add-on', '✓', '✓', '✓', '✓', '✓'] },
+  { feature: 'Business actions per week',             cells: ['—', '10', '35', '95', '250', 'Custom'] },
+  { feature: 'WhatsApp receipts',                     cells: ['—', '—', '—', '✓', '✓', '✓'] },
+  { feature: 'Bulk announcements via WhatsApp',       cells: ['—', '—', '—', 'Add-on', 'Add-on', 'Add-on'] },
+  { feature: 'WhatsApp Business OS (full operations)',cells: ['Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on'] },
 ];
 
 // ====================================
@@ -317,7 +334,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Pricing — Ojunai"
-  description="Run your business operating system on Ojunai. Free Starter plan, Operator $29, Professional $79, Scale $199, custom Enterprise. WhatsApp business actions included on every paid tier. Pay in USD, NGN, GHS, KES, or ZAR."
+  description="Run your business operating system on Ojunai. Free Starter, Lite $12.99, Operator $29, Professional $79, Scale $199, custom Enterprise. WhatsApp business actions included from Lite up. Pay in USD, NGN, GHS, KES, or ZAR."
   canonical="/pricing"
   ogImage="/og/pricing.png"
   jsonLd={faqSchema}
@@ -396,6 +413,24 @@ const faqSchema = {
         ))}
       </div>
 
+      <!-- STARTER FLAT CARD -->
+      <div class="starter-flat-card">
+        <div class="starter-flat-meta">
+          <div class="starter-flat-pill">Starter</div>
+          <h3>{starterFlat.sub}</h3>
+          <ul class="starter-flat-features">
+            {starterFlat.features.map((f) => <li>{f}</li>)}
+          </ul>
+        </div>
+        <div class="starter-flat-cta-col">
+          <div class="starter-flat-price">{starterFlat.priceText}</div>
+          <a href={starterFlat.cta.href} target="_blank" rel="noopener" class="starter-flat-cta">
+            {starterFlat.cta.label}
+          </a>
+          <p class="starter-flat-cta-meta">No credit card required</p>
+        </div>
+      </div>
+
       <!-- ENTERPRISE -->
       <div class="enterprise-card">
         <div class="enterprise-meta">
@@ -431,7 +466,7 @@ const faqSchema = {
             <tr>
               <th class="compare-feature-col">Feature</th>
               {planLabels.map((label, i) => (
-                <th class={i === 2 ? 'compare-featured-col' : ''}>{label}</th>
+                <th class={i === 3 ? 'compare-featured-col' : ''}>{label}</th>
               ))}
             </tr>
           </thead>
@@ -449,7 +484,7 @@ const faqSchema = {
                       if (cell === '✓') cls += ' compare-yes';
                       else if (cell === '—') cls += ' compare-no';
                       else if (cell === 'Add-on') cls += ' compare-addon';
-                      if (i === 2) cls += ' compare-featured-col';
+                      if (i === 3) cls += ' compare-featured-col';
                       return <td class={cls}>{cell}</td>;
                     })}
                   </tr>
@@ -477,7 +512,7 @@ const faqSchema = {
             <tr>
               <th class="compare-feature-col">Capability</th>
               {planLabels.map((label, i) => (
-                <th class={i === 2 ? 'compare-featured-col' : ''}>{label}</th>
+                <th class={i === 3 ? 'compare-featured-col' : ''}>{label}</th>
               ))}
             </tr>
           </thead>
@@ -490,7 +525,7 @@ const faqSchema = {
                   if (cell === '✓') cls += ' compare-yes-wa';
                   else if (cell === '—') cls += ' compare-no';
                   else if (cell === 'Add-on') cls += ' compare-addon';
-                  if (i === 2) cls += ' compare-featured-col';
+                  if (i === 3) cls += ' compare-featured-col';
                   return <td class={cls}>{cell}</td>;
                 })}
               </tr>
@@ -978,6 +1013,100 @@ const faqSchema = {
     background: var(--brand-light);
   }
 
+  /* ============ STARTER FLAT CARD ============ */
+  .starter-flat-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  }
+  @media (max-width: 800px) {
+    .starter-flat-card { grid-template-columns: 1fr; padding: 24px 22px; gap: 18px; }
+  }
+  .starter-flat-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .starter-flat-card h3 {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .starter-flat-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 18px;
+  }
+  @media (max-width: 700px) {
+    .starter-flat-features { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 460px) {
+    .starter-flat-features { grid-template-columns: 1fr; }
+  }
+  .starter-flat-features li {
+    color: var(--text-2);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding-left: 18px;
+    position: relative;
+  }
+  .starter-flat-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--brand);
+    font-weight: 700;
+  }
+  .starter-flat-cta-col {
+    text-align: center;
+  }
+  .starter-flat-price {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .starter-flat-cta {
+    display: inline-block;
+    background: white;
+    color: var(--brand);
+    border: 1.5px solid var(--brand);
+    padding: 12px 26px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .starter-flat-cta:hover {
+    background: var(--brand-light);
+    transform: translateY(-1px);
+  }
+  .starter-flat-cta-meta {
+    color: var(--text-3);
+    font-size: 0.78rem;
+    margin-top: 10px;
+  }
+
   /* ============ ENTERPRISE ============ */
   .enterprise-card {
     background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
@@ -1080,9 +1209,9 @@ const faqSchema = {
   }
   .compare-table-v2 {
     width: 100%;
-    min-width: 760px;
+    min-width: 920px;
     border-collapse: collapse;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
   .compare-table-v2 thead {
     background: var(--bg-alt);
