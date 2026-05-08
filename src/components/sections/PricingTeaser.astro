@@ -4,11 +4,23 @@
  * 5 tiers (Starter / Operator / Professional / Scale / Enterprise) plus the
  * full comparison tables and add-ons; this teaser surfaces the 3 most common
  * choices and links out for the rest.
+ *
+ * Currency toggle mirrors /pricing — shares the `ojunai-currency` localStorage
+ * key so a selection on either page persists across both.
  */
+
+const priceMatrix = {
+  professional: { USD:'$79',  NGN:'₦115,000', GHS:'₵949',   KES:'KSh 10,500', ZAR:'R1,449' },
+  scale:        { USD:'$199', NGN:'₦289,000', GHS:'₵2,399', KES:'KSh 26,500', ZAR:'R3,649' },
+};
+
+const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR'];
+
 const plans = [
   {
     label: 'Starter',
-    price: 'Free',
+    priceKey: null,
+    priceText: 'Free',
     period: '',
     sub: 'For individuals getting started',
     features: ['Inventory tracking', 'Sales logging', 'Expense tracking', 'Basic reports', '1 user'],
@@ -17,7 +29,8 @@ const plans = [
   },
   {
     label: 'Professional',
-    price: '$79',
+    priceKey: 'professional',
+    priceText: priceMatrix.professional.USD,
     period: '/month',
     sub: 'For businesses that want clarity and control',
     features: [
@@ -33,7 +46,8 @@ const plans = [
   },
   {
     label: 'Scale',
-    price: '$199',
+    priceKey: 'scale',
+    priceText: priceMatrix.scale.USD,
     period: '/month',
     sub: 'For teams and growing operations',
     features: [
@@ -57,12 +71,34 @@ const plans = [
       <p>Start free. Upgrade as you grow. WhatsApp Assistant + add-ons priced à la carte.</p>
     </div>
 
+    <div class="pricing-teaser-switcher" role="tablist" aria-label="Display currency">
+      <span class="pricing-teaser-switcher-label">Show prices in</span>
+      <div class="pricing-teaser-switcher-pills">
+        {currencies.map((c) => (
+          <button
+            type="button"
+            class={`pricing-teaser-pill ${c === 'USD' ? 'pricing-teaser-pill-active' : ''}`}
+            data-ccy={c}
+            role="tab"
+            aria-selected={c === 'USD' ? 'true' : 'false'}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+    </div>
+
     <div class="pricing-teaser-grid">
       {plans.map((p) => (
         <div class={`price-card ${p.featured ? 'price-card-featured' : ''}`}>
           {p.badge && <div class="price-badge">{p.badge}</div>}
           <div class="price-label">{p.label}</div>
-          <div class="price-amount">{p.price}<span>{p.period}</span></div>
+          <div class="price-amount">
+            {p.priceKey
+              ? <span data-price-id={p.priceKey}>{p.priceText}</span>
+              : p.priceText}
+            <span>{p.period}</span>
+          </div>
           <div class="price-sub">{p.sub}</div>
           <ul class="price-features">
             {p.features.map((f) => (
@@ -90,9 +126,119 @@ const plans = [
       <a href="/pricing">See all 5 plans + add-ons →</a>
     </p>
   </div>
+
+  <script type="application/json" id="ojunai-teaser-price-matrix" set:html={JSON.stringify(priceMatrix)} />
+
+  <script is:inline>
+    (function () {
+      const SUPPORTED = ['USD','NGN','GHS','KES','ZAR'];
+      const TZ_TO_CCY = {
+        'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
+        'Africa/Accra':'GHS',
+        'Africa/Nairobi':'KES','Africa/Mombasa':'KES',
+        'Africa/Johannesburg':'ZAR','Africa/Cape_Town':'ZAR','Africa/Durban':'ZAR'
+      };
+      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR' };
+
+      function detect() {
+        try {
+          const stored = localStorage.getItem('ojunai-currency');
+          if (stored && SUPPORTED.indexOf(stored) >= 0) return stored;
+        } catch (e) {}
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          if (TZ_TO_CCY[tz]) return TZ_TO_CCY[tz];
+        } catch (e) {}
+        try {
+          const lang = navigator.language || 'en-US';
+          const region = (lang.split('-')[1] || '').toUpperCase();
+          if (REGION_TO_CCY[region]) return REGION_TO_CCY[region];
+        } catch (e) {}
+        return 'USD';
+      }
+
+      let matrix = {};
+      try {
+        const node = document.getElementById('ojunai-teaser-price-matrix');
+        matrix = node ? JSON.parse(node.textContent) : {};
+      } catch (e) { matrix = {}; }
+
+      const root = document.getElementById('pricing-teaser');
+      if (!root) return;
+
+      function apply(ccy) {
+        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+        root.querySelectorAll('[data-price-id]').forEach(function (el) {
+          const key = el.getAttribute('data-price-id');
+          if (matrix[key] && matrix[key][ccy]) el.textContent = matrix[key][ccy];
+        });
+        root.querySelectorAll('.pricing-teaser-pill').forEach(function (b) {
+          const active = b.getAttribute('data-ccy') === ccy;
+          b.classList.toggle('pricing-teaser-pill-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        try { localStorage.setItem('ojunai-currency', ccy); } catch (e) {}
+      }
+
+      function init() {
+        apply(detect());
+        root.querySelectorAll('.pricing-teaser-pill').forEach(function (b) {
+          b.addEventListener('click', function () { apply(b.getAttribute('data-ccy')); });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
 </section>
 
 <style>
+  .pricing-teaser-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 0 0 32px;
+  }
+  .pricing-teaser-switcher-label {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .pricing-teaser-switcher-pills {
+    display: inline-flex;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  }
+  .pricing-teaser-pill {
+    background: transparent;
+    border: 0;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 7px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+  }
+  .pricing-teaser-pill:hover { color: var(--brand); }
+  .pricing-teaser-pill-active {
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  }
+  .pricing-teaser-pill-active:hover { color: white; }
+
   .pricing-teaser-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
