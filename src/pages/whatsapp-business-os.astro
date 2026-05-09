@@ -5,8 +5,14 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 // Mirror of /pricing matrix entries for WhatsApp BOS so the toggle on this
 // page swaps in the same locally-fixed prices. Scale stays Contact Sales.
 const priceMatrix = {
-  wabosSolo: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',   UGX:'USh 187,499', GBP:'£39.99' },
-  wabosPro:  { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649', UGX:'USh 547,499', GBP:'£116.99' },
+  wabosSolo: {
+    monthly: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',     UGX:'USh 187,499', GBP:'£39.99' },
+    yearly:  { USD:'$499',   NGN:'₦749,999', GHS:'₵5,999', KES:'KSh 64,999', ZAR:'R8,999',   UGX:'USh 1,874,999', GBP:'£399.99' },
+  },
+  wabosPro: {
+    monthly: { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649',   UGX:'USh 547,499', GBP:'£116.99' },
+    yearly:  { USD:'$1,459', NGN:'₦2,189,999', GHS:'₵17,499', KES:'KSh 189,999', ZAR:'R26,499', UGX:'USh 5,474,999', GBP:'£1,159.99' },
+  },
 };
 
 const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX', 'GBP'];
@@ -49,7 +55,7 @@ const tiers = [
   {
     name: 'Solo',
     priceKey: 'wabosSolo',
-    priceText: priceMatrix.wabosSolo.USD,
+    priceText: priceMatrix.wabosSolo.monthly.USD,
     period: '/month',
     sub: 'Run your shop solo, from WhatsApp.',
     features: [
@@ -66,7 +72,7 @@ const tiers = [
   {
     name: 'Pro',
     priceKey: 'wabosPro',
-    priceText: priceMatrix.wabosPro.USD,
+    priceText: priceMatrix.wabosPro.monthly.USD,
     period: '/month',
     sub: 'Established shops, fully WhatsApp-operated.',
     features: [
@@ -274,6 +280,11 @@ const faqSchema = {
         <p>From a solo operator running everything by chat to multi-location teams.</p>
       </div>
 
+      <div class="wbos-period-switcher" role="tablist" aria-label="Billing period">
+        <button type="button" class="wbos-period-pill wbos-period-pill-active" data-period="monthly" role="tab" aria-selected="true">Monthly</button>
+        <button type="button" class="wbos-period-pill" data-period="yearly" role="tab" aria-selected="false">Yearly <span class="wbos-period-pill-save">save ~2 months</span></button>
+      </div>
+
       <div class="wbos-tiers-switcher" role="tablist" aria-label="Display currency">
         <span class="wbos-tiers-switcher-label">Show prices in</span>
         <div class="wbos-tiers-switcher-pills">
@@ -300,7 +311,7 @@ const faqSchema = {
               {t.priceKey
                 ? <span data-price-id={t.priceKey}>{t.priceText}</span>
                 : <span>{t.priceText}</span>}
-              {t.period && <span class="wbos-tier-page-period">{t.period}</span>}
+              {t.period && <span class="wbos-tier-page-period js-period-text">{t.period}</span>}
             </div>
             <div class="wbos-tier-page-sub">{t.sub}</div>
             <ul class="wbos-tier-page-features">
@@ -375,7 +386,7 @@ const faqSchema = {
       };
       const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP' };
 
-      function detect() {
+      function detectCurrency() {
         try {
           const stored = localStorage.getItem('ojunai-currency');
           if (stored && SUPPORTED.indexOf(stored) >= 0) return stored;
@@ -392,18 +403,47 @@ const faqSchema = {
         return 'USD';
       }
 
+      function detectPeriod() {
+        try {
+          const stored = localStorage.getItem('ojunai-billing-period');
+          if (stored === 'monthly' || stored === 'yearly') return stored;
+        } catch (e) {}
+        return 'monthly';
+      }
+
       let matrix = {};
       try {
         const node = document.getElementById('ojunai-wbos-price-matrix');
         matrix = node ? JSON.parse(node.textContent) : {};
       } catch (e) { matrix = {}; }
 
-      function apply(ccy) {
-        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+      function lookup(key, period, ccy) {
+        const item = matrix[key];
+        if (!item) return null;
+        if (item[period] && item[period][ccy]) return item[period][ccy];
+        if (item[ccy]) return item[ccy];
+        if (item.monthly && item.monthly[ccy]) return item.monthly[ccy];
+        return null;
+      }
+
+      let activeCcy = 'USD';
+      let activePeriod = 'monthly';
+
+      function applyAll() {
         document.querySelectorAll('[data-price-id]').forEach(function (el) {
           const key = el.getAttribute('data-price-id');
-          if (matrix[key] && matrix[key][ccy]) el.textContent = matrix[key][ccy];
+          const v = lookup(key, activePeriod, activeCcy);
+          if (v != null) el.textContent = v;
         });
+        document.querySelectorAll('.js-period-text').forEach(function (el) {
+          el.textContent = activePeriod === 'yearly' ? '/year' : '/month';
+        });
+      }
+
+      function applyCurrency(ccy) {
+        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+        activeCcy = ccy;
+        applyAll();
         document.querySelectorAll('.wbos-tiers-pill').forEach(function (b) {
           const active = b.getAttribute('data-ccy') === ccy;
           b.classList.toggle('wbos-tiers-pill-active', active);
@@ -412,10 +452,28 @@ const faqSchema = {
         try { localStorage.setItem('ojunai-currency', ccy); } catch (e) {}
       }
 
+      function applyPeriod(period) {
+        if (period !== 'monthly' && period !== 'yearly') period = 'monthly';
+        activePeriod = period;
+        applyAll();
+        document.querySelectorAll('.wbos-period-pill').forEach(function (b) {
+          const active = b.getAttribute('data-period') === period;
+          b.classList.toggle('wbos-period-pill-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        try { localStorage.setItem('ojunai-billing-period', period); } catch (e) {}
+      }
+
       function init() {
-        apply(detect());
+        activeCcy = detectCurrency();
+        activePeriod = detectPeriod();
+        applyCurrency(activeCcy);
+        applyPeriod(activePeriod);
         document.querySelectorAll('.wbos-tiers-pill').forEach(function (b) {
-          b.addEventListener('click', function () { apply(b.getAttribute('data-ccy')); });
+          b.addEventListener('click', function () { applyCurrency(b.getAttribute('data-ccy')); });
+        });
+        document.querySelectorAll('.wbos-period-pill').forEach(function (b) {
+          b.addEventListener('click', function () { applyPeriod(b.getAttribute('data-period')); });
         });
       }
 
@@ -646,6 +704,53 @@ const faqSchema = {
 
   /* ============ TIERS ============ */
   .wbos-tiers { padding: 80px 0; background: var(--bg-alt); }
+
+  .wbos-period-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin: 0 auto 18px;
+    max-width: max-content;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  }
+  .wbos-period-pill {
+    background: transparent;
+    border: 0;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 9px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .wbos-period-pill:hover { color: var(--wa-green); }
+  .wbos-period-pill-active {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+  }
+  .wbos-period-pill-active:hover { color: white; }
+  .wbos-period-pill-save {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+  }
+  .wbos-period-pill-active .wbos-period-pill-save {
+    background: rgba(255, 255, 255, 0.22);
+    color: white;
+  }
 
   .wbos-tiers-switcher {
     display: flex;

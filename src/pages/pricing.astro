@@ -6,15 +6,36 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 // PRICE MATRIX (5 currencies)
 // USD is canonical; local prices are fixed (not FX-derived live).
 // ====================================
+// Subscriptions with both monthly and yearly options have a nested
+// { monthly: {...}, yearly: {...} } shape. Items without a yearly option
+// (Starter packs, usage packs, à la carte add-ons) stay flat.
 const priceMatrix = {
-  // Tiers
-  lite:              { USD:'$12.99', NGN:'₦18,999',          GHS:'₵149',         KES:'KSh 1,699',          ZAR:'R229',     UGX:'USh 48,999',                     GBP:'£9.99' },
-  operator:          { USD:'$29',    NGN:'₦42,000',          GHS:'₵349',         KES:'KSh 3,800',          ZAR:'R529',     UGX:'USh 109,000',                    GBP:'£22.99' },
-  professional:      { USD:'$79',    NGN:'₦115,000',         GHS:'₵949',         KES:'KSh 10,500',         ZAR:'R1,449',   UGX:'USh 295,000',                    GBP:'£62.99' },
-  scale:             { USD:'$199',   NGN:'₦289,000',         GHS:'₵2,399',       KES:'KSh 26,500',         ZAR:'R3,649',   UGX:'USh 745,000',                    GBP:'£159' },
-  // WhatsApp Business OS — tiered
-  wabosSolo:         { USD:'$49.99', NGN:'₦74,999',          GHS:'₵599',         KES:'KSh 6,499',          ZAR:'R899',     UGX:'USh 187,499',                    GBP:'£39.99' },
-  wabosPro:          { USD:'$145.99',NGN:'₦219,999',         GHS:'₵1,749',       KES:'KSh 18,999',         ZAR:'R2,649',   UGX:'USh 547,499',                    GBP:'£116.99' },
+  // Tiers — both periods supported
+  lite: {
+    monthly: { USD:'$12.99', NGN:'₦18,999',  GHS:'₵149',   KES:'KSh 1,699',  ZAR:'R229',     UGX:'USh 48,999',  GBP:'£9.99' },
+    yearly:  { USD:'$129',   NGN:'₦189,999', GHS:'₵1,499', KES:'KSh 16,999', ZAR:'R2,289',   UGX:'USh 489,999', GBP:'£99.99' },
+  },
+  operator: {
+    monthly: { USD:'$29',    NGN:'₦42,000',  GHS:'₵349',   KES:'KSh 3,800',  ZAR:'R529',     UGX:'USh 109,000', GBP:'£22.99' },
+    yearly:  { USD:'$290',   NGN:'₦429,999', GHS:'₵3,499', KES:'KSh 37,999', ZAR:'R5,299',   UGX:'USh 1,089,999', GBP:'£229' },
+  },
+  professional: {
+    monthly: { USD:'$79',    NGN:'₦115,000', GHS:'₵949',   KES:'KSh 10,500', ZAR:'R1,449',   UGX:'USh 295,000', GBP:'£62.99' },
+    yearly:  { USD:'$790',   NGN:'₦1,149,999', GHS:'₵9,499', KES:'KSh 104,999', ZAR:'R14,499', UGX:'USh 2,949,999', GBP:'£629.99' },
+  },
+  scale: {
+    monthly: { USD:'$199',   NGN:'₦289,000', GHS:'₵2,399', KES:'KSh 26,500', ZAR:'R3,649',   UGX:'USh 745,000', GBP:'£159' },
+    yearly:  { USD:'$1,990', NGN:'₦2,889,999', GHS:'₵23,999', KES:'KSh 264,999', ZAR:'R36,499', UGX:'USh 7,449,999', GBP:'£1,599' },
+  },
+  // WhatsApp Business OS — both periods supported (Scale tier is contact-sales)
+  wabosSolo: {
+    monthly: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',     UGX:'USh 187,499', GBP:'£39.99' },
+    yearly:  { USD:'$499',   NGN:'₦749,999', GHS:'₵5,999', KES:'KSh 64,999', ZAR:'R8,999',   UGX:'USh 1,874,999', GBP:'£399.99' },
+  },
+  wabosPro: {
+    monthly: { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649',   UGX:'USh 547,499', GBP:'£116.99' },
+    yearly:  { USD:'$1,459', NGN:'₦2,189,999', GHS:'₵17,499', KES:'KSh 189,999', ZAR:'R26,499', UGX:'USh 5,474,999', GBP:'£1,159.99' },
+  },
   // Starter WhatsApp packs
   starterLite:       { USD:'$6',     NGN:'₦8,500',           GHS:'₵75',          KES:'KSh 799',            ZAR:'R109',     UGX:'USh 22,499',                     GBP:'£4.99' },
   starterBasic:      { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
@@ -67,7 +88,7 @@ const plans = [
     id: 'lite',
     name: 'Lite',
     priceKey: 'lite',
-    priceText: priceMatrix.lite.USD,
+    priceText: priceMatrix.lite.monthly.USD,
     period: '/month',
     sub: 'Best for solo operators who want WhatsApp built in.',
     features: [
@@ -85,7 +106,7 @@ const plans = [
     id: 'operator',
     name: 'Operator',
     priceKey: 'operator',
-    priceText: priceMatrix.operator.USD,
+    priceText: priceMatrix.operator.monthly.USD,
     period: '/month',
     sub: 'Best for small businesses running daily operations.',
     features: [
@@ -103,7 +124,7 @@ const plans = [
     id: 'professional',
     name: 'Professional',
     priceKey: 'professional',
-    priceText: priceMatrix.professional.USD,
+    priceText: priceMatrix.professional.monthly.USD,
     period: '/month',
     sub: 'Best for businesses that want clarity and control.',
     features: [
@@ -125,7 +146,7 @@ const plans = [
     id: 'scale',
     name: 'Scale',
     priceKey: 'scale',
-    priceText: priceMatrix.scale.USD,
+    priceText: priceMatrix.scale.monthly.USD,
     period: '/month',
     sub: 'Best for teams and growing operations.',
     features: [
@@ -354,6 +375,24 @@ const faqSchema = {
         with WhatsApp business actions, multi-user, and add-ons priced à la carte.
       </p>
 
+      <!-- Billing-period switcher (Monthly / Yearly) -->
+      <div class="period-switcher" role="tablist" aria-label="Billing period">
+        <button
+          type="button"
+          class="period-pill period-pill-active"
+          data-period="monthly"
+          role="tab"
+          aria-selected="true"
+        >Monthly</button>
+        <button
+          type="button"
+          class="period-pill"
+          data-period="yearly"
+          role="tab"
+          aria-selected="false"
+        >Yearly <span class="period-pill-save">save ~2 months</span></button>
+      </div>
+
       <!-- Currency switcher -->
       <div class="currency-switcher" role="tablist" aria-label="Display currency">
         <span class="currency-switcher-label">Show prices in</span>
@@ -392,7 +431,7 @@ const faqSchema = {
                 {p.priceKey
                   ? <span data-price-id={p.priceKey}>{p.priceText}</span>
                   : p.priceText}
-                {p.period && <span class="price-card-v2-period">{p.period}</span>}
+                {p.period && <span class="price-card-v2-period js-period-text">{p.period}</span>}
               </div>
               <div class="price-card-v2-sub">{p.sub}</div>
             </div>
@@ -731,7 +770,7 @@ const faqSchema = {
       };
       const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP' };
 
-      function detect() {
+      function detectCurrency() {
         try {
           const stored = localStorage.getItem('ojunai-currency');
           if (stored && SUPPORTED.indexOf(stored) >= 0) return stored;
@@ -748,18 +787,49 @@ const faqSchema = {
         return 'USD';
       }
 
+      function detectPeriod() {
+        try {
+          const stored = localStorage.getItem('ojunai-billing-period');
+          if (stored === 'monthly' || stored === 'yearly') return stored;
+        } catch (e) {}
+        return 'monthly';
+      }
+
       let matrix = {};
       try {
         const node = document.getElementById('ojunai-price-matrix');
         matrix = node ? JSON.parse(node.textContent) : {};
       } catch (e) { matrix = {}; }
 
-      function apply(ccy) {
-        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+      // Lookup that handles both nested {monthly,yearly} entries and flat
+      // entries (one-time/no-yearly items). Falls back gracefully.
+      function lookup(key, period, ccy) {
+        const item = matrix[key];
+        if (!item) return null;
+        if (item[period] && item[period][ccy]) return item[period][ccy];
+        if (item[ccy]) return item[ccy];
+        if (item.monthly && item.monthly[ccy]) return item.monthly[ccy];
+        return null;
+      }
+
+      let activeCcy = 'USD';
+      let activePeriod = 'monthly';
+
+      function applyAll() {
         document.querySelectorAll('[data-price-id]').forEach(function (el) {
           const key = el.getAttribute('data-price-id');
-          if (matrix[key] && matrix[key][ccy]) el.textContent = matrix[key][ccy];
+          const v = lookup(key, activePeriod, activeCcy);
+          if (v != null) el.textContent = v;
         });
+        document.querySelectorAll('.js-period-text').forEach(function (el) {
+          el.textContent = activePeriod === 'yearly' ? '/year' : '/month';
+        });
+      }
+
+      function applyCurrency(ccy) {
+        if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
+        activeCcy = ccy;
+        applyAll();
         document.querySelectorAll('.currency-pill').forEach(function (b) {
           const active = b.getAttribute('data-ccy') === ccy;
           b.classList.toggle('currency-pill-active', active);
@@ -770,10 +840,28 @@ const faqSchema = {
         try { localStorage.setItem('ojunai-currency', ccy); } catch (e) {}
       }
 
+      function applyPeriod(period) {
+        if (period !== 'monthly' && period !== 'yearly') period = 'monthly';
+        activePeriod = period;
+        applyAll();
+        document.querySelectorAll('.period-pill').forEach(function (b) {
+          const active = b.getAttribute('data-period') === period;
+          b.classList.toggle('period-pill-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        try { localStorage.setItem('ojunai-billing-period', period); } catch (e) {}
+      }
+
       function init() {
-        apply(detect());
+        activeCcy = detectCurrency();
+        activePeriod = detectPeriod();
+        applyCurrency(activeCcy);
+        applyPeriod(activePeriod);
         document.querySelectorAll('.currency-pill').forEach(function (b) {
-          b.addEventListener('click', function () { apply(b.getAttribute('data-ccy')); });
+          b.addEventListener('click', function () { applyCurrency(b.getAttribute('data-ccy')); });
+        });
+        document.querySelectorAll('.period-pill').forEach(function (b) {
+          b.addEventListener('click', function () { applyPeriod(b.getAttribute('data-period')); });
         });
       }
 
@@ -825,6 +913,54 @@ const faqSchema = {
   }
   .pricing-hero-meta a { color: var(--brand); text-decoration: underline; }
   .pricing-hero-meta-currency { color: var(--text-2); font-weight: 600; margin-right: 4px; }
+
+  /* ============ BILLING-PERIOD SWITCHER ============ */
+  .period-switcher {
+    margin-top: 24px;
+    display: inline-flex;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    gap: 2px;
+  }
+  .period-pill {
+    background: transparent;
+    border: 0;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.02em;
+    padding: 9px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .period-pill:hover { color: var(--brand); }
+  .period-pill-active {
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  }
+  .period-pill-active:hover { color: white; }
+  .period-pill-save {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+    letter-spacing: 0.02em;
+  }
+  .period-pill-active .period-pill-save {
+    background: rgba(255, 255, 255, 0.22);
+    color: white;
+  }
 
   /* ============ CURRENCY SWITCHER ============ */
   .currency-switcher {
