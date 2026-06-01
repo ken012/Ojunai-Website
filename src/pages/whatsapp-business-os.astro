@@ -20,7 +20,7 @@ const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX', 'GBP'];
 const capabilities = [
   {
     title: 'Record sales by chat',
-    body: 'Type or speak the sale into WhatsApp — "Sold 2 bags rice ₦8k Aisha credit, 1 bag garri ₦5,500 John cash, 5 tubers yam ₦7,500 Mary cash." Multiple sales parsed in one go, ledger updates instantly.',
+    body: 'Type or speak the sale into your channel of choice — WhatsApp, Telegram, or Messenger. "Sold 2 bags rice ₦8k Aisha credit, 1 bag garri ₦5,500 John cash." Multiple sales parsed in one go; ledger updates instantly.',
     iconPath: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
   },
   {
@@ -30,18 +30,18 @@ const capabilities = [
   },
   {
     title: 'Track debts and payments',
-    body: 'Customer balances, supplier credit, partial payments — all tracked through chat. Ask "Who owes me?" and the bot replies with the full list.',
+    body: 'Customer balances, supplier credit, partial payments — all tracked through chat. Ask "Who owes me?" and the bot replies with the full list, on whichever channel you\'re using.',
     iconPath: 'M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z',
   },
   {
-    title: 'PDFs delivered to WhatsApp',
-    body: 'Generate receipts, summaries, and reports as PDFs. They arrive in WhatsApp as a tap-to-open link — no email, no dashboard download.',
+    title: 'PDFs delivered to your channel',
+    body: 'Generate receipts, summaries, and reports as PDFs. They arrive in WhatsApp, Telegram, or Messenger as a tap-to-open link — no email, no dashboard download.',
     iconPath: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 13h6M9 17h6M9 9h2',
     featured: true,
   },
   {
     title: 'Daily & weekly summaries',
-    body: 'Every evening: today\'s sales, expenses, top products, who paid, who still owes. Every Sunday: a full week recap. All by WhatsApp.',
+    body: 'Every evening: today\'s sales, expenses, top products, who paid, who still owes. Every Sunday: a full week recap. Delivered to your active channel.',
     iconPath: 'M22 12h-4l-3 9L9 3l-3 9H2',
   },
   {
@@ -66,7 +66,7 @@ const tiers = [
       'Standard PDF templates',
       'Daily summaries',
     ],
-    cta: { label: 'Add to Plan', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Solo' },
+    cta: { label: 'Add to Plan', href: 'mailto:contact@ojunai.com?subject=Add%20Business%20OS%20Solo' },
     featured: false,
   },
   {
@@ -74,7 +74,7 @@ const tiers = [
     priceKey: 'wabosPro',
     priceText: priceMatrix.wabosPro.monthly.USD,
     period: '/month',
-    sub: 'Established shops, fully WhatsApp-operated.',
+    sub: 'Established shops, fully chat-operated.',
     features: [
       '6,000 business actions / month',
       '3 users · 1 location',
@@ -84,7 +84,7 @@ const tiers = [
       '90-day history',
       'Daily and weekly summaries',
     ],
-    cta: { label: 'Add to Plan', href: 'mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS%20Pro' },
+    cta: { label: 'Add to Plan', href: 'mailto:contact@ojunai.com?subject=Add%20Business%20OS%20Pro' },
     featured: true,
     badge: 'Most Popular',
   },
@@ -93,7 +93,7 @@ const tiers = [
     priceKey: null,
     priceText: 'Contact Sales',
     period: '',
-    sub: 'Multi-location, multi-staff WhatsApp ops.',
+    sub: 'Multi-location, multi-staff multi-channel ops.',
     features: [
       'Unlimited business actions',
       '6+ users · Multi-location',
@@ -103,7 +103,7 @@ const tiers = [
       'Priority support',
       'Dedicated onboarding',
     ],
-    cta: { label: 'Talk to Sales', href: 'mailto:contact@ojunai.com?subject=WhatsApp%20Business%20OS%20Scale%20enquiry' },
+    cta: { label: 'Talk to Sales', href: 'mailto:contact@ojunai.com?subject=Business%20OS%20Scale%20enquiry' },
     featured: false,
   },
 ];
@@ -111,8 +111,8 @@ const tiers = [
 const setup = [
   {
     n: '01',
-    title: 'Subscribe and connect your WhatsApp',
-    body: 'Choose Solo, Pro, or Scale. Connect your WhatsApp Business number once. We provision your account in under 10 minutes.',
+    title: 'Subscribe and connect your channel',
+    body: 'Choose Solo, Pro, or Scale. Connect WhatsApp Business, Telegram, or Messenger — or all three. We provision your account in under 10 minutes.',
   },
   {
     n: '02',
@@ -121,39 +121,43 @@ const setup = [
   },
   {
     n: '03',
-    title: 'Run everything from WhatsApp',
-    body: 'Sales, restocks, debts, summaries, PDF receipts — all live in your WhatsApp thread.',
+    title: 'Run everything from chat',
+    body: 'Sales, restocks, debts, summaries, PDF receipts — all live in your chat thread, whichever channel you picked.',
   },
 ];
 
 const faqs = [
   {
-    q: 'How is this different from the WhatsApp AI Assistant on the regular plans?',
-    a: 'WhatsApp AI Assistant (built into Lite, Operator, Professional, and Scale plans) is a chat-driven helper alongside the dashboard — limited to 10–250 actions/week. WhatsApp Business OS is a separate premium product that replaces the dashboard entirely: thousands of actions per month, full-coverage operations (sales, inventory, debts, PDFs, summaries), and tier-based limits designed for businesses that genuinely run on WhatsApp.',
+    q: 'Which channels does Business OS work on?',
+    a: 'WhatsApp Business, Telegram, and Messenger. Pick one — or connect all three and let staff use whichever they prefer. The ledger and history are shared regardless of which channel a message comes in on.',
+  },
+  {
+    q: 'How is this different from the Assistant on the regular tiers?',
+    a: 'The Assistant on Lite, Operator, Pro, and Scale (see /pricing) is a chat-driven helper alongside the dashboard — Telegram + Messenger included with quotas, WhatsApp via separate packs. Business OS is a separate premium product that replaces the dashboard entirely: thousands of actions per month, full-coverage operations (sales, inventory, debts, PDFs, summaries), and tier-based limits designed for businesses that genuinely run on chat.',
   },
   {
     q: 'Do I still need a base Ojunai plan?',
-    a: 'Yes — WhatsApp Business OS sits on top of any base plan (Starter through Scale). The base plan handles compliance, audit log retention beyond your tier limit, and dashboard access if you ever want it. Most BOS customers stay on Starter or Lite for the base plan and get all their value from BOS.',
+    a: 'Yes — Business OS sits on top of any base plan (Starter through Scale). The base plan handles compliance, audit log retention beyond your tier limit, and dashboard access if you ever want it. Most Business OS customers stay on Starter or Lite for the base plan and get all their value from BOS.',
   },
   {
-    q: 'How does PDF delivery to WhatsApp actually work?',
-    a: 'When the bot generates a PDF — a receipt, a weekly summary, a stock report — it lands in your WhatsApp thread as a tap-to-open link. No email, no dashboard download, no third-party app. The link is a short-lived signed URL that opens the PDF in your phone\'s browser. You can save it, forward it, or print it.',
+    q: 'How does PDF delivery to chat actually work?',
+    a: 'When the bot generates a PDF — a receipt, a weekly summary, a stock report — it lands in your active channel as a tap-to-open link. WhatsApp, Telegram, or Messenger — same flow. No email, no dashboard download. The link is a short-lived signed URL that opens the PDF in your phone\'s browser.',
   },
   {
     q: 'What\'s a "business action"?',
-    a: 'One operational interaction — recording a sale, updating inventory, generating a PDF, requesting a report, logging a payment. Casual queries ("hi", "thanks") don\'t count. Most small shops hit 30–80 actions/day at peak, so Solo\'s 1,200/month covers a steady solo operation, and Pro\'s 6,000/month covers a busy multi-staff shop.',
+    a: 'One operational interaction — recording a sale, updating inventory, generating a PDF, requesting a report, logging a payment. Actions count the same across channels. Most small shops hit 30–80 actions/day at peak, so Solo\'s 1,200/month covers a steady solo operation and Pro\'s 6,000/month covers a busy multi-staff shop.',
   },
   {
     q: 'Can I start with Solo and upgrade to Pro later?',
     a: 'Yes — upgrades are immediate and prorated. We migrate your inventory, history, and customer records automatically. Downgrades take effect at the end of the billing period.',
   },
   {
-    q: 'What if I exceed my monthly action cap on Solo?',
-    a: 'You\'re notified at 80%, 100%, and over. You can either buy a one-time top-up pack from /pricing (e.g., 600 actions for $30), or upgrade to Pro — whichever is cheaper for the month. The dashboard remains usable regardless.',
+    q: 'What if I exceed my monthly action cap?',
+    a: 'You\'re notified at 80%, 100%, and over. You can either buy a one-time top-up pack from /pricing or upgrade your Business OS tier — whichever is cheaper for the month. The dashboard remains usable regardless.',
   },
   {
     q: 'Does it work with multiple staff?',
-    a: 'Pro covers up to 3 staff with their own WhatsApp numbers. Each staff sees their own conversation thread; the owner sees consolidated reports. Scale covers 6+ staff with multi-location support.',
+    a: 'Pro covers up to 3 staff with their own numbers/handles on the chosen channel. Each staff sees their own conversation thread; the owner sees consolidated reports. Scale covers 6+ staff with multi-location support.',
   },
   {
     q: 'Languages supported?',
@@ -164,24 +168,24 @@ const faqs = [
 const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: 'Ojunai WhatsApp Business OS',
+  name: 'Ojunai Business OS',
   description:
-    'A WhatsApp-native business operating system. Replace the dashboard with a single conversation — record sales, update inventory, track debts, generate PDFs delivered as WhatsApp links. Three tiers: Solo, Pro, Scale.',
+    'A chat-native business operating system that runs on WhatsApp, Telegram, or Messenger. Replace the dashboard with a single conversation — record sales, update inventory, track debts, generate PDFs delivered as chat links. Three tiers: Solo, Pro, Scale.',
   brand: { '@type': 'Brand', name: 'Ojunai' },
   offers: [
     {
       '@type': 'Offer',
-      name: 'WhatsApp Business OS — Solo',
+      name: 'Ojunai Business OS — Solo',
       price: '49.99',
       priceCurrency: 'USD',
-      description: '1,200 business actions/month, 1 user, 1 location, 100 SKUs, 50 PDFs/month, 30-day history.',
+      description: '1,200 business actions/month across WhatsApp, Telegram, or Messenger; 1 user; 1 location; 100 SKUs; 50 PDFs/month; 30-day history.',
     },
     {
       '@type': 'Offer',
-      name: 'WhatsApp Business OS — Pro',
+      name: 'Ojunai Business OS — Pro',
       price: '145.99',
       priceCurrency: 'USD',
-      description: '6,000 business actions/month, 3 users, unlimited SKUs and PDFs, branded PDF templates, bulk announcements, 90-day history.',
+      description: '6,000 business actions/month across WhatsApp, Telegram, or Messenger; 3 users; unlimited SKUs and PDFs; branded PDF templates; bulk announcements; 90-day history.',
     },
   ],
 };
@@ -198,8 +202,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="WhatsApp Business OS — Ojunai"
-  description="Replace the dashboard with WhatsApp. WhatsApp Business OS lets you run your entire business — sales, inventory, debts, payments, PDF receipts, summaries — through a single conversation. Three tiers: Solo, Pro, Scale."
+  title="Business OS — Run your entire business from chat | Ojunai"
+  description="Replace the dashboard with chat. Ojunai Business OS lets you run your business through WhatsApp, Telegram, or Messenger — sales, inventory, debts, payments, PDF receipts, summaries, all delivered to your chat. Three tiers: Solo, Pro, Scale."
   canonical="/whatsapp-business-os"
   ogImage="/og/whatsapp-ai.png"
   jsonLd={[productSchema, faqSchema]}
@@ -208,15 +212,16 @@ const faqSchema = {
   <section class="wbos-hero">
     <div class="wbos-hero-glow"></div>
     <div class="container wbos-hero-inner">
-      <span class="wbos-hero-pill">Premium Differentiator</span>
-      <h1>Run your entire business from <span>WhatsApp</span>.</h1>
+      <span class="wbos-hero-pill">Premium · Multi-channel</span>
+      <h1>Run your entire business from <span>chat</span>.</h1>
       <p class="wbos-hero-sub">
-        WhatsApp Business OS replaces the dashboard with a single conversation. Sales, inventory,
-        debts, payments, receipts, and reports — all operated and delivered through WhatsApp.
+        Business OS replaces the dashboard with a single conversation. Sales, inventory, debts,
+        payments, receipts, and reports — all operated and delivered through
+        <strong>WhatsApp</strong>, <strong>Telegram</strong>, or <strong>Messenger</strong>.
       </p>
       <div class="wbos-hero-ctas">
         <a href="#tiers" class="wbos-hero-cta-primary">See pricing</a>
-        <a href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20Business%20OS" class="wbos-hero-cta-secondary">
+        <a href="mailto:contact@ojunai.com?subject=Add%20Business%20OS" class="wbos-hero-cta-secondary">
           Add to Plan →
         </a>
       </div>
@@ -228,8 +233,8 @@ const faqSchema = {
     <div class="container">
       <div class="section-header">
         <div class="section-label">What it does</div>
-        <h2>Six WhatsApp-native capabilities</h2>
-        <p>Every operation a small business needs, expressed as a chat.</p>
+        <h2>Six chat-native capabilities</h2>
+        <p>Every operation a small business needs, expressed as a message — on WhatsApp, Telegram, or Messenger.</p>
       </div>
       <div class="wbos-cap-grid">
         {capabilities.map((c) => (
@@ -254,11 +259,11 @@ const faqSchema = {
         <div class="wbos-pdf-glow"></div>
         <div class="wbos-pdf-meta">
           <span class="wbos-pdf-pill">The PDF differentiator</span>
-          <h2>PDFs that arrive in your customer's WhatsApp.</h2>
+          <h2>PDFs that arrive in your customer's chat.</h2>
           <p>
             Most small businesses still email receipts — and most customers don't open them.
-            WhatsApp Business OS generates a PDF and drops it directly into your customer's
-            WhatsApp as a tap-to-open link. No email. No app. No friction.
+            Business OS generates a PDF and drops it directly into the customer's WhatsApp,
+            Telegram, or Messenger thread as a tap-to-open link. No email. No app. No friction.
           </p>
           <ul class="wbos-pdf-uses">
             <li><strong>Sales receipt</strong> — sent to the customer the moment the sale is recorded</li>
@@ -276,7 +281,7 @@ const faqSchema = {
     <div class="container">
       <div class="section-header">
         <div class="section-label">Three tiers</div>
-        <h2>Pick the WhatsApp Business OS that fits your shop</h2>
+        <h2>Pick the Business OS that fits your shop</h2>
         <p>From a solo operator running everything by chat to multi-location teams.</p>
       </div>
 
@@ -336,7 +341,7 @@ const faqSchema = {
     <div class="container">
       <div class="section-header">
         <div class="section-label">Setup</div>
-        <h2>Live on WhatsApp in under 30 minutes</h2>
+        <h2>Live on chat in under 30 minutes</h2>
       </div>
       <div class="wbos-how-grid">
         {setup.map((s) => (
@@ -355,7 +360,7 @@ const faqSchema = {
     <div class="container">
       <div class="section-header">
         <div class="section-label">Frequently asked</div>
-        <h2>WhatsApp Business OS questions</h2>
+        <h2>Business OS questions</h2>
       </div>
       <div class="wbos-faq-list">
         {faqs.map((f) => (

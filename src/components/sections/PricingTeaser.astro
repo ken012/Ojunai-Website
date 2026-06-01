@@ -1,47 +1,40 @@
 ---
 /**
- * Homepage pricing teaser. Four-card grid for Lite / Operator / Professional /
- * Scale, plus a flat Starter (Free) card below and a link out to /pricing for
- * the full comparison and add-ons.
+ * Homepage pricing teaser. Four-card grid for Lite / Operator / Pro / Scale
+ * plus a flat Starter card below. Multi-channel framing — Telegram +
+ * Messenger included with quotas; WhatsApp via a separate per-pack
+ * subscription. See /pricing for full structure.
  *
- * Currency toggle mirrors /pricing — shares the `ojunai-currency` localStorage
- * key so a selection on either page persists across both.
+ * Currency choice shares the `ojunai-currency` localStorage key with
+ * /pricing so a selection on either page persists across both.
  */
 
 const priceMatrix = {
   lite: {
-    monthly: { USD:'$12.99', NGN:'₦18,999',  GHS:'₵149',   KES:'KSh 1,699',  ZAR:'R229',     UGX:'USh 48,999',  GBP:'£9.99' },
-    yearly:  { USD:'$129',   NGN:'₦189,999', GHS:'₵1,499', KES:'KSh 16,999', ZAR:'R2,289',   UGX:'USh 489,999', GBP:'£99.99' },
+    monthly: { USD:'$11.99',  NGN:'₦12,500',   GHS:'GH₵125',   KES:'KSh 1,099',  ZAR:'R199',    UGX:'USh 27,500',  GBP:'£9.99' },
+    yearly:  { USD:'$119.90', NGN:'₦125,000',  GHS:'GH₵1,250', KES:'KSh 10,990', ZAR:'R1,990',  UGX:'USh 275,000', GBP:'£99.90' },
   },
   operator: {
-    monthly: { USD:'$29',    NGN:'₦42,000',  GHS:'₵349',   KES:'KSh 3,800',  ZAR:'R529',     UGX:'USh 109,000', GBP:'£22.99' },
-    yearly:  { USD:'$290',   NGN:'₦429,999', GHS:'₵3,499', KES:'KSh 37,999', ZAR:'R5,299',   UGX:'USh 1,089,999', GBP:'£229' },
+    monthly: { USD:'$28.99',  NGN:'₦29,999',   GHS:'GH₵299',   KES:'KSh 2,599',  ZAR:'R499',    UGX:'USh 66,500',  GBP:'£22.99' },
+    yearly:  { USD:'$289.90', NGN:'₦299,990',  GHS:'GH₵2,990', KES:'KSh 25,990', ZAR:'R4,990',  UGX:'USh 665,000', GBP:'£229.90' },
   },
-  professional: {
-    monthly: { USD:'$79',    NGN:'₦115,000', GHS:'₵949',   KES:'KSh 10,500', ZAR:'R1,449',   UGX:'USh 295,000', GBP:'£62.99' },
-    yearly:  { USD:'$790',   NGN:'₦1,149,999', GHS:'₵9,499', KES:'KSh 104,999', ZAR:'R14,499', UGX:'USh 2,949,999', GBP:'£629.99' },
+  pro: {
+    monthly: { USD:'$69.99',  NGN:'₦72,500',   GHS:'GH₵729',   KES:'KSh 6,299',  ZAR:'R1,199',  UGX:'USh 159,000', GBP:'£55.99' },
+    yearly:  { USD:'$699.90', NGN:'₦725,000',  GHS:'GH₵7,290', KES:'KSh 62,990', ZAR:'R11,990', UGX:'USh 1,590,000',GBP:'£559.90' },
   },
   scale: {
-    monthly: { USD:'$199',   NGN:'₦289,000', GHS:'₵2,399', KES:'KSh 26,500', ZAR:'R3,649',   UGX:'USh 745,000', GBP:'£159' },
-    yearly:  { USD:'$1,990', NGN:'₦2,889,999', GHS:'₵23,999', KES:'KSh 264,999', ZAR:'R36,499', UGX:'USh 7,449,999', GBP:'£1,599' },
-  },
-  wabosSolo: {
-    monthly: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',     UGX:'USh 187,499', GBP:'£39.99' },
-    yearly:  { USD:'$499',   NGN:'₦749,999', GHS:'₵5,999', KES:'KSh 64,999', ZAR:'R8,999',   UGX:'USh 1,874,999', GBP:'£399.99' },
-  },
-  wabosPro: {
-    monthly: { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649',   UGX:'USh 547,499', GBP:'£116.99' },
-    yearly:  { USD:'$1,459', NGN:'₦2,189,999', GHS:'₵17,499', KES:'KSh 189,999', ZAR:'R26,499', UGX:'USh 5,474,999', GBP:'£1,159.99' },
+    monthly: { USD:'$149.99',  NGN:'₦155,000',  GHS:'GH₵1,549', KES:'KSh 13,499', ZAR:'R2,549',  UGX:'USh 340,000', GBP:'£119.99' },
+    yearly:  { USD:'$1,499.90',NGN:'₦1,550,000',GHS:'GH₵15,490',KES:'KSh 134,990',ZAR:'R25,490', UGX:'USh 3,400,000',GBP:'£1,199.90' },
   },
 };
 
-const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX', 'GBP'];
+const currencies = ['USD', 'GBP', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
 
 const starterFlat = {
   label: 'Starter',
   priceText: 'Free',
   sub: 'For individuals just getting started',
-  features: ['Inventory tracking', 'Sales logging', 'Expense tracking', 'Basic reports', '1 user'],
+  features: ['Inventory tracking', 'Sales logging', 'Expense tracking', 'Basic reports', '1 user', '15 total channel actions/mo'],
   cta: { label: 'Start Free', href: 'https://app.ojunai.com/register' },
 };
 
@@ -51,16 +44,16 @@ const plans = [
     priceKey: 'lite',
     priceText: priceMatrix.lite.monthly.USD,
     period: '/month',
-    sub: 'For solo operators who want WhatsApp built in',
+    sub: 'For solo operators starting to scale',
     features: [
       'Everything in Starter',
       'Debt & loan tracking',
       'Customer records',
-      'WhatsApp Assistant: 10 actions / week',
+      'Telegram + Messenger: 500/mo',
+      'Add WhatsApp from $9/mo',
       '1 user',
-      'Receipt generation',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=lite', external: true },
+    cta: { label: 'Start free 14-day trial', href: 'https://app.ojunai.com/register?plan=lite', external: true },
     featured: false,
   },
   {
@@ -73,27 +66,28 @@ const plans = [
       'Everything in Lite',
       'Manual payment tracking',
       'Basic insights',
-      'WhatsApp Assistant: 35 actions / week',
-      '1 user',
+      'Telegram + Messenger: 1,500/mo',
+      'Add WhatsApp from $9/mo',
       'Email receipts',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=operator', external: true },
+    cta: { label: 'Start free 14-day trial', href: 'https://app.ojunai.com/register?plan=operator', external: true },
     featured: false,
   },
   {
-    label: 'Professional',
-    priceKey: 'professional',
-    priceText: priceMatrix.professional.monthly.USD,
+    label: 'Pro',
+    priceKey: 'pro',
+    priceText: priceMatrix.pro.monthly.USD,
     period: '/month',
     sub: 'For businesses that want clarity and control',
     features: [
       'Everything in Operator',
       'Advanced analytics & profit tracking',
-      'WhatsApp Assistant: 95 actions / week',
+      'Telegram + Messenger: 4,000/mo',
+      'Add WhatsApp from $9/mo',
       '3 users',
-      'WhatsApp + Email + PDF receipts',
+      'Branded PDF receipts',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=professional', external: true },
+    cta: { label: 'Start free 14-day trial', href: 'https://app.ojunai.com/register?plan=pro', external: true },
     featured: true,
     badge: 'Most Popular',
   },
@@ -102,15 +96,16 @@ const plans = [
     priceKey: 'scale',
     priceText: priceMatrix.scale.monthly.USD,
     period: '/month',
-    sub: 'For teams and growing operations',
+    sub: 'For teams and multi-location operations',
     features: [
-      'Everything in Professional',
+      'Everything in Pro',
       'Multi-user + multi-location',
-      'WhatsApp Assistant: 250 actions / week',
+      'Telegram + Messenger: Unlimited',
+      'Add WhatsApp from $9/mo',
       '6 users · Priority support',
       'Branded receipts + audit logs',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=scale', external: true },
+    cta: { label: 'Start free 14-day trial', href: 'https://app.ojunai.com/register?plan=scale', external: true },
     featured: false,
   },
 ];
@@ -120,8 +115,8 @@ const plans = [
   <div class="container">
     <div class="section-header">
       <div class="section-label">Simple Plans</div>
-      <h2>Pricing that scales with your business</h2>
-      <p>Start free. Upgrade as you grow. WhatsApp Assistant + add-ons priced à la carte.</p>
+      <h2>Simple, fair pricing</h2>
+      <p>Use the dashboard free. Add the channels you need. Pay for what you use.</p>
     </div>
 
     <div class="teaser-period-switcher" role="tablist" aria-label="Billing period">
