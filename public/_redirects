@@ -1,5 +1,8 @@
 # Force apex — drop www on ojunai.com
 https://www.ojunai.com/*    https://ojunai.com/:splat   301!
 
-# Voice AI page rename (Phase C pricing brief)
+# Voice AI page rename
 /voice-ai           /voice                              301
+
+# WhatsApp AI → Chat AI rename (multi-channel positioning)
+/whatsapp-ai        /chat-ai                            301

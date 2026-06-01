@@ -5,13 +5,18 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 
 const capabilities = [
   {
-    title: 'Plain English & Pidgin',
-    body: "Chat naturally — \"Sold 5 bags of rice at 3,000 each\" or \"Don sell 5 bag of rice for 3000 each.\" Ojunai parses both with the same accuracy.",
+    title: 'Works on WhatsApp, Telegram, or Messenger',
+    body: "Pick the channel your team and customers already use — or connect all three. Chat AI runs natively on each, with the same ledger and history shared across all of them.",
     iconPath: 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
   },
   {
+    title: 'Plain English & Pidgin',
+    body: "Chat naturally — \"Sold 5 bags of rice at 3,000 each\" or \"Don sell 5 bag of rice for 3000 each.\" Ojunai parses both with the same accuracy on every channel.",
+    iconPath: 'M3 5h12M9 3v2m4 4.5H10a1.5 1.5 0 000 3h2a1.5 1.5 0 010 3H8m4-9v12',
+  },
+  {
     title: 'Sales recording from anywhere',
-    body: 'Log a sale from your back office, the front of the shop, your delivery van, or the supplier yard. Anywhere your phone has WhatsApp.',
+    body: 'Log a sale from your back office, the front of the shop, your delivery van, or the supplier yard. Anywhere your phone has WhatsApp, Telegram, or Messenger.',
     iconPath: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
   },
   {
@@ -21,22 +26,22 @@ const capabilities = [
   },
   {
     title: 'Debt & credit tracking',
-    body: '"Kwame paid 20,000 off his debt." "Show me everyone owing me." Customer balances and aging update on your dashboard automatically.',
+    body: '"Kwame paid 20,000 off his debt." "Show me everyone owing me." Customer balances and aging update on your dashboard automatically — same answers across all channels.',
     iconPath: 'M22 12h-4l-3 9L9 3l-3 9H2',
   },
   {
     title: 'Daily & weekly reports',
-    body: 'Auto-summary at 8pm every evening with sales, expenses, profit, top products. Weekly review every Monday morning. No login required.',
+    body: 'Auto-summary at 8pm every evening with sales, expenses, profit, top products. Weekly review every Monday. Delivered to your active channel. No login required.',
     iconPath: 'M3 3h18v18H3zM3 9h18M9 21V3',
   },
   {
     title: 'PDF report exports',
-    body: 'Send "export my sales" and get a PIN-secured PDF download link delivered to the same chat. Works for sales, expenses, debts, and full P&L.',
+    body: 'Send "export my sales" and get a PIN-secured PDF download link in the same chat thread. Works for sales, expenses, debts, and full P&L — WhatsApp, Telegram, or Messenger.',
     iconPath: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M12 18v-6M9 15l3 3 3-3',
   },
   {
     title: 'Multi-staff with roles',
-    body: 'Add shop attendants as staff. They record sales from their own WhatsApp; you see everything consolidated on your dashboard with audit trail.',
+    body: 'Add shop attendants as staff. They record sales from their own number or handle on whichever channel they prefer; you see everything consolidated with per-user attribution.',
     iconPath: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 11l-3 3-2-2',
   },
   {
@@ -46,7 +51,7 @@ const capabilities = [
   },
   {
     title: 'Owner override anytime',
-    body: 'Edit, undo, or recategorize any transaction from the dashboard. WhatsApp is the input — the dashboard is your full control panel.',
+    body: 'Edit, undo, or recategorize any transaction from the dashboard. Chat is the input — the dashboard is your full control panel.',
     iconPath: 'M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z',
   },
 ];
@@ -54,18 +59,18 @@ const capabilities = [
 const setup = [
   {
     n: '01',
-    title: 'Pick a plan with WhatsApp AI',
-    body: 'WhatsApp AI is included on Shop, Pro, and Business plans (Starter is dashboard-only). One-month free trial covers it.',
+    title: 'Pick a paid tier',
+    body: 'Chat AI is included on Lite, Operator, Pro, and Scale plans with Telegram + Messenger quotas built in. WhatsApp is via a separate pack. 14-day free Operator trial covers Telegram + Messenger.',
   },
   {
     n: '02',
-    title: 'Connect your WhatsApp number',
-    body: 'During signup or from the dashboard. We send a verification message; you reply with the code. Takes ~60 seconds.',
+    title: 'Connect your channel — or all three',
+    body: 'Pick WhatsApp Business, Telegram, or Messenger (or connect all of them). Each takes ~60 seconds to verify. The ledger and history are shared regardless of which channel a message comes in on.',
   },
   {
     n: '03',
     title: 'Start chatting',
-    body: '"Sold 3 bags of rice at 4,500 each" — and you\'re live. The bot confirms, records, and your dashboard updates in real time.',
+    body: '"Sold 3 bags of rice at 4,500 each" — and you\'re live. The bot confirms, records, and your dashboard updates in real time. Same flow on every channel.',
   },
 ];
 
@@ -80,36 +85,36 @@ const faqs = [
   },
   {
     q: "Can my staff use it from their own phones?",
-    a: "Yes. Add staff accounts from the dashboard with the role you want (Recorder, Manager, Owner). They sign in with their own WhatsApp number; you see all their entries consolidated on your dashboard with per-user attribution.",
+    a: "Yes. Add staff accounts from the dashboard with the role you want (Recorder, Manager, Owner). They sign in with their own WhatsApp number, Telegram handle, or Messenger account; you see all their entries consolidated on your dashboard with per-user attribution.",
   },
   {
-    q: "Do messages count against a monthly limit?",
-    a: "Yes — Shop plan is 850 messages/month, Pro and Business are unlimited. Most one-shop owners use 200–500 messages/month. We'll alert you well before the limit if you're trending high.",
+    q: "How do channel quotas work — Telegram & Messenger vs WhatsApp?",
+    a: "Telegram and Messenger have a combined monthly action quota per tier (Lite 500, Operator 1,500, Pro 4,000, Scale unlimited) because those channels don't charge per-message fees. WhatsApp is metered separately — Meta charges per conversation, so you buy a WhatsApp pack ($9–$149/mo) that fits your volume. Pick one or both. See /pricing for the full breakdown.",
   },
   {
     q: "Is my chat history private?",
-    a: "Yes. Messages are encrypted in transit (WhatsApp's E2E) and at rest in our database. We process your message content through Claude (Anthropic) for natural-language understanding only — never used for advertising, never sold, never shared. Full details on the security page.",
+    a: "Yes. Messages are encrypted in transit (WhatsApp E2E on that channel; Telegram and Messenger use their own TLS) and at rest in our database. We process your message content through Claude (Anthropic) for natural-language understanding only — never used for advertising, never sold, never shared. Full details on the security page.",
   },
   {
-    q: "What happens if WhatsApp goes down?",
-    a: "Your data is safe — it lives in your dashboard, not in WhatsApp. During WhatsApp outages, you can record sales directly via the web dashboard at app.ojunai.com. Recent transactions sync back when service resumes.",
+    q: "What happens if one of the channels goes down?",
+    a: "Your data is safe — it lives in your dashboard, not in any single channel. During an outage you can record sales via another connected channel or directly on the web dashboard at app.ojunai.com. Recent transactions sync back when service resumes.",
   },
   {
     q: "Can I attach photos of receipts or products?",
-    a: "Image attachments are on the roadmap for Q3 2026. For now, the bot processes text-based commands. You can upload product photos via the web dashboard.",
+    a: "Image attachments are on the roadmap for Q3 2026 and will work the same way on all three channels. For now, the bot processes text-based commands. You can upload product photos via the web dashboard.",
   },
 ];
 
 const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: 'Ojunai WhatsApp AI',
+  name: 'Ojunai Chat AI',
   description:
-    'AI-powered WhatsApp business assistant that records sales, manages inventory, tracks debts, and delivers daily reports. Speaks plain English and Pidgin. Built for African SMEs.',
+    'AI-powered chat business assistant that runs on WhatsApp, Telegram, or Messenger. Records sales, manages inventory, tracks debts, and delivers daily reports. Speaks plain English and Pidgin. Built for African SMEs.',
   brand: { '@type': 'Brand', name: 'Ojunai' },
   offers: {
     '@type': 'Offer',
-    description: 'Included on Shop, Pro and Business plans. From ₦7,500/month.',
+    description: 'Included on Lite, Operator, Pro, and Scale plans. Telegram + Messenger quotas built in; WhatsApp via a separate pack from $9/mo.',
   },
 };
 
@@ -125,9 +130,9 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="WhatsApp AI — Ojunai"
-  description="Run your inventory, sales, debts and reports entirely through WhatsApp. Plain English and Pidgin understood. Daily summaries, PDF exports, multi-staff support — all from a chat. Available on Shop, Pro, and Business plans."
-  canonical="/whatsapp-ai"
+  title="Chat AI — WhatsApp, Telegram & Messenger | Ojunai"
+  description="Run your inventory, sales, debts, and reports through chat. Chat AI works on WhatsApp, Telegram, or Messenger — pick one or connect all three. Plain English and Pidgin understood. Daily summaries, PDF exports, multi-staff. Built into every paid tier."
+  canonical="/chat-ai"
   ogImage="/og/whatsapp-ai.png"
   jsonLd={[productSchema, faqSchema]}
 >
@@ -138,14 +143,15 @@ const faqSchema = {
     <div class="container wa-hero-grid">
       <div class="wa-hero-content">
         <span class="wa-hero-pill">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
           </svg>
-          WhatsApp AI Add-on
+          Chat AI · Built-in
         </span>
         <h1>Your business, <span class="wa-hero-grad">in your pocket</span>.</h1>
         <p class="wa-hero-sub">
-          Record every sale, every restock, every debt — all by chatting with our AI on WhatsApp.
+          Record every sale, every restock, every debt — by chatting with our AI on
+          <strong>WhatsApp</strong>, <strong>Telegram</strong>, or <strong>Messenger</strong>.
           Plain English or Pidgin. Daily summaries auto-delivered. Multi-staff. PDF exports on demand.
         </p>
         <div class="wa-hero-ctas">
@@ -157,10 +163,10 @@ const faqSchema = {
           >
             Start free
           </a>
-          <a href="#pricing" class="wa-hero-link">See pricing →</a>
+          <a href="/pricing" class="wa-hero-link">See pricing →</a>
         </div>
         <p class="wa-hero-meta">
-          From <strong>₦7,500/month</strong> · Included on Shop, Pro &amp; Business plans
+          Built into every paid tier · Telegram + Messenger included · WhatsApp via pack ($9–$149/mo)
         </p>
       </div>
 
@@ -208,7 +214,7 @@ const faqSchema = {
       </div>
       <div class="wa-stat">
         <div class="wa-stat-num">0</div>
-        <p>Apps to download. WhatsApp is already on every phone.</p>
+        <p>Apps to download. WhatsApp, Telegram, and Messenger are already on every phone.</p>
       </div>
     </div>
   </section>
@@ -219,7 +225,7 @@ const faqSchema = {
       <div class="section-header">
         <div class="section-label">What it handles</div>
         <h2>Everything your books need, by chat.</h2>
-        <p>Nine ways WhatsApp AI keeps your dashboard current — without you ever opening a browser.</p>
+        <p>Ten ways Chat AI keeps your dashboard current — without you ever opening a browser. Same flow on WhatsApp, Telegram, or Messenger.</p>
       </div>
       <div class="wa-capability-grid">
         {capabilities.map((c) => (
@@ -399,52 +405,52 @@ const faqSchema = {
         <h2>Many hands, one ledger.</h2>
         <p>
           Add your shop attendants as staff on the dashboard. They record sales from their own
-          WhatsApp; you see everything consolidated with per-staff attribution. Three roles —
-          Recorder, Manager, Owner — let you control what each person can see and do.
+          WhatsApp, Telegram, or Messenger; you see everything consolidated with per-staff
+          attribution. Three roles — Recorder, Manager, Owner — let you control what each
+          person can see and do.
         </p>
         <ul class="wa-staff-list">
           <li><strong>Per-user audit trail</strong> — every entry tagged with who recorded it.</li>
           <li><strong>Role-based access</strong> — Recorders log; Managers see reports; Owners see everything.</li>
           <li><strong>Real-time consolidation</strong> — your dashboard updates as each staff member records.</li>
-          <li><strong>Available on Shop, Pro &amp; Business</strong> — up to 3, 10, and unlimited respectively.</li>
+          <li><strong>Available on Operator and up</strong> — 2 / 3 / 6 / 10+ users respectively.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- PRICING CARD -->
+  <!-- PRICING — link to full pricing page -->
   <section class="wa-pricing" id="pricing">
     <div class="container">
       <div class="wa-pricing-card">
         <div class="wa-pricing-meta">
-          <span class="wa-pricing-pill">Included on Shop, Pro &amp; Business</span>
-          <h2>Pricing</h2>
-          <p>WhatsApp AI is included on every plan from Shop upward. Starter is dashboard-only — upgrade any time.</p>
+          <span class="wa-pricing-pill">How it's priced</span>
+          <h2>Built into every paid tier</h2>
+          <p>
+            Chat AI is included on <strong>Lite, Operator, Pro, and Scale</strong>.
+            <strong>Telegram and Messenger quotas are built in</strong> (500 / 1,500 / 4,000 / Unlimited
+            actions per month). <strong>WhatsApp is a separate pack</strong> ($9–$149/mo) that attaches
+            to any tier — pick the volume that fits.
+          </p>
 
-          <div class="wa-pricing-tiers">
-            <div class="wa-pricing-tier">
-              <strong>Shop</strong>
-              <div class="wa-pricing-tier-price">₦7,500<span>/mo</span></div>
-              <p>Up to 3 staff · 850 messages/month</p>
+          <div class="wa-pricing-summary">
+            <div class="wa-pricing-summary-row">
+              <strong>Telegram + Messenger</strong>
+              <span>Included with every paid tier · 500 → Unlimited actions/mo</span>
             </div>
-            <div class="wa-pricing-tier wa-pricing-tier-featured">
-              <span class="wa-pricing-tier-badge">Most chosen</span>
-              <strong>Pro</strong>
-              <div class="wa-pricing-tier-price">₦12,500<span>/mo</span></div>
-              <p>Up to 10 staff · Unlimited messages</p>
+            <div class="wa-pricing-summary-row">
+              <strong>WhatsApp pack</strong>
+              <span>$9, $19, $39, $79, or $149/mo · attaches to any tier including Starter</span>
             </div>
-            <div class="wa-pricing-tier">
-              <strong>Business</strong>
-              <div class="wa-pricing-tier-price">₦30,000<span>/mo</span></div>
-              <p>Unlimited staff · API · Account manager</p>
+            <div class="wa-pricing-summary-row">
+              <strong>Starter (free)</strong>
+              <span>15 total actions/mo across any channel — perfect for trying Chat AI out</span>
             </div>
           </div>
 
           <div class="wa-pricing-actions">
-            <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="btn-cta-primary">
-              Start free
-            </a>
-            <a href="/pricing" class="wa-pricing-link">Compare all plans →</a>
+            <a href="/pricing" class="btn-cta-primary">See full pricing</a>
+            <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="wa-pricing-link">Start free trial →</a>
           </div>
         </div>
       </div>
@@ -475,7 +481,7 @@ const faqSchema = {
     <div class="container">
       <div class="section-header">
         <div class="section-label">Frequently Asked</div>
-        <h2>WhatsApp AI questions</h2>
+        <h2>Chat AI questions</h2>
       </div>
       <div class="wa-faq-list">
         {faqs.map((f) => (
@@ -854,6 +860,25 @@ const faqSchema = {
     color: var(--text-2);
     margin-bottom: 28px;
   }
+
+  /* New 3-row summary for the channel-included framing */
+  .wa-pricing-summary {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .wa-pricing-summary-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 18px;
+    padding: 14px 18px;
+    background: var(--bg-alt);
+    border-radius: 12px;
+    align-items: center;
+  }
+  @media (max-width: 700px) { .wa-pricing-summary-row { grid-template-columns: 1fr; gap: 4px; } }
+  .wa-pricing-summary-row strong { color: var(--text); font-size: 0.95rem; }
+  .wa-pricing-summary-row span { color: var(--text-2); font-size: 0.92rem; line-height: 1.5; }
 
   .wa-pricing-tiers {
     display: grid;
