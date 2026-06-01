@@ -3,64 +3,93 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 
 // ====================================
-// PRICE MATRIX (5 currencies)
-// USD is canonical; local prices are fixed (not FX-derived live).
+// PRICE MATRIX (7 currencies — USD/GBP canonical; African locals PPP-adjusted)
 // ====================================
-// Subscriptions with both monthly and yearly options have a nested
-// { monthly: {...}, yearly: {...} } shape. Items without a yearly option
-// (Starter packs, usage packs, à la carte add-ons) stay flat.
+// PPP discount vs USD: ZAR ~10% off · NGN/GHS/KES ~30% off · UGX ~40% off.
+// Local amounts are FIXED — do NOT replace with live-FX conversions.
+// Subscriptions have nested { monthly, yearly }; one-time/PAYG items stay flat.
 const priceMatrix = {
-  // Tiers — both periods supported
+  // ===== TIERS =====
   lite: {
-    monthly: { USD:'$12.99', NGN:'₦18,999',  GHS:'₵149',   KES:'KSh 1,699',  ZAR:'R229',     UGX:'USh 48,999',  GBP:'£9.99' },
-    yearly:  { USD:'$129',   NGN:'₦189,999', GHS:'₵1,499', KES:'KSh 16,999', ZAR:'R2,289',   UGX:'USh 489,999', GBP:'£99.99' },
+    monthly: { USD:'$11.99',  NGN:'₦12,500',   GHS:'GH₵125',   KES:'KSh 1,099',   ZAR:'R199',    UGX:'USh 27,500',   GBP:'£9.99' },
+    yearly:  { USD:'$119.90', NGN:'₦125,000',  GHS:'GH₵1,250', KES:'KSh 10,990',  ZAR:'R1,990',  UGX:'USh 275,000',  GBP:'£99.90' },
   },
   operator: {
-    monthly: { USD:'$29',    NGN:'₦42,000',  GHS:'₵349',   KES:'KSh 3,800',  ZAR:'R529',     UGX:'USh 109,000', GBP:'£22.99' },
-    yearly:  { USD:'$290',   NGN:'₦429,999', GHS:'₵3,499', KES:'KSh 37,999', ZAR:'R5,299',   UGX:'USh 1,089,999', GBP:'£229' },
+    monthly: { USD:'$28.99',  NGN:'₦29,999',   GHS:'GH₵299',   KES:'KSh 2,599',   ZAR:'R499',    UGX:'USh 66,500',   GBP:'£22.99' },
+    yearly:  { USD:'$289.90', NGN:'₦299,990',  GHS:'GH₵2,990', KES:'KSh 25,990',  ZAR:'R4,990',  UGX:'USh 665,000',  GBP:'£229.90' },
   },
-  professional: {
-    monthly: { USD:'$79',    NGN:'₦115,000', GHS:'₵949',   KES:'KSh 10,500', ZAR:'R1,449',   UGX:'USh 295,000', GBP:'£62.99' },
-    yearly:  { USD:'$790',   NGN:'₦1,149,999', GHS:'₵9,499', KES:'KSh 104,999', ZAR:'R14,499', UGX:'USh 2,949,999', GBP:'£629.99' },
+  pro: {
+    monthly: { USD:'$69.99',  NGN:'₦72,500',   GHS:'GH₵729',   KES:'KSh 6,299',   ZAR:'R1,199',  UGX:'USh 159,000',  GBP:'£55.99' },
+    yearly:  { USD:'$699.90', NGN:'₦725,000',  GHS:'GH₵7,290', KES:'KSh 62,990',  ZAR:'R11,990', UGX:'USh 1,590,000',GBP:'£559.90' },
   },
   scale: {
-    monthly: { USD:'$199',   NGN:'₦289,000', GHS:'₵2,399', KES:'KSh 26,500', ZAR:'R3,649',   UGX:'USh 745,000', GBP:'£159' },
-    yearly:  { USD:'$1,990', NGN:'₦2,889,999', GHS:'₵23,999', KES:'KSh 264,999', ZAR:'R36,499', UGX:'USh 7,449,999', GBP:'£1,599' },
+    monthly: { USD:'$149.99', NGN:'₦155,000',  GHS:'GH₵1,549', KES:'KSh 13,499',  ZAR:'R2,549',  UGX:'USh 340,000',  GBP:'£119.99' },
+    yearly:  { USD:'$1,499.90',NGN:'₦1,550,000',GHS:'GH₵15,490',KES:'KSh 134,990', ZAR:'R25,490', UGX:'USh 3,400,000',GBP:'£1,199.90' },
   },
-  // WhatsApp Business OS — both periods supported (Scale tier is contact-sales)
-  wabosSolo: {
-    monthly: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',     UGX:'USh 187,499', GBP:'£39.99' },
-    yearly:  { USD:'$499',   NGN:'₦749,999', GHS:'₵5,999', KES:'KSh 64,999', ZAR:'R8,999',   UGX:'USh 1,874,999', GBP:'£399.99' },
+
+  // ===== WHATSAPP PACKS (subscription, attaches to any tier) =====
+  waStart: {
+    monthly: { USD:'$9',   NGN:'₦9,500',   GHS:'GH₵95',    KES:'KSh 799',    ZAR:'R149',   UGX:'USh 20,500',  GBP:'£7' },
+    yearly:  { USD:'$90',  NGN:'₦95,000',  GHS:'GH₵950',   KES:'KSh 7,990',  ZAR:'R1,490', UGX:'USh 205,000', GBP:'£70' },
   },
-  wabosPro: {
-    monthly: { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649',   UGX:'USh 547,499', GBP:'£116.99' },
-    yearly:  { USD:'$1,459', NGN:'₦2,189,999', GHS:'₵17,499', KES:'KSh 189,999', ZAR:'R26,499', UGX:'USh 5,474,999', GBP:'£1,159.99' },
+  waGrow: {
+    monthly: { USD:'$19',  NGN:'₦19,500',  GHS:'GH₵199',   KES:'KSh 1,699',  ZAR:'R329',   UGX:'USh 43,000',  GBP:'£15' },
+    yearly:  { USD:'$190', NGN:'₦195,000', GHS:'GH₵1,990', KES:'KSh 16,990', ZAR:'R3,290', UGX:'USh 430,000', GBP:'£150' },
   },
-  // Starter WhatsApp packs
-  starterLite:       { USD:'$6',     NGN:'₦8,500',           GHS:'₵75',          KES:'KSh 799',            ZAR:'R109',     UGX:'USh 22,499',                     GBP:'£4.99' },
-  starterBasic:      { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
-  starterPlus:       { USD:'$15',    NGN:'₦21,500',          GHS:'₵179',         KES:'KSh 1,999',          ZAR:'R269',     UGX:'USh 55,999',                     GBP:'£11.99' },
-  // Usage packs (one-time)
-  usage50:           { USD:'$5',     NGN:'₦7,500',           GHS:'₵59',          KES:'KSh 649',            ZAR:'R89',      UGX:'USh 18,999',                     GBP:'£3.99' },
-  usage150:          { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
-  usage200:          { USD:'$13',    NGN:'₦19,500',          GHS:'₵155',         KES:'KSh 1,699',          ZAR:'R235',     UGX:'USh 48,999',                     GBP:'£9.99' },
-  usage300:          { USD:'$18',    NGN:'₦26,500',          GHS:'₵215',         KES:'KSh 2,349',          ZAR:'R325',     UGX:'USh 67,499',                     GBP:'£13.99' },
-  usage600:          { USD:'$30',    NGN:'₦44,500',          GHS:'₵359',         KES:'KSh 3,899',          ZAR:'R539',     UGX:'USh 112,499',                    GBP:'£22.99' },
-  // Other add-ons
-  voiceAi:           { USD:'$39–$79', NGN:'₦57,500–₦115,000', GHS:'₵469–₵949',    KES:'KSh 5,099–KSh 10,500', ZAR:'R699–R1,449', UGX:'USh 145,999–USh 295,000',     GBP:'£30.99–£62.99' },
-  exportHub:         { USD:'$10',    NGN:'₦14,500',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
-  extraUsers:        { USD:'$7.99',  NGN:'₦11,500',          GHS:'₵95',          KES:'KSh 1,049',          ZAR:'R145',     UGX:'USh 29,999',                     GBP:'£5.99' },
-  multiLocation:     { USD:'$10.99', NGN:'₦15,999',          GHS:'₵129',         KES:'KSh 1,449',          ZAR:'R199',     UGX:'USh 40,999',                     GBP:'£8.49' },
-  receiptsPro:       { USD:'$6.99',  NGN:'₦9,999',           GHS:'₵85',          KES:'KSh 919',            ZAR:'R125',     UGX:'USh 25,999',                     GBP:'£5.49' },
-  brandedPdf:        { USD:'$8.99',  NGN:'₦12,999',          GHS:'₵109',         KES:'KSh 1,179',          ZAR:'R165',     UGX:'USh 33,499',                     GBP:'£6.99' },
-  auditLogsPro:      { USD:'$7.99',  NGN:'₦11,500',          GHS:'₵95',          KES:'KSh 1,049',          ZAR:'R145',     UGX:'USh 29,999',                     GBP:'£5.99' },
-  advancedAlerts:    { USD:'$5.99',  NGN:'₦8,499',           GHS:'₵72',          KES:'KSh 779',            ZAR:'R109',     UGX:'USh 22,499',                     GBP:'£4.49' },
-  bulkAnnouncements: { USD:'$9.99',  NGN:'₦14,499',          GHS:'₵119',         KES:'KSh 1,299',          ZAR:'R179',     UGX:'USh 37,499',                     GBP:'£7.99' },
-  customDashboards:  { USD:'$7.99',  NGN:'₦11,500',          GHS:'₵95',          KES:'KSh 1,049',          ZAR:'R145',     UGX:'USh 29,999',                     GBP:'£5.99' },
-  opsProPack:        { USD:'$14.99', NGN:'₦21,499',          GHS:'₵179',         KES:'KSh 1,949',          ZAR:'R269',     UGX:'USh 55,999',                     GBP:'£11.99' },
+  waPro: {
+    monthly: { USD:'$39',  NGN:'₦39,999',  GHS:'GH₵399',   KES:'KSh 3,499',  ZAR:'R649',   UGX:'USh 89,000',  GBP:'£31' },
+    yearly:  { USD:'$390', NGN:'₦399,990', GHS:'GH₵3,990', KES:'KSh 34,990', ZAR:'R6,490', UGX:'USh 890,000', GBP:'£310' },
+  },
+  waScale: {
+    monthly: { USD:'$79',  NGN:'₦82,000',  GHS:'GH₵829',   KES:'KSh 7,199',  ZAR:'R1,349', UGX:'USh 180,000', GBP:'£63' },
+    yearly:  { USD:'$790', NGN:'₦820,000', GHS:'GH₵8,290', KES:'KSh 71,990', ZAR:'R13,490',UGX:'USh 1,800,000',GBP:'£630' },
+  },
+  waUnlimited: {
+    monthly: { USD:'$149',  NGN:'₦155,000',  GHS:'GH₵1,549', KES:'KSh 13,499',  ZAR:'R2,549',  UGX:'USh 340,000',  GBP:'£119' },
+    yearly:  { USD:'$1,490',NGN:'₦1,550,000',GHS:'GH₵15,490',KES:'KSh 134,990', ZAR:'R25,490', UGX:'USh 3,400,000',GBP:'£1,190' },
+  },
+
+  // ===== PAYG TOP-UPS (one-time, same prices across WhatsApp + T+M) =====
+  topupBoost:  { USD:'$5',  NGN:'₦4,999',  GHS:'GH₵49',  KES:'KSh 449',   ZAR:'R89',  UGX:'USh 11,000', GBP:'£4' },
+  topupTopUp:  { USD:'$10', NGN:'₦9,999',  GHS:'GH₵99',  KES:'KSh 899',   ZAR:'R179', UGX:'USh 22,000', GBP:'£8' },
+  topupPower:  { USD:'$20', NGN:'₦19,999', GHS:'GH₵199', KES:'KSh 1,799', ZAR:'R339', UGX:'USh 45,000', GBP:'£16' },
+
+  // ===== À LA CARTE ADD-ONS (USD-anchored; locals approximate-FX, per brief) =====
+  exportHub:         { USD:'$10',    NGN:'₦15,000', GHS:'GH₵120', KES:'KSh 1,300', ZAR:'R185', UGX:'USh 37,500', GBP:'£8' },
+  extraUsers:        { USD:'$7.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000', GBP:'£6.39' },
+  multiLocation:     { USD:'$10.99', NGN:'₦16,500', GHS:'GH₵132', KES:'KSh 1,430', ZAR:'R203', UGX:'USh 41,250', GBP:'£8.79' },
+  receiptsPro:       { USD:'$6.99',  NGN:'₦10,500', GHS:'GH₵84',  KES:'KSh 910',   ZAR:'R129', UGX:'USh 26,250', GBP:'£5.59' },
+  brandedPdf:        { USD:'$8.99',  NGN:'₦13,500', GHS:'GH₵108', KES:'KSh 1,170', ZAR:'R166', UGX:'USh 33,750', GBP:'£7.19' },
+  auditLogsPro:      { USD:'$7.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000', GBP:'£6.39' },
+  advancedAlerts:    { USD:'$5.99',  NGN:'₦9,000',  GHS:'GH₵72',  KES:'KSh 780',   ZAR:'R110', UGX:'USh 22,500', GBP:'£4.79' },
+  bulkAnnouncements: { USD:'$9.99',  NGN:'₦15,000', GHS:'GH₵120', KES:'KSh 1,300', ZAR:'R185', UGX:'USh 37,500', GBP:'£7.99' },
+  customDashboards:  { USD:'$7.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000', GBP:'£6.39' },
+  opsProPack:        { USD:'$14.99', NGN:'₦22,500', GHS:'GH₵180', KES:'KSh 1,950', ZAR:'R278', UGX:'USh 56,250', GBP:'£11.99' },
+
+  // ===== BUNDLE EXAMPLES (sum of tier + WhatsApp pack, locally rounded) =====
+  bundleSolo: {
+    monthly: { USD:'$20.99',  NGN:'₦22,000',  GHS:'GH₵220',   KES:'KSh 1,899',  ZAR:'R349',  UGX:'USh 48,000',  GBP:'£16.99' },
+  },
+  bundleActive: {
+    monthly: { USD:'$47.99',  NGN:'₦49,500',  GHS:'GH₵499',   KES:'KSh 4,299',  ZAR:'R829',  UGX:'USh 109,500', GBP:'£37.99' },
+  },
+  bundleTeam: {
+    monthly: { USD:'$108.99', NGN:'₦112,500', GHS:'GH₵1,129', KES:'KSh 9,799',  ZAR:'R1,849',UGX:'USh 248,000', GBP:'£86.99' },
+  },
 };
 
-const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX', 'GBP'];
+const currencies = ['USD', 'GBP', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
+
+// Flag + display label per currency for the dropdown.
+const currencyMeta = {
+  USD: { flag: '🇺🇸', name: 'US Dollar' },
+  GBP: { flag: '🇬🇧', name: 'British Pound' },
+  NGN: { flag: '🇳🇬', name: 'Nigerian Naira' },
+  GHS: { flag: '🇬🇭', name: 'Ghanaian Cedi' },
+  KES: { flag: '🇰🇪', name: 'Kenyan Shilling' },
+  ZAR: { flag: '🇿🇦', name: 'South African Rand' },
+  UGX: { flag: '🇺🇬', name: 'Ugandan Shilling' },
+};
 
 // ====================================
 // STARTER (rendered as a flat card below the main grid)
@@ -75,14 +104,16 @@ const starterFlat = {
     'Expense tracking',
     'Basic reports',
     '1 user',
-    'No WhatsApp included',
+    '15 total Assistant actions/mo (Telegram, Messenger, or WhatsApp)',
   ],
   cta: { label: 'Start Free', href: 'https://app.ojunai.com/register' },
 };
 
 // ====================================
-// PLANS (main 4-card grid)
+// PLANS (main 4-card grid — Lite/Operator/Pro/Scale)
 // ====================================
+// Multi-channel framing: Telegram + Messenger included with quotas; WhatsApp
+// is a separate per-pack subscription (no longer in tier inclusions).
 const plans = [
   {
     id: 'lite',
@@ -90,16 +121,17 @@ const plans = [
     priceKey: 'lite',
     priceText: priceMatrix.lite.monthly.USD,
     period: '/month',
-    sub: 'Best for solo operators who want WhatsApp built in.',
+    sub: 'For solo operators starting to scale.',
     features: [
       'Everything in Starter',
       'Debt & loan tracking',
       'Customer records',
-      'WhatsApp Assistant: 10 actions/week',
+      'Telegram + Messenger: 500 actions/mo',
+      'Add WhatsApp from $9/mo',
       '1 user',
       'Receipt generation',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=lite', external: true, variant: 'outline' },
+    cta: { label: 'Start free 14-day Operator trial', href: 'https://app.ojunai.com/register?plan=lite', external: true, variant: 'outline' },
     featured: false,
   },
   {
@@ -108,37 +140,38 @@ const plans = [
     priceKey: 'operator',
     priceText: priceMatrix.operator.monthly.USD,
     period: '/month',
-    sub: 'Best for small businesses running daily operations.',
+    sub: 'For small businesses running daily operations.',
     features: [
       'Everything in Lite',
       'Manual payment tracking',
       'Basic insights',
-      'WhatsApp Assistant: 35 actions/week',
+      'Telegram + Messenger: 1,500 actions/mo',
+      'Add WhatsApp from $9/mo',
       '1 user',
       'Email receipts (Basic)',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=operator', external: true, variant: 'outline' },
+    cta: { label: 'Start free 14-day Operator trial', href: 'https://app.ojunai.com/register?plan=operator', external: true, variant: 'outline' },
     featured: false,
   },
   {
-    id: 'professional',
-    name: 'Professional',
-    priceKey: 'professional',
-    priceText: priceMatrix.professional.monthly.USD,
+    id: 'pro',
+    name: 'Pro',
+    priceKey: 'pro',
+    priceText: priceMatrix.pro.monthly.USD,
     period: '/month',
-    sub: 'Best for businesses that want clarity and control.',
+    sub: 'For businesses that want clarity and control.',
     features: [
       'Everything in Operator',
       'Advanced analytics & reports',
       'Profit tracking & insights',
       'Product performance tracking',
       'Data export',
-      'WhatsApp Assistant: 95 actions/week',
+      'Telegram + Messenger: 4,000 actions/mo',
+      'Add WhatsApp from $9/mo',
       '3 users',
-      'WhatsApp receipts',
-      'Basic PDF receipts',
+      'Branded PDF receipts',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=professional', external: true, variant: 'primary' },
+    cta: { label: 'Start free 14-day Operator trial', href: 'https://app.ojunai.com/register?plan=pro', external: true, variant: 'primary' },
     featured: true,
     badge: 'Most Popular',
   },
@@ -148,22 +181,21 @@ const plans = [
     priceKey: 'scale',
     priceText: priceMatrix.scale.monthly.USD,
     period: '/month',
-    sub: 'Best for teams and growing operations.',
+    sub: 'For teams and multi-location operations.',
     features: [
-      'Everything in Professional',
+      'Everything in Pro',
       'Multi-user collaboration',
       'Multi-location support',
       'Automation alerts',
       'CSV imports',
       'Bulk price updates',
       'Custom business branding',
-      'WhatsApp Assistant: 250 actions/week',
-      'Priority support',
-      '6 users',
-      'PDF receipts with custom logo & footer',
+      'Telegram + Messenger: Unlimited',
+      'Add WhatsApp from $9/mo',
+      '6 users · Priority support',
       'Audit logs up to 90 days',
     ],
-    cta: { label: 'Get Started', href: 'https://app.ojunai.com/register?plan=scale', external: true, variant: 'outline' },
+    cta: { label: 'Start free 14-day Operator trial', href: 'https://app.ojunai.com/register?plan=scale', external: true, variant: 'outline' },
     featured: false,
   },
 ];
@@ -171,7 +203,7 @@ const plans = [
 const enterprise = {
   name: 'Enterprise',
   price: 'Custom',
-  sub: 'Best for large or complex businesses.',
+  sub: 'For large or complex businesses.',
   features: [
     'Everything in Scale',
     'API access',
@@ -179,14 +211,14 @@ const enterprise = {
     'Dedicated onboarding',
     '10+ users, negotiable',
     'Extended audit log retention',
-    'Custom WhatsApp limits',
+    'Unlimited Telegram + Messenger + WhatsApp',
   ],
 };
 
 // ====================================
 // FULL FEATURE COMPARISON
 // ====================================
-const planLabels = ['Starter', 'Lite', 'Operator', 'Professional', 'Scale', 'Enterprise'];
+const planLabels = ['Starter', 'Lite', 'Operator', 'Pro', 'Scale', 'Enterprise'];
 
 const compareCategories = [
   {
@@ -197,6 +229,14 @@ const compareCategories = [
       { feature: 'Expense tracking',           cells: ['✓', '✓', '✓', '✓', '✓', '✓'] },
       { feature: 'Customer records',           cells: ['—', '✓', '✓', '✓', '✓', '✓'] },
       { feature: 'Basic reports',              cells: ['✓', '✓', '✓', '✓', '✓', '✓'] },
+    ],
+  },
+  {
+    name: 'Channels (Telegram + Messenger included; WhatsApp via pack)',
+    rows: [
+      { feature: 'Telegram + Messenger actions/mo', cells: ['15 (any channel)', '500', '1,500', '4,000', 'Unlimited', 'Unlimited'] },
+      { feature: 'WhatsApp included',          cells: ['—', '—', '—', '—', '—', 'Unlimited'] },
+      { feature: 'WhatsApp via pack',          cells: ['Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on', 'Included'] },
     ],
   },
   {
@@ -248,54 +288,80 @@ const compareCategories = [
 ];
 
 // ====================================
-// WHATSAPP COMPARISON
+// WHATSAPP PACKS (subscription, attaches to any tier)
 // ====================================
-const whatsappCompare = [
-  { feature: 'WhatsApp Assistant included',           cells: ['Add-on', '✓', '✓', '✓', '✓', '✓'] },
-  { feature: 'Business actions per week',             cells: ['—', '10', '35', '95', '250', 'Custom'] },
-  { feature: 'WhatsApp receipts',                     cells: ['—', '—', '—', '✓', '✓', '✓'] },
-  { feature: 'Bulk announcements via WhatsApp',       cells: ['—', '—', '—', 'Add-on', 'Add-on', 'Add-on'] },
-  { feature: 'WhatsApp Business OS (full operations)',cells: ['Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on', 'Add-on'] },
+const whatsappPacks = [
+  { id:'start',     name:'Start',     priceKey:'waStart',     actions:'100 actions/mo' },
+  { id:'grow',      name:'Grow',      priceKey:'waGrow',      actions:'300 actions/mo' },
+  { id:'pro',       name:'Pro',       priceKey:'waPro',       actions:'800 actions/mo', featured: true, badge: 'Most Popular' },
+  { id:'scale',     name:'Scale',     priceKey:'waScale',     actions:'2,000 actions/mo' },
+  { id:'unlimited', name:'Unlimited', priceKey:'waUnlimited', actions:'Unlimited actions/mo' },
 ];
 
 // ====================================
-// POWER ADD-ONS
+// PAYG TOP-UPS (one-time)
+// Same prices across both channel groups; T+M packs deliver 5× more actions.
 // ====================================
-const whatsappStarterPacks = [
-  { name: 'Starter WhatsApp Lite',  priceKey: 'starterLite',  priceText: priceMatrix.starterLite.USD,  period: '/mo', actions: '50 business actions / month' },
-  { name: 'Starter WhatsApp Basic', priceKey: 'starterBasic', priceText: priceMatrix.starterBasic.USD, period: '/mo', actions: '120 business actions / month' },
-  { name: 'Starter WhatsApp Plus',  priceKey: 'starterPlus',  priceText: priceMatrix.starterPlus.USD,  period: '/mo', actions: '250 business actions / month' },
+const waTopUps = [
+  { name:'Boost',  actions:'+50 actions',  priceKey:'topupBoost' },
+  { name:'Top-Up', actions:'+120 actions', priceKey:'topupTopUp' },
+  { name:'Power',  actions:'+300 actions', priceKey:'topupPower' },
 ];
 
-const whatsappUsagePacks = [
-  { actions: '50 business actions',  priceKey: 'usage50',  priceText: priceMatrix.usage50.USD  },
-  { actions: '150 business actions', priceKey: 'usage150', priceText: priceMatrix.usage150.USD },
-  { actions: '200 business actions', priceKey: 'usage200', priceText: priceMatrix.usage200.USD },
-  { actions: '300 business actions', priceKey: 'usage300', priceText: priceMatrix.usage300.USD },
-  { actions: '600 business actions', priceKey: 'usage600', priceText: priceMatrix.usage600.USD },
+const tmTopUps = [
+  { name:'Boost',  actions:'+250 actions',   priceKey:'topupBoost' },
+  { name:'Top-Up', actions:'+600 actions',   priceKey:'topupTopUp' },
+  { name:'Power',  actions:'+1,500 actions', priceKey:'topupPower' },
 ];
 
+// ====================================
+// À LA CARTE ADD-ONS
+// Each carries an 'included' badge for the tier where it's bundled in.
+// ====================================
 const otherAddons = [
-  { name: 'Voice AI',                    priceKey: 'voiceAi',           priceText: priceMatrix.voiceAi.USD,           period: '/mo',       desc: '24/7 phone receptionist — answers customer calls, takes orders, books pickups.', href: '/voice-ai' },
-  { name: 'Advanced Export Hub',         priceKey: 'exportHub',         priceText: priceMatrix.exportHub.USD,         period: '/mo',       desc: 'CSV + PDF + scheduled exports across every dataset.' },
-  { name: 'Extra Users',                 priceKey: 'extraUsers',        priceText: priceMatrix.extraUsers.USD,        period: '/user/mo',  desc: 'Add seats beyond your plan limit.' },
-  { name: 'Multi-location',              priceKey: 'multiLocation',     priceText: priceMatrix.multiLocation.USD,     period: '/mo',       desc: 'Track inventory and sales across multiple branches.' },
-  { name: 'Receipts Pro',                priceKey: 'receiptsPro',       priceText: priceMatrix.receiptsPro.USD,       period: '/mo',       desc: 'Polished email + PDF receipts.' },
-  { name: 'Branded PDF Receipts',        priceKey: 'brandedPdf',        priceText: priceMatrix.brandedPdf.USD,        period: '/mo',       desc: 'PDF receipts with your custom logo and footer.' },
-  { name: 'Audit Logs Pro',              priceKey: 'auditLogsPro',      priceText: priceMatrix.auditLogsPro.USD,      period: '/mo',       desc: 'Extended audit-log retention and exports.' },
-  { name: 'Advanced Alerts',             priceKey: 'advancedAlerts',    priceText: priceMatrix.advancedAlerts.USD,    period: '/mo',       desc: 'Custom thresholds for low stock, debts, sales drops.' },
-  { name: 'Bulk Announcements',          priceKey: 'bulkAnnouncements', priceText: priceMatrix.bulkAnnouncements.USD, period: '/mo',       desc: 'WhatsApp + email broadcast to your customer list.' },
-  { name: 'Custom Dashboards & Reports', priceKey: 'customDashboards',  priceText: priceMatrix.customDashboards.USD,  period: '/mo',       desc: 'Build and save custom views of your data.' },
+  { name:'Advanced Export Hub',         priceKey:'exportHub',         period:'/mo',      includedFrom:'Scale',    desc:'CSV + PDF + scheduled exports across every dataset.' },
+  { name:'Extra Users',                 priceKey:'extraUsers',        period:'/user/mo', includedFrom:null,       desc:'Add seats beyond your plan limit. Always à la carte.' },
+  { name:'Multi-location',              priceKey:'multiLocation',     period:'/mo',      includedFrom:'Scale',    desc:'Track inventory and sales across multiple branches.' },
+  { name:'Receipts Pro',                priceKey:'receiptsPro',       period:'/mo',      includedFrom:'Operator', desc:'Polished email + PDF receipts.' },
+  { name:'Branded PDF Receipts',        priceKey:'brandedPdf',        period:'/mo',      includedFrom:'Pro',      desc:'PDF receipts with your custom logo and footer.' },
+  { name:'Audit Logs Pro',              priceKey:'auditLogsPro',      period:'/mo',      includedFrom:'Scale',    desc:'Extended audit-log retention and exports.' },
+  { name:'Advanced Alerts',             priceKey:'advancedAlerts',    period:'/mo',      includedFrom:'Scale',    desc:'Custom thresholds for low stock, debts, sales drops.' },
+  { name:'Bulk Announcements',          priceKey:'bulkAnnouncements', period:'/mo',      includedFrom:'Scale',    desc:'WhatsApp + email broadcast to your customer list.' },
+  { name:'Custom Dashboards & Reports', priceKey:'customDashboards',  period:'/mo',      includedFrom:'Pro',      desc:'Build and save custom views of your data.' },
 ];
 
 const operationsPro = {
   name: 'Operations Pro Pack',
   priceKey: 'opsProPack',
-  priceText: priceMatrix.opsProPack.USD,
   period: '/mo',
-  desc: 'Bundle Receipts Pro + Branded PDF Receipts + Audit Logs Pro. Save vs buying individually.',
+  desc: 'Bundle Receipts Pro + Branded PDF Receipts + Audit Logs Pro. Save vs buying individually. Always à la carte for non-Scale tiers.',
   includes: ['Receipts Pro', 'Branded PDF Receipts', 'Audit Logs Pro'],
 };
+
+// ====================================
+// BUNDLE EXAMPLES (3 currency-adaptive cards)
+// ====================================
+const bundleExamples = [
+  {
+    title: 'Solo merchant, casual WhatsApp',
+    composition: 'Lite + WhatsApp Start',
+    priceKey: 'bundleSolo',
+    note: '$11.99 tier + $9 WhatsApp pack',
+  },
+  {
+    title: 'Active solo merchant',
+    composition: 'Operator + WhatsApp Grow',
+    priceKey: 'bundleActive',
+    note: '$28.99 tier + $19 WhatsApp pack',
+    featured: true,
+  },
+  {
+    title: 'Small team scaling',
+    composition: 'Pro + WhatsApp Pro',
+    priceKey: 'bundleTeam',
+    note: '$69.99 tier + $39 WhatsApp pack',
+  },
+];
 
 // ====================================
 // FAQ
@@ -303,47 +369,51 @@ const operationsPro = {
 const faqs = [
   {
     q: 'How does the free Starter plan work?',
-    a: 'Starter is free forever — no credit card required. You get core inventory tracking, sales logging, expense tracking, and basic reports for one user. Upgrade any time when you need debt tracking, WhatsApp Assistant, multi-user, or advanced reports.',
+    a: 'Starter is free forever — no credit card required. You get core inventory tracking, sales logging, expense tracking, basic reports, and 15 total Assistant actions per month across Telegram, Messenger, or WhatsApp combined. Upgrade any time when you need more capacity, debt tracking, multi-user, or advanced reports.',
   },
   {
     q: 'What\'s a "business action"?',
-    a: 'A business action is one operational interaction with the WhatsApp Assistant — recording a sale, adding stock, logging an expense, requesting a report, sending a receipt, or any equivalent task. Reading-only queries (like "what\'s my stock?") count as actions when they trigger a response. Casual chat and clarifications usually don\'t.',
+    a: 'A business action is one operational interaction with the Assistant on any channel — recording a sale, adding stock, logging an expense, requesting a report, sending a receipt, or any equivalent task. Reading-only queries (like "what\'s my stock?") count as actions when they trigger a response. Casual chat and clarifications usually don\'t.',
   },
   {
-    q: 'What happens when I run out of weekly business actions?',
-    a: 'WhatsApp Assistant pauses for the week and you receive a notification. You can buy a usage pack any time to top up immediately, or upgrade your plan to a higher tier. Your dashboard remains fully usable regardless.',
+    q: 'Why does WhatsApp need its own pack while Telegram & Messenger are included in tiers?',
+    a: 'Telegram and Messenger don\'t charge per-message fees. WhatsApp does — Meta charges per conversation, which we have to pass through. The pack model lets you pick exactly how much WhatsApp volume you need without inflating every tier. Telegram + Messenger quotas are 5× larger than WhatsApp at every tier and unlimited at Scale.',
   },
   {
-    q: 'How do the WhatsApp Business OS tiers (Solo / Pro / Scale) differ?',
-    a: 'WhatsApp Business OS replaces the dashboard with a single WhatsApp conversation. Solo ($49.99/mo) covers 1 user, 1 location, 100 SKUs, 50 PDFs/month, and 1,200 business actions/month — best for solo shopkeepers running everything by chat. Pro ($145.99/mo) covers 3 users, unlimited SKUs and PDFs, 6,000 actions/month, branded PDF templates, and bulk announcements — best for established small businesses. Scale (Contact Sales) covers 6+ users, multi-location, unlimited actions, custom PDF templates per type, an optional Voice AI bundle, and 1+ year history retention. All three sit on top of any base plan (Starter through Scale).',
+    q: 'What happens when I run out of monthly actions?',
+    a: 'The Assistant for that channel pauses and you receive a notification. You can buy a one-time top-up pack any time (Boost / Top-Up / Power), upgrade your tier, or upgrade your WhatsApp pack. The dashboard stays fully usable regardless.',
   },
   {
-    q: 'Can I add Voice AI or other add-ons to any plan?',
-    a: 'Most add-ons work with any plan from Operator upward. Voice AI specifically is available on every plan including Starter — it\'s billed as a standalone subscription on top of your base plan.',
+    q: 'What about Voice AI?',
+    a: 'Voice AI is a standalone product on its own page — see ojunai.com/voice. It\'s billed as a separate subscription and sold on its own to keep this pricing focused on chat operations.',
   },
   {
-    q: 'How do I switch plans?',
-    a: 'Upgrade or downgrade any time from the dashboard. Upgrades take effect immediately and we prorate the difference. Downgrades take effect at the end of your current billing period so you keep paid features until then.',
+    q: 'How do I switch tiers or change WhatsApp packs?',
+    a: 'Upgrade or downgrade any time from the dashboard. Upgrades take effect immediately and we prorate the difference. Downgrades take effect at the end of your current billing period.',
   },
   {
     q: 'What payment methods are supported?',
-    a: 'Cards (Visa, Mastercard, Verve, Amex), bank transfers, and mobile money. We work across African and global markets through trusted payment providers. See the Payments & Billing section below for more.',
+    a: 'Cards (Visa, Mastercard, Verve, Amex), bank transfers, and mobile money. We work across African and global markets through trusted payment providers — see the Payments & Billing section below.',
+  },
+  {
+    q: 'Why are African prices lower than direct USD conversion?',
+    a: 'We price for purchasing power, not just FX. Specifically: ZAR is about 10% below direct USD conversion; NGN, GHS, and KES about 30% below; UGX about 40% below. Add-ons stay USD-anchored. We freeze local amounts at launch and revisit quarterly.',
   },
   {
     q: 'Which currencies can I be billed in?',
-    a: 'USD, NGN (Nigerian Naira), GHS (Ghanaian Cedi), KES (Kenyan Shilling), ZAR (South African Rand), UGX (Ugandan Shilling), and GBP (British Pound) — pick whichever suits your business. We auto-detect a sensible default based on your region; you can override the currency at the top of this page.',
+    a: 'USD, GBP, NGN, GHS, KES, ZAR, and UGX. We auto-detect a sensible default; flip the flag dropdown at the top of this page to switch.',
   },
   {
     q: 'Do you offer refunds?',
-    a: 'Subscription fees are non-refundable, and we don\'t partial-refund unused time within a billing period. If something\'s wrong with a charge, email contact@ojunai.com and we\'ll work with our payment provider to fix it.',
+    a: 'Subscription fees are non-refundable, and we don\'t partial-refund unused time within a billing period. If something\'s wrong with a charge, email contact@ojunai.com.',
   },
   {
     q: 'Can I get a custom Enterprise plan?',
-    a: 'Yes. Enterprise covers 10+ users, multi-region rollouts, custom WhatsApp limits, dedicated onboarding, API access, and SLA-backed support. Email contact@ojunai.com to start the conversation.',
+    a: 'Yes. Enterprise covers 10+ users, multi-region rollouts, unlimited channel capacity (Telegram, Messenger, WhatsApp), dedicated onboarding, API access, and SLA-backed support. Email contact@ojunai.com to start.',
   },
   {
     q: 'Is there a discount for annual billing?',
-    a: 'Annual billing is available on every paid plan with a discount equivalent to roughly 2 months free. Talk to sales for the exact figure on your tier.',
+    a: 'Annual billing is available on every paid tier and every WhatsApp pack with a discount equivalent to 2 months free (10× monthly). Toggle Monthly ↔ Yearly at the top of the page.',
   },
 ];
 
@@ -360,61 +430,49 @@ const faqSchema = {
 
 <BaseLayout
   title="Pricing — Ojunai"
-  description="Run your business operating system on Ojunai. Free Starter, Lite $12.99, Operator $29, Professional $79, Scale $199, custom Enterprise. WhatsApp business actions included from Lite up. Pay in USD, NGN, GHS, KES, ZAR, UGX, or GBP."
+  description="Simple, fair pricing for African SMEs. Use the dashboard free. Add the channels you need (Telegram, Messenger, WhatsApp). Pay for what you use. Lite from $11.99/mo, Operator $28.99, Pro $69.99, Scale $149.99, custom Enterprise. Bill in USD, GBP, NGN, GHS, KES, ZAR, or UGX."
   canonical="/pricing"
   ogImage="/og/pricing.png"
   jsonLd={faqSchema}
 >
   <!-- HERO -->
   <section class="pricing-hero">
+    <!-- Currency flag dropdown — top-right of the hero -->
+    <div class="currency-flag-wrap">
+      <button type="button" class="currency-flag-button" aria-haspopup="listbox" aria-expanded="false" aria-label="Display currency">
+        <span class="currency-flag-emoji">🇺🇸</span>
+        <span class="currency-flag-code">USD</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      <ul class="currency-flag-dropdown" role="listbox" hidden>
+        {currencies.map((c) => (
+          <li>
+            <button type="button" class={`currency-flag-option ${c === 'USD' ? 'currency-flag-option-active' : ''}`} data-ccy={c} role="option" aria-selected={c === 'USD' ? 'true' : 'false'}>
+              <span class="currency-flag-emoji">{currencyMeta[c].flag}</span>
+              <span class="currency-flag-code">{c}</span>
+              <span class="currency-flag-name">{currencyMeta[c].name}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+
     <div class="container pricing-hero-inner">
       <span class="pricing-hero-pill">Pricing</span>
-      <h1>Plans that scale with your business.</h1>
+      <h1>Simple, fair pricing.</h1>
       <p>
-        Start free. Upgrade as you grow. Pay only for what you actually use —
-        with WhatsApp business actions, multi-user, and add-ons priced à la carte.
+        Use the dashboard free. Add the channels you need. Pay for what you use.
       </p>
 
       <!-- Billing-period switcher (Monthly / Yearly) -->
       <div class="period-switcher" role="tablist" aria-label="Billing period">
-        <button
-          type="button"
-          class="period-pill period-pill-active"
-          data-period="monthly"
-          role="tab"
-          aria-selected="true"
-        >Monthly</button>
-        <button
-          type="button"
-          class="period-pill"
-          data-period="yearly"
-          role="tab"
-          aria-selected="false"
-        >Yearly <span class="period-pill-save">save ~2 months</span></button>
+        <button type="button" class="period-pill period-pill-active" data-period="monthly" role="tab" aria-selected="true">Monthly</button>
+        <button type="button" class="period-pill" data-period="yearly" role="tab" aria-selected="false">
+          Yearly <span class="period-pill-save">Save 2 months</span>
+        </button>
       </div>
-
-      <!-- Currency switcher -->
-      <div class="currency-switcher" role="tablist" aria-label="Display currency">
-        <span class="currency-switcher-label">Show prices in</span>
-        <div class="currency-switcher-pills">
-          {currencies.map((c) => (
-            <button
-              type="button"
-              class={`currency-pill ${c === 'USD' ? 'currency-pill-active' : ''}`}
-              data-ccy={c}
-              role="tab"
-              aria-selected={c === 'USD' ? 'true' : 'false'}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <p class="pricing-hero-meta">
-        <span class="pricing-hero-meta-currency">Showing prices in USD.</span>
-        Annual billing available. <a href="#payments">Local payment methods supported.</a>
-      </p>
     </div>
   </section>
 
@@ -433,6 +491,7 @@ const faqSchema = {
                   : p.priceText}
                 {p.period && <span class="price-card-v2-period js-period-text">{p.period}</span>}
               </div>
+              <div class="js-usd-ref" data-price-id={p.priceKey} hidden>≈ {p.priceText} USD</div>
               <div class="price-card-v2-sub">{p.sub}</div>
             </div>
             <ul class="price-card-v2-features">
@@ -453,6 +512,7 @@ const faqSchema = {
             >
               {p.cta.label}
             </a>
+            <p class="price-card-v2-cta-note">No credit card required. WhatsApp pack and Voice AI sold separately.</p>
           </div>
         ))}
       </div>
@@ -495,26 +555,69 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- WHATSAPP BUSINESS OS — placed right after Enterprise -->
-  <section class="pricing-wabos-section">
+  <!-- ADD WHATSAPP TO ANY PLAN -->
+  <section class="pricing-wa-packs-section" id="whatsapp">
     <div class="container">
-      <div class="featured-addon">
-        <div class="featured-addon-glow"></div>
-        <div class="featured-addon-inner">
-          <div class="featured-addon-meta">
-            <span class="featured-addon-pill">Premium Differentiator</span>
-            <h3>WhatsApp Business OS</h3>
-            <p>
-              Run your entire business directly from WhatsApp. No dashboard required.
-              Record sales, add and update inventory, track debts and payments — full
-              operational control through a single conversation.
-            </p>
-            <div class="featured-addon-actions">
-              <a href="/whatsapp-business-os" class="featured-addon-cta">Explore WhatsApp Business OS →</a>
-              <a href="/whatsapp-business-os#tiers" class="featured-addon-secondary">See pricing tiers</a>
+      <div class="section-header">
+        <div class="section-label">WhatsApp Packs</div>
+        <h2>Add WhatsApp to any plan</h2>
+        <p>WhatsApp Business has per-conversation Meta fees we pass through. Pick the pack that fits your volume — works with any tier including Starter.</p>
+      </div>
+
+      <div class="wa-packs-grid">
+        {whatsappPacks.map((p) => (
+          <div class={`wa-pack-card ${p.featured ? 'wa-pack-card-featured' : ''}`}>
+            {p.badge && <div class="wa-pack-badge">{p.badge}</div>}
+            <div class="wa-pack-name">{p.name}</div>
+            <div class="wa-pack-price">
+              <span data-price-id={p.priceKey}>{priceMatrix[p.priceKey].monthly.USD}</span>
+              <span class="wa-pack-period js-period-text">/mo</span>
             </div>
+            <div class="js-usd-ref" data-price-id={p.priceKey} hidden>≈ {priceMatrix[p.priceKey].monthly.USD} USD</div>
+            <div class="wa-pack-actions">{p.actions}</div>
+            <a href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20pack" class="wa-pack-cta">Add to plan</a>
           </div>
-        </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPARENCY NOTE — Why T+M get more -->
+  <section class="pricing-channel-note-section">
+    <div class="container">
+      <aside class="pricing-channel-note">
+        <h3>Why Telegram & Messenger get more actions than WhatsApp</h3>
+        <p>
+          Telegram and Messenger don't charge per-message fees. WhatsApp does — Meta charges per conversation, which we pass through.
+          We pass the cost difference on to you: Telegram + Messenger quotas are <strong>5× larger</strong> than WhatsApp at every tier,
+          and <strong>unlimited at Scale</strong>.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- BUNDLE EXAMPLES -->
+  <section class="pricing-bundles-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Popular combinations</div>
+        <h2>Bundle examples</h2>
+        <p>Tier + WhatsApp pack, all-in monthly cost.</p>
+      </div>
+
+      <div class="pricing-bundles-grid">
+        {bundleExamples.map((b) => (
+          <div class={`pricing-bundle ${b.featured ? 'pricing-bundle-featured' : ''}`}>
+            <div class="pricing-bundle-title">{b.title}</div>
+            <div class="pricing-bundle-composition">{b.composition}</div>
+            <div class="pricing-bundle-price">
+              <span data-price-id={b.priceKey}>{priceMatrix[b.priceKey].monthly.USD}</span>
+              <span class="pricing-bundle-period">/mo</span>
+            </div>
+            <div class="js-usd-ref" data-price-id={b.priceKey} hidden>≈ {priceMatrix[b.priceKey].monthly.USD} USD</div>
+            <div class="pricing-bundle-note">{b.note}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -565,127 +668,99 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- WHATSAPP COMPARISON -->
-  <section class="pricing-whatsapp-compare">
+  <!-- PAY-AS-YOU-GO TOP-UPS — tabbed -->
+  <section class="pricing-payg-section">
     <div class="container">
       <div class="section-header">
-        <div class="section-label">WhatsApp Assistant</div>
-        <h2>What WhatsApp delivers on each plan</h2>
-        <p>Operate by chat — record sales, manage inventory, track debts, broadcast updates.</p>
+        <div class="section-label">Pay-as-you-go</div>
+        <h2>Top-ups when you need them</h2>
+        <p>One-time top-ups when you exceed your monthly cap. Same price, more actions on Telegram + Messenger.</p>
       </div>
 
-      <div class="compare-table-wrap">
-        <table class="compare-table-v2 compare-table-wa">
-          <thead>
-            <tr>
-              <th class="compare-feature-col">Capability</th>
-              {planLabels.map((label, i) => (
-                <th class={i === 3 ? 'compare-featured-col' : ''}>{label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {whatsappCompare.map((row) => (
-              <tr>
-                <td class="compare-feature-col">{row.feature}</td>
-                {row.cells.map((cell, i) => {
-                  let cls = 'compare-cell';
-                  if (cell === '✓') cls += ' compare-yes-wa';
-                  else if (cell === '—') cls += ' compare-no';
-                  else if (cell === 'Add-on') cls += ' compare-addon';
-                  if (i === 3) cls += ' compare-featured-col';
-                  return <td class={cls}>{cell}</td>;
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="payg-tabs" role="tablist" aria-label="Top-up channel">
+        <button type="button" class="payg-tab payg-tab-active" data-payg-tab="wa" role="tab" aria-selected="true">WhatsApp top-ups</button>
+        <button type="button" class="payg-tab" data-payg-tab="tm" role="tab" aria-selected="false">Telegram + Messenger top-ups</button>
+      </div>
+
+      <div class="payg-panel" data-payg-panel="wa">
+        <div class="payg-grid">
+          {waTopUps.map((p) => (
+            <div class="payg-card">
+              <div class="payg-card-name">{p.name}</div>
+              <div class="payg-card-actions">{p.actions}</div>
+              <div class="payg-card-price">
+                <span data-price-id={p.priceKey}>{priceMatrix[p.priceKey].USD}</span>
+              </div>
+              <div class="js-usd-ref" data-price-id={p.priceKey} hidden>≈ {priceMatrix[p.priceKey].USD} USD</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="payg-panel" data-payg-panel="tm" hidden>
+        <div class="payg-grid">
+          {tmTopUps.map((p) => (
+            <div class="payg-card">
+              <div class="payg-card-name">{p.name}</div>
+              <div class="payg-card-actions">{p.actions}</div>
+              <div class="payg-card-price">
+                <span data-price-id={p.priceKey}>{priceMatrix[p.priceKey].USD}</span>
+              </div>
+              <div class="js-usd-ref" data-price-id={p.priceKey} hidden>≈ {priceMatrix[p.priceKey].USD} USD</div>
+            </div>
+          ))}
+        </div>
+        <p class="payg-note">Same price, 5× more actions than the WhatsApp tab — because Telegram and Messenger don't charge per-message fees.</p>
       </div>
     </div>
   </section>
 
-  <!-- POWER ADD-ONS -->
+  <!-- ADD-ONS — included/à la carte -->
   <section class="pricing-addons-section">
     <div class="container">
       <div class="section-header">
-        <div class="section-label">Power Add-ons</div>
-        <h2>Boost any plan</h2>
-        <p>Stack add-ons à la carte. Upgrade pieces without changing your whole tier.</p>
+        <div class="section-label">Add-ons</div>
+        <h2>Pick exactly what you need</h2>
+        <p class="addons-intro">Add-ons are included in upper tiers and available à la carte for lower tiers. Each card shows where it's included.</p>
       </div>
 
-      <!-- Starter WhatsApp packs -->
-      <div class="addon-block">
-        <h3 class="addon-block-title">WhatsApp packs for Starter users</h3>
-        <p class="addon-block-sub">Add WhatsApp Assistant to the free Starter plan with one of these monthly bundles.</p>
-        <div class="addon-pack-grid">
-          {whatsappStarterPacks.map((p) => (
-            <div class="addon-pack">
-              <div class="addon-pack-name">{p.name}</div>
-              <div class="addon-pack-price">
-                <span data-price-id={p.priceKey}>{p.priceText}</span><span class="addon-pack-period">{p.period}</span>
-              </div>
-              <div class="addon-pack-actions">{p.actions}</div>
-              <a href="mailto:contact@ojunai.com?subject=Add%20WhatsApp%20pack" class="addon-pack-cta">Add to Plan</a>
+      <div class="other-addons-grid">
+        {otherAddons.map((a) => (
+          <div class="other-addon-card">
+            <div class="other-addon-header">
+              <strong>{a.name}</strong>
+              <span class="other-addon-price">
+                <span data-price-id={a.priceKey}>{priceMatrix[a.priceKey].USD}</span>{a.period}
+              </span>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- Usage packs -->
-      <div class="addon-block">
-        <h3 class="addon-block-title">Top up business actions, any plan</h3>
-        <p class="addon-block-sub">Pay-as-you-go top-ups when you exceed your weekly limit. One-time charges.</p>
-        <div class="usage-pack-grid">
-          {whatsappUsagePacks.map((p) => (
-            <div class="usage-pack">
-              <div class="usage-pack-actions">{p.actions}</div>
-              <div class="usage-pack-price"><span data-price-id={p.priceKey}>{p.priceText}</span></div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- Other add-ons -->
-      <div class="addon-block">
-        <h3 class="addon-block-title">Other add-ons</h3>
-        <p class="addon-block-sub">Shape your plan exactly the way your business runs.</p>
-        <div class="other-addons-grid">
-          {otherAddons.map((a) => (
-            <div class="other-addon-card">
-              <div class="other-addon-header">
-                <strong>{a.name}</strong>
-                <span class="other-addon-price">
-                  <span data-price-id={a.priceKey}>{a.priceText}</span>{a.period}
-                </span>
-              </div>
-              <p>{a.desc}</p>
-              {a.href ? (
-                <a href={a.href} class="other-addon-link">Learn more →</a>
-              ) : (
-                <a href="mailto:contact@ojunai.com?subject=Add-on%20inquiry" class="other-addon-link">Add to Plan →</a>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <!-- Operations Pro Pack — bundle highlight -->
-        <div class="ops-pro-pack">
-          <div class="ops-pro-pack-meta">
-            <span class="ops-pro-pack-tag">Bundle · Save</span>
-            <h4>
-              {operationsPro.name} — <span data-price-id={operationsPro.priceKey}>{operationsPro.priceText}</span>{operationsPro.period}
-            </h4>
-            <p>{operationsPro.desc}</p>
-            <div class="ops-pro-pack-includes">
-              {operationsPro.includes.map((item) => (
-                <span class="ops-pro-pack-chip">{item}</span>
-              ))}
+            <p>{a.desc}</p>
+            <div class="other-addon-meta-row">
+              {a.includedFrom
+                ? <span class="other-addon-included-badge">Included in {a.includedFrom} & above</span>
+                : <span class="other-addon-alacarte-badge">Always à la carte</span>}
+              <a href="mailto:contact@ojunai.com?subject=Add-on%20inquiry" class="other-addon-link">Add to plan →</a>
             </div>
           </div>
-          <a href="mailto:contact@ojunai.com?subject=Add%20Operations%20Pro%20Pack" class="ops-pro-pack-cta">
-            Add to Plan
-          </a>
+        ))}
+      </div>
+
+      <!-- Operations Pro Pack — bundle highlight -->
+      <div class="ops-pro-pack">
+        <div class="ops-pro-pack-meta">
+          <span class="ops-pro-pack-tag">Bundle · Save</span>
+          <h4>
+            {operationsPro.name} — <span data-price-id={operationsPro.priceKey}>{priceMatrix[operationsPro.priceKey].USD}</span>{operationsPro.period}
+          </h4>
+          <p>{operationsPro.desc}</p>
+          <div class="ops-pro-pack-includes">
+            {operationsPro.includes.map((item) => (
+              <span class="ops-pro-pack-chip">{item}</span>
+            ))}
+          </div>
         </div>
+        <a href="mailto:contact@ojunai.com?subject=Add%20Operations%20Pro%20Pack" class="ops-pro-pack-cta">
+          Add to plan
+        </a>
       </div>
     </div>
   </section>
@@ -730,6 +805,15 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- SUBTLE VOICE LINK — discovery, not a sell -->
+  <section class="pricing-voice-link-section">
+    <div class="container">
+      <p class="pricing-voice-link">
+        Looking for AI phone agents? <a href="/voice">See OjunaiVoice →</a>
+      </p>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="pricing-faq-v2">
     <div class="container">
@@ -759,7 +843,8 @@ const faqSchema = {
 
   <script is:inline>
     (function () {
-      const SUPPORTED = ['USD','NGN','GHS','KES','ZAR','UGX','GBP'];
+      const SUPPORTED = ['USD','GBP','NGN','GHS','KES','ZAR','UGX'];
+      const FLAGS = { USD:'🇺🇸', GBP:'🇬🇧', NGN:'🇳🇬', GHS:'🇬🇭', KES:'🇰🇪', ZAR:'🇿🇦', UGX:'🇺🇬' };
       const TZ_TO_CCY = {
         'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
         'Africa/Accra':'GHS',
@@ -815,6 +900,17 @@ const faqSchema = {
       let activeCcy = 'USD';
       let activePeriod = 'monthly';
 
+      // Look up the USD value for a given priced item — used for the "≈ $XX USD" reference line
+      // shown beneath non-USD prices. Falls back to monthly for items without a period split.
+      function lookupUsd(key, period) {
+        const item = matrix[key];
+        if (!item) return null;
+        if (item[period] && item[period].USD) return item[period].USD;
+        if (item.USD) return item.USD;
+        if (item.monthly && item.monthly.USD) return item.monthly.USD;
+        return null;
+      }
+
       function applyAll() {
         document.querySelectorAll('[data-price-id]').forEach(function (el) {
           const key = el.getAttribute('data-price-id');
@@ -822,7 +918,20 @@ const faqSchema = {
           if (v != null) el.textContent = v;
         });
         document.querySelectorAll('.js-period-text').forEach(function (el) {
+          // Per-element period text — but don't rewrite PAYG card periods (those are one-time, no /mo or /year)
+          if (el.dataset.staticPeriod === 'true') return;
           el.textContent = activePeriod === 'yearly' ? '/year' : '/month';
+        });
+        // Update the USD reference labels — hide for USD, show "≈ $XX USD" otherwise
+        document.querySelectorAll('.js-usd-ref').forEach(function (el) {
+          const key = el.getAttribute('data-price-id');
+          const usd = lookupUsd(key, activePeriod);
+          if (activeCcy === 'USD' || !usd) {
+            el.hidden = true;
+            return;
+          }
+          el.textContent = '≈ ' + usd + ' USD';
+          el.hidden = false;
         });
       }
 
@@ -830,13 +939,20 @@ const faqSchema = {
         if (SUPPORTED.indexOf(ccy) < 0) ccy = 'USD';
         activeCcy = ccy;
         applyAll();
-        document.querySelectorAll('.currency-pill').forEach(function (b) {
-          const active = b.getAttribute('data-ccy') === ccy;
-          b.classList.toggle('currency-pill-active', active);
-          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        // Update flag-button display
+        const flagBtn = document.querySelector('.currency-flag-button');
+        if (flagBtn) {
+          const emoji = flagBtn.querySelector('.currency-flag-emoji');
+          const code = flagBtn.querySelector('.currency-flag-code');
+          if (emoji) emoji.textContent = FLAGS[ccy] || '🌐';
+          if (code) code.textContent = ccy;
+        }
+        // Dropdown active-row marker
+        document.querySelectorAll('.currency-flag-option').forEach(function (opt) {
+          const active = opt.getAttribute('data-ccy') === ccy;
+          opt.classList.toggle('currency-flag-option-active', active);
+          opt.setAttribute('aria-selected', active ? 'true' : 'false');
         });
-        const meta = document.querySelector('.pricing-hero-meta-currency');
-        if (meta) meta.textContent = 'Showing prices in ' + ccy + '.';
         try { localStorage.setItem('ojunai-currency', ccy); } catch (e) {}
       }
 
@@ -852,14 +968,59 @@ const faqSchema = {
         try { localStorage.setItem('ojunai-billing-period', period); } catch (e) {}
       }
 
+      function wireDropdown() {
+        const btn = document.querySelector('.currency-flag-button');
+        const list = document.querySelector('.currency-flag-dropdown');
+        if (!btn || !list) return;
+        btn.addEventListener('click', function () {
+          const open = list.hasAttribute('hidden') ? false : true;
+          if (open) {
+            list.setAttribute('hidden', '');
+            btn.setAttribute('aria-expanded', 'false');
+          } else {
+            list.removeAttribute('hidden');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+        document.addEventListener('click', function (ev) {
+          if (!btn.contains(ev.target) && !list.contains(ev.target)) {
+            list.setAttribute('hidden', '');
+            btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+        document.querySelectorAll('.currency-flag-option').forEach(function (opt) {
+          opt.addEventListener('click', function () {
+            applyCurrency(opt.getAttribute('data-ccy'));
+            list.setAttribute('hidden', '');
+            btn.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      function wirePaygTabs() {
+        document.querySelectorAll('.payg-tab').forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            const id = tab.getAttribute('data-payg-tab');
+            document.querySelectorAll('.payg-tab').forEach(function (t) {
+              const active = t.getAttribute('data-payg-tab') === id;
+              t.classList.toggle('payg-tab-active', active);
+              t.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            document.querySelectorAll('.payg-panel').forEach(function (p) {
+              if (p.getAttribute('data-payg-panel') === id) p.removeAttribute('hidden');
+              else p.setAttribute('hidden', '');
+            });
+          });
+        });
+      }
+
       function init() {
         activeCcy = detectCurrency();
         activePeriod = detectPeriod();
         applyCurrency(activeCcy);
         applyPeriod(activePeriod);
-        document.querySelectorAll('.currency-pill').forEach(function (b) {
-          b.addEventListener('click', function () { applyCurrency(b.getAttribute('data-ccy')); });
-        });
+        wireDropdown();
+        wirePaygTabs();
         document.querySelectorAll('.period-pill').forEach(function (b) {
           b.addEventListener('click', function () { applyPeriod(b.getAttribute('data-period')); });
         });
@@ -1932,6 +2093,391 @@ const faqSchema = {
     color: var(--text-2);
     font-weight: 600;
   }
+
+  /* ============ CURRENCY FLAG DROPDOWN (top-right of hero) ============ */
+  .currency-flag-wrap {
+    position: absolute;
+    top: 96px;
+    right: 32px;
+    z-index: 30;
+  }
+  @media (max-width: 600px) {
+    .currency-flag-wrap { top: 86px; right: 16px; }
+  }
+  .currency-flag-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .currency-flag-button:hover { border-color: var(--brand-mid); box-shadow: 0 4px 14px rgba(79, 70, 229, 0.18); }
+  .currency-flag-emoji { font-size: 1.15rem; line-height: 1; }
+  .currency-flag-dropdown {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 6px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    min-width: 240px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+    z-index: 40;
+  }
+  .currency-flag-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: var(--text);
+    text-align: left;
+    transition: background 0.12s;
+  }
+  .currency-flag-option:hover { background: var(--bg-alt); }
+  .currency-flag-option-active { background: var(--brand-light); color: var(--brand); font-weight: 600; }
+  .currency-flag-option .currency-flag-code { font-weight: 700; min-width: 38px; }
+  .currency-flag-option .currency-flag-name { color: var(--text-2); font-size: 0.85rem; }
+  .currency-flag-option-active .currency-flag-name { color: var(--brand); }
+  @media (max-width: 600px) {
+    .currency-flag-wrap { top: 12px; right: 12px; }
+    .currency-flag-button { padding: 7px 11px; font-size: 0.85rem; }
+    .currency-flag-dropdown { min-width: 200px; }
+  }
+
+  /* ============ USD REFERENCE LINE (≈ $XX USD beneath non-USD prices) ============ */
+  .js-usd-ref {
+    color: var(--text-3);
+    font-size: 0.78rem;
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  /* ============ CTA SUB-NOTE on tier cards ============ */
+  .price-card-v2-cta-note {
+    text-align: center;
+    color: var(--text-3);
+    font-size: 0.75rem;
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+
+  /* ============ "ADD WHATSAPP" PACKS SECTION ============ */
+  .pricing-wa-packs-section { padding: 80px 0; background: var(--bg-alt); }
+  .wa-packs-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    align-items: stretch;
+  }
+  @media (max-width: 1100px) { .wa-packs-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px)  { .wa-packs-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px)  { .wa-packs-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; } }
+  .wa-pack-card {
+    position: relative;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .wa-pack-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--wa-green);
+  }
+  .wa-pack-card-featured {
+    border-color: var(--wa-green);
+    border-width: 2px;
+    background: linear-gradient(180deg, white 0%, #F0FDF4 100%);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.15);
+  }
+  .wa-pack-badge {
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 100px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
+  }
+  .wa-pack-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--wa-green);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .wa-pack-price {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .wa-pack-period {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .wa-pack-actions {
+    color: var(--text-2);
+    font-size: 0.85rem;
+    margin: 8px 0 18px;
+  }
+  .wa-pack-cta {
+    display: inline-block;
+    background: var(--wa-green);
+    color: white;
+    padding: 9px 14px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: auto;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .wa-pack-cta:hover { background: #1EB55A; transform: translateY(-1px); }
+
+  /* ============ TRANSPARENCY NOTE ============ */
+  .pricing-channel-note-section { padding: 0 0 60px; }
+  .pricing-channel-note {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 26px;
+    background: var(--bg-alt);
+    border-left: 3px solid var(--wa-green);
+    border-radius: 12px;
+  }
+  .pricing-channel-note h3 {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .pricing-channel-note p {
+    color: var(--text-2);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .pricing-channel-note strong { color: var(--text); }
+
+  /* ============ BUNDLE EXAMPLES ============ */
+  .pricing-bundles-section { padding: 60px 0; background: var(--bg); }
+  .pricing-bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .pricing-bundles-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+  .pricing-bundle {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .pricing-bundle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--brand-mid);
+  }
+  .pricing-bundle-featured {
+    background: linear-gradient(180deg, white 0%, #F5F4FF 100%);
+    border-color: var(--brand);
+  }
+  .pricing-bundle-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .pricing-bundle-composition {
+    color: var(--brand);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .pricing-bundle-price {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .pricing-bundle-period {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .pricing-bundle-note {
+    color: var(--text-3);
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
+
+  /* ============ PAYG TABBED TOP-UPS ============ */
+  .pricing-payg-section { padding: 80px 0; background: var(--bg-alt); }
+  .payg-tabs {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    max-width: max-content;
+    margin: 0 auto 32px;
+  }
+  .payg-tab {
+    background: transparent;
+    border: 0;
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 9px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, color 0.15s;
+  }
+  .payg-tab:hover { color: var(--brand); }
+  .payg-tab-active {
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  }
+  .payg-tab-active:hover { color: white; }
+  .payg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) { .payg-grid { grid-template-columns: 1fr; max-width: 400px; } }
+  .payg-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .payg-card:hover { border-color: var(--brand-mid); transform: translateY(-2px); }
+  .payg-card-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--brand);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .payg-card-actions {
+    color: var(--text-2);
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+  }
+  .payg-card-price {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .payg-note {
+    text-align: center;
+    color: var(--text-3);
+    font-size: 0.85rem;
+    margin-top: 18px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============ ADD-ON INCLUDED / À LA CARTE BADGES ============ */
+  .addons-intro {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .other-addon-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .other-addon-included-badge {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 3px 9px;
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+  .other-addon-alacarte-badge {
+    display: inline-block;
+    background: var(--bg-alt);
+    color: var(--text-3);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+
+  /* ============ SUBTLE VOICE LINK ============ */
+  .pricing-voice-link-section { padding: 40px 0; background: var(--bg); }
+  .pricing-voice-link {
+    text-align: center;
+    color: var(--text-3);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .pricing-voice-link a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .pricing-voice-link a:hover { color: var(--brand-dark); text-decoration: underline; }
+
+  /* ============ HERO RELATIVE POSITIONING (needed by flag dropdown) ============ */
+  .pricing-hero { position: relative; }
 
   /* ============ FAQ ============ */
   .pricing-faq-v2 { padding: 80px 0; background: var(--bg-alt); }
