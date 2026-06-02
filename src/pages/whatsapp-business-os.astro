@@ -6,16 +6,16 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 // page swaps in the same locally-fixed prices. Scale stays Contact Sales.
 const priceMatrix = {
   wabosSolo: {
-    monthly: { USD:'$49.99', NGN:'₦74,999',  GHS:'₵599',   KES:'KSh 6,499',  ZAR:'R899',     UGX:'USh 187,499', GBP:'£39.99' },
-    yearly:  { USD:'$499',   NGN:'₦749,999', GHS:'₵5,999', KES:'KSh 64,999', ZAR:'R8,999',   UGX:'USh 1,874,999', GBP:'£399.99' },
+    monthly: { USD:'$49.99', NGN:'₦74,999',  GHS:'GH₵599',   KES:'KSh 6,499',  ZAR:'R899',     UGX:'USh 187,499', GBP:'£39.99' },
+    yearly:  { USD:'$499',   NGN:'₦749,999', GHS:'GH₵5,999', KES:'KSh 64,999', ZAR:'R8,999',   UGX:'USh 1,874,999', GBP:'£399.99' },
   },
   wabosPro: {
-    monthly: { USD:'$145.99',NGN:'₦219,999', GHS:'₵1,749', KES:'KSh 18,999', ZAR:'R2,649',   UGX:'USh 547,499', GBP:'£116.99' },
-    yearly:  { USD:'$1,459', NGN:'₦2,189,999', GHS:'₵17,499', KES:'KSh 189,999', ZAR:'R26,499', UGX:'USh 5,474,999', GBP:'£1,159.99' },
+    monthly: { USD:'$145.99',NGN:'₦219,999', GHS:'GH₵1,749', KES:'KSh 18,999', ZAR:'R2,649',   UGX:'USh 547,499', GBP:'£116.99' },
+    yearly:  { USD:'$1,459', NGN:'₦2,189,999', GHS:'GH₵17,499', KES:'KSh 189,999', ZAR:'R26,499', UGX:'USh 5,474,999', GBP:'£1,159.99' },
   },
 };
 
-const currencies = ['USD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX', 'GBP'];
+const currencies = ['USD', 'GBP', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
 
 const capabilities = [
   {
@@ -380,7 +380,7 @@ const faqSchema = {
 
   <script is:inline>
     (function () {
-      const SUPPORTED = ['USD','NGN','GHS','KES','ZAR','UGX','GBP'];
+      const SUPPORTED = ['USD','GBP','NGN','GHS','KES','ZAR','UGX'];
       const TZ_TO_CCY = {
         'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
         'Africa/Accra':'GHS',
