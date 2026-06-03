@@ -12,11 +12,17 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       <h1>Terms of Service</h1>
       <p class="legal-updated">Last updated: April 2026</p>
 
+      <p class="legal-entity">
+        These Terms of Service ("Terms") govern your use of services provided by
+        <strong>OJUNAI AI LTD</strong> (RC 9585647), a company registered in Nigeria
+        (collectively, "Ojunai", "we", "us").
+      </p>
+
       <h2>1. Acceptance of Terms</h2>
       <p>By creating an Ojunai account or using our services, you agree to these Terms of Service. If you do not agree, please do not use the platform. We recommend reading these terms carefully before signing up.</p>
 
       <h2>2. Service Description</h2>
-      <p>Ojunai is a WhatsApp-first AI business management platform built for African small and medium enterprises (SMEs). The service allows you to record sales, track inventory, manage expenses, handle debts and credit, and receive business reports — all by chatting with an AI assistant on WhatsApp. A web dashboard at <a href="https://app.ojunai.com" target="_blank" rel="noopener">app.ojunai.com</a> is included for visual reports, data management, and account settings.</p>
+      <p>Ojunai is a multi-channel AI business management platform built for African small and medium enterprises (SMEs). The service allows you to record sales, track inventory, manage expenses, handle debts and credit, and receive business reports — by chatting with an AI assistant on WhatsApp, Telegram, or Messenger. A web dashboard at <a href="https://app.ojunai.com" target="_blank" rel="noopener">app.ojunai.com</a> is included for visual reports, data management, and account settings.</p>
 
       <h2>3. Account Registration</h2>
       <p>To use Ojunai, you must create an account either through the web dashboard or by messaging the WhatsApp bot. Each business may have one account. The person who creates the account is the Owner and is responsible for:</p>
@@ -91,3 +97,17 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .legal-entity {
+    margin: 8px 0 24px;
+    padding: 14px 18px;
+    background: var(--bg-alt);
+    border-left: 3px solid var(--brand);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .legal-entity strong { color: var(--text); }
+</style>

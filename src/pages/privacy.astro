@@ -12,6 +12,11 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       <h1>Privacy Policy</h1>
       <p class="legal-updated">Last updated: April 2026</p>
 
+      <p class="legal-entity">
+        This Privacy Policy is published by <strong>OJUNAI AI LTD</strong> (RC 9585647) — the
+        legal entity behind the Ojunai platform (collectively, "Ojunai", "we", "us").
+      </p>
+
       <p>
         At Ojunai, we believe your business data belongs to you. This Privacy Policy explains what
         information we collect, how we use it, and how we keep it safe. We've written this in plain
@@ -119,3 +124,17 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .legal-entity {
+    margin: 8px 0 24px;
+    padding: 14px 18px;
+    background: var(--bg-alt);
+    border-left: 3px solid var(--brand);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .legal-entity strong { color: var(--text); }
+</style>

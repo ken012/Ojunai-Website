@@ -89,7 +89,34 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       </a>
     </div>
   </section>
+
+  <section class="contact-legal">
+    <div class="container">
+      <p>
+        Ojunai is operated by <strong>OJUNAI AI LTD</strong>, a company registered in Nigeria
+        under RC&nbsp;9585647. For corporate, regulatory, or compliance matters, please reach us at
+        <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>.
+      </p>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .contact-legal {
+    padding: 28px 0 60px;
+    border-top: 1px solid var(--border);
+  }
+  .contact-legal p {
+    color: var(--text-3);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    text-align: center;
+    margin: 0;
+  }
+  .contact-legal strong { color: var(--text-2); }
+  .contact-legal a { color: var(--brand); text-decoration: none; }
+  .contact-legal a:hover { text-decoration: underline; }
+</style>
 
 <style>
   .contact-hero {
