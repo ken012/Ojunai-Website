@@ -39,7 +39,7 @@ const voiceTiers = [
       '300 inbound minutes / mo',
       '1 concurrent line',
       'Dedicated phone number',
-      '4 languages: English, Yoruba, Hausa, Igbo',
+      '4 languages: English, French, Mandarin, Spanish',
       'Live dashboard sync',
       'Owner handoff for complex calls',
     ],
@@ -56,7 +56,7 @@ const voiceTiers = [
       '1,000 inbound minutes / mo',
       '3 concurrent lines',
       'Dedicated phone number',
-      'All 4 languages',
+      'English, French, Mandarin, Spanish',
       'Live dashboard sync',
       'Priority call queueing + handoff',
       'Weekly call-volume report',
@@ -88,7 +88,7 @@ const voiceTiers = [
 const capabilities = [
   {
     title: 'Speaks 4 languages natively',
-    body: 'English, Yoruba, Hausa and Igbo. Switches automatically based on the caller, or you can pin a default.',
+    body: 'English, French, Mandarin and Spanish. Switches automatically based on the caller, or you can pin a default.',
     iconPath: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20',
   },
   {
@@ -139,7 +139,7 @@ const setup = [
 const faqs = [
   {
     q: 'How do you handle local accents?',
-    a: 'Voice AI is trained on a broad range of accent data — including Yoruba, Hausa, and Igbo language variants alongside a diverse set of English accents. Accuracy is verifiably higher than generic English-only assistants for callers whose first language is not standard American or British English.',
+    a: 'Voice AI is trained on a broad range of accent data across its four supported languages — English, French, Mandarin, and Spanish — including regional accents within each. Accuracy is verifiably higher than generic English-only assistants for callers whose first language is not standard American or British English.',
   },
   {
     q: 'What happens to recordings?',
@@ -168,7 +168,7 @@ const productSchema = {
   '@type': 'Product',
   name: 'Ojunai Voice AI',
   description:
-    'A 24/7 phone receptionist that answers customer calls, confirms stock and pricing, and reserves items on your dashboard for pickup. Speaks English, Yoruba, Hausa, Igbo. Three tiers: Voice Starter, Voice Pro, Voice Enterprise.',
+    'A 24/7 phone receptionist that answers customer calls, confirms stock and pricing, and reserves items on your dashboard for pickup. Speaks English, French, Mandarin, and Spanish. Three tiers: Voice Starter, Voice Pro, Voice Enterprise.',
   brand: { '@type': 'Brand', name: 'Ojunai' },
   offers: [
     {
@@ -176,14 +176,14 @@ const productSchema = {
       name: 'Voice Starter',
       price: '39',
       priceCurrency: 'USD',
-      description: '300 inbound minutes/mo, 1 concurrent line, dedicated phone number, 4 languages, live dashboard sync.',
+      description: '300 inbound minutes/mo, 1 concurrent line, dedicated phone number, English, French, Mandarin, Spanish, live dashboard sync.',
     },
     {
       '@type': 'Offer',
       name: 'Voice Pro',
       price: '79',
       priceCurrency: 'USD',
-      description: '1,000 inbound minutes/mo, 3 concurrent lines, dedicated phone number, 4 languages, priority queueing.',
+      description: '1,000 inbound minutes/mo, 3 concurrent lines, dedicated phone number, English, French, Mandarin, Spanish, priority queueing.',
     },
   ],
 };
@@ -201,7 +201,7 @@ const faqSchema = {
 
 <BaseLayout
   title="OjunaiVoice — 24/7 AI phone agents for SMEs"
-  description="A 24/7 AI phone receptionist that answers customer calls, confirms stock and pricing, and reserves items on your dashboard. Speaks English, Yoruba, Hausa, Igbo. Three tiers — Voice Starter $39, Voice Pro $79, Voice Enterprise custom."
+  description="A 24/7 AI phone receptionist that answers customer calls, confirms stock and pricing, and reserves items on your dashboard. Speaks English, French, Mandarin, and Spanish. Three tiers — Voice Starter $39, Voice Pro $79, Voice Enterprise custom."
   canonical="/voice"
   ogImage="/og/voice-ai.png"
   jsonLd={[productSchema, faqSchema]}
@@ -213,7 +213,7 @@ const faqSchema = {
       <h1>The phone assistant that <span>never sleeps</span>.</h1>
       <p class="va-hero-sub">
         Voice AI answers your business line 24/7 — confirms stock and pricing, books reservations,
-        and reserves items on your dashboard for pickup. In English, Yoruba, Hausa, or Igbo.
+        and reserves items on your dashboard for pickup. In English, French, Mandarin, or Spanish.
       </p>
       <div class="va-hero-ctas">
         <a href="#pricing" class="btn-primary">See pricing</a>
