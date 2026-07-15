@@ -11,24 +11,24 @@
 
 const priceMatrix = {
   lite: {
-    monthly: { USD:'$11.99',  NGN:'₦12,500',   GHS:'GH₵125',   KES:'KSh 1,099',  ZAR:'R199',    UGX:'USh 27,500',  GBP:'£9.99' },
-    yearly:  { USD:'$119.90', NGN:'₦125,000',  GHS:'GH₵1,250', KES:'KSh 10,990', ZAR:'R1,990',  UGX:'USh 275,000', GBP:'£99.90' },
+    monthly: { USD:'$11.99',   GBP:'£9.99',    CAD:'CA$14.99',   NGN:'₦12,500',   GHS:'GH₵125',   KES:'KSh 1,099',  ZAR:'R199',    UGX:'USh 27,500' },
+    yearly:  { USD:'$119.90',  GBP:'£99.90',   CAD:'CA$149.90',  NGN:'₦125,000',  GHS:'GH₵1,250', KES:'KSh 10,990', ZAR:'R1,990',  UGX:'USh 275,000' },
   },
   operator: {
-    monthly: { USD:'$28.99',  NGN:'₦29,999',   GHS:'GH₵299',   KES:'KSh 2,599',  ZAR:'R499',    UGX:'USh 66,500',  GBP:'£22.99' },
-    yearly:  { USD:'$289.90', NGN:'₦299,990',  GHS:'GH₵2,990', KES:'KSh 25,990', ZAR:'R4,990',  UGX:'USh 665,000', GBP:'£229.90' },
+    monthly: { USD:'$28.99',   GBP:'£22.99',   CAD:'CA$36.99',   NGN:'₦29,999',   GHS:'GH₵299',   KES:'KSh 2,599',  ZAR:'R499',    UGX:'USh 66,500' },
+    yearly:  { USD:'$289.90',  GBP:'£229.90',  CAD:'CA$369.90',  NGN:'₦299,990',  GHS:'GH₵2,990', KES:'KSh 25,990', ZAR:'R4,990',  UGX:'USh 665,000' },
   },
   pro: {
-    monthly: { USD:'$69.99',  NGN:'₦72,500',   GHS:'GH₵729',   KES:'KSh 6,299',  ZAR:'R1,199',  UGX:'USh 159,000', GBP:'£55.99' },
-    yearly:  { USD:'$699.90', NGN:'₦725,000',  GHS:'GH₵7,290', KES:'KSh 62,990', ZAR:'R11,990', UGX:'USh 1,590,000',GBP:'£559.90' },
+    monthly: { USD:'$69.99',   GBP:'£55.99',   CAD:'CA$89.99',   NGN:'₦72,500',   GHS:'GH₵729',   KES:'KSh 6,299',  ZAR:'R1,199',  UGX:'USh 159,000' },
+    yearly:  { USD:'$699.90',  GBP:'£559.90',  CAD:'CA$899.90',  NGN:'₦725,000',  GHS:'GH₵7,290', KES:'KSh 62,990', ZAR:'R11,990', UGX:'USh 1,590,000' },
   },
   scale: {
-    monthly: { USD:'$149.99',  NGN:'₦155,000',  GHS:'GH₵1,549', KES:'KSh 13,499', ZAR:'R2,549',  UGX:'USh 340,000', GBP:'£119.99' },
-    yearly:  { USD:'$1,499.90',NGN:'₦1,550,000',GHS:'GH₵15,490',KES:'KSh 134,990',ZAR:'R25,490', UGX:'USh 3,400,000',GBP:'£1,199.90' },
+    monthly: { USD:'$149.99',   GBP:'£119.99',    CAD:'CA$189.99',    NGN:'₦155,000',   GHS:'GH₵1,549',  KES:'KSh 13,499', ZAR:'R2,549',  UGX:'USh 340,000' },
+    yearly:  { USD:'$1,499.90', GBP:'£1,199.90',  CAD:'CA$1,899.90',  NGN:'₦1,550,000', GHS:'GH₵15,490', KES:'KSh 134,990',ZAR:'R25,490', UGX:'USh 3,400,000' },
   },
 };
 
-const currencies = ['USD', 'GBP', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
+const currencies = ['USD', 'GBP', 'CAD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
 
 const starterFlat = {
   label: 'Starter',
@@ -201,16 +201,17 @@ const plans = [
 
   <script is:inline>
     (function () {
-      const SUPPORTED = ['USD','GBP','NGN','GHS','KES','ZAR','UGX'];
+      const SUPPORTED = ['USD','GBP','CAD','NGN','GHS','KES','ZAR','UGX'];
       const TZ_TO_CCY = {
         'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
         'Africa/Accra':'GHS',
         'Africa/Nairobi':'KES','Africa/Mombasa':'KES',
         'Africa/Johannesburg':'ZAR','Africa/Cape_Town':'ZAR','Africa/Durban':'ZAR',
         'Africa/Kampala':'UGX',
-        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP'
+        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP',
+        'America/Toronto':'CAD','America/Vancouver':'CAD','America/Edmonton':'CAD','America/Winnipeg':'CAD','America/Halifax':'CAD','America/St_Johns':'CAD','America/Regina':'CAD'
       };
-      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP' };
+      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP', CA:'CAD' };
 
       function detectCurrency() {
         try {

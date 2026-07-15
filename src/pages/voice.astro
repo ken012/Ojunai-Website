@@ -6,20 +6,21 @@ import FinalCTA from '~/components/sections/FinalCTA.astro';
 // key as /pricing so a viewer's selection persists across both pages.
 const priceMatrix = {
   voiceStarter: {
-    monthly: { USD:'$39',  GBP:'£31',  NGN:'₦39,999',  GHS:'GH₵399',   KES:'KSh 3,499', ZAR:'R649',   UGX:'USh 89,000' },
-    yearly:  { USD:'$390', GBP:'£310', NGN:'₦399,990', GHS:'GH₵3,990', KES:'KSh 34,990',ZAR:'R6,490', UGX:'USh 890,000' },
+    monthly: { USD:'$39',  GBP:'£31',  CAD:'CA$49.99',  NGN:'₦39,999',  GHS:'GH₵399',   KES:'KSh 3,499', ZAR:'R649',   UGX:'USh 89,000' },
+    yearly:  { USD:'$390', GBP:'£310', CAD:'CA$499.90', NGN:'₦399,990', GHS:'GH₵3,990', KES:'KSh 34,990',ZAR:'R6,490', UGX:'USh 890,000' },
   },
   voicePro: {
-    monthly: { USD:'$79',  GBP:'£63',  NGN:'₦82,000',  GHS:'GH₵829',   KES:'KSh 7,199', ZAR:'R1,349', UGX:'USh 180,000' },
-    yearly:  { USD:'$790', GBP:'£630', NGN:'₦820,000', GHS:'GH₵8,290', KES:'KSh 71,990',ZAR:'R13,490',UGX:'USh 1,800,000' },
+    monthly: { USD:'$79',  GBP:'£63',  CAD:'CA$99.99',  NGN:'₦82,000',  GHS:'GH₵829',   KES:'KSh 7,199', ZAR:'R1,349', UGX:'USh 180,000' },
+    yearly:  { USD:'$790', GBP:'£630', CAD:'CA$999.90', NGN:'₦820,000', GHS:'GH₵8,290', KES:'KSh 71,990',ZAR:'R13,490',UGX:'USh 1,800,000' },
   },
 };
 
-const currencies = ['USD', 'GBP', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
+const currencies = ['USD', 'GBP', 'CAD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
 
 const currencyMeta = {
   USD: { flag: '🇺🇸', name: 'US Dollar' },
   GBP: { flag: '🇬🇧', name: 'British Pound' },
+  CAD: { flag: '🇨🇦', name: 'Canadian Dollar' },
   NGN: { flag: '🇳🇬', name: 'Nigerian Naira' },
   GHS: { flag: '🇬🇭', name: 'Ghanaian Cedi' },
   KES: { flag: '🇰🇪', name: 'Kenyan Shilling' },
@@ -138,7 +139,7 @@ const setup = [
 const faqs = [
   {
     q: 'How do you handle local accents?',
-    a: 'Voice AI is trained on West and East African accent data — Lagos, Accra, Nairobi, Cape Town, plus regional variants like Yoruba-inflected English and Hausa-inflected English. Accuracy is verifiably higher than generic English-only assistants for African customers.',
+    a: 'Voice AI is trained on a broad range of accent data — including Yoruba, Hausa, and Igbo language variants alongside a diverse set of English accents. Accuracy is verifiably higher than generic English-only assistants for callers whose first language is not standard American or British English.',
   },
   {
     q: 'What happens to recordings?',
@@ -199,7 +200,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="OjunaiVoice — 24/7 AI phone agents for African SMEs"
+  title="OjunaiVoice — 24/7 AI phone agents for SMEs"
   description="A 24/7 AI phone receptionist that answers customer calls, confirms stock and pricing, and reserves items on your dashboard. Speaks English, Yoruba, Hausa, Igbo. Three tiers — Voice Starter $39, Voice Pro $79, Voice Enterprise custom."
   canonical="/voice"
   ogImage="/og/voice-ai.png"
@@ -328,17 +329,18 @@ const faqSchema = {
 
   <script is:inline>
     (function () {
-      const SUPPORTED = ['USD','GBP','NGN','GHS','KES','ZAR','UGX'];
-      const FLAGS = { USD:'🇺🇸', GBP:'🇬🇧', NGN:'🇳🇬', GHS:'🇬🇭', KES:'🇰🇪', ZAR:'🇿🇦', UGX:'🇺🇬' };
+      const SUPPORTED = ['USD','GBP','CAD','NGN','GHS','KES','ZAR','UGX'];
+      const FLAGS = { USD:'🇺🇸', GBP:'🇬🇧', CAD:'🇨🇦', NGN:'🇳🇬', GHS:'🇬🇭', KES:'🇰🇪', ZAR:'🇿🇦', UGX:'🇺🇬' };
       const TZ_TO_CCY = {
         'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
         'Africa/Accra':'GHS',
         'Africa/Nairobi':'KES','Africa/Mombasa':'KES',
         'Africa/Johannesburg':'ZAR','Africa/Cape_Town':'ZAR','Africa/Durban':'ZAR',
         'Africa/Kampala':'UGX',
-        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP'
+        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP',
+        'America/Toronto':'CAD','America/Vancouver':'CAD','America/Edmonton':'CAD','America/Winnipeg':'CAD','America/Halifax':'CAD','America/St_Johns':'CAD','America/Regina':'CAD'
       };
-      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP' };
+      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP', CA:'CAD' };
 
       function detectCurrency() {
         try {

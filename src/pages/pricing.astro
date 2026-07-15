@@ -3,87 +3,89 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 import FinalCTA from '~/components/sections/FinalCTA.astro';
 
 // ====================================
-// PRICE MATRIX (7 currencies — USD/GBP canonical; African locals PPP-adjusted)
+// PRICE MATRIX (8 currencies — USD/GBP/CAD canonical; other locals PPP-adjusted)
 // ====================================
 // PPP discount vs USD: ZAR ~10% off · NGN/GHS/KES ~30% off · UGX ~40% off.
+// USD, GBP, CAD stay at canonical (developed-market) pricing.
 // Local amounts are FIXED — do NOT replace with live-FX conversions.
 // Subscriptions have nested { monthly, yearly }; one-time/PAYG items stay flat.
 const priceMatrix = {
   // ===== TIERS =====
   lite: {
-    monthly: { USD:'$11.99',  NGN:'₦12,500',   GHS:'GH₵125',   KES:'KSh 1,099',   ZAR:'R199',    UGX:'USh 27,500',   GBP:'£9.99' },
-    yearly:  { USD:'$119.90', NGN:'₦125,000',  GHS:'GH₵1,250', KES:'KSh 10,990',  ZAR:'R1,990',  UGX:'USh 275,000',  GBP:'£99.90' },
+    monthly: { USD:'$11.99',  GBP:'£9.99',    CAD:'CA$14.99',   NGN:'₦12,500',   GHS:'GH₵125',   KES:'KSh 1,099',   ZAR:'R199',    UGX:'USh 27,500' },
+    yearly:  { USD:'$119.90', GBP:'£99.90',   CAD:'CA$149.90',  NGN:'₦125,000',  GHS:'GH₵1,250', KES:'KSh 10,990',  ZAR:'R1,990',  UGX:'USh 275,000' },
   },
   operator: {
-    monthly: { USD:'$28.99',  NGN:'₦29,999',   GHS:'GH₵299',   KES:'KSh 2,599',   ZAR:'R499',    UGX:'USh 66,500',   GBP:'£22.99' },
-    yearly:  { USD:'$289.90', NGN:'₦299,990',  GHS:'GH₵2,990', KES:'KSh 25,990',  ZAR:'R4,990',  UGX:'USh 665,000',  GBP:'£229.90' },
+    monthly: { USD:'$28.99',  GBP:'£22.99',   CAD:'CA$36.99',   NGN:'₦29,999',   GHS:'GH₵299',   KES:'KSh 2,599',   ZAR:'R499',    UGX:'USh 66,500' },
+    yearly:  { USD:'$289.90', GBP:'£229.90',  CAD:'CA$369.90',  NGN:'₦299,990',  GHS:'GH₵2,990', KES:'KSh 25,990',  ZAR:'R4,990',  UGX:'USh 665,000' },
   },
   pro: {
-    monthly: { USD:'$69.99',  NGN:'₦72,500',   GHS:'GH₵729',   KES:'KSh 6,299',   ZAR:'R1,199',  UGX:'USh 159,000',  GBP:'£55.99' },
-    yearly:  { USD:'$699.90', NGN:'₦725,000',  GHS:'GH₵7,290', KES:'KSh 62,990',  ZAR:'R11,990', UGX:'USh 1,590,000',GBP:'£559.90' },
+    monthly: { USD:'$69.99',  GBP:'£55.99',   CAD:'CA$89.99',   NGN:'₦72,500',   GHS:'GH₵729',   KES:'KSh 6,299',   ZAR:'R1,199',  UGX:'USh 159,000' },
+    yearly:  { USD:'$699.90', GBP:'£559.90',  CAD:'CA$899.90',  NGN:'₦725,000',  GHS:'GH₵7,290', KES:'KSh 62,990',  ZAR:'R11,990', UGX:'USh 1,590,000' },
   },
   scale: {
-    monthly: { USD:'$149.99', NGN:'₦155,000',  GHS:'GH₵1,549', KES:'KSh 13,499',  ZAR:'R2,549',  UGX:'USh 340,000',  GBP:'£119.99' },
-    yearly:  { USD:'$1,499.90',NGN:'₦1,550,000',GHS:'GH₵15,490',KES:'KSh 134,990', ZAR:'R25,490', UGX:'USh 3,400,000',GBP:'£1,199.90' },
+    monthly: { USD:'$149.99',  GBP:'£119.99',   CAD:'CA$189.99',   NGN:'₦155,000',   GHS:'GH₵1,549',  KES:'KSh 13,499',   ZAR:'R2,549',   UGX:'USh 340,000' },
+    yearly:  { USD:'$1,499.90',GBP:'£1,199.90', CAD:'CA$1,899.90', NGN:'₦1,550,000', GHS:'GH₵15,490', KES:'KSh 134,990',  ZAR:'R25,490',  UGX:'USh 3,400,000' },
   },
 
   // ===== WHATSAPP PACKS (subscription, attaches to any tier) =====
   waStart: {
-    monthly: { USD:'$9',   NGN:'₦9,500',   GHS:'GH₵95',    KES:'KSh 799',    ZAR:'R149',   UGX:'USh 20,500',  GBP:'£7' },
-    yearly:  { USD:'$90',  NGN:'₦95,000',  GHS:'GH₵950',   KES:'KSh 7,990',  ZAR:'R1,490', UGX:'USh 205,000', GBP:'£70' },
+    monthly: { USD:'$9',   GBP:'£7',   CAD:'CA$11.99',  NGN:'₦9,500',   GHS:'GH₵95',    KES:'KSh 799',    ZAR:'R149',   UGX:'USh 20,500' },
+    yearly:  { USD:'$90',  GBP:'£70',  CAD:'CA$119.90', NGN:'₦95,000',  GHS:'GH₵950',   KES:'KSh 7,990',  ZAR:'R1,490', UGX:'USh 205,000' },
   },
   waGrow: {
-    monthly: { USD:'$19',  NGN:'₦19,500',  GHS:'GH₵199',   KES:'KSh 1,699',  ZAR:'R329',   UGX:'USh 43,000',  GBP:'£15' },
-    yearly:  { USD:'$190', NGN:'₦195,000', GHS:'GH₵1,990', KES:'KSh 16,990', ZAR:'R3,290', UGX:'USh 430,000', GBP:'£150' },
+    monthly: { USD:'$19',  GBP:'£15',  CAD:'CA$24.99',  NGN:'₦19,500',  GHS:'GH₵199',   KES:'KSh 1,699',  ZAR:'R329',   UGX:'USh 43,000' },
+    yearly:  { USD:'$190', GBP:'£150', CAD:'CA$249.90', NGN:'₦195,000', GHS:'GH₵1,990', KES:'KSh 16,990', ZAR:'R3,290', UGX:'USh 430,000' },
   },
   waPro: {
-    monthly: { USD:'$39',  NGN:'₦39,999',  GHS:'GH₵399',   KES:'KSh 3,499',  ZAR:'R649',   UGX:'USh 89,000',  GBP:'£31' },
-    yearly:  { USD:'$390', NGN:'₦399,990', GHS:'GH₵3,990', KES:'KSh 34,990', ZAR:'R6,490', UGX:'USh 890,000', GBP:'£310' },
+    monthly: { USD:'$39',  GBP:'£31',  CAD:'CA$49.99',  NGN:'₦39,999',  GHS:'GH₵399',   KES:'KSh 3,499',  ZAR:'R649',   UGX:'USh 89,000' },
+    yearly:  { USD:'$390', GBP:'£310', CAD:'CA$499.90', NGN:'₦399,990', GHS:'GH₵3,990', KES:'KSh 34,990', ZAR:'R6,490', UGX:'USh 890,000' },
   },
   waScale: {
-    monthly: { USD:'$79',  NGN:'₦82,000',  GHS:'GH₵829',   KES:'KSh 7,199',  ZAR:'R1,349', UGX:'USh 180,000', GBP:'£63' },
-    yearly:  { USD:'$790', NGN:'₦820,000', GHS:'GH₵8,290', KES:'KSh 71,990', ZAR:'R13,490',UGX:'USh 1,800,000',GBP:'£630' },
+    monthly: { USD:'$79',  GBP:'£63',  CAD:'CA$99.99',  NGN:'₦82,000',  GHS:'GH₵829',   KES:'KSh 7,199',  ZAR:'R1,349', UGX:'USh 180,000' },
+    yearly:  { USD:'$790', GBP:'£630', CAD:'CA$999.90', NGN:'₦820,000', GHS:'GH₵8,290', KES:'KSh 71,990', ZAR:'R13,490',UGX:'USh 1,800,000' },
   },
   waUnlimited: {
-    monthly: { USD:'$149',  NGN:'₦155,000',  GHS:'GH₵1,549', KES:'KSh 13,499',  ZAR:'R2,549',  UGX:'USh 340,000',  GBP:'£119' },
-    yearly:  { USD:'$1,490',NGN:'₦1,550,000',GHS:'GH₵15,490',KES:'KSh 134,990', ZAR:'R25,490', UGX:'USh 3,400,000',GBP:'£1,190' },
+    monthly: { USD:'$149',   GBP:'£119',   CAD:'CA$189.99',   NGN:'₦155,000',   GHS:'GH₵1,549',  KES:'KSh 13,499',  ZAR:'R2,549',  UGX:'USh 340,000' },
+    yearly:  { USD:'$1,490', GBP:'£1,190', CAD:'CA$1,899.90', NGN:'₦1,550,000', GHS:'GH₵15,490', KES:'KSh 134,990', ZAR:'R25,490', UGX:'USh 3,400,000' },
   },
 
   // ===== PAYG TOP-UPS (one-time, same prices across WhatsApp + T+M) =====
-  topupBoost:  { USD:'$5',  NGN:'₦4,999',  GHS:'GH₵49',  KES:'KSh 449',   ZAR:'R89',  UGX:'USh 11,000', GBP:'£4' },
-  topupTopUp:  { USD:'$10', NGN:'₦9,999',  GHS:'GH₵99',  KES:'KSh 899',   ZAR:'R179', UGX:'USh 22,000', GBP:'£8' },
-  topupPower:  { USD:'$20', NGN:'₦19,999', GHS:'GH₵199', KES:'KSh 1,799', ZAR:'R339', UGX:'USh 45,000', GBP:'£16' },
+  topupBoost:  { USD:'$5',  GBP:'£4',  CAD:'CA$6.99',  NGN:'₦4,999',  GHS:'GH₵49',  KES:'KSh 449',   ZAR:'R89',  UGX:'USh 11,000' },
+  topupTopUp:  { USD:'$10', GBP:'£8',  CAD:'CA$12.99', NGN:'₦9,999',  GHS:'GH₵99',  KES:'KSh 899',   ZAR:'R179', UGX:'USh 22,000' },
+  topupPower:  { USD:'$20', GBP:'£16', CAD:'CA$25.99', NGN:'₦19,999', GHS:'GH₵199', KES:'KSh 1,799', ZAR:'R339', UGX:'USh 45,000' },
 
-  // ===== À LA CARTE ADD-ONS (USD-anchored; locals approximate-FX, per brief) =====
-  exportHub:         { USD:'$10',    NGN:'₦15,000', GHS:'GH₵120', KES:'KSh 1,300', ZAR:'R185', UGX:'USh 37,500', GBP:'£8' },
-  extraUsers:        { USD:'$7.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000', GBP:'£6.39' },
-  multiLocation:     { USD:'$10.99', NGN:'₦16,500', GHS:'GH₵132', KES:'KSh 1,430', ZAR:'R203', UGX:'USh 41,250', GBP:'£8.79' },
-  receiptsPro:       { USD:'$6.99',  NGN:'₦10,500', GHS:'GH₵84',  KES:'KSh 910',   ZAR:'R129', UGX:'USh 26,250', GBP:'£5.59' },
-  brandedPdf:        { USD:'$8.99',  NGN:'₦13,500', GHS:'GH₵108', KES:'KSh 1,170', ZAR:'R166', UGX:'USh 33,750', GBP:'£7.19' },
-  auditLogsPro:      { USD:'$7.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000', GBP:'£6.39' },
-  advancedAlerts:    { USD:'$5.99',  NGN:'₦9,000',  GHS:'GH₵72',  KES:'KSh 780',   ZAR:'R110', UGX:'USh 22,500', GBP:'£4.79' },
-  bulkAnnouncements: { USD:'$9.99',  NGN:'₦15,000', GHS:'GH₵120', KES:'KSh 1,300', ZAR:'R185', UGX:'USh 37,500', GBP:'£7.99' },
-  customDashboards:  { USD:'$7.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000', GBP:'£6.39' },
-  opsProPack:        { USD:'$14.99', NGN:'₦22,500', GHS:'GH₵180', KES:'KSh 1,950', ZAR:'R278', UGX:'USh 56,250', GBP:'£11.99' },
+  // ===== À LA CARTE ADD-ONS (USD-anchored; locals approximate-FX) =====
+  exportHub:         { USD:'$10',    GBP:'£8',     CAD:'CA$12.99', NGN:'₦15,000', GHS:'GH₵120', KES:'KSh 1,300', ZAR:'R185', UGX:'USh 37,500' },
+  extraUsers:        { USD:'$7.99',  GBP:'£6.39',  CAD:'CA$9.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000' },
+  multiLocation:     { USD:'$10.99', GBP:'£8.79',  CAD:'CA$13.99', NGN:'₦16,500', GHS:'GH₵132', KES:'KSh 1,430', ZAR:'R203', UGX:'USh 41,250' },
+  receiptsPro:       { USD:'$6.99',  GBP:'£5.59',  CAD:'CA$8.99',  NGN:'₦10,500', GHS:'GH₵84',  KES:'KSh 910',   ZAR:'R129', UGX:'USh 26,250' },
+  brandedPdf:        { USD:'$8.99',  GBP:'£7.19',  CAD:'CA$11.99', NGN:'₦13,500', GHS:'GH₵108', KES:'KSh 1,170', ZAR:'R166', UGX:'USh 33,750' },
+  auditLogsPro:      { USD:'$7.99',  GBP:'£6.39',  CAD:'CA$9.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000' },
+  advancedAlerts:    { USD:'$5.99',  GBP:'£4.79',  CAD:'CA$7.99',  NGN:'₦9,000',  GHS:'GH₵72',  KES:'KSh 780',   ZAR:'R110', UGX:'USh 22,500' },
+  bulkAnnouncements: { USD:'$9.99',  GBP:'£7.99',  CAD:'CA$12.99', NGN:'₦15,000', GHS:'GH₵120', KES:'KSh 1,300', ZAR:'R185', UGX:'USh 37,500' },
+  customDashboards:  { USD:'$7.99',  GBP:'£6.39',  CAD:'CA$9.99',  NGN:'₦12,000', GHS:'GH₵95',  KES:'KSh 1,050', ZAR:'R148', UGX:'USh 30,000' },
+  opsProPack:        { USD:'$14.99', GBP:'£11.99', CAD:'CA$18.99', NGN:'₦22,500', GHS:'GH₵180', KES:'KSh 1,950', ZAR:'R278', UGX:'USh 56,250' },
 
   // ===== BUNDLE EXAMPLES (sum of tier + WhatsApp pack, locally rounded) =====
   bundleSolo: {
-    monthly: { USD:'$20.99',  NGN:'₦22,000',  GHS:'GH₵220',   KES:'KSh 1,899',  ZAR:'R349',  UGX:'USh 48,000',  GBP:'£16.99' },
+    monthly: { USD:'$20.99',  GBP:'£16.99', CAD:'CA$26.99',  NGN:'₦22,000',  GHS:'GH₵220',   KES:'KSh 1,899',  ZAR:'R349',   UGX:'USh 48,000' },
   },
   bundleActive: {
-    monthly: { USD:'$47.99',  NGN:'₦49,500',  GHS:'GH₵499',   KES:'KSh 4,299',  ZAR:'R829',  UGX:'USh 109,500', GBP:'£37.99' },
+    monthly: { USD:'$47.99',  GBP:'£37.99', CAD:'CA$61.99',  NGN:'₦49,500',  GHS:'GH₵499',   KES:'KSh 4,299',  ZAR:'R829',   UGX:'USh 109,500' },
   },
   bundleTeam: {
-    monthly: { USD:'$108.99', NGN:'₦112,500', GHS:'GH₵1,129', KES:'KSh 9,799',  ZAR:'R1,849',UGX:'USh 248,000', GBP:'£86.99' },
+    monthly: { USD:'$108.99', GBP:'£86.99', CAD:'CA$139.99', NGN:'₦112,500', GHS:'GH₵1,129', KES:'KSh 9,799',  ZAR:'R1,849', UGX:'USh 248,000' },
   },
 };
 
-const currencies = ['USD', 'GBP', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
+const currencies = ['USD', 'GBP', 'CAD', 'NGN', 'GHS', 'KES', 'ZAR', 'UGX'];
 
 // Flag + display label per currency for the dropdown.
 const currencyMeta = {
   USD: { flag: '🇺🇸', name: 'US Dollar' },
   GBP: { flag: '🇬🇧', name: 'British Pound' },
+  CAD: { flag: '🇨🇦', name: 'Canadian Dollar' },
   NGN: { flag: '🇳🇬', name: 'Nigerian Naira' },
   GHS: { flag: '🇬🇭', name: 'Ghanaian Cedi' },
   KES: { flag: '🇰🇪', name: 'Kenyan Shilling' },
@@ -395,15 +397,15 @@ const faqs = [
   },
   {
     q: 'What payment methods are supported?',
-    a: 'Cards (Visa, Mastercard, Verve, Amex), bank transfers, and mobile money. We work across African and global markets through trusted payment providers — see the Payments & Billing section below.',
+    a: 'Cards (Visa, Mastercard, Verve, Amex), bank transfers, and mobile money. We work across global markets through trusted payment providers — see the Payments & Billing section below.',
   },
   {
-    q: 'Why are African prices lower than direct USD conversion?',
-    a: 'We price for purchasing power, not just FX. Specifically: ZAR is about 10% below direct USD conversion; NGN, GHS, and KES about 30% below; UGX about 40% below. Add-ons stay USD-anchored. We freeze local amounts at launch and revisit quarterly.',
+    q: 'Why are prices lower in some regions than a direct USD conversion?',
+    a: 'We price for purchasing power, not just FX. Specifically: ZAR is about 10% below direct USD conversion; NGN, GHS, and KES about 30% below; UGX about 40% below. USD/GBP/CAD stay at their canonical amounts. Add-ons are USD-anchored. We freeze local amounts at launch and revisit quarterly.',
   },
   {
     q: 'Which currencies can I be billed in?',
-    a: 'USD, GBP, NGN, GHS, KES, ZAR, and UGX. We auto-detect a sensible default; flip the flag dropdown at the top of this page to switch.',
+    a: 'USD, GBP, CAD, NGN, GHS, KES, ZAR, and UGX — eight in total. We auto-detect a sensible default from your region; flip the flag dropdown at the top of this page to switch.',
   },
   {
     q: 'Do you offer refunds?',
@@ -432,7 +434,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Pricing — Ojunai"
-  description="Simple, fair pricing for African SMEs. Use the dashboard free. Add the channels you need (Telegram, Messenger, WhatsApp). Pay for what you use. Lite from $11.99/mo, Operator $28.99, Pro $69.99, Scale $149.99, custom Enterprise. Bill in USD, GBP, NGN, GHS, KES, ZAR, or UGX."
+  description="Simple, fair pricing for SMEs worldwide. Use the dashboard free. Add the channels you need (Telegram, Messenger, WhatsApp). Pay for what you use. Lite from $11.99/mo, Operator $28.99, Pro $69.99, Scale $149.99, custom Enterprise. Bill in USD, GBP, CAD, NGN, GHS, KES, ZAR, or UGX."
   canonical="/pricing"
   ogImage="/og/pricing.png"
   jsonLd={faqSchema}
@@ -788,8 +790,8 @@ const faqSchema = {
           <div class="payment-trust-icon">
             <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
           </div>
-          <h4>Seven currencies, one billing flow</h4>
-          <p>Pay in USD, NGN, GHS, KES, ZAR, UGX, or GBP. We handle the conversion at checkout — no surprise foreign-exchange fees.</p>
+          <h4>Eight currencies, one billing flow</h4>
+          <p>Pay in USD, GBP, CAD, NGN, GHS, KES, ZAR, or UGX. We handle the conversion at checkout — no surprise foreign-exchange fees.</p>
         </div>
         <div class="payment-trust">
           <div class="payment-trust-icon">
@@ -845,17 +847,18 @@ const faqSchema = {
 
   <script is:inline>
     (function () {
-      const SUPPORTED = ['USD','GBP','NGN','GHS','KES','ZAR','UGX'];
-      const FLAGS = { USD:'🇺🇸', GBP:'🇬🇧', NGN:'🇳🇬', GHS:'🇬🇭', KES:'🇰🇪', ZAR:'🇿🇦', UGX:'🇺🇬' };
+      const SUPPORTED = ['USD','GBP','CAD','NGN','GHS','KES','ZAR','UGX'];
+      const FLAGS = { USD:'🇺🇸', GBP:'🇬🇧', CAD:'🇨🇦', NGN:'🇳🇬', GHS:'🇬🇭', KES:'🇰🇪', ZAR:'🇿🇦', UGX:'🇺🇬' };
       const TZ_TO_CCY = {
         'Africa/Lagos':'NGN','Africa/Abuja':'NGN','Africa/Port_Harcourt':'NGN','Africa/Kano':'NGN',
         'Africa/Accra':'GHS',
         'Africa/Nairobi':'KES','Africa/Mombasa':'KES',
         'Africa/Johannesburg':'ZAR','Africa/Cape_Town':'ZAR','Africa/Durban':'ZAR',
         'Africa/Kampala':'UGX',
-        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP'
+        'Europe/London':'GBP','Europe/Belfast':'GBP','Europe/Jersey':'GBP','Europe/Guernsey':'GBP','Europe/Isle_of_Man':'GBP',
+        'America/Toronto':'CAD','America/Vancouver':'CAD','America/Edmonton':'CAD','America/Winnipeg':'CAD','America/Halifax':'CAD','America/St_Johns':'CAD','America/Regina':'CAD'
       };
-      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP' };
+      const REGION_TO_CCY = { NG:'NGN', GH:'GHS', KE:'KES', ZA:'ZAR', UG:'UGX', GB:'GBP', IM:'GBP', JE:'GBP', GG:'GBP', CA:'CAD' };
 
       function detectCurrency() {
         try {
