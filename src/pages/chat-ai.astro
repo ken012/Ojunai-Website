@@ -10,8 +10,8 @@ const capabilities = [
     iconPath: 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
   },
   {
-    title: 'Plain English & Pidgin',
-    body: "Chat naturally — \"Sold 5 bags of rice at 3,000 each\" or \"Don sell 5 bag of rice for 3000 each.\" Ojunai parses both with the same accuracy on every channel.",
+    title: 'English, French, Mandarin & Spanish',
+    body: "Chat naturally in any of the four supported languages — informal phrasing, code-switching, colloquial number-words all handled. Ojunai parses accurately on every channel.",
     iconPath: 'M3 5h12M9 3v2m4 4.5H10a1.5 1.5 0 000 3h2a1.5 1.5 0 010 3H8m4-9v12',
   },
   {
@@ -76,8 +76,8 @@ const setup = [
 
 const faqs = [
   {
-    q: "Will it understand my Pidgin?",
-    a: "Yes. Ojunai's language model is tuned for informal small-business phrasing — Pidgin, code-switching between English and other languages in the same message, colloquial number-words, and casual measurements. Accuracy is materially higher than generic English-only models for real-world shop-floor conversations.",
+    q: "What languages does Chat AI support?",
+    a: "Chat AI natively handles English, French, Mandarin, and Spanish — plus most other major languages via Claude. It's tuned for informal small-business phrasing: code-switching between languages in the same message, colloquial number-words, and casual measurements. Accuracy is materially higher than generic English-only models for real-world shop-floor conversations.",
   },
   {
     q: "What if it misunderstands a message?",
@@ -110,7 +110,7 @@ const productSchema = {
   '@type': 'Product',
   name: 'Ojunai Chat AI',
   description:
-    'AI-powered chat business assistant that runs on WhatsApp, Telegram, or Messenger. Records sales, manages inventory, tracks debts, and delivers daily reports. Speaks plain English and Pidgin. Built for SMEs.',
+    'AI-powered chat business assistant that runs on WhatsApp, Telegram, or Messenger. Records sales, manages inventory, tracks debts, and delivers daily reports. Speaks English, French, Mandarin, Spanish, and most major world languages. Built for SMEs worldwide.',
   brand: { '@type': 'Brand', name: 'Ojunai' },
   offers: {
     '@type': 'Offer',
@@ -131,7 +131,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Chat AI — WhatsApp, Telegram & Messenger | Ojunai"
-  description="Run your inventory, sales, debts, and reports through chat. Chat AI works on WhatsApp, Telegram, or Messenger — pick one or connect all three. Plain English and Pidgin understood. Daily summaries, PDF exports, multi-staff. Built into every paid tier."
+  description="Run your inventory, sales, debts, and reports through chat. Chat AI works on WhatsApp, Telegram, or Messenger — pick one or connect all three. English, French, Mandarin, and Spanish natively understood. Daily summaries, PDF exports, multi-staff. Built into every paid tier."
   canonical="/chat-ai"
   ogImage="/og/whatsapp-ai.png"
   jsonLd={[productSchema, faqSchema]}
@@ -152,7 +152,7 @@ const faqSchema = {
         <p class="wa-hero-sub">
           Record every sale, every restock, every debt — by chatting with our AI on
           <strong>WhatsApp</strong>, <strong>Telegram</strong>, or <strong>Messenger</strong>.
-          Plain English or Pidgin. Daily summaries auto-delivered. Multi-staff. PDF exports on demand.
+          English, French, Mandarin, or Spanish. Daily summaries auto-delivered. Multi-staff. PDF exports on demand.
         </p>
         <div class="wa-hero-ctas">
           <a
@@ -205,8 +205,8 @@ const faqSchema = {
         <p>To log a sale, vs 2-3 minutes in a notebook.</p>
       </div>
       <div class="wa-stat">
-        <div class="wa-stat-num">2</div>
-        <p>Languages understood out of the box: English &amp; Pidgin.</p>
+        <div class="wa-stat-num">4+</div>
+        <p>Languages natively understood: English, French, Mandarin, Spanish &amp; more.</p>
       </div>
       <div class="wa-stat">
         <div class="wa-stat-num">8pm</div>
