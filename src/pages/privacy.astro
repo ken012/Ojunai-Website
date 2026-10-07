@@ -4,17 +4,17 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 
 <BaseLayout
   title="Privacy Policy — Ojunai Technologies"
-  description="How Ojunai Inventory and FlashAppt collect, use, share, retain, and protect information, including messaging through WhatsApp and planned Messenger support."
+  description="How Ojunai Inventory and FlashAppt collect, use, share, retain, delete, and protect information, including messaging through WhatsApp, Telegram, and Messenger."
   canonical="/privacy"
 >
   <section class="legal-page">
     <div class="container">
       <h1>Privacy Policy</h1>
-      <p class="legal-updated">Draft updated: October 5, 2026 · Owner/legal approval required before publication</p>
+      <p class="legal-updated">Draft updated: October 7, 2026 · Owner/legal approval required before publication</p>
 
       <aside class="review-banner" aria-label="Draft review status">
         <strong>Review draft — not yet the published policy.</strong>
-        <p>This draft reflects the current engineering implementation and the planned Messenger launch. Items marked <strong>⚠️ Confirm</strong> require owner, privacy, or legal verification before this replaces the public policy.</p>
+        <p>This draft reflects the current engineering implementation, including on-request permanent account deletion. Items marked <strong>⚠️ Confirm</strong> require owner, privacy, or legal verification before this replaces the public policy.</p>
       </aside>
 
       <p class="legal-entity">
@@ -26,6 +26,7 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
         privacy terms as they launch. References below to “Ojunai”, “we”, and “us” refer to the
         Ojunai entity responsible for the product and market you are using. The FlashAppt-specific
         provisions below apply only to FlashAppt users.
+        <span class="confirm">⚠️ Confirm which entity is the data controller for each market, its registered country, and its address before publication.</span>
       </p>
 
       <p>This policy explains what information Ojunai processes, why we process it, when service providers receive it, and the choices available to you. We do not sell personal or business information and do not use it for third-party advertising.</p>
@@ -55,12 +56,15 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
         <li><strong>Usage and technical data:</strong> Features used, security and audit events, IP address, browser or device details, and diagnostic information needed to operate and protect the service</li>
       </ul>
 
-      <h2>2. WhatsApp and Planned Messenger Processing</h2>
+      <h2>2. WhatsApp, Telegram, and Messenger Processing</h2>
       <h3>WhatsApp</h3>
       <p>Ojunai’s main merchant WhatsApp integration uses the <strong>Meta WhatsApp Cloud API</strong> for message delivery. When you message Ojunai’s WhatsApp account, Meta routes the message and related delivery data to Ojunai. We use the content and relevant channel identifiers to identify the authorized Ojunai account, maintain conversation context, interpret the request, carry out permitted actions, and return a response.</p>
 
+      <h3>Telegram</h3>
+      <p>When you link your Ojunai account to Ojunai’s Telegram bot, Telegram routes messages you send to the bot in a private one-to-one chat, together with your Telegram chat identifier and message identifiers, to Ojunai. We use them for the same account-linking and business-assistant purposes. Group chats are not supported.</p>
+
       <h3>Messenger</h3>
-      <p>Ojunai is preparing a Messenger integration through <strong>Ojunai’s own Facebook Page</strong>. It is not represented here as approved by Meta or generally available. If launched, Meta will route messages sent directly to that Ojunai Page, together with relevant Page-scoped identifiers and event information, to Ojunai for the same account-linking and business-assistant purposes.</p>
+      <p>Ojunai offers a Messenger integration through <strong>Ojunai’s own Facebook Page</strong>. Availability to the public depends on Meta’s review of the integration. Meta routes messages sent directly to that Ojunai Page, together with relevant Page-scoped identifiers and event information, to Ojunai for the same account-linking and business-assistant purposes.</p>
 
       <div class="clarification"><strong>What this does not mean.</strong><p>Ojunai does not receive or read unrelated private WhatsApp or Facebook conversations. The current Messenger design does not connect to, administer, post for, or manage a customer’s Facebook Page. It uses a single Page owned and controlled by Ojunai.</p></div>
 
@@ -83,29 +87,50 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       <h2>5. Service Providers and Disclosures</h2>
       <p>Information may be disclosed to providers only as reasonably necessary for their role, subject to applicable agreements and settings:</p>
       <ul>
-        <li><strong>Meta:</strong> Routes messages and associated identifiers for the WhatsApp Cloud API and, if approved and launched, Messenger through Ojunai’s Facebook Page. See <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Meta’s Privacy Policy</a></li>
+        <li><strong>Meta:</strong> Routes messages and associated identifiers for the WhatsApp Cloud API and for Messenger through Ojunai’s Facebook Page. See <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Meta’s Privacy Policy</a></li>
         <li><strong>Anthropic:</strong> Processes relevant messages and business context through the Claude API. See <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic’s Privacy Policy</a></li>
-        <li><strong>Twilio:</strong> Remains present in Ojunai engineering for certain messaging, authentication, Voice, SMS, or legacy delivery paths. It is not described as the main merchant WhatsApp transport in this draft. <span class="confirm">⚠️ Confirm each active production use before publication.</span> See <a href="https://www.twilio.com/en-us/legal/privacy" target="_blank" rel="noopener">Twilio’s Privacy Notice</a></li>
-        <li><strong>Telegram:</strong> Processes messages and identifiers when a user chooses Ojunai’s Telegram channel</li>
+        <li><strong>Twilio:</strong> Used for separately offered voice and SMS features, if you use them. Ojunai’s main WhatsApp channel uses Meta’s WhatsApp Cloud API, not Twilio. <span class="confirm">⚠️ Confirm each active production use of Twilio, or remove this item, before publication.</span> See <a href="https://www.twilio.com/en-us/legal/privacy" target="_blank" rel="noopener">Twilio’s Privacy Notice</a></li>
+        <li><strong>Telegram:</strong> Routes messages and identifiers when you link and use Ojunai’s Telegram bot. See <a href="https://telegram.org/privacy" target="_blank" rel="noopener">Telegram’s Privacy Policy</a></li>
         <li><strong>Paystack, Flutterwave, and Stripe:</strong> Process subscription or other payments according to market and currency. Ojunai receives payment status, references, and related account information rather than full card or mobile-money credentials</li>
-        <li><strong>Infrastructure and operational providers:</strong> Engineering references Hetzner hosting, Cloudflare R2 backup storage, Resend email delivery, ElevenLabs for enabled Voice features, and Grafana Cloud telemetry. <span class="confirm">⚠️ Confirm the active production vendor inventory, regions, subprocessors, and data categories before publication.</span></li>
+        <li><strong>Hosting and operations:</strong> Our servers and databases are hosted by Hetzner <span class="confirm">⚠️ [server and backup region — to confirm]</span>. Verification and account emails are sent through our email provider <span class="confirm">⚠️ [email provider — to confirm; engineering references Resend]</span>. Application monitoring data may be sent to a telemetry provider when enabled <span class="confirm">⚠️ [monitoring/OTLP provider, or remove if not enabled — to confirm; engineering references Grafana Cloud]</span>. <span class="confirm">⚠️ Confirm the backup storage provider (engineering references Cloudflare R2) and that no other subprocessor receives personal data.</span></li>
       </ul>
       <p>We may also disclose information when required by law, to protect users or the service, or as part of a properly governed corporate transaction.</p>
 
       <h2>6. Payment Information</h2>
       <p>Payment providers collect and process payment credentials on their systems. Ojunai does not intentionally store full payment-card numbers, bank-account credentials, or mobile-money PINs. We may retain subscription status, payment references, amounts, currency, invoices, and related records needed for billing, accounting, fraud prevention, and support.</p>
 
-      <h2>7. Retention, Account Closure, and Deletion</h2>
-      <p>Different records serve different purposes and are not all retained for the same period. Current engineering defaults include:</p>
+      <h2>7. Retention and Deletion</h2>
+      <p>While your account is active, we keep the records you create so the service works. Some operational records are removed automatically on these default schedules:</p>
       <ul>
-        <li><strong>Message logs:</strong> A configurable retention job defaults to deleting message-log records older than 180 days</li>
-        <li><strong>Protected inbound payloads:</strong> Resolved encrypted payloads use a 30-day application retention window; limited deduplication evidence may be retained separately to prevent unsafe replay</li>
-        <li><strong>Audit/activity records:</strong> The current configurable default is 365 days</li>
-        <li><strong>Short-lived verification and channel-link records:</strong> Expired records are scheduled for cleanup after a short operational buffer</li>
-        <li><strong>Business and financial records:</strong> Account closure anonymizes user, staff, customer, supplier, and business identifiers while retaining certain transaction records needed for accounting, tax, fraud, dispute, security, or legal purposes</li>
+        <li><strong>Message logs:</strong> deleted after 180 days</li>
+        <li><strong>Encrypted inbound messages:</strong> message content is erased 30 days after it has been processed; a content-free record that stops a message being processed twice is kept</li>
+        <li><strong>Activity (audit) records:</strong> deleted after 365 days</li>
+        <li><strong>One-time codes and linking or verification links:</strong> deleted shortly after they expire</li>
       </ul>
-      <p>The business owner can close an account through the authenticated account-closure flow. Ojunai may also accept privacy requests through the contact channel below after verifying the requester’s identity and authority. Account closure is not accurately described as an immediate deletion of every record: some information is anonymized, some is deleted on a schedule, and some may be retained where required or reasonably necessary.</p>
-      <p>Backups and recovery copies may retain information for a limited period before being overwritten or expiring, and deletion from active systems may not immediately remove it from every recovery copy. <span class="confirm">⚠️ Confirm production backup frequency, retention periods, deletion propagation, legal holds, and the tested Meta data-deletion/deauthorization process before publication.</span></p>
+
+      <h3 id="deletion">Permanently deleting your account</h3>
+      <p>You can ask us to permanently delete your Ojunai account and all of its business data at any time:</p>
+      <ul>
+        <li><strong>In the dashboard:</strong> the business owner can go to <em>Settings → Delete account</em> and confirm with their password.</li>
+        <li><strong>By email:</strong> if you cannot sign in, email <a href="mailto:contact@ojunai.com">contact@ojunai.com</a> from the email address on the account, or include the account’s phone number. We will verify that you own or are authorized to act for the account before scheduling deletion.</li>
+      </ul>
+      <p>Deletion is scheduled <strong>14 days</strong> after the request so that a mistaken or unauthorized request can be cancelled. Until then the account keeps working, and the owner or an admin can cancel it in Settings. After that, deletion runs automatically and cannot be undone. We permanently delete:</p>
+      <ul>
+        <li>The business, its settings and locations, and all owner and staff accounts</li>
+        <li>Products, stock, sales, expenses, purchase orders, stocktakes, customers and suppliers, debts and ledger entries, reports and summaries</li>
+        <li>Message history, pending AI actions, and activity records</li>
+        <li>Linked WhatsApp, Telegram, and Messenger connections, and any messages from them that had not yet been processed</li>
+        <li>Uploaded files, such as a dashboard background image</li>
+      </ul>
+      <p><strong>What we keep, and why:</strong></p>
+      <ul>
+        <li>Records of subscription payments made to Ojunai (amount, currency, date, plan, and the payment provider’s reference, without names or contact details), because we must keep them for tax and accounting <span class="confirm">⚠️ [retention period required by law — to confirm]</span></li>
+        <li>A record that deletion was requested and completed (dates and an internal account ID only)</li>
+        <li>Short-lived security records that contain no message content, such as hashed rate-limit counters and provider message IDs, which expire automatically</li>
+      </ul>
+      <p><strong>Backups:</strong> encrypted database backups made before your account was deleted may still contain your data until they expire on our backup schedule <span class="confirm">⚠️ [backup retention period — to confirm]</span>. We do not edit backups, and we do not use them to bring back a deleted account.</p>
+      <p><strong>Copies outside Ojunai:</strong> chats stay in your own WhatsApp, Telegram, or Messenger app until you delete them there. Meta, Telegram, payment providers, and Anthropic handle any data they hold under their own policies and our agreements with them. Your business may have its own legal duty to keep financial records, so download an export before you request deletion if you need one.</p>
+      <p><strong>Disconnecting a channel</strong> in Settings stops that WhatsApp, Telegram, or Messenger account from accessing Ojunai, but it does not delete your history. To remove your data, request permanent deletion as described above.</p>
 
       <h2>8. Security</h2>
       <p>Ojunai uses technical and organizational safeguards intended to protect information, including:</p>
@@ -114,7 +139,7 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 
       <h2>9. Your Choices and Rights</h2>
       <p>Depending on your location and applicable law, you may have rights to request access, correction, export, deletion, restriction, or objection. You can also:</p>
-      <ul><li>Disconnect an available messaging channel from Ojunai</li><li>Stop messaging Ojunai through WhatsApp, Telegram, or Messenger</li><li>Export available business data from the dashboard</li><li>Close an eligible business account through the authenticated dashboard flow</li></ul>
+      <ul><li>Disconnect an available messaging channel from Ojunai</li><li>Stop messaging Ojunai through WhatsApp, Telegram, or Messenger</li><li>Export available business data from the dashboard</li><li>Request permanent deletion of your account and its data (see <a href="#deletion">Permanently deleting your account</a>)</li></ul>
       <p>We may need to verify your identity, account ownership, and authority before completing a request. Some rights are subject to legal exceptions and record-retention obligations.</p>
 
       <h2>10. Cookies and Analytics</h2>
