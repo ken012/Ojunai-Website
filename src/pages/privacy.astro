@@ -26,7 +26,7 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
         privacy terms as they launch. References below to “Ojunai”, “we”, and “us” refer to the
         Ojunai entity responsible for the product and market you are using. The FlashAppt-specific
         provisions below apply only to FlashAppt users.
-        <strong>Ojunai Technologies Inc.</strong>, a Canadian company, is the controller responsible for personal information processed through Ojunai Inventory, including its WhatsApp, Telegram, and Messenger channels. <span class="confirm">⚠️ [registered address — to confirm]</span>
+        <strong>Ojunai Technologies Inc.</strong> (Ontario, Canada) is the controller responsible for personal information processed through Ojunai Inventory, including its WhatsApp, Telegram, and Messenger channels.
       </p>
 
       <p>This policy explains what information Ojunai processes, why we process it, when service providers receive it, and the choices available to you. We do not sell personal or business information and do not use it for third-party advertising.</p>
@@ -89,10 +89,9 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       <ul>
         <li><strong>Meta:</strong> Routes messages and associated identifiers for the WhatsApp Cloud API and for Messenger through Ojunai’s Facebook Page. See <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Meta’s Privacy Policy</a></li>
         <li><strong>Anthropic:</strong> Processes relevant messages and business context through the Claude API. See <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic’s Privacy Policy</a></li>
-        <li><strong>Twilio:</strong> Used for separately offered voice and SMS features, if you use them. Ojunai’s main WhatsApp channel uses Meta’s WhatsApp Cloud API, not Twilio. <span class="confirm">⚠️ Confirm each active production use of Twilio, or remove this item, before publication.</span> See <a href="https://www.twilio.com/en-us/legal/privacy" target="_blank" rel="noopener">Twilio’s Privacy Notice</a></li>
         <li><strong>Telegram:</strong> Routes messages and identifiers when you link and use Ojunai’s Telegram bot. See <a href="https://telegram.org/privacy" target="_blank" rel="noopener">Telegram’s Privacy Policy</a></li>
         <li><strong>Paystack, Flutterwave, and Stripe:</strong> Process subscription or other payments according to market and currency. Ojunai receives payment status, references, and related account information rather than full card or mobile-money credentials</li>
-        <li><strong>Hosting and operations:</strong> Our servers and databases are hosted by Hetzner in Germany <span class="confirm">⚠️ [confirm Nuremberg / exact location in Hetzner]</span>. Encrypted database backups are kept with Hetzner and with Cloudflare (R2 storage) <span class="confirm">⚠️ [confirm Cloudflare R2 bucket location]</span>. Uptime monitoring services (Better Stack and UptimeRobot) check that the service is reachable; they do not receive your business records. Verification and account emails are sent through our email provider <span class="confirm">⚠️ [email provider — to confirm; engineering references Resend]</span>. <span class="confirm">⚠️ Confirm that no other subprocessor receives personal data.</span></li>
+        <li><strong>Hosting and operations:</strong> Our servers and databases are hosted by Hetzner in Germany. Encrypted database backups are kept with Hetzner and in Cloudflare R2 storage. Uptime monitoring services (Better Stack and UptimeRobot) check that the service is reachable; they do not receive your business records. Verification and account emails are sent through Resend. <span class="confirm">⚠️ Confirm that no other subprocessor receives personal data.</span></li>
       </ul>
       <p>We may also disclose information when required by law, to protect users or the service, or as part of a properly governed corporate transaction.</p>
 
@@ -124,11 +123,11 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       </ul>
       <p><strong>What we keep, and why:</strong></p>
       <ul>
-        <li>Records of subscription payments made to Ojunai (amount, currency, date, plan, and the payment provider’s reference, without names or contact details), because we must keep them for tax and accounting <span class="confirm">⚠️ [retention period required by law — to confirm]</span></li>
+        <li>Records of subscription payments made to Ojunai (amount, currency, date, plan, and the payment provider’s reference, without names or contact details), because we must keep them for tax and accounting. They are deleted 8 years after the payment</li>
         <li>A record that deletion was requested and completed (dates and an internal account ID only)</li>
         <li>Short-lived security records that contain no message content, such as hashed rate-limit counters and provider message IDs, which expire automatically</li>
       </ul>
-      <p><strong>Backups:</strong> encrypted database backups made before your account was deleted may still contain your data until they expire on our backup schedule <span class="confirm">⚠️ [backup retention period — to confirm]</span>. We do not edit backups, and we do not use them to bring back a deleted account.</p>
+      <p><strong>Backups:</strong> encrypted database backups made before your account was deleted may still contain your data for up to 90 days. Backups older than 90 days are deleted automatically, so deleted data is gone from our backups within 90 days. We do not edit backups, and we do not use them to bring back a deleted account.</p>
       <p><strong>Copies outside Ojunai:</strong> chats stay in your own WhatsApp, Telegram, or Messenger app until you delete them there. Meta, Telegram, payment providers, and Anthropic handle any data they hold under their own policies and our agreements with them. Your business may have its own legal duty to keep financial records, so download an export before you request deletion if you need one.</p>
       <p><strong>Disconnecting a channel</strong> in Settings stops that WhatsApp, Telegram, or Messenger account from accessing Ojunai, but it does not delete your history. To remove your data, request permanent deletion as described above.</p>
 
@@ -149,7 +148,7 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       <p>We may update this policy as products, providers, or legal requirements change. The effective date will be updated when a revised policy is published. Where required, we will provide additional notice through an appropriate account or communication channel.</p>
 
       <h2>12. Contact</h2>
-      <p>Privacy questions and requests can be sent to <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>. <span class="confirm">⚠️ Confirm that this is the monitored privacy contact, identify the responsible owner, and confirm the request-tracking and response procedure before publication.</span></p>
+      <p>Privacy questions and requests can be sent to <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>.</p>
     </div>
   </section>
 </BaseLayout>
