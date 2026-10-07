@@ -1,157 +1,150 @@
 ---
 import BaseLayout from '~/components/layout/BaseLayout.astro';
-import FinalCTA from '~/components/sections/FinalCTA.astro';
+import { products, statusLabel, corporate } from '~/data/products';
 
-const beliefs = [
+const title = `About — ${corporate.name}`;
+const description = `${corporate.name} is a product company. We design, build, and operate our own software — starting with tools for small businesses, now expanding across commerce, mobility, and appointments.`;
+
+const values = [
   {
-    title: 'Software should meet people where they are',
-    body: 'WhatsApp is already on every phone, in every market, in every language. We built Ojunai inside it instead of asking shop owners to learn another app.',
+    title: 'We ship, we operate.',
+    body: 'Every product on this site is either live or being actively built by Ojunai Technologies. We are not a consultancy or an incubator — we are the team.',
   },
   {
-    title: 'Local context is the product',
-    body: "Multi-currency pricing, mobile-money rails, informal-speech understanding — generic SaaS pretends these don't exist. Ojunai is built around them, not in spite of them.",
+    title: 'Useful before novel.',
+    body: 'Novelty for its own sake produces demos. We optimize for the boring metric: is the person using this today better off than they were yesterday?',
   },
   {
-    title: 'Owners run businesses, not spreadsheets',
-    body: "Every minute spent on bookkeeping is a minute not spent serving customers. Ojunai's job is to disappear into the background and report back at 8pm.",
+    title: 'Software that meets people.',
+    body: 'Web where web is natural. Chat where chat is natural. Voice where voice is natural. The product adapts to the way people already work.',
+  },
+  {
+    title: 'Global from the start.',
+    body: 'Every product we build ships with multiple currencies, multiple languages, and multi-region rails in mind from day one — not bolted on later.',
   },
 ];
 ---
 
-<BaseLayout
-  title="About — Ojunai"
-  description="Ojunai is on a mission to give small businesses worldwide world-class operating tools — through a chat. Built by founders who grew up around shops."
-  canonical="/about"
-  ogImage="/og/about.png"
->
-  <section class="about-hero">
-    <div class="container about-hero-inner">
-      <span class="about-hero-pill">About Ojunai</span>
-      <h1>Built for the way small businesses actually trade.</h1>
+<BaseLayout title={title} description={description} canonical="/about" ogImage="/og/about.png">
+  <!-- Hero -->
+  <section class="corp-about-hero">
+    <div class="container corp-about-hero-inner">
+      <span class="corp-about-hero-pill">About Ojunai Technologies</span>
+      <h1>We build software for the problems people deal with every day.</h1>
       <p>
-        Ojunai exists because the tools small businesses actually use — pen and paper,
-        spreadsheets, voice notes — were never going to scale, and the global SaaS that promised
-        to help was built for the wrong shape of company.
-      </p>
-      <p class="about-legal">
-        Ojunai is the trading name of <strong>OJUNAI AI LTD</strong>, a company registered in
-        Nigeria under RC&nbsp;9585647.
+        {corporate.name} is a Canadian, remote-first product company building practical software
+        for commerce, mobility, and everyday services. We design, build, and operate our own
+        products for businesses and consumers around the world.
       </p>
     </div>
   </section>
 
-  <section class="about-name">
-    <div class="container about-name-inner">
-      <div class="about-name-text">
-        <div class="section-label">The name</div>
-        <h2>Ojunai. Pronounced <em>oh-joo-n-eye</em>.</h2>
-        <p>
-          <strong>Ojunai</strong> is the AI that watches over your business — every sale, every
-          receipt, every customer balance.
-        </p>
-        <p>
-          The brand promise:
-          <strong style="color: var(--brand)">"The eye that never blinks."</strong> An assistant
-          that's always paying attention, even when you can't be.
-        </p>
-      </div>
-      <div class="about-name-ideogram" aria-hidden="true">
-        <svg width="220" height="220" viewBox="0 0 100 100">
-          <defs>
-            <linearGradient id="eyeGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#6366F1" />
-              <stop offset="100%" stop-color="#3730A3" />
-            </linearGradient>
-          </defs>
-          <circle cx="50" cy="50" r="48" fill="url(#eyeGrad)" />
-          <path d="M15 50 C 25 30, 75 30, 85 50 C 75 70, 25 70, 15 50 Z" fill="none" stroke="white" stroke-width="3.5" />
-          <circle cx="50" cy="50" r="11" fill="white" />
-          <circle cx="50" cy="50" r="5" fill="#3730A3" />
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <section class="section about-story">
-    <div class="container about-story-inner">
-      <div class="section-label">The story</div>
-      <h2>From provision-store memories to an AI that runs them</h2>
-      <p>
-        Our founder grew up in Ogoni, Nigeria, around small businesses — the kind that record sales
-        in dog-eared notebooks, that survive on the discipline of an owner who remembers every debt
-        and every restock by heart. Brilliant operators, hobbled by tools that the rest of the world
-        moved past in 1990.
-      </p>
-      <p>
-        Years later, the technology had finally caught up. Large language models could understand
-        informal small-business speech and code-switching in the same sentence. WhatsApp had become the default operating system
-        for every shop owner. Modern dashboards could feel native on a 4G connection. The pieces
-        were all on the table — they just hadn't been put together for SMEs yet.
-      </p>
-      <p>
-        Ojunai is that assembly. A chat-first AI assistant on the platform people already use,
-        backed by a clean web dashboard for when you need the bigger picture. Built by people who
-        knew the customer before they knew the technology.
-      </p>
-    </div>
-  </section>
-
-  <section class="section about-beliefs">
+  <!-- What we build -->
+  <section class="corp-about-what">
     <div class="container">
       <div class="section-header">
-        <div class="section-label">What we believe</div>
-        <h2>The non-negotiables</h2>
+        <div class="section-label">What we build</div>
+        <h2>Focused products, one company behind them.</h2>
+        <p>Each product tackles a specific real-world problem. All four sit under the same roof.</p>
       </div>
-      <div class="beliefs-grid">
-        {beliefs.map((b, i) => (
-          <div class="belief-card">
-            <div class="belief-num">{String(i + 1).padStart(2, '0')}</div>
-            <h3>{b.title}</h3>
-            <p>{b.body}</p>
+      <div class="corp-about-products-grid">
+        {products.map((p) => (
+          <a href={p.profileUrl} class="corp-about-product" style={`--product-accent:${p.accent}; --product-accent-soft:${p.accentSoft};`}>
+            <div class="corp-about-product-icon" aria-hidden="true">
+              {p.iconAsset
+                ? <img src={p.iconAsset} alt="" width="40" height="40" />
+                : <span>{p.glyph}</span>
+              }
+            </div>
+            <div class="corp-about-product-body">
+              <div class="corp-about-product-row">
+                <h3>{p.name}</h3>
+                <span class={`corp-about-product-status corp-about-product-status-${p.status}`}>{statusLabel(p.status)}</span>
+              </div>
+              <p>{p.tagline}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values / philosophy -->
+  <section class="corp-about-values">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Product philosophy</div>
+        <h2>How we decide what to build.</h2>
+      </div>
+      <div class="corp-about-values-grid">
+        {values.map((v, i) => (
+          <div class="corp-about-value">
+            <div class="corp-about-value-num">{String(i + 1).padStart(2, '0')}</div>
+            <h3>{v.title}</h3>
+            <p>{v.body}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section about-where">
-    <div class="container about-where-inner">
-      <div class="section-label">Where we are</div>
-      <h2>Serving small businesses worldwide.</h2>
-      <p class="about-where-flags">🌍 Global reach · 🇺🇸 🇬🇧 🇨🇦 🇳🇬 🇬🇭 🇰🇪 🇿🇦 🇺🇬 and beyond</p>
+  <!-- Origin note (short callout — the deeper Inventory story lives on the Inventory pages) -->
+  <section class="corp-about-origin">
+    <div class="container corp-about-origin-inner">
+      <div class="section-label">Origin</div>
+      <h2>We started with small businesses.</h2>
       <p>
-        We support eight currencies (USD, GBP, CAD, NGN, GHS, KES, ZAR, UGX), payment rails
-        through Paystack and Flutterwave, and Chat AI language coverage across major world
-        languages — with Voice AI handling live calls in English, French, Mandarin, and Spanish.
+        Ojunai Technologies started with a single product: <a href="/products/ojunai-inventory">Ojunai
+        Inventory</a>, built by a founder who grew up around small businesses in Ogoni, Nigeria and
+        wanted the tools that owners deserved but never had. That product is still live, still
+        growing, and still the reason we know how to build software that people actually open on
+        day two.
       </p>
       <p>
-        We're a small, focused team. Hiring engineers, designers, and partnerships people who want
-        to build the operating system for growing small businesses. Email
-        <a href="mailto:contact@ojunai.com">contact@ojunai.com</a> with the subject line
-        "joining the team" if that's you.
+        We are now building a portfolio of products in the same spirit — focused, honest, useful on
+        the first day. <a href="/products">See what we're building →</a>
       </p>
     </div>
   </section>
 
-  <FinalCTA />
+  <!-- Where we operate -->
+  <section class="corp-about-where">
+    <div class="container corp-about-where-inner">
+      <div class="section-label">Where we operate</div>
+      <h2>Global by default.</h2>
+      <p>
+        We serve customers on every continent our products can legally reach. Currency and language
+        coverage varies by product — see each product page for specifics.
+      </p>
+      <p class="corp-about-entity">
+        <strong>{corporate.name}</strong> is the global parent company behind Ojunai’s technology
+        products, including Ojunai Inventory. <strong>{corporate.operatingEntity.name}</strong>
+        ({corporate.operatingEntity.identifier}) is Ojunai’s Nigerian subsidiary, supporting the
+        group’s operations and customers in Nigeria.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="corp-about-cta">
+    <div class="container corp-about-cta-inner">
+      <h2>Want to work with us?</h2>
+      <p>
+        Careers, partnerships, press —
+        <a href="/contact">get in touch</a> or
+        <a href="/careers">see open roles</a>.
+      </p>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .about-legal {
-    margin-top: 18px;
-    color: var(--text-3);
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-  .about-legal strong { color: var(--text-2); }
-</style>
-<style>
-  .about-hero {
+  .corp-about-hero {
     padding: 160px 0 80px;
     background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
   }
-  .about-hero-inner { max-width: 820px; margin: 0 auto; text-align: center; }
-  .about-hero-pill {
+  .corp-about-hero-inner { max-width: 820px; margin: 0 auto; text-align: center; }
+  .corp-about-hero-pill {
     display: inline-block;
     background: var(--brand-light);
     color: var(--brand);
@@ -163,109 +156,81 @@ const beliefs = [
     border-radius: 100px;
     margin-bottom: 20px;
   }
-  .about-hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  .corp-about-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
     line-height: 1.1;
     margin-bottom: 18px;
     color: var(--text);
+    letter-spacing: -0.02em;
   }
-  .about-hero p {
+  .corp-about-hero p {
     font-size: 1.1rem;
     color: var(--text-2);
-    line-height: 1.65;
-  }
-
-  .about-name {
-    padding: 100px 0;
-  }
-  .about-name-inner {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  @media (max-width: 880px) {
-    .about-name-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-    .about-name-ideogram { justify-self: center; }
-  }
-  .about-name h2 {
-    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
-    margin: 8px 0 18px;
-  }
-  .about-name p {
-    color: var(--text-2);
-    font-size: 1.05rem;
     line-height: 1.7;
-    margin-bottom: 14px;
   }
 
-  .about-story { background: var(--bg-alt); }
-  .about-story-inner {
-    max-width: 780px;
-    margin: 0 auto;
+  .corp-about-what { padding: 90px 0; }
+  .corp-about-products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .corp-about-products-grid { grid-template-columns: 1fr; } }
+  .corp-about-product {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px; text-decoration: none;
+    transition: border-color .15s, transform .15s;
   }
-  .about-story h2 {
-    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
-    margin: 8px 0 24px;
+  .corp-about-product:hover { border-color: var(--product-accent); transform: translateY(-2px); }
+  .corp-about-product-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--product-accent-soft);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--product-accent);
+    font-family: var(--font-display); font-weight: 700; font-size: 1.4rem;
+    flex-shrink: 0;
   }
-  .about-story p {
-    color: var(--text-2);
-    font-size: 1.05rem;
-    line-height: 1.75;
-    margin-bottom: 16px;
+  .corp-about-product-body { flex: 1; }
+  .corp-about-product-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+  .corp-about-product h3 { font-size: 1.05rem; color: var(--text); margin: 0; }
+  .corp-about-product p { color: var(--text-2); font-size: 0.9rem; line-height: 1.5; margin: 0; }
+  .corp-about-product-status {
+    padding: 2px 8px; border-radius: 100px;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   }
+  .corp-about-product-status-live         { background: rgba(16,185,129,.12); color: #059669; }
+  .corp-about-product-status-early-access { background: rgba(59,130,246,.12); color: #2563EB; }
+  .corp-about-product-status-coming-soon  { background: rgba(148,163,184,.12); color: #64748B; }
 
-  .beliefs-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+  .corp-about-values { padding: 90px 0; background: var(--bg-alt); }
+  .corp-about-values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 760px) { .corp-about-values-grid { grid-template-columns: 1fr; } }
+  .corp-about-value {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px;
   }
-  @media (max-width: 768px) { .beliefs-grid { grid-template-columns: 1fr; } }
-  .belief-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px 28px;
+  .corp-about-value-num {
+    font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+    color: var(--brand); line-height: 1; margin-bottom: 10px;
   }
-  .belief-num {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-    color: var(--brand);
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .belief-card h3 {
-    font-size: 1.15rem;
-    margin-bottom: 8px;
-    color: var(--text);
-  }
-  .belief-card p {
-    color: var(--text-2);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
+  .corp-about-value h3 { font-family: var(--font-display); font-size: 1.15rem; color: var(--text); margin-bottom: 8px; }
+  .corp-about-value p { color: var(--text-2); font-size: 0.95rem; line-height: 1.65; margin: 0; }
 
-  .about-where { background: var(--bg-alt); }
-  .about-where-inner {
-    max-width: 820px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .about-where h2 {
-    font-size: clamp(1.6rem, 3vw, 2rem);
-    margin: 8px 0 16px;
-  }
-  .about-where-flags {
-    font-size: 1.2rem;
-    margin-bottom: 24px;
-    color: var(--text);
-  }
-  .about-where p {
-    color: var(--text-2);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-  .about-where a { color: var(--brand); text-decoration: underline; }
+  .corp-about-origin { padding: 90px 0; }
+  .corp-about-origin-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .corp-about-origin h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.4rem); margin: 8px 0 20px; }
+  .corp-about-origin p { color: var(--text-2); font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px; }
+  .corp-about-origin a { color: var(--brand); text-decoration: underline; }
+
+  .corp-about-where { padding: 60px 0; background: var(--bg-alt); }
+  .corp-about-where-inner { max-width: 820px; margin: 0 auto; text-align: center; }
+  .corp-about-where h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem); margin: 8px 0 16px; }
+  .corp-about-where p { color: var(--text-2); font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px; }
+  .corp-about-entity { color: var(--text-3); font-size: 0.9rem; }
+  .corp-about-entity strong { color: var(--text-2); }
+
+  .corp-about-cta { padding: 80px 0; }
+  .corp-about-cta-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  .corp-about-cta h2 { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 12px; }
+  .corp-about-cta p { color: var(--text-2); font-size: 1.05rem; }
+  .corp-about-cta a { color: var(--brand); font-weight: 600; text-decoration: none; }
+  .corp-about-cta a:hover { text-decoration: underline; }
 </style>

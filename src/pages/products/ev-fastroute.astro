@@ -1,0 +1,53 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import InterestForm from '~/components/ui/InterestForm.astro';
+import { corporate } from '~/data/products';
+
+const title='EV FastRoute — EV route and trip planner';
+const description='Plan EV road trips by total arrival time with compatible charging stops, conservative real-world range, and honest station data.';
+const productSchema={'@context':'https://schema.org','@type':'MobileApplication',name:'EV FastRoute',applicationCategory:'NavigationApplication',operatingSystem:'iOS, Android',description,url:'https://ojunai.com/products/ev-fastroute',offers:{'@type':'Offer',availability:'https://schema.org/PreOrder'}};
+const features=[
+  ['Total-arrival-time routing','Balances driving time, charging detours, charger speed, station-data confidence, and connector compatibility.'],
+  ['Four route objectives','Compare Fastest, Fewest stops, Reliable station data, and Lowest estimated charging cost.'],
+  ['Real-world range bands','Adjusts for battery health, weather, load, driving style, and route-average speed, then plans from the conservative end.'],
+  ['Connector-aware charging','Routes only to compatible CCS, NACS/Tesla, CHAdeMO, Type 2, and J1772 connectors.'],
+  ['Charging map','Browse stations in an area, including AC Level 2 destination charging, and find chargers near the final stop.'],
+  ['Multi-stop itineraries','Keep up to eight ordered stops through planning, rerouting, saving, sharing, and navigation handoff.'],
+  ['Navigation continuity','Hand off to Apple Maps, Google Maps, or Waze, then continue to the next stop without losing the trip.'],
+  ['Built-in EV catalogue','Start with more than 790 variants across more than 45 makes, with every value editable.'],
+  ['Honest station data','Shows real location, connectors, power, and operator data; unknown availability stays unknown.'],
+  ['Privacy-respecting','Uses precise location only to plan and drive, with no third-party advertising or analytics SDKs.'],
+];
+const shots=[
+  ['trip-planner','Trip Planner','Plan the start, destination, ordered stops, and battery targets.'],
+  ['garage','Garage','Keep editable profiles for the EVs you drive.'],
+  ['vehicle-range','Range calibration','Tune battery health, consumption, charging speed, and arrival buffer.'],
+  ['connectors','Connector compatibility','Choose the plugs and adapter capabilities the car can actually use.'],
+  ['settings','Real-world settings','Account for charging speed, weather, driving style, trip load, and network preferences.'],
+];
+---
+<BaseLayout title={title} description={description} canonical="/products/ev-fastroute" ogImage="/screenshots/ev-fastroute/real/trip-planner.webp" jsonLd={productSchema}>
+  <section class="ev-hero"><div class="container ev-grid"><div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/products">Products</a><span>›</span><span>EV FastRoute</span></nav>
+    <img class="app-icon" src="/brand/ev-fastroute-icon.png" alt="EV FastRoute app icon" width="88" height="88">
+    <div class="badges"><span>EV navigation</span><span>Launch availability to be announced</span></div>
+    <h1>The EV trip planner that knows your car, your plugs, and your <em>real range.</em></h1>
+    <p>EV FastRoute routes by total arrival time—balancing driving time, charging detours, charger speed, station-data confidence, and connector compatibility using real roads and charging-station data.</p>
+    <div class="actions"><a class="primary" href={`mailto:${corporate.contactEmail}?subject=EV%20FastRoute%20launch%20updates`}>Get launch updates</a><a href="#screens">See the real app →</a></div>
+    <div class="native"><span>Native iOS</span><span>Native Android</span><span>Feature parity</span></div>
+  </div><img class="hero-shot" src="/screenshots/ev-fastroute/real/trip-planner.webp" alt="EV FastRoute Trip Planner screen" width="392" height="854"></div></section>
+
+  <section class="section how"><div class="container"><div class="kicker">How it works</div><h2>The road, the battery, and every charging stop—planned together.</h2><div class="steps"><article><b>01</b><h3>Build the itinerary</h3><p>Enter a start, destination, and up to eight ordered stops. Real road geometry and time come from openrouteservice.</p></article><article><b>02</b><h3>Plan driving and charging</h3><p>Vehicle data and Open Charge Map records determine where to charge, for how long, and to what battery level.</p></article><article><b>03</b><h3>Drive with your preferred nav</h3><p>Hand off to Apple Maps, Google Maps, or Waze and continue through every saved stop.</p></article></div></div></section>
+
+  <section class="section features"><div class="container"><div class="kicker">Built for the whole EV journey</div><h2>Optimize for when you arrive—not only how long you drive.</h2><div class="feature-grid">{features.map(([name,text],i)=><article><span>{String(i+1).padStart(2,'0')}</span><h3>{name}</h3><p>{text}</p></article>)}</div></div></section>
+
+  <section class="section screens" id="screens"><div class="container"><div class="kicker">Inside EV FastRoute</div><h2>Captured directly from the native iOS build.</h2><p class="intro">These are genuine app screens. Vehicle values shown are editable demonstration data.</p><div class="shot-grid">{shots.map(([file,name,text])=><figure><img src={`/screenshots/ev-fastroute/real/${file}.webp`} alt={`EV FastRoute ${name} screen`} width="392" height="854" loading="lazy"><figcaption><strong>{name}</strong><span>{text}</span><small>Actual app screen</small></figcaption></figure>)}</div></div></section>
+
+  <section class="section honesty"><div class="container"><div class="kicker">Honest inputs. Honest estimates.</div><h2>Know what the app knows—and what it does not.</h2><div class="honest-grid"><article><h3>Real road routing</h3><p>Road geometry and travel time come from openrouteservice.</p></article><article><h3>Real station records</h3><p>Station locations, connectors, power, and operator come from Open Charge Map.</p></article><article><h3>No fake availability</h3><p>Live stall availability is unavailable and is shown as unknown.</p></article><article><h3>Published pricing only</h3><p>Charging prices appear only when the operator publishes a rate.</p></article><article><h3>Conservative planning</h3><p>The route uses the lower end of the modeled real-world range band.</p></article><article><h3>Your navigation app drives</h3><p>EV FastRoute plans the trip, then hands off turn-by-turn navigation.</p></article></div></div></section>
+
+  <section class="section attribution"><div class="container"><h2>Data and technology</h2><p>Station data: Open Charge Map · Routing: openrouteservice · Vehicle catalogue: OpenEV Data v1.24.0, with Kia EV6/EV9 specifications.</p></div></section>
+  <section class="final"><div class="container"><h2>Plan the whole EV trip.</h2><p>Platform launch status, download links, and pricing will be published only when confirmed.</p><InterestForm product="EV FastRoute" recipient={corporate.contactEmail} heading="Get EV FastRoute launch updates" /></div></section>
+</BaseLayout>
+<style>
+  :global(body){background:#03070c}.ev-hero{padding:70px 0 85px;background:radial-gradient(circle at 75% 25%,rgba(24,222,184,.14),transparent 34%),#03070c;color:#f4fbff}.ev-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:center}.crumb{display:flex;gap:8px;font-size:.82rem;color:#78909f;margin-bottom:25px}.crumb a{color:inherit}.app-icon{border-radius:22px;box-shadow:0 18px 50px rgba(24,222,184,.16)}.badges,.native{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.badges span,.native span{border:1px solid #173b3b;color:#8cded3;border-radius:999px;padding:7px 11px;font-size:.75rem}.ev-hero h1,.section h2,.final h2{font-family:var(--font-display);letter-spacing:-.035em}.ev-hero h1{font-size:clamp(2.8rem,5vw,5.1rem);line-height:1.02;margin:23px 0}.ev-hero h1 em{font-style:normal;color:#5be3dc}.ev-hero p{font-size:1.1rem;line-height:1.7;color:#9bb1be;max-width:760px}.actions{display:flex;align-items:center;gap:20px;margin:30px 0}.actions a{color:#aeeae4;text-decoration:none;font-weight:700}.primary{display:inline-block!important;background:linear-gradient(135deg,#5be3dc,#3eb2f2);color:#021012!important;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:800;box-shadow:0 12px 30px rgba(91,227,220,.18)}.hero-shot{display:block;max-height:720px;width:auto;max-width:100%;margin:auto;border-radius:44px;box-shadow:0 35px 100px rgba(0,0,0,.6)}.section{padding:88px 0;background:#071019;color:#eef8fb}.section:nth-of-type(odd){background:#050b12}.kicker{color:#5be3dc;font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800}.section h2{font-size:clamp(2.2rem,4vw,3.6rem);max-width:900px;margin:12px 0 20px}.intro{color:#94a9b6}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}.steps article,.feature-grid article,.honest-grid article{border:1px solid #162a35;border-radius:18px;background:#09141e;padding:24px}.steps b,.feature-grid span{color:#5be3dc}.steps h3,.feature-grid h3,.honest-grid h3{margin:13px 0 8px}.steps p,.feature-grid p,.honest-grid p{color:#91a5b2;line-height:1.6}.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:38px}.screens{background:radial-gradient(circle at 50% 10%,rgba(91,227,220,.09),transparent 35%),#03070c}.shot-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:40px}.shot-grid figure{margin:0;border:1px solid #17303b;border-radius:24px;overflow:hidden;background:#08121b}.shot-grid img{display:block;width:100%;height:auto}.shot-grid figcaption{padding:15px}.shot-grid strong,.shot-grid span,.shot-grid small{display:block}.shot-grid span{font-size:.78rem;line-height:1.45;color:#8fa4b0;margin:6px 0}.shot-grid small{color:#5be3dc;font-size:.68rem}.honest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}.attribution{text-align:center}.attribution h2{margin-inline:auto}.attribution p{color:#91a5b2}.final{text-align:center;padding:85px 0;background:#020609;color:#fff}.final h2{font-size:clamp(2.2rem,4vw,3.6rem)}.final p{color:#94a9b6;margin:10px 0 28px}@media(max-width:1000px){.ev-grid{grid-template-columns:1fr}.hero-shot{max-height:620px}.shot-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:720px){.steps,.feature-grid,.honest-grid{grid-template-columns:1fr}.shot-grid{grid-template-columns:repeat(2,1fr)}.section{padding:64px 0}.actions{align-items:flex-start;flex-direction:column}}@media(max-width:440px){.shot-grid{grid-template-columns:1fr}.shot-grid figure{max-width:330px;margin-inline:auto}}
+</style>

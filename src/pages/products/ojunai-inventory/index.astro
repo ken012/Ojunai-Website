@@ -1,0 +1,138 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import Hero from '~/components/sections/Hero.astro';
+import ProofStrip from '~/components/sections/ProofStrip.astro';
+import DashboardTour from '~/components/sections/DashboardTour.astro';
+import HowItWorks from '~/components/sections/HowItWorks.astro';
+import FeaturesTeaser from '~/components/sections/FeaturesTeaser.astro';
+import AddonsTeaser from '~/components/sections/AddonsTeaser.astro';
+import Testimonials from '~/components/sections/Testimonials.astro';
+import CustomerProof from '~/components/sections/CustomerProof.astro';
+import PricingTeaser from '~/components/sections/PricingTeaser.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+import { productBySlug, corporate } from '~/data/products';
+
+const product = productBySlug('ojunai-inventory')!;
+const title = `${product.name} — Inventory, sales, credit and operations for SMEs.`;
+const description =
+  "Ojunai Inventory is the AI-powered inventory and business management platform for SMEs. Track sales, stock, expenses and credit from a clean dashboard. Chat AI is built into every paid plan — WhatsApp, Telegram, or Messenger. Add Voice AI to handle customer calls 24/7.";
+
+// Pages inside /products/ojunai-inventory/* that don't get their own big teaser
+// but still deserve prominent navigation from the product landing.
+const moreLinks = [
+  { title: 'Business OS',      body: 'The premium multi-channel operations tier for teams.',          href: '/products/ojunai-inventory/whatsapp-business-os' },
+  { title: 'Commerce integrations', body: 'Shopify, WooCommerce, Paystack, Flutterwave — from chat.', href: '/products/ojunai-inventory/features/ai-commerce-chat-integrations' },
+  { title: 'Industries',       body: 'Provision stores, wholesalers, cosmetics, food and more.',       href: '/products/ojunai-inventory/industries' },
+  { title: 'Security & trust', body: 'How we protect your business data.',                             href: '/products/ojunai-inventory/security' },
+  { title: 'Integrations',     body: 'WhatsApp via Twilio, Paystack, Flutterwave, M-Pesa, Claude.',    href: '/products/ojunai-inventory/integrations' },
+  { title: 'Help center',      body: 'Common questions, grouped by task.',                             href: '/products/ojunai-inventory/help' },
+];
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: product.name,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web, iOS, Android (via WhatsApp/Telegram/Messenger)',
+  description,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'Starter plan free forever; paid plans from the Lite tier.',
+  },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="/products/ojunai-inventory"
+  jsonLd={softwareSchema}
+>
+  <Hero />
+  <ProofStrip />
+  <DashboardTour />
+  <HowItWorks />
+  <FeaturesTeaser />
+  <AddonsTeaser />
+  <Testimonials />
+  <CustomerProof />
+  <PricingTeaser />
+
+  <!-- More about Ojunai Inventory — surfaces the sub-pages that don't get their own homepage teaser -->
+  <section class="inv-more-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Everything about Ojunai Inventory</div>
+        <h2>Dig deeper.</h2>
+        <p>The rest of the Ojunai Inventory site, one click away.</p>
+      </div>
+      <div class="inv-more-grid">
+        {moreLinks.map((l) => (
+          <a href={l.href} class="inv-more-card">
+            <h3>{l.title}</h3>
+            <p>{l.body}</p>
+            <span class="inv-more-arrow">Explore →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+
+  <!-- Corporate parent link — unobtrusive, always at the bottom of every product page -->
+  <section class="prod-parent">
+    <div class="container prod-parent-inner">
+      A product of <a href="/"><strong>{corporate.name}</strong></a>. Ojunai Inventory is operated by
+      <strong>{corporate.operatingEntity.name}</strong> ({corporate.operatingEntity.identifier}),
+      {corporate.operatingEntity.jurisdiction}.
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .inv-more-section { padding: 90px 0; background: var(--bg); }
+  .inv-more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 960px) { .inv-more-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .inv-more-grid { grid-template-columns: 1fr; } }
+
+  .inv-more-card {
+    display: block;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    transition: transform .15s, border-color .15s, box-shadow .15s;
+  }
+  .inv-more-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--brand-mid);
+    box-shadow: 0 12px 32px rgba(0,0,0,.05);
+  }
+  .inv-more-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .inv-more-card p {
+    color: var(--text-2);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 10px;
+  }
+  .inv-more-arrow { color: var(--brand); font-weight: 600; font-size: 0.88rem; }
+
+  .prod-parent { padding: 24px 0 40px; border-top: 1px solid var(--border); text-align: center; }
+  .prod-parent-inner { color: var(--text-3); font-size: 0.88rem; line-height: 1.6; max-width: 780px; margin: 0 auto; }
+  .prod-parent-inner strong { color: var(--text-2); font-weight: 600; }
+  .prod-parent-inner a { color: var(--text-2); text-decoration: none; }
+  .prod-parent-inner a:hover { color: var(--brand); }
+</style>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import { corporate } from '~/data/products';
+
+const title = `Careers — ${corporate.name}`;
+const description = `Careers at ${corporate.name}. We build focused software products from scratch. Small team, high standard.`;
+---
+
+<BaseLayout title={title} description={description} canonical="/careers">
+  <section class="corp-careers-hero">
+    <div class="container corp-careers-hero-inner">
+      <span class="corp-careers-hero-pill">Careers</span>
+      <h1>Build software that gets used.</h1>
+      <p>
+        Ojunai Technologies is small on purpose. We hire people who ship, who care about the person
+        on the other side of the screen, and who want to see their work in the hands of real users
+        within weeks — not quarters.
+      </p>
+    </div>
+  </section>
+
+  <section class="corp-careers-what">
+    <div class="container corp-careers-what-inner">
+      <div class="section-label">What we look for</div>
+      <h2>People who own outcomes.</h2>
+      <ul class="corp-careers-list">
+        <li><strong>Engineers</strong> who can hold both the frontend and the backend, ship end-to-end, and enjoy the boring parts (correctness, edge cases, error states).</li>
+        <li><strong>Designers</strong> who prototype in the real medium — code, chat, voice — not just Figma. Comfortable defending strong opinions and changing them.</li>
+        <li><strong>Product operators</strong> who talk to customers, spot patterns, and turn them into shipped changes.</li>
+        <li><strong>Growth</strong> and <strong>partnerships</strong> people who prefer measurable wins over vanity metrics.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="corp-careers-open">
+    <div class="container corp-careers-open-inner">
+      <div class="section-label">Open roles</div>
+      <h2>Nothing formally posted right now.</h2>
+      <p>
+        We prefer to move quickly when the right person appears. If you think you'd be a great fit
+        for the kind of work described above, email us — tell us what you've built, and what you'd
+        want to build here.
+      </p>
+      <a href={`mailto:${corporate.careersEmail}`} class="corp-careers-cta">
+        {corporate.careersEmail}
+      </a>
+    </div>
+  </section>
+
+  <section class="corp-careers-note">
+    <div class="container corp-careers-note-inner">
+      <p>
+        We work remotely across time zones with periodic in-person time. All hiring at Ojunai
+        Technologies is done directly — we do not work with external recruiters.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .corp-careers-hero {
+    padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .corp-careers-hero-inner { max-width: 720px; margin: 0 auto; }
+  .corp-careers-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .corp-careers-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4.4vw, 3rem); margin-bottom: 12px; }
+  .corp-careers-hero p { color: var(--text-2); font-size: 1.1rem; line-height: 1.7; }
+
+  .corp-careers-what { padding: 80px 0; }
+  .corp-careers-what-inner { max-width: 780px; margin: 0 auto; }
+  .corp-careers-what h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem); margin: 8px 0 24px; }
+  .corp-careers-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  .corp-careers-list li {
+    background: white; border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; color: var(--text-2); font-size: 1rem; line-height: 1.65;
+  }
+  .corp-careers-list li strong { color: var(--text); }
+
+  .corp-careers-open { padding: 80px 0; background: var(--bg-alt); text-align: center; }
+  .corp-careers-open-inner { max-width: 640px; margin: 0 auto; }
+  .corp-careers-open h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2rem); margin: 8px 0 16px; }
+  .corp-careers-open p { color: var(--text-2); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px; }
+  .corp-careers-cta {
+    display: inline-block; padding: 14px 26px; border-radius: 100px;
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand)); color: white;
+    font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(79,70,229,.3);
+    transition: transform .2s;
+  }
+  .corp-careers-cta:hover { transform: translateY(-2px); }
+
+  .corp-careers-note { padding: 40px 0 80px; }
+  .corp-careers-note-inner { max-width: 640px; margin: 0 auto; text-align: center; color: var(--text-3); font-size: 0.9rem; line-height: 1.6; }
+</style>

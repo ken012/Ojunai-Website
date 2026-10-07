@@ -1,146 +1,111 @@
 ---
 import Logo from '~/components/ui/Logo.astro';
+import { products, statusLabel } from '~/data/products';
 
 /**
- * Mega-menu nav — only surfaces what Ojunai actually offers today.
- * Sized to the real product: dashboard + 2 AI add-ons + a few resources.
+ * Ojunai Technologies Inc. — corporate header.
+ *
+ * Products menu is driven by src/data/products.ts — add a new product there
+ * and it appears in the header automatically.
+ *
+ * On pages inside /products/ojunai-inventory/*, we render a slim product
+ * sub-nav below the corporate nav so visitors have product-scoped navigation.
  */
-const menus = [
-  {
-    id: 'features',
-    label: 'Features',
-    columns: [
-      {
-        heading: 'Core platform',
-        items: [
-          { title: 'All features', desc: 'Inventory, sales, reports, team', href: '/features' },
-          { title: 'Inventory management', desc: 'Live stock, alerts, CSV import', href: '/features/inventory-management' },
-          { title: 'Sales & credit', desc: 'Cash, credit, partial payments', href: '/features/sales-management' },
-          { title: 'Security & trust', desc: 'How we protect your data', href: '/security' },
-        ],
-      },
-      {
-        heading: 'AI Assistants',
-        items: [
-          { title: 'Chat AI', desc: 'Built into every paid plan · WhatsApp, Telegram, Messenger', href: '/chat-ai', badge: 'Included' },
-          { title: 'Voice AI', desc: '24/7 AI phone agents · standalone', href: '/voice', badge: 'Standalone' },
-        ],
-      },
-      {
-        heading: 'Business OS',
-        items: [
-          { title: 'Overview', desc: 'Run your business from WhatsApp, Telegram, or Messenger', href: '/whatsapp-business-os', badge: 'Premium' },
-          { title: 'Solo · Pro · Scale', desc: 'From $49.99/mo · Contact Sales for Scale', href: '/whatsapp-business-os#tiers' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'resources',
-    label: 'Resources',
-    columns: [
-      {
-        heading: 'Get help',
-        items: [
-          { title: 'Help center', desc: 'Common questions, grouped', href: '/help' },
-          { title: 'Contact us', desc: 'Sales, support, security', href: '/contact' },
-          { title: 'Request a demo', desc: 'Walkthrough with our team', href: '/request-demo', badge: 'New' },
-        ],
-      },
-      {
-        heading: 'About Ojunai',
-        items: [
-          { title: 'About us', desc: 'Mission, brand, what we believe', href: '/about' },
-        ],
-      },
-    ],
-  },
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+const isInventoryScope = currentPath.startsWith('/products/ojunai-inventory');
+
+// Inventory-scoped sub-nav (only rendered on Inventory pages)
+const inventorySubNav = [
+  { label: 'Overview',    href: '/products/ojunai-inventory' },
+  { label: 'Features',    href: '/products/ojunai-inventory/features' },
+  { label: 'Pricing',     href: '/products/ojunai-inventory/pricing' },
+  { label: 'Industries',  href: '/products/ojunai-inventory/industries' },
+  { label: 'Customers',   href: '/products/ojunai-inventory/customers' },
+  { label: 'Security',    href: '/products/ojunai-inventory/security' },
+  { label: 'Help',        href: '/products/ojunai-inventory/help' },
 ];
 
-const flatLinks = [
-  { label: 'Industries', href: '/industries' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Customers', href: '/customers' },
+// Corporate nav
+const companyLinks = [
+  { title: 'About',    desc: 'Who we are and what we build', href: '/about' },
+  { title: 'Careers',  desc: 'Open roles at Ojunai Technologies', href: '/careers' },
+  { title: 'Contact',  desc: 'Sales, press, partnerships', href: '/contact' },
 ];
 ---
 
 <header class="header" id="header">
   <div class="container header-inner">
-    <Logo size={36} theme="dark" />
+    <div class="header-brand">
+      <Logo size={36} theme="dark" />
+    </div>
 
     <nav class="nav" id="nav" aria-label="Primary">
-      {menus.slice(0, 1).map((menu) => (
-        <div class="nav-menu" data-menu={menu.id}>
-          <button class="nav-menu-trigger" type="button" aria-expanded="false" aria-controls={`menu-${menu.id}`}>
-            {menu.label}
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-          <div class={`nav-megamenu nav-megamenu-cols-${menu.columns.length}`} id={`menu-${menu.id}`} role="menu">
-            <div class="nav-megamenu-inner" style={`grid-template-columns: repeat(${menu.columns.length}, minmax(0, 1fr));`}>
-              {menu.columns.map((col) => (
-                <div class="nav-megamenu-col">
-                  <div class="nav-megamenu-heading">{col.heading}</div>
-                  <ul>
-                    {col.items.map((item) => (
-                      <li>
-                        <a href={item.href} role="menuitem">
-                          <span class="nav-megamenu-item-row">
-                            <strong>{item.title}</strong>
-                            {item.badge && <span class="nav-megamenu-badge">{item.badge}</span>}
-                          </span>
-                          {item.desc && <span class="nav-megamenu-desc">{item.desc}</span>}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+      <!-- Products mega-menu -->
+      <div class="nav-menu" data-menu="products">
+        <button class="nav-menu-trigger" type="button" aria-expanded="false" aria-controls="menu-products">
+          Products
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="nav-megamenu nav-megamenu-cols-1" id="menu-products" role="menu">
+          <div class="nav-megamenu-inner nav-megamenu-inner-products">
+            <div class="nav-megamenu-col">
+              <div class="nav-megamenu-heading">Ojunai Products</div>
+              <ul>
+                {products.map((p) => (
+                  <li>
+                    <a href={p.profileUrl} role="menuitem">
+                      <span class="nav-megamenu-item-row">
+                        <strong>{p.name}</strong>
+                        <span class={`nav-megamenu-badge nav-megamenu-badge-${p.status}`}>{statusLabel(p.status)}</span>
+                      </span>
+                      <span class="nav-megamenu-desc">{p.navDescription}</span>
+                    </a>
+                  </li>
+                ))}
+                <li class="nav-megamenu-footer-item">
+                  <a href="/products" role="menuitem">
+                    <span class="nav-megamenu-item-row"><strong>All products →</strong></span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      ))}
+      </div>
 
-      {flatLinks.map(({ label, href }) => <a href={href} class="nav-link">{label}</a>)}
-
-      {menus.slice(1).map((menu) => (
-        <div class="nav-menu" data-menu={menu.id}>
-          <button class="nav-menu-trigger" type="button" aria-expanded="false" aria-controls={`menu-${menu.id}`}>
-            {menu.label}
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-          <div class={`nav-megamenu nav-megamenu-cols-${menu.columns.length}`} id={`menu-${menu.id}`} role="menu">
-            <div class="nav-megamenu-inner" style={`grid-template-columns: repeat(${menu.columns.length}, minmax(0, 1fr));`}>
-              {menu.columns.map((col) => (
-                <div class="nav-megamenu-col">
-                  <div class="nav-megamenu-heading">{col.heading}</div>
-                  <ul>
-                    {col.items.map((item) => (
-                      <li>
-                        <a href={item.href} role="menuitem">
-                          <span class="nav-megamenu-item-row">
-                            <strong>{item.title}</strong>
-                            {item.badge && <span class="nav-megamenu-badge">{item.badge}</span>}
-                          </span>
-                          {item.desc && <span class="nav-megamenu-desc">{item.desc}</span>}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+      <!-- Company mega-menu -->
+      <div class="nav-menu" data-menu="company">
+        <button class="nav-menu-trigger" type="button" aria-expanded="false" aria-controls="menu-company">
+          Company
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="nav-megamenu nav-megamenu-cols-1" id="menu-company" role="menu">
+          <div class="nav-megamenu-inner nav-megamenu-inner-company">
+            <div class="nav-megamenu-col">
+              <div class="nav-megamenu-heading">Ojunai Technologies</div>
+              <ul>
+                {companyLinks.map((l) => (
+                  <li>
+                    <a href={l.href} role="menuitem">
+                      <span class="nav-megamenu-item-row"><strong>{l.title}</strong></span>
+                      <span class="nav-megamenu-desc">{l.desc}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
-      ))}
+      </div>
     </nav>
 
     <div class="header-right">
-      <a href="https://app.ojunai.com" target="_blank" rel="noopener" class="btn-signin">Sign In</a>
-      <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="btn-wa-sm">Start free</a>
+      <a href="/products" class="btn-wa-sm">Explore products</a>
       <button
         class="hamburger"
         id="hamburger"
@@ -153,6 +118,31 @@ const flatLinks = [
       </button>
     </div>
   </div>
+
+  {isInventoryScope && (
+    <div class="product-subnav" aria-label="Ojunai Inventory navigation">
+      <div class="container product-subnav-inner">
+        <a href="/products/ojunai-inventory" class="product-subnav-brand">
+          <span class="product-subnav-badge" aria-hidden="true">I</span>
+          <span class="product-subnav-name">Ojunai Inventory</span>
+        </a>
+        <ul class="product-subnav-links">
+          {inventorySubNav.map((l) => {
+            const isActive = currentPath === l.href.replace(/\/$/, '');
+            return (
+              <li>
+                <a href={l.href} class={isActive ? 'is-active' : ''}>{l.label}</a>
+              </li>
+            );
+          })}
+        </ul>
+        <div class="product-subnav-cta">
+          <a href="https://app.ojunai.com" target="_blank" rel="noopener" class="product-subnav-signin">Sign in</a>
+          <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="product-subnav-start">Start free</a>
+        </div>
+      </div>
+    </div>
+  )}
 </header>
 
 <script>
@@ -161,7 +151,7 @@ const flatLinks = [
   const nav = document.getElementById('nav');
 
   if (header) {
-    const hasDarkHero = !!document.querySelector('.hero, .va-hero');
+    const hasDarkHero = !!document.querySelector('.hero, .va-hero, .corp-hero');
     if (!hasDarkHero) header.classList.add('scrolled');
     window.addEventListener('scroll', () => {
       const shouldScroll = !hasDarkHero || window.scrollY > 40;
@@ -177,7 +167,6 @@ const flatLinks = [
     });
   }
 
-  // Mega-menu: hover desktop, click mobile/keyboard.
   document.querySelectorAll('.nav-menu').forEach((menu) => {
     const trigger = menu.querySelector('.nav-menu-trigger');
     if (!trigger) return;
@@ -207,3 +196,88 @@ const flatLinks = [
     }
   });
 </script>
+
+<style>
+  .header-brand { display: inline-flex; align-items: center; text-decoration: none; }
+  .nav-megamenu-inner-products, .nav-megamenu-inner-company { min-width: 340px; }
+  .nav-megamenu-badge-live         { background: rgba(16,185,129,.12); color: #059669; }
+  .nav-megamenu-badge-early-access { background: rgba(59,130,246,.12); color: #2563EB; }
+  .nav-megamenu-badge-pilot        { background: rgba(124,58,237,.12); color: #6D28D9; }
+  .nav-megamenu-badge-coming-soon  { background: rgba(148,163,184,.15); color: #64748B; }
+  .nav-megamenu-footer-item {
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
+  /* Product-scoped sub-nav (Inventory pages) */
+  .product-subnav {
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .product-subnav-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 10px 0;
+    flex-wrap: wrap;
+  }
+  .product-subnav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    padding-right: 24px;
+    border-right: 1px solid var(--border);
+  }
+  .product-subnav-badge {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: linear-gradient(135deg, #4F46E5, #3730A3);
+    color: white; font-family: var(--font-display); font-weight: 700; font-size: 0.85rem;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .product-subnav-name {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+  .product-subnav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  .product-subnav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    color: var(--text-2);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background .15s, color .15s;
+  }
+  .product-subnav-links a:hover { background: var(--bg-alt); color: var(--brand); }
+  .product-subnav-links a.is-active { color: var(--brand); background: var(--brand-light); }
+  .product-subnav-cta { display: flex; align-items: center; gap: 10px; }
+  .product-subnav-signin {
+    color: var(--text-2); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    padding: 6px 10px;
+  }
+  .product-subnav-signin:hover { color: var(--brand); }
+  .product-subnav-start {
+    background: linear-gradient(135deg, #4F46E5, #3730A3); color: white;
+    text-decoration: none; font-size: 0.85rem; font-weight: 600;
+    padding: 7px 14px; border-radius: 100px;
+  }
+  .product-subnav-start:hover { transform: translateY(-1px); }
+  @media (max-width: 720px) {
+    .product-subnav-links { order: 3; width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+    .product-subnav-brand { padding-right: 0; border-right: 0; }
+  }
+</style>

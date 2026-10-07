@@ -3,20 +3,36 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Terms of Service — Ojunai"
-  description="Ojunai Terms of Service. Read our terms for using the WhatsApp-first AI business management platform."
+  title="Terms of Service — Ojunai Technologies"
+  description="Terms for Ojunai Inventory and FlashAppt, including FlashAppt alerts, private calendar scans, merchant tools, and direct rebooking."
   canonical="/terms"
 >
   <section class="legal-page">
     <div class="container">
       <h1>Terms of Service</h1>
-      <p class="legal-updated">Last updated: April 2026</p>
+      <p class="legal-updated">Last updated: September 2026</p>
 
       <p class="legal-entity">
-        These Terms of Service ("Terms") govern your use of services provided by
-        <strong>OJUNAI AI LTD</strong> (RC 9585647), a company registered in Nigeria
-        (collectively, "Ojunai", "we", "us").
+        <strong>Scope.</strong> These Terms of Service ("Terms") govern your use of
+        <strong>Ojunai Inventory</strong>, a product of <strong>Ojunai Technologies Inc.</strong>
+        and operated by <strong>OJUNAI AI LTD</strong> (RC 9585647), a company registered in Nigeria
+        (collectively, "Ojunai", "we", "us"). Other Ojunai Technologies products will publish their
+        own product-specific terms as they launch. The FlashAppt-specific terms below apply to FlashAppt users.
       </p>
+
+      <section id="flashappt" class="product-legal">
+        <h2>FlashAppt Terms</h2>
+        <h3>Appointment discovery and alerts</h3>
+        <p>Favourites, priority opening alerts, and appointment watches help consumers discover relevant openings. An alert or watch does not reserve or guarantee an appointment. Availability is not secured until the booking process is completed.</p>
+        <h3>Direct rebooking</h3>
+        <p>After a completed, checked-in FlashAppt visit, a consumer may book again directly with that merchant.</p>
+        <h3>Private calendar scans</h3>
+        <p>The merchant calendar feature is a private <code>.ics</code> calendar scan, not automatic calendar synchronization. Google and Outlook accounts do not connect automatically at this time. Calendar events are never published automatically; the merchant must review the service, price, staff member, and time before publishing an opening.</p>
+        <p>Calendar titles, attendees, notes, locations, and raw identifiers are not uploaded as part of the scan.</p>
+        <h3>Merchant tools and analytics</h3>
+        <p>Merchants may republish a previous completed, cancelled, or expired opening after reviewing its details. The 30-day recovery view may include fill rate, recovered revenue, new customers, repeat customers, favourites, and appointment-watch demand.</p>
+        <p>Questions about FlashAppt terms can be sent to <a href="mailto:hello@flashappt.com">hello@flashappt.com</a>.</p>
+      </section>
 
       <h2>1. Acceptance of Terms</h2>
       <p>By creating an Ojunai account or using our services, you agree to these Terms of Service. If you do not agree, please do not use the platform. We recommend reading these terms carefully before signing up.</p>
@@ -34,7 +50,7 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
       <p>You must be at least 18 years old or the legal age of majority in your jurisdiction to create an account.</p>
 
       <h2>4. Subscription Plans &amp; Billing</h2>
-      <p>Ojunai offers four subscription tiers: <strong>Starter, Shop, Pro,</strong> and <strong>Business</strong>. Each plan comes with different feature limits (products, messages, staff accounts, etc.) as described on our <a href="/pricing">pricing page</a>.</p>
+      <p>Ojunai offers four subscription tiers: <strong>Starter, Shop, Pro,</strong> and <strong>Business</strong>. Each plan comes with different feature limits (products, messages, staff accounts, etc.) as described on our <a href="/products/ojunai-inventory/pricing">pricing page</a>.</p>
       <p><strong>Billing cycles:</strong> Plans are available on monthly or annual billing cycles. Annual plans offer a discount compared to monthly pricing.</p>
       <p><strong>Supported currencies:</strong> We accept payment in US Dollar (USD), British Pound (GBP), Canadian Dollar (CAD), Nigerian Naira (NGN), Ghanaian Cedi (GHS), Kenyan Shilling (KES), South African Rand (ZAR), and Ugandan Shilling (UGX). You select your preferred currency during signup.</p>
       <p><strong>Payment providers:</strong> Payments are processed by Paystack and Flutterwave (for regional and international payments). Ojunai does not directly store your payment card details.</p>
@@ -110,4 +126,7 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
     line-height: 1.6;
   }
   .legal-entity strong { color: var(--text); }
+  .product-legal { scroll-margin-top: 110px; margin: 34px 0; padding: 24px; border: 1px solid var(--border); border-radius: 14px; background: white; }
+  .product-legal h2 { margin-top: 0; }
+  .product-legal h3 { margin: 24px 0 8px; font-size: 1rem; color: var(--text); }
 </style>

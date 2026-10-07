@@ -3,138 +3,145 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Privacy Policy — Ojunai"
-  description="Ojunai Privacy Policy. Learn how we collect, use, and protect your business data."
+  title="Privacy Policy — Ojunai Technologies"
+  description="How Ojunai Inventory and FlashAppt collect, use, share, retain, and protect information, including messaging through WhatsApp and planned Messenger support."
   canonical="/privacy"
 >
   <section class="legal-page">
     <div class="container">
       <h1>Privacy Policy</h1>
-      <p class="legal-updated">Last updated: April 2026</p>
+      <p class="legal-updated">Draft updated: October 5, 2026 · Owner/legal approval required before publication</p>
+
+      <aside class="review-banner" aria-label="Draft review status">
+        <strong>Review draft — not yet the published policy.</strong>
+        <p>This draft reflects the current engineering implementation and the planned Messenger launch. Items marked <strong>⚠️ Confirm</strong> require owner, privacy, or legal verification before this replaces the public policy.</p>
+      </aside>
 
       <p class="legal-entity">
-        This Privacy Policy is published by <strong>OJUNAI AI LTD</strong> (RC 9585647) — the
-        legal entity behind the Ojunai platform (collectively, "Ojunai", "we", "us").
+        <strong>Scope.</strong> This Privacy Policy covers <strong>Ojunai Inventory</strong>, which is
+        owned by <strong>Ojunai Technologies Inc.</strong> <strong>OJUNAI AI LTD</strong> (RC
+        9585647) is Ojunai Technologies Inc.’s Nigerian subsidiary and operates and supports Ojunai
+        Inventory for businesses in Africa. Ojunai Technologies Inc. operates and supports Ojunai Inventory
+        in other markets. Additional Ojunai Technologies products may publish product-specific
+        privacy terms as they launch. References below to “Ojunai”, “we”, and “us” refer to the
+        Ojunai entity responsible for the product and market you are using. The FlashAppt-specific
+        provisions below apply only to FlashAppt users.
       </p>
 
-      <p>
-        At Ojunai, we believe your business data belongs to you. This Privacy Policy explains what
-        information we collect, how we use it, and how we keep it safe. We've written this in plain
-        language because we want you to actually read it.
-      </p>
+      <p>This policy explains what information Ojunai processes, why we process it, when service providers receive it, and the choices available to you. We do not sell personal or business information and do not use it for third-party advertising.</p>
 
-      <h2>1. Information We Collect</h2>
-      <p>When you use Ojunai, we collect the following types of information:</p>
+      <section id="flashappt" class="product-legal">
+        <h2>FlashAppt Privacy</h2>
+        <p>FlashAppt processes the information needed to provide marketplace discovery, bookings, favourites, appointment watches, repeat booking, merchant recovery tools, and performance views.</p>
+        <h3>Private calendar scans</h3>
+        <p>A merchant may choose to scan a private <code>.ics</code> calendar file to detect potential appointment openings. This is a private calendar scan, not automatic calendar synchronization. Google and Outlook accounts do not connect automatically at this time.</p>
+        <ul><li>Calendar events are never published automatically</li><li>The merchant must review the service, price, staff member, and time before publishing</li><li>Calendar titles, attendees, notes, locations, and raw identifiers are not uploaded</li></ul>
+        <h3>Consumer preferences and retention features</h3>
+        <p>When a consumer uses favourites or appointment watches, FlashAppt stores the preferences they choose—such as business, service, category, price, day, and time—to provide relevant discovery and alerts. Alerts improve discovery but do not reserve or guarantee an appointment.</p>
+        <p>Direct rebooking becomes available after a completed, checked-in FlashAppt visit.</p>
+        <h3>Merchant recovery analytics</h3>
+        <p>Merchants may see a 30-day view of fill rate, recovered revenue, new customers, repeat customers, favourites, and appointment-watch demand associated with their FlashAppt activity.</p>
+        <p>For FlashAppt privacy questions or data requests, contact <a href="mailto:privacy@flashappt.com">privacy@flashappt.com</a>. <span class="confirm">⚠️ Confirm that this mailbox is actively monitored before publication.</span></p>
+      </section>
+
+      <h2>1. Information Ojunai Inventory Processes</h2>
+      <p>Depending on the features and channels you use, Ojunai Inventory may process:</p>
       <ul>
-        <li><strong>Account information:</strong> Your name, phone number, email address, business name, business type, and city — provided during signup</li>
-        <li><strong>Business data:</strong> Sales, expenses, inventory, contacts, debts, and other records you create through the platform</li>
-        <li><strong>WhatsApp messages:</strong> Messages you send to and receive from the Ojunai bot, stored as conversation history to provide context for future interactions</li>
-        <li><strong>Usage data:</strong> Basic information about how you use the dashboard (pages visited, features used) to help us improve the product</li>
-        <li><strong>Device and browser information:</strong> Standard technical data such as IP address, browser type, and device type — collected automatically when you visit our website or dashboard</li>
+        <li><strong>Account and business information:</strong> Your name, phone number, email address, business name, business type, location, staff role, and account settings</li>
+        <li><strong>Business records:</strong> Inventory, products, sales, purchases, expenses, contacts, debts, payments, reports, reservations, and other records you create or ask Ojunai to manage</li>
+        <li><strong>Messaging content:</strong> Messages, replies, supported attachments, commands, and recent conversation history exchanged directly with Ojunai through an enabled channel</li>
+        <li><strong>Channel identifiers:</strong> Information needed to receive, attribute, and reply to messages, such as a WhatsApp phone number or Meta channel identifier, a Messenger Page-scoped user identifier, a Telegram chat identifier, provider message identifiers, delivery information, and timestamps</li>
+        <li><strong>Account links:</strong> Records that connect a channel identity to the correct Ojunai user, staff member, business, role, and location after signup or an authorized linking flow</li>
+        <li><strong>Usage and technical data:</strong> Features used, security and audit events, IP address, browser or device details, and diagnostic information needed to operate and protect the service</li>
       </ul>
 
-      <h2>2. How We Use Your Information</h2>
-      <p>We use your information to:</p>
-      <ul>
-        <li><strong>Deliver the service:</strong> Process your WhatsApp messages, record transactions, generate reports, and display your dashboard</li>
-        <li><strong>AI processing:</strong> Your WhatsApp messages are sent to our AI provider (Claude by Anthropic) to understand your intent and extract transaction details. The AI does not write directly to your database — it only parses your messages, and our backend executes the actions</li>
-        <li><strong>Billing:</strong> Process subscription payments, send payment reminders, and manage your plan</li>
-        <li><strong>Communication:</strong> Send you daily/weekly business summaries, low-stock alerts, and important service updates via WhatsApp</li>
-        <li><strong>Improvement:</strong> Understand usage patterns to improve features, fix bugs, and build a better product</li>
-      </ul>
-      <p>We will never use your business data for advertising, sell it to third parties, or share it with other businesses.</p>
+      <h2>2. WhatsApp and Planned Messenger Processing</h2>
+      <h3>WhatsApp</h3>
+      <p>Ojunai’s main merchant WhatsApp integration uses the <strong>Meta WhatsApp Cloud API</strong> for message delivery. When you message Ojunai’s WhatsApp account, Meta routes the message and related delivery data to Ojunai. We use the content and relevant channel identifiers to identify the authorized Ojunai account, maintain conversation context, interpret the request, carry out permitted actions, and return a response.</p>
 
-      <h2>3. Payment Data</h2>
-      <p>All payment processing is handled by our payment partners:</p>
-      <ul>
-        <li><strong>Paystack</strong> — primarily for payments in Nigeria</li>
-        <li><strong>Flutterwave</strong> — for other regional and international payments</li>
-      </ul>
-      <p>We do not store your credit card numbers, bank account details, or mobile money PINs. These are processed and secured entirely by our payment providers, who are PCI-DSS compliant. We only receive confirmation of successful or failed payments.</p>
+      <h3>Messenger</h3>
+      <p>Ojunai is preparing a Messenger integration through <strong>Ojunai’s own Facebook Page</strong>. It is not represented here as approved by Meta or generally available. If launched, Meta will route messages sent directly to that Ojunai Page, together with relevant Page-scoped identifiers and event information, to Ojunai for the same account-linking and business-assistant purposes.</p>
 
-      <h2>4. WhatsApp Messages</h2>
-      <p>Your WhatsApp messages to the Ojunai bot are:</p>
-      <ul>
-        <li><strong>Processed by AI:</strong> Each message is sent to Claude (by Anthropic) for natural language understanding. The AI extracts your intent (e.g., "record a sale") and returns structured data. It does not store your messages independently</li>
-        <li><strong>Stored for context:</strong> Your recent message history is kept in our database so the bot can understand follow-up messages and provide relevant responses</li>
-        <li><strong>Not shared with third parties:</strong> We do not share your message content with anyone other than our AI provider for the purpose of processing your requests</li>
-        <li><strong>Delivered via Twilio:</strong> WhatsApp message delivery is powered by Twilio's WhatsApp Business API. Twilio processes messages in transit but does not access or use your message content for their own purposes</li>
-      </ul>
+      <div class="clarification"><strong>What this does not mean.</strong><p>Ojunai does not receive or read unrelated private WhatsApp or Facebook conversations. The current Messenger design does not connect to, administer, post for, or manage a customer’s Facebook Page. It uses a single Page owned and controlled by Ojunai.</p></div>
 
-      <h2>5. Data Sharing</h2>
-      <p>We share your data only with the service providers necessary to operate Ojunai:</p>
-      <ul>
-        <li><strong>Anthropic (Claude AI):</strong> Receives your WhatsApp messages for natural language processing. Subject to <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's privacy policy</a></li>
-        <li><strong>Twilio:</strong> Delivers WhatsApp messages between you and the bot. Subject to <a href="https://www.twilio.com/legal/privacy" target="_blank" rel="noopener">Twilio's privacy policy</a></li>
-        <li><strong>Paystack / Flutterwave:</strong> Process subscription payments. Subject to their respective privacy policies</li>
-      </ul>
-      <p>We do not sell, rent, or trade your data. We do not share your business records, customer lists, or financial data with any party not listed above.</p>
+      <p>Messaging content and account context may be used to record or retrieve inventory, sales, expenses, debts, payments, reports, and other business-management information requested by an authorized user. Recent conversation history may be stored so Ojunai can understand follow-up messages such as corrections, confirmations, or references to an earlier request.</p>
 
-      <h2>6. Data Retention</h2>
+      <h2>3. How We Use Information</h2>
       <ul>
-        <li><strong>Active accounts:</strong> Your data is retained for as long as your account is active</li>
-        <li><strong>Cancelled accounts:</strong> After cancellation, your data is retained for 90 days in case you reactivate. After that, it is permanently deleted</li>
-        <li><strong>Export:</strong> You can export your business data at any time from the dashboard (on eligible plans)</li>
-        <li><strong>Deletion requests:</strong> You can request full deletion of your account and all associated data by emailing <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>. We will process deletion requests within 30 days</li>
+        <li><strong>Provide requested features:</strong> Authenticate users, connect channels, process business requests, update records, generate reports, send permitted alerts, and display the dashboard</li>
+        <li><strong>Interpret messages:</strong> Send a message and relevant business context to an AI provider to determine intent, extract structured details, and generate or support a response</li>
+        <li><strong>Protect high-impact actions:</strong> Apply permissions, confirmation requirements, audit logging, deduplication, and security checks before eligible actions are executed</li>
+        <li><strong>Operate the service:</strong> Diagnose failures, prevent abuse, maintain reliability, support users, and measure aggregate product performance</li>
+        <li><strong>Billing and administration:</strong> Manage plans, payment status, receipts, and required account communications</li>
       </ul>
+      <p>AI output does not bypass Ojunai’s application permissions or confirmation controls. Ojunai’s backend decides whether and how a requested action is executed.</p>
 
-      <h2>7. Security</h2>
-      <p>We take the security of your data seriously:</p>
-      <ul>
-        <li><strong>Encryption in transit:</strong> All connections use HTTPS/TLS encryption</li>
-        <li><strong>Encrypted storage:</strong> Sensitive data is encrypted at rest in our database</li>
-        <li><strong>Access controls:</strong> Role-based access ensures staff members only see what the business owner permits</li>
-        <li><strong>Server security:</strong> Our infrastructure is hosted on hardened servers with firewalls, SSH key-only access, and intrusion detection</li>
-        <li><strong>Daily backups:</strong> Automated daily database backups ensure your data can be recovered in the event of an incident</li>
-      </ul>
-      <p>No system is 100% secure. If we ever discover a data breach that affects your account, we will notify you within 72 hours.</p>
+      <h2>4. AI Processing</h2>
+      <p>Ojunai currently uses <strong>Anthropic’s Claude API</strong> to interpret natural-language requests. Relevant message content, recent conversation context, and the minimum business context needed to answer or structure the request may be sent to Anthropic. This can include product names, quantities, transaction details, contact names supplied in a request, and account-specific instructions.</p>
+      <p>We do not state in this draft that providers retain no data or never use data for model improvement because those statements depend on the applicable contract, API settings, and provider terms. <span class="confirm">⚠️ Confirm the production Anthropic agreement, retention settings, and data-use controls before publication.</span></p>
 
-      <h2>8. Your Rights</h2>
-      <p>Aligned with the Nigeria Data Protection Regulation (NDPR) and GDPR principles, you have the right to:</p>
+      <h2>5. Service Providers and Disclosures</h2>
+      <p>Information may be disclosed to providers only as reasonably necessary for their role, subject to applicable agreements and settings:</p>
       <ul>
-        <li><strong>Access:</strong> Request a copy of all data we hold about you and your business</li>
-        <li><strong>Correction:</strong> Update or correct inaccurate information in your account</li>
-        <li><strong>Deletion:</strong> Request permanent deletion of your account and data</li>
-        <li><strong>Portability:</strong> Export your business data in standard formats (CSV) from the dashboard</li>
-        <li><strong>Objection:</strong> Object to specific uses of your data — we will comply where legally required</li>
+        <li><strong>Meta:</strong> Routes messages and associated identifiers for the WhatsApp Cloud API and, if approved and launched, Messenger through Ojunai’s Facebook Page. See <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Meta’s Privacy Policy</a></li>
+        <li><strong>Anthropic:</strong> Processes relevant messages and business context through the Claude API. See <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic’s Privacy Policy</a></li>
+        <li><strong>Twilio:</strong> Remains present in Ojunai engineering for certain messaging, authentication, Voice, SMS, or legacy delivery paths. It is not described as the main merchant WhatsApp transport in this draft. <span class="confirm">⚠️ Confirm each active production use before publication.</span> See <a href="https://www.twilio.com/en-us/legal/privacy" target="_blank" rel="noopener">Twilio’s Privacy Notice</a></li>
+        <li><strong>Telegram:</strong> Processes messages and identifiers when a user chooses Ojunai’s Telegram channel</li>
+        <li><strong>Paystack, Flutterwave, and Stripe:</strong> Process subscription or other payments according to market and currency. Ojunai receives payment status, references, and related account information rather than full card or mobile-money credentials</li>
+        <li><strong>Infrastructure and operational providers:</strong> Engineering references Hetzner hosting, Cloudflare R2 backup storage, Resend email delivery, ElevenLabs for enabled Voice features, and Grafana Cloud telemetry. <span class="confirm">⚠️ Confirm the active production vendor inventory, regions, subprocessors, and data categories before publication.</span></li>
       </ul>
-      <p>To exercise any of these rights, contact us at <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>.</p>
+      <p>We may also disclose information when required by law, to protect users or the service, or as part of a properly governed corporate transaction.</p>
 
-      <h2>9. Cookies & Analytics</h2>
-      <p>We keep tracking minimal:</p>
-      <ul>
-        <li>The Ojunai website and dashboard use only essential cookies required for authentication and session management</li>
-        <li>We do not use third-party advertising trackers, social media pixels, or cross-site tracking</li>
-        <li>We may use privacy-respecting analytics to understand aggregate usage patterns (e.g., which features are most used), but never to identify or profile individual users</li>
-      </ul>
+      <h2>6. Payment Information</h2>
+      <p>Payment providers collect and process payment credentials on their systems. Ojunai does not intentionally store full payment-card numbers, bank-account credentials, or mobile-money PINs. We may retain subscription status, payment references, amounts, currency, invoices, and related records needed for billing, accounting, fraud prevention, and support.</p>
 
-      <h2>10. Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time. When we make significant changes:</p>
+      <h2>7. Retention, Account Closure, and Deletion</h2>
+      <p>Different records serve different purposes and are not all retained for the same period. Current engineering defaults include:</p>
       <ul>
-        <li>We will notify you via WhatsApp message or email</li>
-        <li>The "Last updated" date at the top of this page will be revised</li>
-        <li>Continued use of the service after notification constitutes acceptance of the updated policy</li>
+        <li><strong>Message logs:</strong> A configurable retention job defaults to deleting message-log records older than 180 days</li>
+        <li><strong>Protected inbound payloads:</strong> Resolved encrypted payloads use a 30-day application retention window; limited deduplication evidence may be retained separately to prevent unsafe replay</li>
+        <li><strong>Audit/activity records:</strong> The current configurable default is 365 days</li>
+        <li><strong>Short-lived verification and channel-link records:</strong> Expired records are scheduled for cleanup after a short operational buffer</li>
+        <li><strong>Business and financial records:</strong> Account closure anonymizes user, staff, customer, supplier, and business identifiers while retaining certain transaction records needed for accounting, tax, fraud, dispute, security, or legal purposes</li>
       </ul>
+      <p>The business owner can close an account through the authenticated account-closure flow. Ojunai may also accept privacy requests through the contact channel below after verifying the requester’s identity and authority. Account closure is not accurately described as an immediate deletion of every record: some information is anonymized, some is deleted on a schedule, and some may be retained where required or reasonably necessary.</p>
+      <p>Backups and recovery copies may retain information for a limited period before being overwritten or expiring, and deletion from active systems may not immediately remove it from every recovery copy. <span class="confirm">⚠️ Confirm production backup frequency, retention periods, deletion propagation, legal holds, and the tested Meta data-deletion/deauthorization process before publication.</span></p>
 
-      <h2>11. Contact</h2>
-      <p>If you have questions about this Privacy Policy or how we handle your data, please reach out:</p>
-      <ul>
-        <li>Email: <a href="mailto:contact@ojunai.com">contact@ojunai.com</a></li>
-      </ul>
+      <h2>8. Security</h2>
+      <p>Ojunai uses technical and organizational safeguards intended to protect information, including:</p>
+      <ul><li>HTTPS/TLS for supported network connections</li><li>Role- and permission-based access controls</li><li>Webhook signature verification and channel/account binding checks</li><li>Confirmation requirements for sensitive or high-impact actions</li><li>Encrypted protected inbound jobs and encrypted recovery material where configured</li><li>Audit logging, rate limits, deduplication, and operational monitoring</li></ul>
+      <p>No system is completely secure. If a security incident occurs, Ojunai will investigate and make notices as required by applicable law and the circumstances. This draft does not promise a fixed 72-hour notice in every situation. <span class="confirm">⚠️ Confirm database-at-rest controls, production backup controls, incident-response ownership, and legally applicable notification periods before publication.</span></p>
+
+      <h2>9. Your Choices and Rights</h2>
+      <p>Depending on your location and applicable law, you may have rights to request access, correction, export, deletion, restriction, or objection. You can also:</p>
+      <ul><li>Disconnect an available messaging channel from Ojunai</li><li>Stop messaging Ojunai through WhatsApp, Telegram, or Messenger</li><li>Export available business data from the dashboard</li><li>Close an eligible business account through the authenticated dashboard flow</li></ul>
+      <p>We may need to verify your identity, account ownership, and authority before completing a request. Some rights are subject to legal exceptions and record-retention obligations.</p>
+
+      <h2>10. Cookies and Analytics</h2>
+      <p>Ojunai uses cookies or similar storage where needed for authentication, security, preferences, and service operation. We may process product and operational analytics to understand use, diagnose issues, and improve the service. We do not use personal or business information for third-party behavioural advertising. <span class="confirm">⚠️ Confirm the current website, dashboard, telemetry, and consent configuration before publication.</span></p>
+
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this policy as products, providers, or legal requirements change. The effective date will be updated when a revised policy is published. Where required, we will provide additional notice through an appropriate account or communication channel.</p>
+
+      <h2>12. Contact</h2>
+      <p>Privacy questions and requests can be sent to <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>. <span class="confirm">⚠️ Confirm that this is the monitored privacy contact, identify the responsible owner, and confirm the request-tracking and response procedure before publication.</span></p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .legal-entity {
-    margin: 8px 0 24px;
-    padding: 14px 18px;
-    background: var(--bg-alt);
-    border-left: 3px solid var(--brand);
-    border-radius: 0 8px 8px 0;
-    color: var(--text-2);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
+  .legal-updated { color: var(--text-3); }
+  .review-banner { margin: 20px 0 26px; padding: 18px 20px; border: 1px solid #f59e0b; border-radius: 12px; background: #fffbeb; color: #78350f; }
+  .review-banner strong { color: #92400e; }
+  .review-banner p { margin: 6px 0 0; color: #78350f; }
+  .legal-entity { margin: 8px 0 24px; padding: 14px 18px; background: var(--bg-alt); border-left: 3px solid var(--brand); border-radius: 0 8px 8px 0; color: var(--text-2); font-size: 0.95rem; line-height: 1.6; }
   .legal-entity strong { color: var(--text); }
+  .product-legal { scroll-margin-top: 110px; margin: 34px 0; padding: 24px; border: 1px solid var(--border); border-radius: 14px; background: white; }
+  .product-legal h2 { margin-top: 0; }
+  .product-legal h3, .legal-page h3 { margin: 24px 0 8px; font-size: 1rem; color: var(--text); }
+  .product-legal code { padding: 1px 5px; border-radius: 5px; background: var(--bg-alt); }
+  .clarification { margin: 20px 0; padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-alt); }
+  .clarification p { margin: 6px 0 0; }
+  .confirm { color: #9a3412; font-weight: 650; }
+  @media (max-width: 640px) { .review-banner, .product-legal, .clarification { padding: 16px; } }
 </style>

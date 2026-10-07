@@ -1,0 +1,66 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import InterestForm from '~/components/ui/InterestForm.astro';
+import { corporate } from '~/data/products';
+
+const title = 'Commerce AI — Run your online store by chat';
+const description = 'Check sales, manage inventory, fulfil orders, run discounts, purchase stock, and get grounded business analysis from WhatsApp or Telegram.';
+const productSchema = {'@context':'https://schema.org','@type':'SoftwareApplication',name:'Commerce AI',applicationCategory:'BusinessApplication',operatingSystem:'Web, WhatsApp, Telegram',description,url:'https://ojunai.com/products/commerce-ai',offers:{'@type':'Offer',availability:'https://schema.org/PreOrder'}};
+
+const pillars = [
+  ['Sales & revenue insight', 'See sales, trends, best sellers, category performance, and store-health snapshots.', '“What sold today?”'],
+  ['Orders', 'Find pending, unfulfilled, cancelled, refunded, and draft orders without searching an admin panel.', '“What still needs fulfilment?”'],
+  ['Order actions', 'Fulfil, cancel, or refund orders with confirmation before anything changes.', '“Refund order #1043.”'],
+  ['Products & catalogue', 'Look up products, update prices, and manage product status from a conversation.', '“Set the blue hoodie to $59.”'],
+  ['Inventory', 'Find low, out-of-stock, and dead stock, then update one item or many.', '“Restock all low stock to 100.”'],
+  ['Discounts & pricing', 'View, create, schedule, and deactivate promotions—with confirmation gates.', '“15% off hoodies until midnight.”'],
+  ['Customers & CRM', 'Identify top, new, lapsed, and at-risk customers and explore purchase history.', '“Who are my top customers?”'],
+  ['Purchasing', 'Manage suppliers and purchase orders, receive stock, and track what is on order.', '“Create a PO for these items.”'],
+  ['Costs, margins & valuation', 'Understand product costs, margins, and the value of stock on hand.', '“Which products have the best margin?”'],
+  ['Inventory intelligence', 'Track sell-through and KPIs and use ABC/Pareto analysis to focus cash.', '“Show my slowest-moving stock.”'],
+  ['Stocktakes', 'Run stocktakes and cycle counts without disconnecting the team from daily operations.', '“Start a count for accessories.”'],
+  ['AI business analyst', 'Diagnose performance and get practical recommendations grounded in store data.', '“Why are sales down this week?”'],
+  ['Assistant memory', 'Keep store notes and conversational context available to the team.', '“Remember our supplier lead time is 14 days.”'],
+];
+
+const platforms = [
+  {name:'Shopify', tone:'green', image:'/screenshots/commerce-ai/shopify.webp', title:'Full store control by chat.', text:'Sales, orders, products, inventory, discounts, fulfilment, refunds, customers, and AI analysis—plus an embedded or standalone dashboard.'},
+  {name:'WooCommerce', tone:'purple', image:'/screenshots/commerce-ai/woocommerce.webp', title:'Your WordPress store, run from your phone.', text:'Full sales, orders, products, inventory, customers, coupon discounts, order-status fulfilment, and category insight.'},
+  {name:'Paystack', tone:'blue', image:'/screenshots/commerce-ai/paystack.webp', title:'Payments plus catalogue intelligence.', text:'Revenue, transactions, customers, products, quantities, analytics, and top-seller insight for payment-first merchants.'},
+  {name:'Flutterwave', tone:'orange', image:'/screenshots/commerce-ai/flutterwave.webp', title:'Know your numbers instantly.', text:'Turn transactions into revenue insight and customer views, on demand over chat.'},
+];
+---
+
+<BaseLayout title={title} description={description} canonical="/products/commerce-ai" ogImage="/screenshots/commerce-ai/hero.webp" jsonLd={productSchema}>
+  <section class="cai-hero"><div class="container cai-hero-grid"><div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/products">Products</a><span>›</span><span>Commerce AI</span></nav>
+    <div class="eyebrow">Conversational commerce operations</div>
+    <h1>Run your entire online store <span>by chat.</span></h1>
+    <p>Check sales, manage inventory, fulfil orders, run discounts, purchase stock, and get AI business analysis from WhatsApp or Telegram—backed by a web dashboard.</p>
+    <div class="actions"><a class="primary" href={`mailto:${corporate.contactEmail}?subject=Commerce%20AI%20early%20access`}>Request early access</a><a class="secondary" href="#platforms">Explore integrations →</a></div>
+    <div class="trust"><span>WhatsApp</span><span>Telegram</span><span>Voice notes</span><span>Any language</span></div>
+  </div><figure class="hero-art"><img src="/screenshots/commerce-ai/hero.webp" alt="Merchant using Commerce AI by chat from a smartphone" width="1586" height="992"><figcaption>Commerce operations from the phone already in your hand · illustrative store data</figcaption></figure></div></section>
+
+  <section class="section how"><div class="container"><div class="kicker">How it works</div><h2>Ask. Review. Confirm. Done.</h2><div class="steps">
+    <article><b>01</b><h3>Connect your platform</h3><p>Commerce AI connects to the store or payment platform you already use.</p></article>
+    <article><b>02</b><h3>Message your store</h3><p>Ask in plain language by text, voice note, or photo from WhatsApp or Telegram.</p></article>
+    <article><b>03</b><h3>Confirm important actions</h3><p>Store-changing actions require confirmation; bulk and irreversible work gets a stronger gate.</p></article>
+    <article><b>04</b><h3>Keep the audit trail</h3><p>Use the dashboard for live metrics, team access, logs, settings, and billing.</p></article>
+  </div></div></section>
+
+  <section class="section capabilities"><div class="container"><div class="kicker">One assistant, complete operations</div><h2>From today’s sales to tomorrow’s purchase order.</h2><p class="intro">Higher plans unlock advanced inventory, purchasing, analytics, and store-changing actions. Exact pricing and trial details will be announced.</p><div class="pillar-grid">{pillars.map(([name,text,ask],i)=><article><span>{String(i+1).padStart(2,'0')}</span><h3>{name}</h3><p>{text}</p><code>{ask}</code></article>)}</div></div></section>
+
+  <section class="section platforms" id="platforms"><div class="container"><div class="kicker">Platform integrations</div><h2>One engine. The right capabilities for every store.</h2><p class="intro">Each store exposes only what its platform supports. When an action is unavailable, the assistant explains why—it never fails silently.</p><div class="platform-grid">{platforms.map(p=><article class={`platform ${p.tone}`}><img src={p.image} alt={`Merchant using Commerce AI with ${p.name} from a smartphone`} width="1586" height="992" loading="lazy"><div><span>{p.name}</span><h3>{p.title}</h3><p>{p.text}</p><small>Product concept · illustrative data</small></div></article>)}</div>
+    <div class="matrix"><table><thead><tr><th>Capability</th><th>Shopify</th><th>WooCommerce</th><th>Paystack</th><th>Flutterwave</th></tr></thead><tbody>
+      <tr><td>Sales & orders</td><td>Full</td><td>Full</td><td>Transactions</td><td>Transactions</td></tr><tr><td>Products</td><td>Yes</td><td>Yes</td><td>Yes</td><td>—</td></tr><tr><td>Inventory</td><td>Yes</td><td>Yes</td><td>Quantity</td><td>—</td></tr><tr><td>Customers</td><td>Yes</td><td>Yes</td><td>Yes</td><td>From transactions</td></tr><tr><td>Discounts</td><td>Yes</td><td>Coupons</td><td>—</td><td>—</td></tr><tr><td>Fulfilment</td><td>Yes</td><td>Order status</td><td>—</td><td>—</td></tr><tr><td>Revenue analytics</td><td>Yes</td><td>Basic</td><td>Yes</td><td>Yes</td></tr>
+    </tbody></table></div>
+  </div></section>
+
+  <section class="section safety"><div class="container safety-grid"><div><div class="kicker">Built to be trusted</div><h2>Powerful actions, deliberate control.</h2><p>Confirmation gating, layered role and plan permissions, a full audit log, encrypted credentials, verified webhooks, GDPR handling, and rate limiting protect every store.</p></div><div class="checks"><span>✓ Confirmation before changes</span><span>✓ Stronger gates for bulk actions</span><span>✓ Role and plan permissions</span><span>✓ Complete audit history</span><span>✓ Encrypted credentials</span><span>✓ Verified webhooks</span></div></div></section>
+
+  <section class="final"><div class="container"><h2>Operate the store without living in a dashboard.</h2><p>Commerce AI is in early access. Pricing, trial details, and public setup instructions will be confirmed before launch.</p><InterestForm product="Commerce AI" recipient={corporate.contactEmail} heading="Request Commerce AI early access" /></div></section>
+</BaseLayout>
+
+<style>
+  :global(body){background:#f8fbff}.cai-hero{padding:72px 0;background:radial-gradient(circle at 80% 15%,#dff5ff 0,transparent 34%),linear-gradient(180deg,#f7fbff,#fff)}.cai-hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(440px,1.1fr);gap:56px;align-items:center}.crumb{display:flex;gap:8px;font-size:.82rem;color:var(--text-3);margin-bottom:28px}.crumb a{color:inherit}.eyebrow,.kicker{text-transform:uppercase;letter-spacing:.13em;font-size:.76rem;font-weight:800;color:#0284c7}.cai-hero h1,.section h2,.final h2{font-family:var(--font-display);letter-spacing:-.035em}.cai-hero h1{font-size:clamp(3rem,6vw,5.6rem);line-height:.98;margin:16px 0 24px}.cai-hero h1 span{color:#0284c7}.cai-hero p{font-size:1.15rem;line-height:1.7;color:var(--text-2);max-width:650px}.actions{display:flex;gap:18px;align-items:center;margin:30px 0}.primary{display:inline-block;background:#0284c7;color:#fff;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:800;box-shadow:0 12px 28px rgba(2,132,199,.22)}.secondary{color:#075985;font-weight:700;text-decoration:none}.trust{display:flex;gap:10px;flex-wrap:wrap}.trust span{padding:7px 11px;border:1px solid #cfe8f5;border-radius:999px;font-size:.78rem;color:#36596b;background:#fff}.hero-art{margin:0;border-radius:26px;overflow:hidden;background:#061530;box-shadow:0 30px 80px rgba(6,35,72,.2)}.hero-art img{width:100%;display:block}.hero-art figcaption{padding:10px 16px;color:#91a6c0;font-size:.72rem}.section{padding:88px 0}.section h2{font-size:clamp(2.2rem,4vw,3.6rem);margin:12px 0 18px}.intro{max-width:760px;color:var(--text-2);line-height:1.7}.how{background:#06152f;color:#fff}.how .kicker{color:#38bdf8}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}.steps article{padding:24px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.04)}.steps b{color:#38bdf8}.steps h3{margin:16px 0 8px}.steps p{color:#a9bfd3;line-height:1.6}.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}.pillar-grid article{background:#fff;border:1px solid #dcebf4;border-radius:18px;padding:22px}.pillar-grid span{font-weight:800;color:#0ea5e9;font-size:.76rem}.pillar-grid h3{margin:10px 0 8px}.pillar-grid p{color:var(--text-2);line-height:1.55}.pillar-grid code{display:block;margin-top:15px;padding:10px;border-radius:10px;background:#eff9ff;color:#075985;white-space:normal}.platforms{background:#fff}.platform-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:40px}.platform{overflow:hidden;border:1px solid #e0e7ef;border-radius:22px;background:#fbfdff}.platform img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}.platform>div{padding:22px}.platform span{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em}.platform h3{font-size:1.35rem;margin:8px 0}.platform p{color:var(--text-2);line-height:1.6}.platform small{color:var(--text-3)}.green span{color:#5e8e3e}.purple span{color:#7f54b3}.blue span{color:#0b88ba}.orange span{color:#d97706}.matrix{overflow:auto;margin-top:42px;border:1px solid #dce5ec;border-radius:18px}.matrix table{border-collapse:collapse;width:100%;min-width:720px}.matrix th,.matrix td{padding:14px 16px;text-align:left;border-bottom:1px solid #e7edf2;font-size:.88rem}.matrix th{background:#f3f8fb}.safety{background:#eaf7ff}.safety-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px}.safety p{color:var(--text-2);line-height:1.7}.checks{display:grid;gap:12px}.checks span{background:#fff;border:1px solid #cae9f8;border-radius:14px;padding:15px;font-weight:700;color:#075985}.final{text-align:center;padding:86px 0;background:#06152f;color:#fff}.final h2{font-size:clamp(2.2rem,4vw,3.6rem)}.final p{color:#adc1d2;max-width:720px;margin:12px auto 28px;line-height:1.7}@media(max-width:900px){.cai-hero-grid,.safety-grid{grid-template-columns:1fr}.cai-hero-grid{gap:36px}.steps{grid-template-columns:repeat(2,1fr)}.pillar-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){.cai-hero{padding:48px 0}.cai-hero h1{font-size:3rem}.steps,.pillar-grid,.platform-grid{grid-template-columns:1fr}.section{padding:64px 0}.actions{align-items:flex-start;flex-direction:column}}
+</style>

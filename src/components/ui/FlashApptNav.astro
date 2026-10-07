@@ -1,0 +1,18 @@
+---
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+const links = [
+  { label: 'Overview', href: '/products/flash-appt' },
+  { label: 'For consumers', href: '/products/flash-appt/consumer' },
+  { label: 'For merchants', href: '/products/flash-appt/merchant' },
+  { label: 'FAQ', href: '/products/flash-appt/faq' },
+];
+---
+<nav class="flash-nav" aria-label="FlashAppt product navigation">
+  <div class="container flash-nav-inner">
+    <a class="flash-brand" href="/products/flash-appt"><img src="/brand/flashappt-mark-192.png" alt="" width="30" height="30" />FlashAppt</a>
+    <div class="flash-links">{links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>)}</div>
+  </div>
+</nav>
+<style>
+  .flash-nav{position:relative;z-index:2;background:#0f0b19;border-bottom:1px solid #29203d;color:#fff}.flash-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:11px;padding-bottom:11px}.flash-brand{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-weight:800}.flash-brand img{border-radius:8px}.flash-links{display:flex;gap:5px;overflow-x:auto}.flash-links a{color:#aaa3bb;text-decoration:none;padding:7px 11px;border-radius:999px;font-size:.84rem;font-weight:700;white-space:nowrap}.flash-links a:hover,.flash-links a[aria-current="page"]{background:#24173c;color:#ddd6fe}@media(max-width:680px){.flash-nav-inner{align-items:flex-start;flex-direction:column;gap:8px}.flash-links{width:100%}}
+</style>

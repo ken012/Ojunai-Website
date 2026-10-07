@@ -1,8 +1,43 @@
-# Force apex — drop www on ojunai.com
-https://www.ojunai.com/*    https://ojunai.com/:splat   301!
+# -----------------------------------------------------------------------------
+# Ojunai Technologies Inc. — redirects
+# -----------------------------------------------------------------------------
+# Rules are processed top-to-bottom. Put more-specific rules ABOVE wildcards.
+# All rules are 301 (permanent) to preserve SEO from the pre-corporate site.
+# -----------------------------------------------------------------------------
 
-# Voice AI page rename
-/voice-ai           /voice                              301
+# --- Apex enforcement ---
+https://www.ojunai.com/*    https://ojunai.com/:splat                                   301!
 
-# WhatsApp AI → Chat AI rename (multi-channel positioning)
-/whatsapp-ai        /chat-ai                            301
+# --- Legacy rename chains — shortcut directly to the new Inventory sub-tree ---
+/voice-ai                   /products/ojunai-inventory/voice                            301
+/whatsapp-ai                /products/ojunai-inventory/chat-ai                          301
+
+# --- 2026-08-21 corporate migration: Inventory pages moved under /products/ojunai-inventory/* ---
+# Specific feature sub-pages first (before the /features/* wildcard)
+/features/inventory-management            /products/ojunai-inventory/features/inventory-management               301
+/features/sales-management                /products/ojunai-inventory/features/sales-management                   301
+/features/ai-commerce-chat-integrations   /products/ojunai-inventory/features/ai-commerce-chat-integrations      301
+/features                                 /products/ojunai-inventory/features                                    301
+/features/*                               /products/ojunai-inventory/features/:splat                             301
+
+# Top-level Inventory pages
+/pricing                    /products/ojunai-inventory/pricing                          301
+/pricing/*                  /products/ojunai-inventory/pricing/:splat                   301
+/industries                 /products/ojunai-inventory/industries                       301
+/industries/*               /products/ojunai-inventory/industries/:splat                301
+/integrations               /products/ojunai-inventory/integrations                     301
+/integrations/*             /products/ojunai-inventory/integrations/:splat              301
+/customers                  /products/ojunai-inventory/customers                        301
+/customers/*                /products/ojunai-inventory/customers/:splat                 301
+/security                   /products/ojunai-inventory/security                         301
+/security/*                 /products/ojunai-inventory/security/:splat                  301
+/help                       /products/ojunai-inventory/help                             301
+/help/*                     /products/ojunai-inventory/help/:splat                      301
+/request-demo               /products/ojunai-inventory/request-demo                     301
+/request-demo/*             /products/ojunai-inventory/request-demo/:splat              301
+/chat-ai                    /products/ojunai-inventory/chat-ai                          301
+/chat-ai/*                  /products/ojunai-inventory/chat-ai/:splat                   301
+/voice                      /products/ojunai-inventory/voice                            301
+/voice/*                    /products/ojunai-inventory/voice/:splat                     301
+/whatsapp-business-os       /products/ojunai-inventory/whatsapp-business-os             301
+/whatsapp-business-os/*     /products/ojunai-inventory/whatsapp-business-os/:splat      301

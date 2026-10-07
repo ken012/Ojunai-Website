@@ -1,0 +1,1558 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FinalCTA from '~/components/sections/FinalCTA.astro';
+
+// ============================================================================
+// AI Commerce Chat Integrations — dedicated Features sub-page.
+// URL: /features/ai-commerce-chat-integrations
+// Nav label: "AI Commerce Chat Integrations"
+// ============================================================================
+
+const WHATSAPP_STATUS = 'Live';
+
+// ---------- Integrations (Group 1: commerce; Group 2: channels) ----------
+const commerceIntegrations = [
+  {
+    id: 'shopify',
+    name: 'Shopify',
+    blurb: 'Full commerce ops: orders, inventory, products, customers, discounts, fulfillment.',
+    status: 'Live',
+    accent: '#5D8A3A',
+    iconBg: 'linear-gradient(135deg,#95BF47,#5D8A3A)',
+    letter: 'S',
+    capabilities: [
+      'Read: sales, orders, customers, inventory, products, discounts',
+      'Write: create/update products, adjust inventory, refund orders, fulfill orders, apply discounts',
+      'Proactive alerts: low stock, unfulfilled orders, sales drops',
+      'Purchase-order workflow with supplier tracking',
+      'Reorder forecasting from velocity × lead time',
+    ],
+  },
+  {
+    id: 'woocommerce',
+    name: 'WooCommerce',
+    blurb: 'Self-hosted WordPress stores, same conversational control.',
+    status: 'Live',
+    accent: '#7F54B3',
+    iconBg: 'linear-gradient(135deg,#96588A,#7F54B3)',
+    letter: 'W',
+    capabilities: [
+      'Read: sales, orders, customers, inventory, products, coupons',
+      'Write: create/update products, adjust inventory, refund orders, mark orders complete, create coupons',
+      'Proactive alerts on stock and order flow',
+      'Purchase-order workflow with supplier tracking',
+      'Reorder forecasting from velocity × lead time',
+    ],
+  },
+  {
+    id: 'paystack',
+    name: 'Paystack',
+    blurb: 'Payments-first — transactions & customer insights at a glance.',
+    status: 'Live',
+    accent: '#00C3F7',
+    iconBg: 'linear-gradient(135deg,#0BA4E0,#00C3F7)',
+    letter: 'P',
+    capabilities: [
+      'Read: transactions, customers, subscription status, settlements',
+      'Analytics: revenue trends, top customers, refund rates',
+      'Proactive alerts on failed payments and chargebacks',
+      'No inventory or discount management (payments platform)',
+    ],
+  },
+  {
+    id: 'flutterwave',
+    name: 'Flutterwave',
+    blurb: 'Payments-first — transactions and revenue tracking on demand.',
+    status: 'Live',
+    accent: '#F5A623',
+    iconBg: 'linear-gradient(135deg,#F58231,#F5A623)',
+    letter: 'F',
+    capabilities: [
+      'Read: transactions, customers, settlement balances',
+      'Analytics: revenue trends, cross-currency reporting',
+      'Proactive alerts on failed transactions and disputes',
+      'No inventory or discount management (payments platform)',
+    ],
+  },
+];
+
+const channelIntegrations = [
+  {
+    id: 'telegram',
+    name: 'Telegram',
+    blurb: 'Full assistant: text, voice notes, and photos.',
+    status: 'Live',
+    accent: '#229ED9',
+    iconBg: 'linear-gradient(135deg,#37AEE2,#229ED9)',
+    letter: 'T',
+    capabilities: [
+      'Text, voice notes, and photo attachments all supported',
+      'Multi-store switching from a single chat',
+      'Group chats supported for team access with role-based permissions',
+      'Bot inline commands + natural language',
+    ],
+  },
+  {
+    id: 'whatsapp',
+    name: 'WhatsApp',
+    blurb: 'The same assistant on the world\'s most-used chat app.',
+    status: WHATSAPP_STATUS,
+    accent: '#25D366',
+    iconBg: 'linear-gradient(135deg,#25D366,#128C7E)',
+    letter: 'W',
+    capabilities: [
+      'Text, voice notes, and photo attachments all supported',
+      'Business number verified per store',
+      'Native WhatsApp business features (labels, catalog sync where applicable)',
+      'Multi-store switching from a single chat',
+    ],
+  },
+];
+
+// ---------- Capability pillars (4) ----------
+const pillars = [
+  {
+    title: 'Ask anything about your store',
+    iconPath: 'M11 3a8 8 0 015.4 13.9l3.7 3.7-1.4 1.4-3.7-3.7A8 8 0 1111 3zm0 2a6 6 0 100 12 6 6 0 000-12z',
+    examples: [
+      '"What sold today?"',
+      '"Top customers this month"',
+      '"Which orders are unfulfilled?"',
+      '"Why are sales down this week?"',
+    ],
+  },
+  {
+    title: 'Run it by text or voice',
+    iconPath: 'M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3zm7 9a7 7 0 01-14 0h2a5 5 0 0010 0h2zM11 21v-2h2v2h-2z',
+    examples: [
+      '"Add 20 to Blue Jeans"',
+      '"10% off all hoodies until Friday"',
+      '"Refund order #1043"',
+      '"Fulfill #1050"',
+    ],
+    note: 'Every change asks you to confirm before it happens.',
+  },
+  {
+    title: 'Inventory command center',
+    iconPath: 'M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0',
+    examples: [
+      '"Show low stock"',
+      '"Create a PO to Acme for 50 hoodies"',
+      '"Receive PO #12"',
+      '"What should I reorder?"',
+      '"What\'s my inventory worth?"',
+    ],
+  },
+  {
+    title: 'Smart & proactive',
+    iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+    examples: [
+      'Multilingual replies (English, French, Mandarin, Spanish and more)',
+      'Remembers your preferences',
+      'Alerts you BEFORE you run out',
+      'Reads voice notes, product photos, supplier invoices',
+      'Switch between multiple stores on command',
+    ],
+  },
+];
+
+// ---------- Chat scripts (auto-playing carousel) ----------
+const chatScripts = [
+  {
+    title: 'Instant answers',
+    bubbles: [
+      { role: 'user',      text: 'what sold today?', time: '9:14 AM' },
+      { role: 'assistant', text: 'Today: 42 orders, $3,180 in sales — up 12% vs yesterday. Top seller: Premium Grey Hoodie (18 units).', time: '9:14 AM' },
+    ],
+  },
+  {
+    title: 'Reorder forecasting → one-tap PO',
+    bubbles: [
+      { role: 'user',      text: 'what should I reorder?', time: '10:02 AM' },
+      { role: 'assistant', text: 'Reorder suggestions (30-day sales, 7-day lead):\n\n• Black Crew Tee — 6 on hand, ~3/day, ~2 days left → order 40\n• Denim Jacket — 4 on hand → order 15\n\nReply YES to draft a purchase order.', time: '10:02 AM' },
+      { role: 'user',      text: 'yes', time: '10:02 AM' },
+      { role: 'assistant', text: 'Created PO #7 (draft) — 2 lines, 55 units.', time: '10:02 AM' },
+    ],
+  },
+  {
+    title: 'Voice note',
+    bubbles: [
+      { role: 'user',      text: '🎤 Voice message · 0:04', voice: true, transcript: 'restock everything that\'s low to fifty', time: '11:30 AM' },
+      { role: 'assistant', text: 'Restock 8 low-stock items to 50 each. Reply YES to apply.', time: '11:30 AM' },
+    ],
+  },
+  {
+    title: 'Snap a supplier invoice',
+    bubbles: [
+      { role: 'user',      text: '📷 Photo · delivery-invoice.jpg', photo: true, time: '2:47 PM' },
+      { role: 'assistant', text: 'I read 6 items on that invoice. Want me to add them to stock? Reply YES.', time: '2:47 PM' },
+    ],
+  },
+  {
+    title: 'Speaks your language',
+    bubbles: [
+      { role: 'user',      text: 'quelles sont mes ventes aujourd\'hui ?', time: '9:15 AM' },
+      { role: 'assistant', text: 'Aujourd\'hui : 42 commandes, 3 180 $ de ventes.', time: '9:15 AM' },
+    ],
+  },
+  {
+    title: 'Proactive alert',
+    bubbles: [
+      { role: 'assistant', text: 'Heads-up: Black Tee is down to 3 units — about 2 days left at current sales. Want me to draft a reorder?', time: '4:12 PM', proactive: true },
+    ],
+  },
+  {
+    title: 'Many stores, one chat',
+    bubbles: [
+      { role: 'user',      text: 'switch to my Shopify store', time: '8:04 AM' },
+      { role: 'assistant', text: 'Now managing "Downtown Threads" (Shopify). Ask away.', time: '8:04 AM' },
+    ],
+  },
+];
+
+// ---------- Try-a-prompt widget (canned prompts + replies) ----------
+const cannedPrompts = [
+  { prompt: 'What sold today?',            reply: 'Today: 42 orders, $3,180 in sales — up 12% vs yesterday. Top seller: Premium Grey Hoodie (18 units).' },
+  { prompt: 'Show low stock',              reply: '8 items below reorder point:\n\n• Black Crew Tee — 6 (target 20)\n• Denim Jacket — 4 (target 15)\n• Grey Beanie — 3 (target 10)\n\nWant me to draft a PO?' },
+  { prompt: "What's my inventory worth?",  reply: '$47,820 at cost across 312 SKUs. Top valuation category: Outerwear ($18,200).' },
+  { prompt: 'Refund order #1043',           reply: 'Order #1043 — Sarah Chen · Premium Hoodie · $89.\n\nReply CONFIRM to issue full refund via Shopify.' },
+];
+
+// ---------- Differentiator block ----------
+const differentiators = [
+  {
+    title: 'Purchase orders & suppliers',
+    body: 'Create, edit, receive, and track POs — all by chat. Supplier records live in the assistant\'s memory.',
+    iconPath: 'M9 11l3 3 8-8M6 12l3 3 8-8M3 13l3 3 8-8',
+  },
+  {
+    title: 'Reorder forecasting',
+    body: 'velocity × lead time − on-hand − on-order. The math you should be doing, done for you every morning.',
+    iconPath: 'M3 3v18h18M7 15l4-4 4 4 5-5',
+  },
+  {
+    title: 'Cost, margins & valuation',
+    body: '"What\'s my margin on X?" and "What\'s my inventory worth?" get real answers, not a dashboard link.',
+    iconPath: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
+  },
+];
+
+// ---------- How it works (3 steps) ----------
+const howSteps = [
+  { n: '01', title: 'Connect your platform', body: 'A couple of clicks. Secure OAuth for Shopify and WooCommerce; API keys for Paystack and Flutterwave. Nothing to install.' },
+  { n: '02', title: 'Add your team on WhatsApp or Telegram', body: 'Share a link code with each teammate. Assign a role — Owner, Manager, Support, or Read-only.' },
+  { n: '03', title: 'Just ask', body: 'Text, talk, or snap a photo. Every write action asks you to confirm before it happens.' },
+];
+
+// ---------- Trust & security bullets ----------
+const trustBullets = [
+  { title: 'AES-256-GCM encryption at rest', body: 'Every store credential and API key encrypted per-merchant. Keys rotated on schedule.' },
+  { title: 'Confirm-before-change on every write', body: 'Bulk or irreversible actions require an explicit CONFIRM reply — never an assumed action.' },
+  { title: 'Role-based access',                body: 'Owner / Manager / Support / Read-only roles. Each role gets exactly what it needs — no more.' },
+  { title: 'Per-store isolation',              body: 'Data never crosses between merchants. Multi-tenant boundaries enforced at the database layer.' },
+];
+
+// ---------- Pricing teaser ----------
+const pricingTeaserRows = [
+  { name: 'Starter',  price: 'Free',        blurb: 'Try the assistant — read-only queries, 1 store, 15 actions/month.' },
+  { name: 'Pro',      price: 'From $69.99', blurb: 'Full write access, reorder forecasting, purchase orders, analytics, multi-store.', featured: true },
+  { name: 'Scale',    price: 'From $149.99',blurb: 'Multi-user roles, unlimited chat quotas, advanced automation and audit logs.' },
+];
+
+// ---------- Comparison strip ----------
+const comparisonRows = [
+  { concern: 'How you use it',       dashOnly: 'Log in, click through dashboards',        ojunai: 'Just text or talk on WhatsApp / Telegram' },
+  { concern: 'Getting insights',      dashOnly: 'Pull reports manually',                   ojunai: 'Proactive alerts before problems bite' },
+  { concern: 'Multi-store',           dashOnly: 'Log in and out of each store',            ojunai: '"Switch to store X" — one chat, all stores' },
+  { concern: 'Platform coverage',     dashOnly: 'One tool per platform',                   ojunai: 'Shopify, WooCommerce, Paystack, Flutterwave — one assistant' },
+  { concern: 'Mobile use',            dashOnly: 'Cramped dashboard on 5" screen',          ojunai: 'Chat is native to mobile' },
+];
+
+// ---------- Capability matrix (per platform) ----------
+const matrixHeaders = ['Capability', 'Shopify', 'WooCommerce', 'Paystack', 'Flutterwave'];
+const matrixRows = [
+  { cap: 'Read sales & orders',    cells: ['✓', '✓', '✓', '✓'] },
+  { cap: 'Read customers',          cells: ['✓', '✓', '✓', '✓'] },
+  { cap: 'Read inventory',          cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Update products',         cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Adjust inventory',        cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Refund orders',           cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Fulfill orders',          cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Create discounts',        cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Purchase orders',         cells: ['✓', '✓', '—', '—'] },
+  { cap: 'Payment analytics',       cells: ['✓', '✓', '✓', '✓'] },
+  { cap: 'Refund/settlement alerts',cells: ['✓', '✓', '✓', '✓'] },
+];
+
+// ---------- Persona cards ----------
+const personas = [
+  {
+    tag: 'Shopify merchant',
+    love: 'Reorder forecasting that actually accounts for lead time — no more running out of best-sellers on weekends.',
+    iconPath: 'M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0',
+    accent: '#5D8A3A',
+  },
+  {
+    tag: 'WooCommerce store owner',
+    love: 'Runs on WordPress hosting you already have. No new dashboard to babysit — the chat is the interface.',
+    iconPath: 'M4 4h16v4H4zM4 12h16v8H4z',
+    accent: '#7F54B3',
+  },
+  {
+    tag: 'Payments merchant',
+    love: 'Revenue trends and refund/chargeback alerts land in chat — no more logging in to check settlement balances.',
+    iconPath: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
+    accent: '#00C3F7',
+  },
+];
+
+// ---------- FAQ ----------
+const faqs = [
+  {
+    q: 'Which platforms do you support?',
+    a: 'Shopify and WooCommerce for full commerce operations (products, inventory, orders, discounts, fulfillment). Paystack and Flutterwave for payments and revenue analytics. Chat channels: Telegram and WhatsApp, both Live. If you use something else, tell us via the "Request an integration" tile above and we\'ll prioritize based on demand.',
+  },
+  {
+    q: 'Do I need to install anything?',
+    a: 'No. Connect via OAuth (Shopify, WooCommerce) or API keys (Paystack, Flutterwave). Message the assistant on WhatsApp or Telegram — no app to download.',
+  },
+  {
+    q: 'Is WhatsApp available?',
+    a: `WhatsApp is ${WHATSAPP_STATUS}. Every capability that works on Telegram works on WhatsApp — text, voice notes, and photo attachments.`,
+  },
+  {
+    q: 'Is it safe to connect my store?',
+    a: 'Store credentials are encrypted at rest with AES-256-GCM. Every write action asks you to confirm before it happens. Bulk or irreversible actions require an explicit CONFIRM. Data is isolated per merchant — nothing crosses between stores.',
+  },
+  {
+    q: 'Can my team use it too?',
+    a: 'Yes. Add teammates with a link code and assign a role — Owner, Manager, Support, or Read-only. Each role gets exactly the permissions it needs.',
+  },
+  {
+    q: 'What languages are supported?',
+    a: 'Chat AI natively understands English, French, Mandarin, and Spanish, plus most major world languages via Claude. The assistant detects the language from the first message and replies in kind.',
+  },
+  {
+    q: 'Can I manage multiple stores?',
+    a: 'Yes. Connect as many stores as your plan allows, then switch between them mid-chat: "switch to my WooCommerce store" and the assistant follows you over.',
+  },
+  {
+    q: 'What can it change vs. only read?',
+    a: 'Shopify and WooCommerce get the full read + write suite (products, inventory, orders, refunds, fulfillment, discounts, POs). Paystack and Flutterwave are read-and-analytics-only — they\'re payments platforms, so there\'s no inventory or discount surface to write to.',
+  },
+  {
+    q: 'How is it priced?',
+    a: 'Starter is free with read-only queries and 15 actions/month. Pro (from $69.99/mo) unlocks full write access, reorder forecasting, purchase orders, and multi-store. Scale (from $149.99/mo) adds team roles and unlimited chat quotas. See the full breakdown on the pricing page.',
+  },
+];
+
+// ---------- Structured data ----------
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Ojunai — AI Commerce Chat Integrations',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web, WhatsApp, Telegram',
+  description:
+    'AI commerce assistant that connects to Shopify, WooCommerce, Paystack, and Flutterwave — run your whole store by chatting on WhatsApp or Telegram. Ask questions, manage orders and inventory, and forecast reorders in plain language, including voice notes and photos.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'Starter plan free forever; Pro from $69.99/mo unlocks full write access and forecasting.',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="AI Commerce Chat Integrations — Ojunai"
+  description="Connect Shopify, WooCommerce, Paystack, or Flutterwave — then run your whole store from a chat. Ojunai's AI commerce assistant handles orders, inventory, refunds, reorder forecasting, and purchase orders on WhatsApp or Telegram. Text, voice, or photo — in your language."
+  canonical="/products/ojunai-inventory/features/ai-commerce-chat-integrations"
+  ogImage="/og/features.png"
+  jsonLd={[softwareSchema, faqSchema]}
+>
+  <!-- ============ A. HERO ============ -->
+  <section class="ci-hero">
+    <div class="ci-hero-glow" aria-hidden="true"></div>
+    <div class="container ci-hero-grid">
+      <div class="ci-hero-content">
+        <nav class="ci-breadcrumb" aria-label="Breadcrumb">
+          <a href="/products/ojunai-inventory/features">Features</a>
+          <span aria-hidden="true">›</span>
+          <span>AI Commerce Chat Integrations</span>
+        </nav>
+        <h1>Your store, <span class="ci-hero-grad">one message away</span>.</h1>
+        <p class="ci-hero-sub">
+          Connect Shopify, WooCommerce, Paystack, or Flutterwave — then manage sales, inventory,
+          orders, and purchasing right from WhatsApp or Telegram. Ask in plain language. Even by
+          voice.
+        </p>
+        <div class="ci-hero-ctas">
+          <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="btn-cta-primary btn-cta-primary-xl" data-analytics="ci-hero-primary">
+            Connect your store
+          </a>
+          <a href="#chat-demo" class="btn-secondary-link" data-analytics="ci-hero-see-it">See it in action →</a>
+        </div>
+        <ul class="ci-trust-row" aria-label="Trust signals">
+          <li>Bank-grade encryption</li>
+          <li>Confirm-before-change</li>
+          <li>Role-based access</li>
+        </ul>
+      </div>
+
+      <!-- Phone with animated chat thread -->
+      <div class="ci-hero-phone" aria-hidden="true">
+        <div class="ci-phone">
+          <div class="ci-phone-header">
+            <span class="ci-phone-dot"></span>
+            <span class="ci-phone-title">Ojunai · Assistant</span>
+            <span class="ci-phone-status">online</span>
+          </div>
+          <div class="ci-phone-body">
+            <div class="ci-bubble ci-bubble-in ci-anim-in ci-anim-delay-1">
+              Good morning! Overnight: 12 orders, $890. Want a full breakdown?
+              <span class="ci-time">7:03 AM ✓✓</span>
+            </div>
+            <div class="ci-bubble ci-bubble-out ci-anim-in ci-anim-delay-2">
+              what sold today?
+              <span class="ci-time">9:14 AM</span>
+            </div>
+            <div class="ci-bubble ci-bubble-in ci-anim-in ci-anim-delay-3">
+              Today: 42 orders, $3,180 — up 12%.<br>Top: Premium Grey Hoodie (18 units).
+              <span class="ci-time">9:14 AM ✓✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ B. INTEGRATIONS GRID ============ -->
+  <section class="ci-int-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Integrations</div>
+        <h2>Connect your store, chat where you already are.</h2>
+        <p>Two lightweight groups — the platform your store runs on, and the chat channel your team uses.</p>
+      </div>
+
+      <div class="ci-int-group">
+        <h3 class="ci-int-group-title">Connect your store</h3>
+        <div class="ci-int-grid">
+          {commerceIntegrations.map((i) => (
+            <details class="ci-int-tile" data-analytics={`ci-tile-${i.id}`}>
+              <summary>
+                <span class="ci-int-logo" style={`background:${i.iconBg};`} aria-hidden="true">{i.letter}</span>
+                <span class="ci-int-body">
+                  <span class="ci-int-name">
+                    {i.name}
+                    <span class={`ci-badge ci-badge-${i.status.toLowerCase().replace(/\s+/g,'-')}`}>{i.status}</span>
+                  </span>
+                  <span class="ci-int-blurb">{i.blurb}</span>
+                </span>
+                <span class="ci-int-chev" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="ci-int-caps">
+                {i.capabilities.map((c) => <li>{c}</li>)}
+              </ul>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <div class="ci-int-group">
+        <h3 class="ci-int-group-title">Chat where you already are</h3>
+        <div class="ci-int-grid ci-int-grid-2">
+          {channelIntegrations.map((i) => (
+            <details class="ci-int-tile" data-analytics={`ci-tile-${i.id}`}>
+              <summary>
+                <span class="ci-int-logo" style={`background:${i.iconBg};`} aria-hidden="true">{i.letter}</span>
+                <span class="ci-int-body">
+                  <span class="ci-int-name">
+                    {i.name}
+                    <span class={`ci-badge ci-badge-${i.status.toLowerCase().replace(/\s+/g,'-')}`}>{i.status}</span>
+                  </span>
+                  <span class="ci-int-blurb">{i.blurb}</span>
+                </span>
+                <span class="ci-int-chev" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="ci-int-caps">
+                {i.capabilities.map((c) => <li>{c}</li>)}
+              </ul>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- Request an integration -->
+      <form class="ci-request-tile" data-analytics="ci-request-integration" onsubmit="return handleIntRequest(event)">
+        <div class="ci-request-copy">
+          <strong>Don't see your platform?</strong>
+          <span>Tell us what you need. We prioritize based on demand.</span>
+        </div>
+        <div class="ci-request-form">
+          <input type="text" name="platform" placeholder="e.g. BigCommerce, Squarespace" required aria-label="Platform name" />
+          <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email" />
+          <button type="submit" class="btn-cta-primary">Request integration →</button>
+        </div>
+        <p class="ci-request-thanks" hidden>Thanks — we'll let you know when it's ready.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ C. CAPABILITY PILLARS ============ -->
+  <section class="ci-pillars-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">What you can do</div>
+        <h2>Four kinds of superpower.</h2>
+        <p>The assistant reads your store, changes it (with your confirmation), and reaches out proactively.</p>
+      </div>
+      <div class="ci-pillars-grid">
+        {pillars.map((p) => (
+          <div class="ci-pillar">
+            <div class="ci-pillar-icon" aria-hidden="true">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d={p.iconPath} /></svg>
+            </div>
+            <h3>{p.title}</h3>
+            <ul class="ci-pillar-examples">
+              {p.examples.map((e) => <li>{e}</li>)}
+            </ul>
+            {p.note && <p class="ci-pillar-note">{p.note}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ D. LIVE CHAT DEMO ============ -->
+  <section class="ci-demo-section" id="chat-demo">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Live sneak peek</div>
+        <h2>The chat, for real.</h2>
+        <p>Seven real threads — auto-playing. Click a tab to jump.</p>
+      </div>
+
+      <div class="ci-demo" aria-label="Chat demo carousel" role="region">
+        <div class="ci-demo-tabs" role="tablist" aria-label="Chat scenarios">
+          {chatScripts.map((s, i) => (
+            <button
+              type="button"
+              class={`ci-demo-tab ${i === 0 ? 'ci-demo-tab-active' : ''}`}
+              data-demo-tab={i}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-controls={`ci-demo-panel-${i}`}
+              id={`ci-demo-tab-${i}`}
+            >
+              {i + 1}. {s.title}
+            </button>
+          ))}
+        </div>
+
+        <div class="ci-demo-stage">
+          {chatScripts.map((s, i) => (
+            <div
+              class={`ci-demo-panel ${i === 0 ? 'ci-demo-panel-active' : ''}`}
+              data-demo-panel={i}
+              role="tabpanel"
+              id={`ci-demo-panel-${i}`}
+              aria-labelledby={`ci-demo-tab-${i}`}
+              hidden={i !== 0}
+            >
+              {s.bubbles.map((b) => (
+                <div class={`ci-bubble ci-bubble-${b.role === 'user' ? 'out' : 'in'} ${b.proactive ? 'ci-bubble-proactive' : ''}`}>
+                  {b.voice && (
+                    <span class="ci-bubble-media">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3zM6 11a6 6 0 0012 0h-2a4 4 0 01-8 0H6zm5 8h2v3h-2v-3z"/></svg>
+                      Voice note · <span class="ci-sr">(transcript: </span>{b.transcript}<span class="ci-sr">)</span>
+                    </span>
+                  )}
+                  {b.photo && (
+                    <span class="ci-bubble-media">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4h-3.2l-1.4-1.4A2 2 0 0014 2h-4a2 2 0 00-1.4.6L7.2 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm-8 13a5 5 0 110-10 5 5 0 010 10z"/></svg>
+                      Photo attached
+                    </span>
+                  )}
+                  {!b.voice && !b.photo && (
+                    <span set:html={b.text.replace(/\n/g, '<br>')}></span>
+                  )}
+                  <span class="ci-time">{b.time}{b.role === 'user' ? '' : ' ✓✓'}</span>
+                </div>
+              ))}
+              {s.bubbles.some((b) => b.proactive) && (
+                <p class="ci-demo-caption">Proactive alert — the assistant messages first, before you have to ask.</p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div class="ci-demo-controls">
+          <button type="button" class="ci-demo-nav" data-demo-prev aria-label="Previous scenario">‹</button>
+          <div class="ci-demo-dots" role="tablist" aria-label="Scenario dots">
+            {chatScripts.map((_, i) => (
+              <button
+                type="button"
+                class={`ci-demo-dot ${i === 0 ? 'ci-demo-dot-active' : ''}`}
+                data-demo-dot={i}
+                aria-label={`Scenario ${i + 1}`}
+              ></button>
+            ))}
+          </div>
+          <button type="button" class="ci-demo-nav" data-demo-next aria-label="Next scenario">›</button>
+        </div>
+
+        <p class="ci-demo-footer">AI can make mistakes. Every change is confirmed before it happens.</p>
+      </div>
+
+      <!-- Try-a-prompt widget -->
+      <div class="ci-tryprompt">
+        <h3>Try a prompt.</h3>
+        <p>Click a prompt below and watch the assistant reply.</p>
+        <div class="ci-tryprompt-grid">
+          <div class="ci-tryprompt-panel">
+            <div class="ci-tryprompt-bubbles" id="ci-tryprompt-bubbles" aria-live="polite">
+              <div class="ci-bubble ci-bubble-in ci-tryprompt-idle">
+                👋 Pick a prompt on the right to see me reply.
+                <span class="ci-time">now</span>
+              </div>
+            </div>
+          </div>
+          <div class="ci-tryprompt-prompts">
+            {cannedPrompts.map((c, i) => (
+              <button
+                type="button"
+                class="ci-tryprompt-btn"
+                data-tryprompt-idx={i}
+                data-prompt={c.prompt}
+                data-reply={c.reply}
+                data-analytics={`ci-tryprompt-${i}`}
+              >
+                {c.prompt}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ E. DIFFERENTIATOR BLOCK ============ -->
+  <section class="ci-diff-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">The difference</div>
+        <h2>The inventory app you actually talk to.</h2>
+      </div>
+      <div class="ci-diff-grid">
+        {differentiators.map((d) => (
+          <div class="ci-diff-card">
+            <div class="ci-diff-icon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d={d.iconPath} /></svg>
+            </div>
+            <h3>{d.title}</h3>
+            <p>{d.body}</p>
+          </div>
+        ))}
+      </div>
+      <p class="ci-diff-soft">
+        Migrating from another inventory tool? We'll help import your data. Email
+        <a href="mailto:contact@ojunai.com?subject=Inventory%20migration">contact@ojunai.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Comparison strip -->
+  <section class="ci-compare-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">vs. Dashboard-only tools</div>
+        <h2>Chat beats clicking through screens.</h2>
+      </div>
+      <div class="ci-compare-wrap">
+        <table class="ci-compare">
+          <thead>
+            <tr>
+              <th scope="col">Concern</th>
+              <th scope="col">Dashboard-only tools</th>
+              <th scope="col">Ojunai</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((r) => (
+              <tr>
+                <th scope="row">{r.concern}</th>
+                <td class="ci-compare-old">{r.dashOnly}</td>
+                <td class="ci-compare-new">{r.ojunai}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capability matrix -->
+  <section class="ci-matrix-section">
+    <div class="container">
+      <details class="ci-matrix-details">
+        <summary>
+          <strong>Capabilities by platform</strong> — see what Ojunai can read vs. change on each integration.
+        </summary>
+        <div class="ci-matrix-wrap">
+          <table class="ci-matrix">
+            <thead>
+              <tr>
+                {matrixHeaders.map((h, i) => <th scope="col" class={i === 0 ? 'ci-matrix-first' : ''}>{h}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {matrixRows.map((r) => (
+                <tr>
+                  <th scope="row" class="ci-matrix-first">{r.cap}</th>
+                  {r.cells.map((c) => (
+                    <td class={c === '✓' ? 'ci-matrix-yes' : 'ci-matrix-no'}>{c}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="ci-matrix-note">Payments platforms (Paystack, Flutterwave) are read-and-analytics-focused. Commerce platforms (Shopify, WooCommerce) get the full read + write suite.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ F. HOW IT WORKS ============ -->
+  <section class="ci-how-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Setup</div>
+        <h2>Live in minutes, not weeks.</h2>
+      </div>
+      <div class="ci-how-grid">
+        {howSteps.map((s) => (
+          <div class="ci-how-step">
+            <div class="ci-how-num">{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ G. TRUST & SECURITY ============ -->
+  <section class="ci-trust-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Trust & security</div>
+        <h2>Built like a system that touches money.</h2>
+      </div>
+      <div class="ci-trust-grid">
+        {trustBullets.map((t) => (
+          <div class="ci-trust-card">
+            <h3>{t.title}</h3>
+            <p>{t.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Persona cards -->
+  <section class="ci-personas-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Who it's for</div>
+        <h2>Different stack, same experience.</h2>
+      </div>
+      <div class="ci-personas-grid">
+        {personas.map((p) => (
+          <div class="ci-persona" style={`--persona-accent:${p.accent};`}>
+            <div class="ci-persona-icon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d={p.iconPath} /></svg>
+            </div>
+            <div class="ci-persona-tag">{p.tag}</div>
+            <p>{p.love}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof placeholder -->
+  <section class="ci-proof-section">
+    <div class="container ci-proof-inner">
+      <div class="ci-proof-metric">
+        <div class="ci-proof-num">10×</div>
+        <div class="ci-proof-label">faster stock adjustments vs. clicking through a dashboard *</div>
+      </div>
+      <blockquote class="ci-proof-quote">
+        <p>"I stopped opening my Shopify admin. I just text the bot when I want to know what's moving, or need to reorder."</p>
+        <footer>— TODO: real customer quote & photo (see 'assets needed' brief)</footer>
+      </blockquote>
+      <div class="ci-proof-logos" aria-label="Featured customers">
+        <span class="ci-proof-logo-placeholder">LOGO</span>
+        <span class="ci-proof-logo-placeholder">LOGO</span>
+        <span class="ci-proof-logo-placeholder">LOGO</span>
+        <span class="ci-proof-logo-placeholder">LOGO</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ H. PRICING TEASER ============ -->
+  <section class="ci-pricing-teaser-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Pricing</div>
+        <h2>Free to try, priced to scale.</h2>
+        <p>Advanced features — reorder forecasting, purchase orders, analytics — unlock at Pro and Scale.</p>
+      </div>
+      <div class="ci-pricing-teaser-grid">
+        {pricingTeaserRows.map((row) => (
+          <div class={`ci-pricing-teaser-row ${row.featured ? 'ci-pricing-teaser-row-featured' : ''}`}>
+            {row.featured && <div class="ci-pricing-teaser-badge">Most popular</div>}
+            <div class="ci-pricing-teaser-name">{row.name}</div>
+            <div class="ci-pricing-teaser-price">{row.price}</div>
+            <p>{row.blurb}</p>
+          </div>
+        ))}
+      </div>
+      <p class="ci-pricing-teaser-cta">
+        <a href="/products/ojunai-inventory/pricing" data-analytics="ci-pricing-link">See full pricing →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ I. FAQ ============ -->
+  <section class="ci-faq-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Frequently asked</div>
+        <h2>Questions we get a lot.</h2>
+      </div>
+      <div class="ci-faq-list">
+        {faqs.map((f) => (
+          <details class="ci-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ J. FINAL CTA BAND ============ -->
+  <section class="ci-final-band">
+    <div class="container ci-final-inner">
+      <h2>Connect your store in minutes.</h2>
+      <p>Text or talk to your store on WhatsApp or Telegram — starting today.</p>
+      <div class="ci-final-ctas">
+        <a href="https://app.ojunai.com/register" target="_blank" rel="noopener" class="btn-cta-primary btn-cta-primary-xl" data-analytics="ci-final-primary">
+          Connect your store
+        </a>
+        <a href="/products/ojunai-inventory/request-demo" class="btn-secondary-link ci-final-demo" data-analytics="ci-final-demo">Book a demo →</a>
+      </div>
+    </div>
+  </section>
+
+  <FinalCTA />
+
+  <!-- ============ SCRIPTS ============ -->
+  <script is:inline>
+    // Chat demo carousel — auto-plays every 6s, pauses on hover, keyboard-navigable.
+    (function () {
+      const stage = document.querySelector('.ci-demo');
+      if (!stage) return;
+      const tabs = stage.querySelectorAll('.ci-demo-tab');
+      const panels = stage.querySelectorAll('.ci-demo-panel');
+      const dots = stage.querySelectorAll('.ci-demo-dot');
+      const prev = stage.querySelector('[data-demo-prev]');
+      const next = stage.querySelector('[data-demo-next]');
+      let idx = 0;
+      let timer = null;
+      const AUTOPLAY_MS = 6000;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function show(i) {
+        idx = (i + panels.length) % panels.length;
+        tabs.forEach((t, n) => {
+          t.classList.toggle('ci-demo-tab-active', n === idx);
+          t.setAttribute('aria-selected', n === idx ? 'true' : 'false');
+        });
+        panels.forEach((p, n) => {
+          p.classList.toggle('ci-demo-panel-active', n === idx);
+          if (n === idx) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+        dots.forEach((d, n) => d.classList.toggle('ci-demo-dot-active', n === idx));
+      }
+      function play() {
+        if (reduce) return;
+        stop();
+        timer = setInterval(() => show(idx + 1), AUTOPLAY_MS);
+      }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+      tabs.forEach((t) => t.addEventListener('click', () => { show(+t.dataset.demoTab); stop(); }));
+      dots.forEach((d) => d.addEventListener('click', () => { show(+d.dataset.demoDot); stop(); }));
+      if (prev) prev.addEventListener('click', () => { show(idx - 1); stop(); });
+      if (next) next.addEventListener('click', () => { show(idx + 1); stop(); });
+
+      stage.addEventListener('mouseenter', stop);
+      stage.addEventListener('mouseleave', play);
+      stage.addEventListener('focusin', stop);
+      stage.addEventListener('focusout', (ev) => {
+        if (!stage.contains(ev.relatedTarget)) play();
+      });
+      stage.addEventListener('keydown', (ev) => {
+        if (ev.key === 'ArrowLeft')  { show(idx - 1); stop(); ev.preventDefault(); }
+        if (ev.key === 'ArrowRight') { show(idx + 1); stop(); ev.preventDefault(); }
+      });
+
+      play();
+    })();
+
+    // Try-a-prompt widget
+    (function () {
+      const bubbles = document.getElementById('ci-tryprompt-bubbles');
+      if (!bubbles) return;
+      document.querySelectorAll('.ci-tryprompt-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const prompt = btn.dataset.prompt;
+          const reply = btn.dataset.reply;
+          bubbles.innerHTML = '';
+          const now = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+          const out = document.createElement('div');
+          out.className = 'ci-bubble ci-bubble-out';
+          out.innerHTML = escapeHtml(prompt) + '<span class="ci-time">' + now + '</span>';
+          bubbles.appendChild(out);
+          const typing = document.createElement('div');
+          typing.className = 'ci-bubble ci-bubble-in ci-typing';
+          typing.innerHTML = '<span class="ci-typing-dot"></span><span class="ci-typing-dot"></span><span class="ci-typing-dot"></span>';
+          bubbles.appendChild(typing);
+          setTimeout(() => {
+            typing.remove();
+            const inb = document.createElement('div');
+            inb.className = 'ci-bubble ci-bubble-in';
+            inb.innerHTML = escapeHtml(reply).replace(/\n/g, '<br>') + '<span class="ci-time">' + now + ' ✓✓</span>';
+            bubbles.appendChild(inb);
+          }, 800);
+        });
+      });
+      function escapeHtml(s) { return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    })();
+
+    // Request-integration form
+    function handleIntRequest(ev) {
+      ev.preventDefault();
+      const form = ev.target;
+      const platform = form.platform.value.trim();
+      const email = form.email.value.trim();
+      const subject = encodeURIComponent('Request an integration: ' + platform);
+      const body = encodeURIComponent('Platform: ' + platform + '\nFrom: ' + email + '\n\nAny extra context?');
+      window.location.href = 'mailto:contact@ojunai.com?subject=' + subject + '&body=' + body;
+      form.querySelector('.ci-request-thanks').hidden = false;
+      return false;
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  /* ============ HERO ============ */
+  .ci-hero {
+    position: relative;
+    padding: 140px 0 80px;
+    background: radial-gradient(120% 140% at 15% 0%, #1E1B4B 0%, #0B0B22 60%, #050516 100%);
+    color: white;
+    overflow: hidden;
+  }
+  .ci-hero-glow {
+    position: absolute; top: -140px; right: -100px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(129,140,248,.4), transparent 65%);
+    filter: blur(50px); pointer-events: none;
+  }
+  .ci-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+  }
+  @media (max-width: 900px) {
+    .ci-hero { padding: 120px 0 60px; }
+    .ci-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .ci-breadcrumb {
+    font-size: 0.82rem; color: #A5B4FC; margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .ci-breadcrumb a { color: #C7D2FE; text-decoration: none; }
+  .ci-breadcrumb a:hover { color: white; text-decoration: underline; }
+  .ci-breadcrumb span[aria-hidden] { color: rgba(199,210,254,.5); }
+  .ci-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+  .ci-hero-grad {
+    background: linear-gradient(90deg, #A5B4FC 0%, #38BDF8 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .ci-hero-sub {
+    font-size: 1.15rem; color: #CBD5E1; line-height: 1.65;
+    margin-bottom: 28px; max-width: 620px;
+  }
+  .ci-hero-ctas { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+  .ci-hero .btn-cta-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; border-radius: 100px;
+    background: linear-gradient(135deg, #6366F1, #4F46E5); color: white;
+    font-weight: 700; font-size: 1rem; text-decoration: none;
+    box-shadow: 0 6px 20px rgba(99,102,241,.35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .ci-hero .btn-cta-primary-xl { padding: 18px 36px; font-size: 1.08rem; }
+  .ci-hero .btn-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99,102,241,.5); }
+  .ci-hero .btn-secondary-link {
+    color: #C7D2FE; text-decoration: none; font-weight: 600; font-size: 1rem;
+    padding: 14px 8px; transition: color .2s, transform .2s;
+  }
+  .ci-hero .btn-secondary-link:hover { color: white; transform: translateX(4px); }
+  .ci-trust-row {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    color: #94A3B8; font-size: 0.9rem;
+  }
+  .ci-trust-row li { position: relative; padding-left: 20px; }
+  .ci-trust-row li::before {
+    content: ''; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 12px; height: 12px; border-radius: 50%;
+    background: linear-gradient(135deg,#A5B4FC,#38BDF8);
+  }
+
+  /* Hero phone */
+  .ci-hero-phone { display: flex; justify-content: center; }
+  .ci-phone {
+    width: 320px; max-width: 100%;
+    background: #0F172A; border: 1px solid rgba(129,140,248,.2);
+    border-radius: 28px; padding: 18px; box-shadow: 0 40px 120px rgba(15,23,42,.6);
+  }
+  .ci-phone-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px 14px; border-bottom: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 12px;
+  }
+  .ci-phone-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #25D366; box-shadow: 0 0 8px rgba(37,211,102,.6);
+  }
+  .ci-phone-title { color: white; font-size: 0.9rem; font-weight: 600; flex: 1; }
+  .ci-phone-status { color: #94A3B8; font-size: 0.75rem; }
+  .ci-phone-body { display: flex; flex-direction: column; gap: 10px; padding: 4px 4px 8px; }
+
+  /* Chat bubbles */
+  .ci-bubble {
+    padding: 10px 14px; border-radius: 16px;
+    font-size: 0.92rem; line-height: 1.5;
+    max-width: 82%;
+    position: relative;
+    display: block;
+    word-wrap: break-word;
+  }
+  .ci-bubble-in {
+    background: #1E293B; color: #E2E8F0; align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .ci-bubble-out {
+    background: linear-gradient(135deg, #25D366, #128C7E); color: white; align-self: flex-end;
+    border-bottom-right-radius: 4px; margin-left: auto;
+  }
+  .ci-bubble-proactive {
+    background: linear-gradient(135deg, #7C3AED, #4F46E5); color: white;
+    border-left: 3px solid #FBBF24;
+  }
+  .ci-bubble .ci-time {
+    display: block; margin-top: 4px;
+    font-size: 0.68rem; opacity: 0.65;
+  }
+  .ci-bubble-in .ci-time { color: #94A3B8; }
+  .ci-bubble-out .ci-time { color: rgba(255,255,255,.75); }
+  .ci-bubble-media {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-style: italic; opacity: 0.9;
+  }
+  .ci-sr { position: absolute; left: -9999px; }
+  .ci-anim-in { opacity: 0; transform: translateY(6px); animation: bubbleIn .5s ease forwards; }
+  .ci-anim-delay-1 { animation-delay: .1s; }
+  .ci-anim-delay-2 { animation-delay: .6s; }
+  .ci-anim-delay-3 { animation-delay: 1.2s; }
+  @keyframes bubbleIn { to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ci-anim-in { opacity: 1; transform: none; animation: none; }
+  }
+
+  /* ============ INTEGRATIONS ============ */
+  .ci-int-section { padding: 80px 0; background: var(--bg-alt); }
+  .ci-int-group { margin-bottom: 40px; }
+  .ci-int-group:last-of-type { margin-bottom: 32px; }
+  .ci-int-group-title {
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--brand); margin-bottom: 14px;
+  }
+  .ci-int-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .ci-int-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 760px) {
+    .ci-int-grid, .ci-int-grid-2 { grid-template-columns: 1fr; }
+  }
+  .ci-int-tile {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 0; transition: border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .ci-int-tile[open] { border-color: var(--brand-mid); box-shadow: var(--shadow); }
+  .ci-int-tile:hover { border-color: var(--brand-mid); }
+  .ci-int-tile summary {
+    display: grid; grid-template-columns: 48px 1fr 20px; gap: 14px; align-items: center;
+    padding: 18px 20px; cursor: pointer; list-style: none;
+  }
+  .ci-int-tile summary::-webkit-details-marker { display: none; }
+  .ci-int-logo {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-family: var(--font-display); font-weight: 700; font-size: 1.4rem;
+  }
+  .ci-int-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .ci-int-name {
+    font-weight: 700; color: var(--text); font-size: 1rem;
+    display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .ci-int-blurb { color: var(--text-2); font-size: 0.9rem; line-height: 1.5; }
+  .ci-int-chev { color: var(--text-3); transition: transform .2s; }
+  .ci-int-tile[open] .ci-int-chev { transform: rotate(180deg); }
+
+  .ci-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 100px;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .ci-badge-live      { background: rgba(16,185,129,.12); color: #059669; border: 1px solid rgba(16,185,129,.3); }
+  .ci-badge-beta      { background: rgba(251,146,60,.12); color: #C2410C; border: 1px solid rgba(251,146,60,.3); }
+  .ci-badge-coming-soon { background: rgba(148,163,184,.12); color: #64748B; border: 1px solid rgba(148,163,184,.3); }
+
+  .ci-int-caps {
+    list-style: none; padding: 0 20px 18px 82px; margin: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 14px; margin-top: 4px;
+  }
+  .ci-int-caps li {
+    color: var(--text-2); font-size: 0.9rem; line-height: 1.55;
+    padding: 4px 0 4px 20px; position: relative;
+  }
+  .ci-int-caps li::before {
+    content: '✓'; position: absolute; left: 0; top: 4px;
+    color: var(--brand); font-weight: 700;
+  }
+  @media (max-width: 480px) {
+    .ci-int-caps { padding-left: 20px; }
+  }
+
+  /* Request integration */
+  .ci-request-tile {
+    background: linear-gradient(135deg, var(--brand-light), white);
+    border: 1px dashed var(--brand-mid); border-radius: 14px;
+    padding: 24px 26px;
+    display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;
+  }
+  @media (max-width: 760px) { .ci-request-tile { grid-template-columns: 1fr; } }
+  .ci-request-copy { display: flex; flex-direction: column; gap: 4px; }
+  .ci-request-copy strong { color: var(--text); font-size: 1rem; }
+  .ci-request-copy span { color: var(--text-2); font-size: 0.9rem; }
+  .ci-request-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ci-request-form input {
+    padding: 10px 14px; border: 1px solid var(--border); border-radius: 100px;
+    font-family: inherit; font-size: 0.9rem; min-width: 180px;
+  }
+  .ci-request-form input:focus { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .ci-request-form .btn-cta-primary {
+    display: inline-flex; align-items: center; padding: 10px 20px;
+    border-radius: 100px; background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 0; cursor: pointer;
+  }
+  .ci-request-thanks { color: #059669; margin-top: 8px; font-size: 0.9rem; grid-column: 1 / -1; }
+
+  /* ============ PILLARS ============ */
+  .ci-pillars-section { padding: 80px 0; }
+  .ci-pillars-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  @media (max-width: 800px) { .ci-pillars-grid { grid-template-columns: 1fr; } }
+  .ci-pillar {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 26px; transition: border-color .2s, box-shadow .2s;
+  }
+  .ci-pillar:hover { border-color: var(--brand-mid); box-shadow: var(--shadow); }
+  .ci-pillar-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .ci-pillar h3 { font-size: 1.15rem; margin-bottom: 12px; color: var(--text); }
+  .ci-pillar-examples { list-style: none; padding: 0; margin: 0 0 12px; }
+  .ci-pillar-examples li {
+    color: var(--text-2); font-size: 0.92rem; line-height: 1.55;
+    padding: 4px 0 4px 16px; position: relative;
+  }
+  .ci-pillar-examples li::before {
+    content: '›'; position: absolute; left: 0; color: var(--brand); font-weight: 700;
+  }
+  .ci-pillar-note {
+    color: var(--text-3); font-size: 0.82rem; margin-top: 8px; font-style: italic;
+  }
+
+  /* ============ DEMO ============ */
+  .ci-demo-section { padding: 80px 0; background: var(--bg-alt); }
+  .ci-demo {
+    background: white; border: 1px solid var(--border); border-radius: 20px;
+    overflow: hidden; max-width: 720px; margin: 0 auto;
+    box-shadow: var(--shadow);
+  }
+  .ci-demo-tabs {
+    display: flex; gap: 4px; padding: 12px; overflow-x: auto;
+    border-bottom: 1px solid var(--border); background: var(--bg-alt);
+  }
+  .ci-demo-tab {
+    padding: 8px 14px; border-radius: 100px; border: 0;
+    background: transparent; color: var(--text-2);
+    font-family: inherit; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .ci-demo-tab:hover { color: var(--brand); }
+  .ci-demo-tab-active {
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand)); color: white;
+    box-shadow: 0 4px 10px rgba(79,70,229,.3);
+  }
+  .ci-demo-stage {
+    background: linear-gradient(180deg, #E8F5E9 0%, #F1F8F1 100%);
+    padding: 24px 20px; min-height: 320px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .ci-demo-panel { display: none; flex-direction: column; gap: 10px; }
+  .ci-demo-panel-active { display: flex; }
+  .ci-demo-panel .ci-bubble { max-width: 78%; }
+  .ci-demo-caption {
+    color: var(--brand-dark); font-size: 0.82rem; margin-top: 8px; text-align: center;
+    background: rgba(124,58,237,.08); padding: 6px 12px; border-radius: 100px;
+    align-self: center;
+  }
+  .ci-demo-controls {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 14px; background: var(--bg-alt); border-top: 1px solid var(--border);
+  }
+  .ci-demo-nav {
+    background: white; border: 1px solid var(--border); border-radius: 100px;
+    width: 32px; height: 32px; cursor: pointer; color: var(--text-2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-family: inherit;
+    transition: border-color .15s, color .15s;
+  }
+  .ci-demo-nav:hover { border-color: var(--brand-mid); color: var(--brand); }
+  .ci-demo-dots { display: flex; gap: 6px; }
+  .ci-demo-dot {
+    width: 8px; height: 8px; border-radius: 50%; border: 0;
+    background: var(--border); cursor: pointer; padding: 0;
+    transition: background .15s, transform .15s;
+  }
+  .ci-demo-dot:hover { transform: scale(1.2); }
+  .ci-demo-dot-active {
+    background: var(--brand); transform: scale(1.2);
+  }
+  .ci-demo-footer {
+    text-align: center; color: var(--text-3); font-size: 0.8rem;
+    padding: 12px 14px; background: white; border-top: 1px solid var(--border); margin: 0;
+  }
+
+  /* Try-a-prompt widget */
+  .ci-tryprompt {
+    max-width: 720px; margin: 40px auto 0; text-align: center;
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 26px;
+  }
+  .ci-tryprompt h3 { font-size: 1.15rem; margin-bottom: 4px; }
+  .ci-tryprompt > p { color: var(--text-2); margin-bottom: 20px; }
+  .ci-tryprompt-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px;
+  }
+  @media (max-width: 700px) { .ci-tryprompt-grid { grid-template-columns: 1fr; } }
+  .ci-tryprompt-panel {
+    background: linear-gradient(180deg, #E8F5E9, #F1F8F1);
+    border-radius: 12px; padding: 16px; min-height: 180px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .ci-tryprompt-bubbles { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+  .ci-tryprompt-prompts { display: flex; flex-direction: column; gap: 8px; }
+  .ci-tryprompt-btn {
+    background: var(--bg-alt); border: 1px solid var(--border); border-radius: 100px;
+    padding: 10px 16px; font-family: inherit; font-size: 0.9rem; color: var(--text);
+    cursor: pointer; text-align: left;
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .ci-tryprompt-btn:hover {
+    border-color: var(--brand); background: var(--brand-light);
+    transform: translateY(-1px);
+  }
+  .ci-typing {
+    display: inline-flex; gap: 4px; padding: 12px 16px !important;
+  }
+  .ci-typing-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: #94A3B8; animation: typing 1s infinite;
+  }
+  .ci-typing-dot:nth-child(2) { animation-delay: .15s; }
+  .ci-typing-dot:nth-child(3) { animation-delay: .3s; }
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  /* ============ DIFFERENTIATORS ============ */
+  .ci-diff-section { padding: 80px 0; }
+  .ci-diff-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 800px) { .ci-diff-grid { grid-template-columns: 1fr; } }
+  .ci-diff-card {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px 24px;
+  }
+  .ci-diff-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--brand-light); color: var(--brand);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .ci-diff-card h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--text); }
+  .ci-diff-card p { color: var(--text-2); font-size: 0.92rem; line-height: 1.6; }
+  .ci-diff-soft {
+    text-align: center; color: var(--text-3); font-size: 0.9rem;
+    margin-top: 32px;
+  }
+  .ci-diff-soft a { color: var(--brand); text-decoration: none; font-weight: 600; }
+  .ci-diff-soft a:hover { text-decoration: underline; }
+
+  /* ============ COMPARISON STRIP ============ */
+  .ci-compare-section { padding: 60px 0; background: var(--bg-alt); }
+  .ci-compare-wrap { overflow-x: auto; background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .ci-compare { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+  .ci-compare thead { background: var(--bg-alt); }
+  .ci-compare th, .ci-compare td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); }
+  .ci-compare thead th { font-weight: 700; color: var(--text); }
+  .ci-compare thead th:nth-child(3) { color: var(--brand); }
+  .ci-compare tbody th { font-weight: 600; color: var(--text); width: 22%; }
+  .ci-compare-old { color: var(--text-3); }
+  .ci-compare-new { color: var(--text); font-weight: 500; background: rgba(99,102,241,.04); }
+
+  /* ============ MATRIX ============ */
+  .ci-matrix-section { padding: 40px 0 60px; }
+  .ci-matrix-details {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+  }
+  .ci-matrix-details summary {
+    padding: 18px 22px; cursor: pointer; font-size: 0.95rem;
+    display: flex; align-items: center; gap: 8px; list-style: none;
+  }
+  .ci-matrix-details summary::-webkit-details-marker { display: none; }
+  .ci-matrix-details summary::after {
+    content: '+'; margin-left: auto; color: var(--brand); font-size: 1.3rem; transition: transform .2s;
+  }
+  .ci-matrix-details[open] summary::after { transform: rotate(45deg); }
+  .ci-matrix-details summary strong { color: var(--text); }
+  .ci-matrix-wrap { overflow-x: auto; padding: 0 22px 8px; }
+  .ci-matrix { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.9rem; }
+  .ci-matrix th, .ci-matrix td {
+    padding: 10px 14px; text-align: center; border-bottom: 1px solid var(--border);
+  }
+  .ci-matrix .ci-matrix-first { text-align: left; }
+  .ci-matrix thead th { font-weight: 700; color: var(--text); background: var(--bg-alt); }
+  .ci-matrix tbody th { font-weight: 500; color: var(--text); }
+  .ci-matrix-yes { color: #059669; font-weight: 700; }
+  .ci-matrix-no  { color: var(--text-3); }
+  .ci-matrix-note { color: var(--text-3); font-size: 0.85rem; padding: 8px 22px 20px; margin: 0; }
+
+  /* ============ HOW IT WORKS ============ */
+  .ci-how-section { padding: 80px 0; background: var(--bg-alt); }
+  .ci-how-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 800px) { .ci-how-grid { grid-template-columns: 1fr; } }
+  .ci-how-step {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 26px;
+  }
+  .ci-how-num {
+    font-family: var(--font-display); font-size: 1.8rem; font-weight: 700;
+    color: var(--brand); margin-bottom: 10px;
+  }
+  .ci-how-step h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text); }
+  .ci-how-step p { color: var(--text-2); font-size: 0.92rem; line-height: 1.6; }
+
+  /* ============ TRUST ============ */
+  .ci-trust-section { padding: 80px 0; }
+  .ci-trust-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  @media (max-width: 800px) { .ci-trust-grid { grid-template-columns: 1fr; } }
+  .ci-trust-card {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 26px; border-left: 4px solid var(--brand);
+  }
+  .ci-trust-card h3 { font-size: 1rem; margin-bottom: 6px; color: var(--text); }
+  .ci-trust-card p { color: var(--text-2); font-size: 0.92rem; line-height: 1.6; }
+
+  /* ============ PERSONAS ============ */
+  .ci-personas-section { padding: 60px 0; background: var(--bg-alt); }
+  .ci-personas-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 900px) { .ci-personas-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+  .ci-persona {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 26px 24px; border-top: 3px solid var(--persona-accent, var(--brand));
+  }
+  .ci-persona-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: color-mix(in oklab, var(--persona-accent, var(--brand)) 15%, white);
+    color: var(--persona-accent, var(--brand));
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .ci-persona-tag {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--persona-accent, var(--brand)); margin-bottom: 8px;
+  }
+  .ci-persona p { color: var(--text-2); font-size: 0.94rem; line-height: 1.6; margin: 0; }
+
+  /* ============ SOCIAL PROOF ============ */
+  .ci-proof-section { padding: 60px 0; }
+  .ci-proof-inner {
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; align-items: center;
+  }
+  @media (max-width: 800px) { .ci-proof-inner { grid-template-columns: 1fr; text-align: center; } }
+  .ci-proof-metric { }
+  .ci-proof-num {
+    font-family: var(--font-display); font-size: 4rem; font-weight: 700;
+    line-height: 1; color: var(--brand); margin-bottom: 8px;
+  }
+  .ci-proof-label { color: var(--text-2); font-size: 0.95rem; line-height: 1.5; }
+  .ci-proof-quote {
+    background: white; border-left: 4px solid var(--brand);
+    padding: 22px 26px; border-radius: 12px; margin: 0;
+  }
+  .ci-proof-quote p { color: var(--text); font-size: 1.05rem; line-height: 1.65; margin: 0 0 8px; }
+  .ci-proof-quote footer { color: var(--text-3); font-size: 0.85rem; font-style: italic; }
+  .ci-proof-logos {
+    grid-column: 1 / -1;
+    display: flex; justify-content: center; align-items: center; gap: 40px;
+    padding-top: 24px; margin-top: 8px; border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .ci-proof-logo-placeholder {
+    color: var(--text-3); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 8px 16px; background: var(--bg-alt); border-radius: 4px;
+  }
+
+  /* ============ PRICING TEASER ============ */
+  .ci-pricing-teaser-section { padding: 60px 0; background: var(--bg-alt); }
+  .ci-pricing-teaser-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 800px) { .ci-pricing-teaser-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+  .ci-pricing-teaser-row {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 24px; position: relative;
+  }
+  .ci-pricing-teaser-row-featured {
+    border-color: var(--brand); border-width: 2px;
+    background: linear-gradient(180deg, white, #F5F4FF);
+  }
+  .ci-pricing-teaser-badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--brand-mid), var(--brand));
+    color: white; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+  }
+  .ci-pricing-teaser-name {
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text); margin-bottom: 8px;
+  }
+  .ci-pricing-teaser-price {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+    color: var(--text); margin-bottom: 10px;
+  }
+  .ci-pricing-teaser-row p { color: var(--text-2); font-size: 0.92rem; line-height: 1.55; margin: 0; }
+  .ci-pricing-teaser-cta { text-align: center; margin-top: 28px; }
+  .ci-pricing-teaser-cta a { color: var(--brand); font-weight: 600; text-decoration: none; font-size: 1rem; }
+  .ci-pricing-teaser-cta a:hover { text-decoration: underline; }
+
+  /* ============ FAQ ============ */
+  .ci-faq-section { padding: 80px 0; }
+  .ci-faq-list { max-width: 820px; margin: 0 auto; }
+  .ci-faq-item {
+    background: white; border: 1px solid var(--border); border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .ci-faq-item[open] { border-color: var(--brand-mid); }
+  .ci-faq-item summary {
+    padding: 18px 24px; cursor: pointer; font-weight: 600; color: var(--text);
+    list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ci-faq-item summary::-webkit-details-marker { display: none; }
+  .ci-faq-item summary::after {
+    content: '+'; font-size: 1.4rem; color: var(--brand); transition: transform .2s;
+  }
+  .ci-faq-item[open] summary::after { transform: rotate(45deg); }
+  .ci-faq-item p { padding: 0 24px 20px; color: var(--text-2); line-height: 1.7; margin: 0; }
+
+  /* ============ FINAL CTA BAND ============ */
+  .ci-final-band {
+    padding: 80px 0; background: linear-gradient(135deg, #1E1B4B 0%, #0B0B22 100%);
+    color: white; text-align: center;
+  }
+  .ci-final-inner { max-width: 720px; margin: 0 auto; }
+  .ci-final-band h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.4rem); color: white; margin-bottom: 12px; }
+  .ci-final-band > .container > p { color: #CBD5E1; font-size: 1.05rem; margin-bottom: 28px; }
+  .ci-final-ctas { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .ci-final-band .btn-cta-primary {
+    display: inline-block; padding: 18px 36px; border-radius: 100px;
+    background: linear-gradient(135deg, #6366F1, #4F46E5); color: white;
+    font-weight: 700; font-size: 1.08rem; text-decoration: none;
+    box-shadow: 0 6px 20px rgba(99,102,241,.35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .ci-final-band .btn-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99,102,241,.5); }
+  .ci-final-demo { color: #C7D2FE; text-decoration: none; font-weight: 600; font-size: 1rem; padding: 18px 8px; transition: color .2s; }
+  .ci-final-demo:hover { color: white; }
+</style>

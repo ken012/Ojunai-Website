@@ -1,0 +1,192 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import { products, statusLabel, corporate } from '~/data/products';
+
+const title = `Products — ${corporate.name}`;
+const description = `The full product portfolio from ${corporate.name}. Ojunai Inventory, Commerce AI, EV FastRoute, and Flash Appt.`;
+
+const groups = {
+  live: products.filter((p) => p.status === 'live'),
+  earlyAccess: products.filter((p) => p.status === 'early-access' || p.status === 'pilot'),
+  comingSoon: products.filter((p) => p.status === 'coming-soon'),
+};
+---
+
+<BaseLayout title={title} description={description} canonical="/products">
+  <section class="products-hero">
+    <div class="container products-hero-inner">
+      <span class="products-hero-pill">Portfolio</span>
+      <h1>Products from Ojunai Technologies.</h1>
+      <p>
+        We build and operate every product on this page. Some are live and used daily; others are
+        in active development and will be published as they approach launch.
+      </p>
+    </div>
+  </section>
+
+  {groups.live.length > 0 && (
+    <section class="products-group">
+      <div class="container">
+        <div class="products-group-header">
+          <h2>Live</h2>
+          <span class="products-group-count">{groups.live.length}</span>
+        </div>
+        <div class="products-index-grid">
+          {groups.live.map((p) => (
+            <article class="products-index-card" style={`--product-accent:${p.accent}; --product-accent-soft:${p.accentSoft};`}>
+              <div class="products-index-icon" aria-hidden="true">
+                {p.iconAsset
+                  ? <img src={p.iconAsset} alt="" width="48" height="48" />
+                  : <span>{p.glyph}</span>
+                }
+              </div>
+              <div class="products-index-cat">{p.category}</div>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+              <div class="products-index-ctas">
+                <a href={p.profileUrl} class="products-index-primary">Explore →</a>
+                {p.appUrl && (
+                  <a href={p.appUrl} target="_blank" rel="noopener" class="products-index-secondary">Open app</a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {groups.earlyAccess.length > 0 && (
+    <section class="products-group products-group-alt">
+      <div class="container">
+        <div class="products-group-header">
+          <h2>Early Access & Pilots</h2>
+          <span class="products-group-count">{groups.earlyAccess.length}</span>
+        </div>
+        <div class="products-index-grid">
+          {groups.earlyAccess.map((p) => (
+            <article class="products-index-card" style={`--product-accent:${p.accent}; --product-accent-soft:${p.accentSoft};`}>
+              <div class="products-index-icon" aria-hidden="true">
+                {p.iconAsset
+                  ? <img src={p.iconAsset} alt="" width="48" height="48" />
+                  : <span>{p.glyph}</span>
+                }
+              </div>
+              <div class="products-index-cat">{p.category}</div>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+              <div class="products-index-ctas">
+                <a href={p.profileUrl} class="products-index-primary">Explore →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {groups.comingSoon.length > 0 && (
+    <section class="products-group">
+      <div class="container">
+        <div class="products-group-header">
+          <h2>Coming Soon</h2>
+          <span class="products-group-count">{groups.comingSoon.length}</span>
+        </div>
+        <div class="products-index-grid">
+          {groups.comingSoon.map((p) => (
+            <article class="products-index-card" style={`--product-accent:${p.accent}; --product-accent-soft:${p.accentSoft};`}>
+              <div class="products-index-icon" aria-hidden="true">
+                {p.iconAsset
+                  ? <img src={p.iconAsset} alt="" width="48" height="48" />
+                  : <span>{p.glyph}</span>
+                }
+              </div>
+              <div class="products-index-cat">{p.category}</div>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+              <div class="products-index-ctas">
+                <a href={p.profileUrl} class="products-index-primary">Learn more →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .products-hero {
+    padding: 160px 0 60px;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .products-hero-inner { max-width: 780px; margin: 0 auto; }
+  .products-hero-pill {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .products-hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 16px; }
+  .products-hero p { color: var(--text-2); font-size: 1.1rem; line-height: 1.7; }
+
+  .products-group { padding: 70px 0; }
+  .products-group-alt { background: var(--bg-alt); }
+  .products-group-header {
+    display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px;
+  }
+  .products-group-header h2 {
+    font-family: var(--font-display); font-size: 1.6rem; color: var(--text); margin: 0;
+  }
+  .products-group-count {
+    display: inline-block; padding: 2px 10px; border-radius: 100px;
+    background: var(--bg-alt); color: var(--text-3); font-size: 0.82rem; font-weight: 600;
+  }
+  .products-group-alt .products-group-count { background: white; }
+
+  .products-index-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .products-index-grid { grid-template-columns: 1fr; } }
+  .products-index-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+    position: relative; overflow: hidden;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .products-index-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--product-accent);
+  }
+  .products-index-card:hover { transform: translateY(-3px); border-color: var(--product-accent); box-shadow: 0 12px 32px rgba(0,0,0,.06); }
+  .products-index-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--product-accent-soft);
+    color: var(--product-accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.5rem;
+  }
+  .products-index-cat {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--product-accent);
+  }
+  .products-index-card h3 {
+    font-family: var(--font-display); font-size: 1.35rem; color: var(--text); margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .products-index-card p { color: var(--text-2); font-size: 0.95rem; line-height: 1.65; margin: 0; }
+  .products-index-ctas { display: flex; gap: 16px; align-items: center; margin-top: 8px; }
+  .products-index-primary { color: var(--product-accent); font-weight: 600; text-decoration: none; }
+  .products-index-primary:hover { text-decoration: underline; }
+  .products-index-secondary {
+    padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border);
+    color: var(--text-2); font-size: 0.85rem; text-decoration: none; font-weight: 500;
+  }
+  .products-index-secondary:hover { border-color: var(--product-accent); color: var(--product-accent); }
+</style>

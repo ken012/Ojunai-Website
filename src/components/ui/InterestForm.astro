@@ -1,0 +1,36 @@
+---
+interface Props { product: string; recipient?: string; heading?: string; }
+const { product, recipient = 'contact@ojunai.com', heading = 'Tell us what you need.' } = Astro.props;
+---
+<form class="interest-form" data-interest-form data-product={product} data-recipient={recipient}>
+  <div class="form-heading"><h3>{heading}</h3><p>Share a few details and we’ll prepare an addressed email with everything included.</p></div>
+  <div class="field-row">
+    <label><span>Name</span><input name="name" type="text" autocomplete="name" required /></label>
+    <label><span>Work email</span><input name="email" type="email" autocomplete="email" required /></label>
+  </div>
+  <div class="field-row">
+    <label><span>Company <small>optional</small></span><input name="company" type="text" autocomplete="organization" /></label>
+    <label><span>I’m interested in</span><select name="interest" required><option value="" selected disabled>Choose one</option><option>Early access</option><option>Product demo</option><option>Launch updates</option><option>Partnership</option><option>Support</option><option>Something else</option></select></label>
+  </div>
+  <label><span>What would you like to accomplish? <small>optional</small></span><textarea name="message" rows="4"></textarea></label>
+  <button type="submit">Prepare my message <span aria-hidden="true">→</span></button>
+  <p class="form-note">This opens your email app with the message pre-filled. Nothing is submitted or tracked on this page.</p>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+<script>
+  document.querySelectorAll('[data-interest-form]').forEach((form) => {
+    if (!(form instanceof HTMLFormElement) || form.dataset.ready === 'true') return;
+    form.dataset.ready = 'true';
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); if (!form.reportValidity()) return;
+      const data = new FormData(form); const product = form.dataset.product || 'Ojunai Technologies';
+      const recipient = form.dataset.recipient || 'contact@ojunai.com'; const interest = String(data.get('interest') || 'Product inquiry');
+      const body = [`Product: ${product}`,`Interest: ${interest}`,`Name: ${String(data.get('name') || '')}`,`Email: ${String(data.get('email') || '')}`,`Company: ${String(data.get('company') || 'Not provided')}`,'',String(data.get('message') || 'No additional message.')].join('\n');
+      const status = form.querySelector('.form-status'); if (status) status.textContent = `Opening an email to ${recipient}…`;
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(`${product}: ${interest}`)}&body=${encodeURIComponent(body)}`;
+    });
+  });
+</script>
+<style>
+  .interest-form{max-width:760px;margin:36px auto 0;padding:28px;border:1px solid rgba(148,163,184,.28);border-radius:22px;background:rgba(255,255,255,.07);text-align:left;backdrop-filter:blur(12px)}.form-heading{margin-bottom:20px}.form-heading h3{margin:0 0 5px;font-size:1.35rem;color:inherit}.form-heading p,.form-note,.form-status{margin:0;color:inherit;opacity:.68;font-size:.83rem;line-height:1.5}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;margin-bottom:14px}label span{display:block;margin-bottom:6px;font-weight:750;font-size:.78rem;letter-spacing:.02em;color:inherit}label small{font-weight:500;opacity:.6}input,select,textarea{width:100%;border:1px solid rgba(148,163,184,.38);border-radius:11px;padding:11px 12px;background:rgba(255,255,255,.96);color:#0f172a;font:inherit;font-size:.94rem}textarea{resize:vertical}button{display:inline-flex;gap:8px;align-items:center;border:0;border-radius:999px;padding:13px 20px;background:linear-gradient(135deg,#4f46e5,#2563eb);color:#fff;font:inherit;font-weight:800;cursor:pointer}button:hover{filter:brightness(1.08)}.form-note{margin-top:12px}.form-status{margin-top:5px;min-height:1.2em}@media(max-width:620px){.interest-form{padding:20px}.field-row{grid-template-columns:1fr}}
+</style>

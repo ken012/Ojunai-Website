@@ -1,0 +1,27 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+import FlashApptNav from '~/components/ui/FlashApptNav.astro';
+const title='FlashAppt FAQ — Openings, watches and calendar privacy';
+const description='Answers about FlashAppt favourites, appointment watches, direct rebooking, private calendar scans, republishing, analytics, and merchant tools.';
+const faqs=[
+  ['Do appointment watches reserve an opening?','No. Watches and alerts improve discovery, but they do not reserve or guarantee an appointment. An opening remains available to other customers until a booking is completed.'],
+  ['What can I include in an appointment watch?','You can set preferences for service, category, price, day, and time.'],
+  ['What happens when I save a favourite business?','Saving a favourite helps you follow businesses you want to hear from and receive priority opening alerts from them. Priority does not guarantee availability.'],
+  ['Can a customer book the same merchant again?','Yes. After a completed, checked-in FlashAppt visit, the customer can book again directly with that merchant.'],
+  ['Does FlashAppt automatically synchronize a merchant calendar?','No. The feature is a private .ics calendar scan, not automatic calendar synchronization. Google and Outlook accounts do not connect automatically yet.'],
+  ['What calendar data is uploaded?','Calendar titles, attendees, notes, locations, and raw identifiers are not uploaded. The scan identifies potential availability for the merchant to review.'],
+  ['Can a calendar event become an opening automatically?','No. Events are never published automatically. The merchant must review the service, price, staff member, and time before publishing.'],
+  ['What can merchants republish?','Merchants can start from a previous completed, cancelled, or expired opening and publish it again after reviewing the details.'],
+  ['What appears in recovery analytics?','The 30-day view includes fill rate, recovered revenue, new customers, repeat customers, favourites, and appointment-watch demand.'],
+];
+const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqs.map(([question,answer])=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}}))};
+---
+<BaseLayout title={title} description={description} canonical="/products/flash-appt/faq" jsonLd={faqSchema}>
+  <FlashApptNav />
+  <section class="faq-hero"><div class="container"><span>FlashAppt FAQ</span><h1>Clear answers before you book or publish.</h1><p>What favourites, watches, private calendar scans, and repeat booking actually do.</p></div></section>
+  <section class="faq-section"><div class="container faq-list">{faqs.map(([question,answer],index)=><details open={index===0}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>
+  <section class="cta"><div class="container"><h2>Still have a question?</h2><p>Contact the FlashAppt team directly.</p><a href="mailto:hello@flashappt.com">hello@flashappt.com</a></div></section>
+</BaseLayout>
+<style>
+  :global(body){background:#09090b}.faq-hero{padding:105px 0 75px;background:radial-gradient(circle at 75% 20%,rgba(109,40,217,.25),transparent 34%),#09090b;color:#fff}.faq-hero>div{max-width:850px}.faq-hero span{color:#a78bfa;font-size:.76rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.faq-hero h1,.cta h2{font-family:var(--font-display);letter-spacing:-.045em}.faq-hero h1{font-size:clamp(3rem,6vw,5.4rem);line-height:1;margin:15px 0}.faq-hero p{color:#aaaab4;font-size:1.12rem}.faq-section{padding:80px 0;background:#101012;color:#fff}.faq-list{max-width:860px}.faq-list details{border-bottom:1px solid #303038;padding:0}.faq-list summary{display:flex;justify-content:space-between;gap:20px;cursor:pointer;padding:23px 0;font-size:1.08rem;font-weight:800;list-style:none}.faq-list summary::-webkit-details-marker{display:none}.faq-list summary span{color:#a78bfa}.faq-list details[open] summary span{transform:rotate(45deg)}.faq-list p{color:#a1a1aa;line-height:1.75;padding:0 40px 23px 0}.cta{text-align:center;padding:75px 0;background:#130d22;color:#fff}.cta h2{font-size:2.6rem}.cta p{color:#aaaab4}.cta a{display:inline-block;margin-top:20px;color:#c4b5fd;font-weight:800}@media(max-width:650px){.faq-hero{padding:80px 0 60px}.faq-section{padding:55px 0}}
+</style>

@@ -1,46 +1,21 @@
 ---
 import Logo from '~/components/ui/Logo.astro';
+import { products, statusLabel, corporate } from '~/data/products';
 
-const product = [
-  { label: 'Features', href: '/features' },
-  { label: 'Inventory management', href: '/features/inventory-management' },
-  { label: 'Sales & credit', href: '/features/sales-management' },
-  { label: 'Security & trust', href: '/security' },
-  { label: 'Pricing', href: '/pricing' },
+const companyLinks = [
+  { label: 'About',       href: '/about' },
+  { label: 'Careers',     href: '/careers' },
+  { label: 'Contact',     href: '/contact' },
 ];
 
-const addons = [
-  { label: 'Voice AI', href: '/voice' },
-  { label: 'Chat AI', href: '/chat-ai' },
+const legalLinks = [
+  { label: 'Terms',    href: '/terms' },
+  { label: 'Privacy',  href: '/privacy' },
 ];
 
-const solutions = [
-  { label: 'All industries', href: '/industries' },
-  { label: 'Provision stores', href: '/industries' },
-  { label: 'Wholesalers', href: '/industries' },
-  { label: 'Food businesses', href: '/industries' },
-  { label: 'Cosmetics', href: '/industries' },
-  { label: 'Building materials', href: '/industries' },
-];
-
-const resources = [
-  { label: 'Help center', href: '/help' },
-  { label: 'Request a demo', href: '/request-demo' },
-  { label: 'About us', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Customers', href: '/customers' },
-];
-
-const contact = [
-  { label: 'contact@ojunai.com', href: 'mailto:contact@ojunai.com' },
-  { label: 'support@ojunai.com', href: 'mailto:support@ojunai.com' },
-  { label: 'security@ojunai.com', href: 'mailto:security@ojunai.com' },
-  { label: 'WhatsApp', href: 'https://wa.me/16137128154', external: true },
-];
-
-const legal = [
-  { label: 'Terms', href: '/terms' },
-  { label: 'Privacy', href: '/privacy' },
+const contactLinks = [
+  { label: corporate.contactEmail, href: `mailto:${corporate.contactEmail}` },
+  { label: corporate.careersEmail, href: `mailto:${corporate.careersEmail}` },
 ];
 ---
 
@@ -48,57 +23,49 @@ const legal = [
   <div class="container footer-inner">
     <div class="footer-brand">
       <Logo size={32} theme="dark" />
-      <p>
-        <strong>The eye that never blinks.</strong> Inventory management for SMEs — track sales,
-        stock, expenses and credit from a clean dashboard.
-      </p>
-      <p class="footer-flags">🇳🇬 🇬🇭 🇰🇪 🇿🇦</p>
-      <a
-        href="https://app.ojunai.com/register"
-        target="_blank"
-        rel="noopener"
-        class="footer-cta"
-      >
-        Start free →
-      </a>
+      <p><strong>{corporate.name}</strong></p>
+      <p class="footer-tag">{corporate.descriptionShort}</p>
+      <a href="/products" class="footer-cta">Explore our products →</a>
     </div>
 
     <div class="footer-links">
       <div class="footer-col">
-        <h4>Product</h4>
-        {product.map(({ label, href }) => <a href={href}>{label}</a>)}
+        <h4>Products</h4>
+        {products.map((p) => (
+          <a href={p.profileUrl}>
+            {p.name}
+            {p.status !== 'live' && <span class={`footer-status footer-status-${p.status}`}>{statusLabel(p.status)}</span>}
+          </a>
+        ))}
       </div>
       <div class="footer-col">
-        <h4>Add-ons</h4>
-        {addons.map(({ label, href }) => <a href={href}>{label}</a>)}
+        <h4>Company</h4>
+        {companyLinks.map(({ label, href }) => <a href={href}>{label}</a>)}
       </div>
       <div class="footer-col">
-        <h4>Solutions</h4>
-        {solutions.map(({ label, href }) => <a href={href}>{label}</a>)}
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        {resources.map(({ label, href }) => <a href={href}>{label}</a>)}
+        <h4>Legal</h4>
+        {legalLinks.map(({ label, href }) => <a href={href}>{label}</a>)}
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
-        {contact.map(({ label, href, external }) => (
-          <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>{label}</a>
-        ))}
+        {contactLinks.map(({ label, href }) => <a href={href}>{label}</a>)}
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
-    <div class="container">
-      <span>© 2026 <strong>OJUNAI AI LTD</strong> (RC 9585647) · Built for SMEs Worldwide.</span>
-      <div class="footer-legal">
-        {legal.map(({ label, href }) => <a href={href}>{label}</a>)}
-      </div>
+    <div class="container footer-bottom-inner">
+      <span>© 2026 {corporate.name}. All rights reserved.</span>
+      <span class="footer-entity">
+        <strong>{corporate.operatingEntity.name}</strong>
+        ({corporate.operatingEntity.identifier}) is Ojunai’s Nigerian subsidiary.
+      </span>
     </div>
   </div>
 </footer>
 
 <style>
+  .footer-tag { color: #94A3B8; font-size: 0.9rem; line-height: 1.55; margin-top: 4px; max-width: 320px; }
   .footer-cta {
     display: inline-block;
     margin-top: 14px;
@@ -109,4 +76,26 @@ const legal = [
     transition: transform 0.2s, color 0.2s;
   }
   .footer-cta:hover { color: white; transform: translateX(4px); }
+  .footer-status {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .footer-status-early-access { background: rgba(59,130,246,.15); color: #93C5FD; }
+  .footer-status-pilot        { background: rgba(167,139,250,.16); color: #C4B5FD; }
+  .footer-status-coming-soon  { background: rgba(148,163,184,.15); color: #CBD5E1; }
+  .footer-bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-entity { color: #64748B; font-size: 0.82rem; }
+  .footer-entity strong { color: #94A3B8; font-weight: 600; }
 </style>

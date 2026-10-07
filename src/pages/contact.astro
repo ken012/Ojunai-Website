@@ -1,131 +1,117 @@
 ---
 import BaseLayout from '~/components/layout/BaseLayout.astro';
+import InterestForm from '~/components/ui/InterestForm.astro';
+import { corporate } from '~/data/products';
+
+const title = `Contact — ${corporate.name}`;
+const description = `Get in touch with ${corporate.name}. Sales, press, partnerships, careers, and product-specific support.`;
+
+const channels = [
+  {
+    tag: 'General & press',
+    email: corporate.contactEmail,
+    body: 'Company inquiries, partnerships, press requests, and anything not covered by the other channels.',
+  },
+  {
+    tag: 'Careers',
+    email: corporate.careersEmail,
+    body: 'Interested in joining Ojunai Technologies? Send a note with what you build and why.',
+    linkLabel: 'See open roles',
+    linkHref: '/careers',
+  },
+];
+
+const productSupport = [
+  {
+    product: 'Ojunai Inventory',
+    profileUrl: '/products/ojunai-inventory',
+    supportEmail: 'support@ojunai.com',
+    helpUrl: '/products/ojunai-inventory/help',
+    note: 'Existing Inventory customers — for the fastest reply, please include your 7-digit account number.',
+  },
+  {
+    product: 'Commerce AI', profileUrl: '/products/commerce-ai', supportEmail: corporate.contactEmail,
+    helpUrl: '/products/commerce-ai', note: 'Early-access, platform integration, and product questions.',
+  },
+  {
+    product: 'EV FastRoute', profileUrl: '/products/ev-fastroute', supportEmail: corporate.contactEmail,
+    helpUrl: '/products/ev-fastroute', note: 'Launch updates and product questions. Public platform availability is still to be announced.',
+  },
+  {
+    product: 'FlashAppt', profileUrl: '/products/flash-appt', supportEmail: 'hello@flashappt.com',
+    helpUrl: 'https://flashappt.com', note: 'Ottawa and Montréal pilot interest for merchants and customers.',
+  },
+];
 ---
 
-<BaseLayout
-  title="Contact — Ojunai"
-  description="Reach Ojunai sales, support or our security team. Email and WhatsApp paths with response-time SLAs. Built for business owners."
-  canonical="/contact"
->
-  <section class="contact-hero">
-    <div class="container contact-hero-inner">
-      <span class="contact-hero-pill">Talk to us</span>
-      <h1>We pick up the phone (literally).</h1>
-      <p>Pick the path that matches what you need. We respond fast.</p>
+<BaseLayout title={title} description={description} canonical="/contact">
+  <section class="corp-contact-hero">
+    <div class="container corp-contact-hero-inner">
+      <span class="corp-contact-hero-pill">Contact</span>
+      <h1>Get in touch.</h1>
+      <p>We're a small, focused team. The right channel gets you the fastest reply.</p>
     </div>
   </section>
 
-  <section class="section contact-paths">
+  <section class="contact-form-section"><div class="container"><InterestForm product="Ojunai Technologies" recipient={corporate.contactEmail} heading="Send the right details from the start" /></div></section>
+
+  <section class="corp-contact-channels">
     <div class="container">
-      <div class="contact-grid">
-        <a class="contact-card" href="mailto:contact@ojunai.com?subject=Sales%20inquiry">
-          <div class="contact-icon contact-icon-sales">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
-            </svg>
+      <div class="section-header">
+        <div class="section-label">Company channels</div>
+        <h2>Ojunai Technologies</h2>
+      </div>
+      <div class="corp-contact-grid">
+        {channels.map((c) => (
+          <div class="corp-contact-card">
+            <div class="corp-contact-tag">{c.tag}</div>
+            <a class="corp-contact-email" href={`mailto:${c.email}`}>{c.email}</a>
+            <p>{c.body}</p>
+            {c.linkHref && (
+              <a href={c.linkHref} class="corp-contact-link">{c.linkLabel} →</a>
+            )}
           </div>
-          <h3>Sales</h3>
-          <p>Business plan, multi-branch setup, integrations, custom needs, partnerships.</p>
-          <strong>contact@ojunai.com</strong>
-          <span class="contact-sla">Response within 1 business day</span>
-        </a>
-
-        <a class="contact-card" href="mailto:support@ojunai.com?subject=Support%20question">
-          <div class="contact-icon contact-icon-support">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" />
-            </svg>
-          </div>
-          <h3>Support</h3>
-          <p>Existing customers — billing, login, feature questions, bug reports.</p>
-          <strong>support@ojunai.com</strong>
-          <span class="contact-sla">Response within 4 hours · 9am–9pm WAT, weekdays</span>
-        </a>
-
-        <a
-          class="contact-card"
-          href="https://wa.me/16137128154"
-          target="_blank"
-          rel="noopener"
-        >
-          <div class="contact-icon contact-icon-whatsapp">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-          </div>
-          <h3>WhatsApp</h3>
-          <p>Quick questions, demos, anything you'd rather just say than type out.</p>
-          <strong>+1 613 712 8154</strong>
-          <span class="contact-sla">Read receipts on, replies same-day</span>
-        </a>
-
-        <a class="contact-card" href="mailto:security@ojunai.com?subject=Security%20disclosure">
-          <div class="contact-icon contact-icon-security">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <h3>Security</h3>
-          <p>Disclosures, DPA requests, audit questions. Coordinated disclosure welcomed.</p>
-          <strong>security@ojunai.com</strong>
-          <span class="contact-sla">Acknowledged within 24h · triaged within 72h</span>
-        </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="contact-cta">
-    <div class="container contact-cta-inner">
-      <h2>Prefer to start with the product?</h2>
-      <p>Skip the email and try Ojunai free for 30 days. Sign up on WhatsApp in under 60 seconds.</p>
-      <a
-        href="https://wa.me/14155238886?text=join%20knife-wait"
-        target="_blank"
-        rel="noopener"
-        class="btn-primary btn-large"
-      >
-        Start free on WhatsApp
-      </a>
+  <section class="corp-contact-products">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Product support</div>
+        <h2>Support per product.</h2>
+        <p>Each product has its own support channels — go directly for the fastest resolution.</p>
+      </div>
+      <div class="corp-contact-product-grid">
+        {productSupport.map((p) => (
+          <div class="corp-contact-product-card">
+            <a class="corp-contact-product-name" href={p.profileUrl}>{p.product}</a>
+            <a class="corp-contact-email" href={`mailto:${p.supportEmail}`}>{p.supportEmail}</a>
+            <p>{p.note}</p>
+            <a href={p.helpUrl} class="corp-contact-link">Product information →</a>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="contact-legal">
-    <div class="container">
-      <p>
-        Ojunai is operated by <strong>OJUNAI AI LTD</strong>, a company registered in Nigeria
-        under RC&nbsp;9585647. For corporate, regulatory, or compliance matters, please reach us at
-        <a href="mailto:contact@ojunai.com">contact@ojunai.com</a>.
-      </p>
+  <section class="corp-contact-legal">
+    <div class="container corp-contact-legal-inner">
+      <p><strong>{corporate.name}</strong> is the global parent company behind Ojunai’s technology products, including Ojunai Inventory.</p>
+      <p><strong>{corporate.operatingEntity.name}</strong> ({corporate.operatingEntity.identifier}) is Ojunai’s Nigerian subsidiary, supporting the group’s operations and customers in Nigeria.</p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .contact-legal {
-    padding: 28px 0 60px;
-    border-top: 1px solid var(--border);
-  }
-  .contact-legal p {
-    color: var(--text-3);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    text-align: center;
-    margin: 0;
-  }
-  .contact-legal strong { color: var(--text-2); }
-  .contact-legal a { color: var(--brand); text-decoration: none; }
-  .contact-legal a:hover { text-decoration: underline; }
-</style>
-
-<style>
-  .contact-hero {
+  .corp-contact-hero {
     padding: 160px 0 60px;
     background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
     text-align: center;
   }
-  .contact-hero-inner { max-width: 720px; margin: 0 auto; }
-  .contact-hero-pill {
+  .corp-contact-hero-inner { max-width: 720px; margin: 0 auto; }
+  .corp-contact-hero-pill {
     display: inline-block;
     background: var(--brand-light);
     color: var(--brand);
@@ -137,90 +123,47 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
     border-radius: 100px;
     margin-bottom: 20px;
   }
-  .contact-hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    line-height: 1.1;
-    margin-bottom: 14px;
-  }
-  .contact-hero p {
-    font-size: 1.1rem;
-    color: var(--text-2);
-  }
+  .corp-contact-hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 12px; }
+  .corp-contact-hero p { color: var(--text-2); font-size: 1.1rem; line-height: 1.6; }
 
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+  .corp-contact-channels { padding: 80px 0; }
+  .contact-form-section { padding: 0 0 80px; background: linear-gradient(180deg, var(--bg), var(--bg-alt)); color: var(--text); }
+  .contact-form-section :global(.interest-form) { background: white; border-color: var(--border); box-shadow: var(--shadow); }
+  .corp-contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 760px) { .corp-contact-grid { grid-template-columns: 1fr; } }
+  .corp-contact-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px;
   }
-  @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
-
-  .contact-card {
-    display: block;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px 28px;
+  .corp-contact-tag {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--brand); margin-bottom: 10px;
+  }
+  .corp-contact-email {
+    display: inline-block; font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--text); font-weight: 600; margin-bottom: 10px;
     text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   }
-  .contact-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
-    border-color: var(--brand-mid);
-  }
-  .contact-icon {
-    width: 44px; height: 44px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    color: white;
-    margin-bottom: 16px;
-  }
-  .contact-icon-sales    { background: linear-gradient(135deg, #4F46E5, #6366F1); }
-  .contact-icon-support  { background: linear-gradient(135deg, #06B6D4, #0EA5E9); }
-  .contact-icon-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
-  .contact-icon-security { background: linear-gradient(135deg, #EF4444, #B91C1C); }
+  .corp-contact-email:hover { color: var(--brand); }
+  .corp-contact-card p { color: var(--text-2); font-size: 0.95rem; line-height: 1.6; margin: 0 0 12px; }
+  .corp-contact-link { color: var(--brand); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+  .corp-contact-link:hover { text-decoration: underline; }
 
-  .contact-card h3 {
-    font-size: 1.2rem;
-    color: var(--text);
-    margin-bottom: 8px;
+  .corp-contact-products { padding: 60px 0; background: var(--bg-alt); }
+  .corp-contact-product-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 720px; margin: 0 auto; }
+  .corp-contact-product-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 26px;
   }
-  .contact-card p {
-    color: var(--text-2);
-    font-size: 0.95rem;
-    line-height: 1.55;
-    margin-bottom: 16px;
+  .corp-contact-product-name {
+    display: inline-block; font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--brand); text-decoration: none; margin-bottom: 8px;
   }
-  .contact-card strong {
-    display: block;
-    color: var(--brand);
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    margin-bottom: 6px;
-  }
-  .contact-sla {
-    font-size: 0.82rem;
-    color: var(--text-3);
-  }
+  .corp-contact-product-name:hover { text-decoration: underline; }
+  .corp-contact-product-card p { color: var(--text-2); font-size: 0.95rem; line-height: 1.6; margin: 4px 0 12px; }
 
-  .contact-cta {
-    background: linear-gradient(135deg, var(--brand-dark), var(--brand));
-    color: white;
-    padding: 80px 0;
-  }
-  .contact-cta-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .contact-cta h2 {
-    color: white;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    margin-bottom: 12px;
-  }
-  .contact-cta p {
-    color: #C7D2FE;
-    margin-bottom: 28px;
-  }
+  .corp-contact-legal { padding: 40px 0 80px; }
+  .corp-contact-legal-inner { max-width: 640px; margin: 0 auto; text-align: center; color: var(--text-3); font-size: 0.9rem; }
+  .corp-contact-legal p { margin-bottom: 6px; }
+  .corp-contact-legal strong { color: var(--text-2); }
 </style>

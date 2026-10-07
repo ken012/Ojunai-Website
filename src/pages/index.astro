@@ -1,43 +1,91 @@
 ---
 import BaseLayout from '~/components/layout/BaseLayout.astro';
-import Hero from '~/components/sections/Hero.astro';
-import ProofStrip from '~/components/sections/ProofStrip.astro';
-import HowItWorks from '~/components/sections/HowItWorks.astro';
-import FeaturesTeaser from '~/components/sections/FeaturesTeaser.astro';
-import DashboardTour from '~/components/sections/DashboardTour.astro';
-import AddonsTeaser from '~/components/sections/AddonsTeaser.astro';
-import Testimonials from '~/components/sections/Testimonials.astro';
-import CustomerProof from '~/components/sections/CustomerProof.astro';
-import PricingTeaser from '~/components/sections/PricingTeaser.astro';
+import { products, statusLabel, corporate } from '~/data/products';
 
-const title = 'Ojunai — Inventory management for SMEs. AI-powered dashboard with built-in Chat AI (WhatsApp, Telegram, Messenger) and Voice AI add-ons.';
-const description =
-  "Ojunai is the AI-powered inventory and business management platform for SMEs. Track sales, stock, expenses and credit from a clean dashboard. Chat AI is built into every paid plan — runs on WhatsApp, Telegram, or Messenger. Add Voice AI to handle customer calls 24/7.";
-
-const softwareSchema = {
+const title = 'Ojunai — Practical software for commerce, mobility and services';
+const description = 'Ojunai Technologies builds practical AI and mobile products for commerce, business operations, EV travel, and local appointments.';
+const visuals: Record<string, string> = {
+  'ojunai-inventory': '/screenshots/dashboard-overview.png',
+  'commerce-ai': '/screenshots/commerce-ai/shopify.webp',
+  'ev-fastroute': '/screenshots/ev-fastroute/real/trip-planner.webp',
+  'flash-appt': '/screenshots/flash-appt/publishable/consumer/consumer-marketplace-desktop.webp',
+};
+const ctas: Record<string, string> = {
+  'ojunai-inventory': 'Explore the live platform',
+  'commerce-ai': 'Request early access',
+  'ev-fastroute': 'Get launch updates',
+  'flash-appt': 'Join the pilot',
+};
+const schema = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Ojunai',
-  applicationCategory: 'BusinessApplication',
-  operatingSystem: 'Web, iOS, Android (via WhatsApp)',
-  description,
-  offers: {
-    '@type': 'Offer',
-    price: '3500',
-    priceCurrency: 'NGN',
-    description: 'Starter plan, billed monthly. One-month free trial.',
-  },
+  '@type': 'ItemList',
+  name: 'Ojunai product portfolio',
+  itemListElement: products.map((product, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: `https://ojunai.com${product.profileUrl}`,
+    name: product.name,
+  })),
 };
 ---
 
-<BaseLayout title={title} description={description} canonical="/" jsonLd={softwareSchema}>
-  <Hero />
-  <ProofStrip />
-  <DashboardTour />
-  <HowItWorks />
-  <FeaturesTeaser />
-  <AddonsTeaser />
-  <Testimonials />
-  <CustomerProof />
-  <PricingTeaser />
+<BaseLayout title={title} description={description} canonical="/" ogImage="/og-image.png" jsonLd={schema}>
+  <section class="home-hero">
+    <div class="hero-orb orb-one" aria-hidden="true"></div><div class="hero-orb orb-two" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Ojunai Technologies</span>
+        <h1>Practical software for <span>commerce, mobility and everyday services.</span></h1>
+        <p>We design and operate focused AI, web, and mobile products that make real work simpler—from running a store by chat to planning a complete EV journey.</p>
+        <div class="hero-actions"><a class="primary" href="#products">Explore our products</a><a class="secondary" href="/about">Meet Ojunai →</a></div>
+      </div>
+      <div class="product-rail" aria-label="Ojunai products">
+        {products.map((product) => <a href={product.profileUrl} style={`--accent:${product.accent}`}><span class="rail-dot"></span><span><b>{product.name}</b><small>{product.navDescription}</small></span><em>{statusLabel(product.status)}</em></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio" id="products">
+    <div class="container">
+      <header class="section-head"><span>Four focused products</span><h2>Built around a real job that needs doing.</h2><p>Each product has its own audience and purpose, backed by the same standard: useful, honest, and straightforward from the first interaction.</p></header>
+      <div class="product-grid">
+        {products.map((product, index) => (
+          <article class="product-card" style={`--accent:${product.accent};--soft:${product.accentSoft}`}>
+            <div class={`product-image image-${product.slug}`}><img src={visuals[product.slug]} alt={`${product.name} product preview`} width="1586" height="992" loading={index < 2 ? 'eager' : 'lazy'} decoding="async" /></div>
+            <div class="product-body">
+              <div class="product-meta"><span>{product.category}</span><em class={`status status-${product.status}`}>{statusLabel(product.status)}</em></div>
+              <h3>{product.name}</h3><p class="tagline">{product.tagline}</p><p class="description">{product.description}</p>
+              <a href={product.profileUrl}>{ctas[product.slug]} <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="relationship">
+    <div class="container relation-grid">
+      <div><span class="section-label">How the commerce products fit</span><h2>Operations underneath. Conversation on top.</h2><p>Ojunai Inventory is the operational system for inventory, sales, credit, expenses, and day-to-day SME work. Commerce AI is the conversational operations layer for merchants already running on Shopify, WooCommerce, Paystack, or Flutterwave.</p></div>
+      <div class="relation-flow" aria-label="Relationship between Ojunai Inventory and Commerce AI">
+        <article><b>Ojunai Inventory</b><span>Inventory and business operations platform</span></article><i aria-hidden="true">+</i><article><b>Commerce AI</b><span>Store intelligence and actions through chat</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-section">
+    <div class="container"><header class="section-head"><span>Built responsibly</span><h2>Specific about what works—and what does not.</h2></header>
+      <div class="trust-grid">
+        <article><b>Canadian product company</b><p>{corporate.name} is based in Ontario, Canada, building and operating focused software products.</p></article>
+        <article><b>Deliberate AI actions</b><p>Commerce AI confirms store-changing actions, applies permissions, and preserves an audit trail.</p></article>
+        <article><b>Privacy-minded mobility</b><p>EV FastRoute uses precise location to plan and drive, without third-party advertising or analytics SDKs.</p></article>
+        <article><b>Honest product status</b><p>Live, early-access, pilot, and coming-soon products are labelled consistently. We do not imply availability before it exists.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-cta"><div class="container"><span>Have a question or want early access?</span><h2>Talk directly with the team building it.</h2><p>Choose the product you are interested in and we will route your message to the right place.</p><a class="primary" href="/contact">Contact Ojunai</a></div></section>
 </BaseLayout>
+
+<style>
+  .home-hero{position:relative;overflow:hidden;padding:160px 0 95px;background:#050713;color:#fff}.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.46}.orb-one{width:520px;height:520px;right:-140px;top:-160px;background:#2563eb}.orb-two{width:380px;height:380px;left:-180px;bottom:-200px;background:#7c3aed}.hero-inner{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:end}.eyebrow,.section-head>span,.section-label{display:inline-block;color:#7dd3fc;font-size:.76rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero-copy h1{max-width:820px;margin:18px 0 24px;font-size:clamp(3rem,6.8vw,6.25rem);line-height:.96;letter-spacing:-.06em}.hero-copy h1 span{background:linear-gradient(100deg,#a5b4fc,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy p{max-width:720px;color:#a9b4c8;font-size:1.17rem;line-height:1.7}.hero-actions{display:flex;gap:22px;align-items:center;margin-top:34px}.primary{display:inline-flex;padding:14px 24px;border-radius:999px;background:linear-gradient(135deg,#4f46e5,#2563eb);color:#fff;text-decoration:none;font-weight:800;box-shadow:0 14px 34px rgba(37,99,235,.25)}.secondary{color:#c7d2fe;text-decoration:none;font-weight:700}.product-rail{display:grid;gap:10px}.product-rail a{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;padding:15px 16px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.045);text-decoration:none;transition:transform .2s,border-color .2s,background .2s}.product-rail a:hover{transform:translateX(5px);border-color:var(--accent);background:rgba(255,255,255,.075)}.rail-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent)}.product-rail b,.product-rail small{display:block}.product-rail b{color:#fff}.product-rail small{color:#8795ab;font-size:.75rem;margin-top:2px}.product-rail em{font-style:normal;color:#cbd5e1;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.portfolio{padding:105px 0;background:#f8fafc}.section-head{max-width:760px;margin-bottom:46px}.section-head>span{color:#4f46e5}.section-head h2,.relationship h2,.home-cta h2{font-size:clamp(2.3rem,4vw,4rem);line-height:1.05;letter-spacing:-.045em;margin:13px 0 17px}.section-head p,.relationship p{color:#64748b;font-size:1.04rem;line-height:1.75}.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}.product-card{overflow:hidden;border:1px solid #e2e8f0;border-radius:26px;background:#fff;box-shadow:0 8px 30px rgba(15,23,42,.05);transition:transform .25s,box-shadow .25s}.product-card:hover{transform:translateY(-5px);box-shadow:0 22px 55px rgba(15,23,42,.11)}.product-image{height:310px;background:var(--soft);overflow:hidden}.product-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}.product-card:hover .product-image img{transform:scale(1.025)}.image-ev-fastroute img{object-fit:contain;background:#03070c}.product-body{padding:30px}.product-meta{display:flex;justify-content:space-between;gap:18px;align-items:center}.product-meta>span{color:var(--accent);font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:.09em}.status{font-style:normal;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;border-radius:999px;padding:5px 9px;background:#f1f5f9;color:#64748b}.status-live{background:#dcfce7;color:#047857}.status-early-access{background:#dbeafe;color:#1d4ed8}.status-pilot{background:#ede9fe;color:#6d28d9}.product-body h3{font-size:2rem;margin:16px 0 8px}.tagline{font-size:1.04rem;font-weight:700;color:#334155;line-height:1.5}.description{color:#64748b;line-height:1.7;margin:12px 0 22px}.product-body>a{color:var(--accent);text-decoration:none;font-weight:800}.relationship{padding:100px 0;background:#fff}.relation-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.section-label{color:#4f46e5}.relation-flow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}.relation-flow article{min-height:180px;padding:25px;border:1px solid #dbe4f0;border-radius:22px;background:linear-gradient(145deg,#fff,#f8fafc);display:flex;flex-direction:column;justify-content:center}.relation-flow article:last-child{border-color:#bae6fd;background:#f0f9ff}.relation-flow b{font-size:1.2rem}.relation-flow span{color:#64748b;line-height:1.55;margin-top:8px}.relation-flow i{font-style:normal;font-size:1.5rem;color:#94a3b8}.trust-section{padding:100px 0;background:#0b1020;color:#fff}.trust-section .section-head h2{color:#fff}.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.trust-grid article{padding:24px;border:1px solid #202a41;border-radius:18px;background:#11182b}.trust-grid b{font-size:1.03rem}.trust-grid p{color:#94a3b8;line-height:1.65;margin-top:10px;font-size:.91rem}.home-cta{text-align:center;padding:95px 0;background:linear-gradient(145deg,#eef2ff,#ecfeff)}.home-cta span{color:#4f46e5;font-weight:800}.home-cta p{color:#64748b;margin:0 auto 28px;max-width:650px}@media(max-width:950px){.hero-inner,.relation-grid{grid-template-columns:1fr}.hero-inner{gap:50px}.product-rail{grid-template-columns:repeat(2,1fr)}.trust-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.home-hero{padding:130px 0 70px}.hero-actions{align-items:flex-start;flex-direction:column}.product-grid,.product-rail,.trust-grid{grid-template-columns:1fr}.product-image{height:240px}.portfolio,.relationship,.trust-section,.home-cta{padding:72px 0}.relation-flow{grid-template-columns:1fr}.relation-flow i{text-align:center}.product-body{padding:24px}}
+</style>
