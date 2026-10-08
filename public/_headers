@@ -1,0 +1,9 @@
+# Security headers. Lives in public/ so it is copied into dist/ and applies to
+# drag-and-drop deploys too (those ignore netlify.toml). Deliberately conservative:
+# none of these restrict what the page may load. HSTS is set WITHOUT
+# includeSubDomains on purpose (see netlify.toml history).
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
