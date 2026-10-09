@@ -4,25 +4,14 @@ import BaseLayout from '~/components/layout/BaseLayout.astro';
 /**
  * Request-a-demo page.
  *
- * Form is wired to Netlify Forms (https://docs.netlify.com/forms/setup/).
- * After deploy:
- *   - Submissions appear in Netlify dashboard → Forms tab
- *   - Set up email notifications: Site → Forms → Notifications
- *   - Spam filtering: honeypot field below catches most bots automatically
- *   - hCaptcha: replace `PUBLIC_HCAPTCHA_SITEKEY` env var with your real sitekey
- *     (free at https://www.hcaptcha.com — never use the test key in production
- *     for spam protection)
- *
- * The static form below is duplicated as `_form-request-demo.html` style detection
- * — Netlify's build crawler scans HTML for `data-netlify="true"` and registers
- * the form automatically; no extra config needed.
+ * Submissions go to Web3Forms (https://web3forms.com), which emails them to the
+ * address registered for the access key below. The access key is public by design.
+ * Spam protection: Web3Forms' hCaptcha (zero-config; enable it for this form in the
+ * Web3Forms dashboard so the server rejects submissions without a solved captcha)
+ * plus the `botcheck` honeypot. On success Web3Forms redirects to /request-demo/thanks.
  */
-const hcaptchaSitekey =
-  import.meta.env.PUBLIC_HCAPTCHA_SITEKEY ||
-  // hCaptcha public test key — always succeeds. SAFE FOR DEV, NOT PROD.
-  '10000000-ffff-ffff-ffff-000000000001';
-
-const isUsingTestKey = hcaptchaSitekey === '10000000-ffff-ffff-ffff-000000000001';
+const WEB3FORMS_ACCESS_KEY = '006d5f57-1f9a-4d47-bbc3-9b5fb12233f2';
+const SUCCESS_URL = 'https://ojunai.com/products/ojunai-inventory/request-demo/thanks/';
 ---
 
 <BaseLayout
@@ -75,19 +64,20 @@ const isUsingTestKey = hcaptchaSitekey === '10000000-ffff-ffff-ffff-000000000001
       </aside>
 
       <form
+        id="request-demo-form"
         class="demo-form"
         name="request-demo"
         method="POST"
-        action="/request-demo?success=1"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
+        action="https://api.web3forms.com/submit"
       >
-        {/* Tells Netlify which form this is when JS-disabled */}
-        <input type="hidden" name="form-name" value="request-demo" />
+        <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+        <input type="hidden" name="subject" value="New demo request from ojunai.com" />
+        <input type="hidden" name="from_name" value="Ojunai website" />
+        <input type="hidden" name="redirect" value={SUCCESS_URL} />
 
-        {/* Honeypot — invisible to users, bots fill it in and get rejected */}
+        {/* Honeypot — invisible to users, bots tick it and Web3Forms rejects the submission */}
         <p class="demo-form-honeypot" aria-hidden="true">
-          <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          <label>Don't fill this out: <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label>
         </p>
 
         <div class="demo-field">
@@ -138,16 +128,9 @@ const isUsingTestKey = hcaptchaSitekey === '10000000-ffff-ffff-ffff-000000000001
         </div>
 
         <div class="demo-captcha-row">
-          <div class="h-captcha" data-sitekey={hcaptchaSitekey}></div>
+          <div class="h-captcha" data-captcha="true"></div>
         </div>
-
-        {isUsingTestKey && (
-          <p class="demo-captcha-note">
-            ⚠️ hCaptcha is using a public test key. Sign up at
-            <a href="https://www.hcaptcha.com" target="_blank" rel="noopener">hcaptcha.com</a>
-            and set <code>PUBLIC_HCAPTCHA_SITEKEY</code> in your env vars before going live with paid traffic.
-          </p>
-        )}
+        <p class="demo-captcha-note" id="demo-captcha-error" hidden>Please complete the captcha above.</p>
 
         <button type="submit" class="demo-submit">Request demo</button>
 
@@ -159,24 +142,23 @@ const isUsingTestKey = hcaptchaSitekey === '10000000-ffff-ffff-ffff-000000000001
     </div>
   </section>
 
-  {Astro.url.searchParams.get('success') && (
-    <section class="demo-success">
-      <div class="container demo-success-inner">
-        <div class="demo-success-card">
-          <span class="demo-success-icon">✓</span>
-          <h2>Got it — we'll be in touch within one business day.</h2>
-          <p>
-            Watch your inbox at the email you provided. We'll send a calendar link with time
-            slots across multiple time zones.
-          </p>
-          <a href="/" class="demo-success-back">← Back to homepage</a>
-        </div>
-      </div>
-    </section>
-  )}
 </BaseLayout>
 
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script>
+  // Block submission until hCaptcha is solved (Web3Forms also enforces this server-side
+  // once hCaptcha is enabled for the form in its dashboard).
+  const form = document.getElementById('request-demo-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    const response = form.querySelector<HTMLTextAreaElement>('textarea[name=h-captcha-response]')?.value;
+    const error = document.getElementById('demo-captcha-error');
+    if (!response) {
+      e.preventDefault();
+      if (error) error.hidden = false;
+    }
+  });
+</script>
+
 
 <style>
   .demo-hero {
@@ -381,52 +363,4 @@ const isUsingTestKey = hcaptchaSitekey === '10000000-ffff-ffff-ffff-000000000001
     text-decoration: underline;
   }
 
-  /* SUCCESS STATE — appears after the form when ?success=1 in URL */
-  .demo-success {
-    padding: 80px 0;
-    background: var(--bg-alt);
-  }
-  .demo-success-inner {
-    max-width: 580px;
-    margin: 0 auto;
-  }
-  .demo-success-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 36px;
-    text-align: center;
-    box-shadow: var(--shadow);
-  }
-  .demo-success-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, var(--accent2), #059669);
-    color: white;
-    border-radius: 50%;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-  .demo-success-card h2 {
-    font-size: 1.35rem;
-    margin-bottom: 12px;
-    color: var(--text);
-  }
-  .demo-success-card p {
-    color: var(--text-2);
-    line-height: 1.65;
-    margin-bottom: 20px;
-  }
-  .demo-success-back {
-    color: var(--brand);
-    font-weight: 600;
-    text-decoration: none;
-    transition: transform 0.2s;
-    display: inline-block;
-  }
-  .demo-success-back:hover { transform: translateX(-4px); }
 </style>

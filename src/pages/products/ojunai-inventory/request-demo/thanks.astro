@@ -1,0 +1,74 @@
+---
+import BaseLayout from '~/components/layout/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Demo request received — Ojunai"
+  description="Thanks for requesting an Ojunai demo. We'll be in touch within one business day."
+  canonical="/products/ojunai-inventory/request-demo/thanks"
+>
+  <section class="demo-success">
+    <div class="container demo-success-inner">
+      <div class="demo-success-card">
+        <span class="demo-success-icon">✓</span>
+        <h1>Got it — we'll be in touch within one business day.</h1>
+        <p>
+          Watch your inbox at the email you provided. We'll send a calendar link with time
+          slots across multiple time zones.
+        </p>
+        <a href="/" class="demo-success-back">← Back to homepage</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Shown after Web3Forms redirects a successful demo request here. */
+  .demo-success {
+    padding: 160px 0 80px;
+    background: var(--bg-alt);
+  }
+  .demo-success-inner {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .demo-success-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 36px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .demo-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent2), #059669);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .demo-success-card h1 {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .demo-success-card p {
+    color: var(--text-2);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .demo-success-back {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .demo-success-back:hover { transform: translateX(-4px); }
+</style>
